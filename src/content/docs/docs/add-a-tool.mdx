@@ -1,0 +1,66 @@
+---
+title: Add a tool
+description: How to get an open-source tool listed in the mcpdesc tools catalog — the prerequisites, the mcpdesc badge, and where to submit.
+sidebar:
+  order: 4
+---
+
+The [tools catalog](/tools) is a **curated list** of open-source tools and projects that
+support or build on the **MCP Description** (`mcpdesc`) format. This page explains how to
+get a tool listed.
+
+## Prerequisites
+
+The one hard requirement is the **mcpdesc badge**:
+
+- **Display the mcpdesc badge in its README**, stating the supported specification version.
+
+We also recommend that a tool:
+
+- **Be open source**, or at minimum have a public repository whose README documents its
+  `mcpdesc` support.
+- **Support the latest published specification version.** The current MCP Description
+  specification is **0.7.0** (see the [specification](/docs/specification)).
+- Have a **maintainer point of contact** we can reach.
+
+The catalog does **not** display which spec version a tool supports — each tool self-declares
+that in its own README via the badge. We only verify that the badge exists and points at a
+real published specification version. The submission form captures the latest supported
+version for our records.
+
+## Add the mcpdesc badge
+
+Add the mcpdesc badge near the top of your README. Use the **hosted badge**: it references a
+badge definition maintained by the project, so the label, version, and brand color stay
+consistent across every tool and can be maintained centrally over time.
+
+```markdown
+[![mcpdesc](https://img.shields.io/endpoint?url=https://mcpdesc.org/badge/0.7.0.json)](https://mcpdesc.org)
+```
+
+It renders as **mcpdesc | 0.7.0**.
+
+- Use the file for the spec version your tool supports, e.g. `/badge/0.7.0.json` — it must be
+  a published version.
+- If your tool supports several versions, add one badge per version.
+- The badge is **self-declared**: it is not a certification, conformance guarantee, or
+  endorsement by the `{mcpdesc}` project.
+
+## Submit your tool
+
+Open a **Tool submission** issue using the form:
+
+- [Submit a tool →](https://github.com/mcpdesc/mcpdesc.org/issues/new?template=tool-submission.yml)
+
+The form collects everything needed to create a catalog entry: tool name, repository URL, a
+one-line description, license, the latest supported specification version, and a main point
+of contact.
+
+Have a question first? Start a thread in
+[GitHub Discussions](https://github.com/orgs/mcpdesc/discussions).
+
+## What happens next
+
+A maintainer will check that your README shows the mcpdesc badge and that its version is a
+published specification version. On acceptance, we add a structured record for your tool to
+the catalog and it appears on the [tools page](/tools).

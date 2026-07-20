@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const ctas = [
+  { label: 'Try it', href: '/live-editor', primary: true, cta: 'open_editor' },
+  { label: 'Learn the Format', href: '/format', primary: false, cta: 'learn_format' },
+  { label: 'Explore the Tools', href: '/tools', primary: false, cta: 'explore_tools' },
+];
+
+const pillars: { title: string; body: string }[] = [
+  {
+    title: 'Accurate Documentation',
+    body: 'Generate reliable documentation for tools, resources, prompts, transports, and security from a single source of truth.',
+  },
+  {
+    title: 'Quality Assurance & Compliance',
+    body: 'Lint, validate, and compare MCP Description documents to catch gaps in completeness and consistency before they reach production.',
+  },
+  {
+    title: 'CI/CD Automation',
+    body: 'Store, version, review, and publish MCP Description documents alongside engineering pipelines.',
+  },
+  {
+    title: 'Conformance Checking',
+    body: 'Verify that what a server claims to expose matches what it actually implements.',
+  },
+  {
+    title: 'Design-First Workflow',
+    body: 'Design a server in an MCP Description document, refine the design with a mock service, then generate code from the description.',
+  },
+  {
+    title: 'Interoperability',
+    body: 'One format that ecosystem tools can read, write, validate, render, diff, and generate code from.',
+  },
+];
+---
+
+<BaseLayout
+  title="mcpdesc"
+  description={'The {mcpdesc} project is an independent open source initiative promoting a portable, machine-readable description format for MCP servers.'}
+  pageType="home"
+>
+  <section class="pt-10 pb-4 text-center">
+    <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">
+      Portable descriptions for MCP servers
+    </h1>
+    <p class="mx-auto mt-4 max-w-2xl text-lg text-slate-600 dark:text-slate-300">
+      The {'{mcpdesc}'} project is an independent open source initiative promoting an
+      open, portable, machine-readable description format for MCP servers.
+    </p>
+  </section>
+
+  <div class="mt-2 flex flex-wrap items-center justify-center gap-3">
+    {
+      ctas.map((c) => (
+        <a
+          href={c.href}
+          data-analytics-cta={c.cta}
+          class={
+            c.primary
+              ? 'rounded-md bg-[var(--color-brand)] px-5 py-2.5 font-medium text-white hover:bg-[var(--color-brand-dark)]'
+              : 'rounded-md border border-slate-300 px-5 py-2.5 font-medium text-slate-800 hover:border-slate-400 dark:border-slate-700 dark:text-slate-100'
+          }
+        >
+          {c.label}
+        </a>
+      ))
+    }
+  </div>
+
+  <section class="mt-12">
+    <h2 class="text-2xl font-bold tracking-tight">Benefits</h2>
+    <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        pillars.map((p) => (
+          <div class="rounded-lg border border-slate-200 p-5 dark:border-slate-800">
+            <h3 class="font-semibold">{p.title}</h3>
+            <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">{p.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+</BaseLayout>

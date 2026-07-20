@@ -1,0 +1,21 @@
+---
+import pkg from '../../package.json';
+const version = pkg.version;
+---
+
+<footer class="py-10 text-sm text-slate-600 dark:text-slate-400">
+  <div class="mx-auto flex w-full max-w-5xl justify-end px-6">
+    <p class="text-xs text-slate-400">
+      <a
+        class="no-underline hover:text-slate-600 dark:hover:text-slate-300"
+        href="https://github.com/mcpdesc/mcpdesc.org"
+        target="_blank"
+        rel="noopener"
+        data-analytics-outbound="github"
+        aria-label={`mcpdesc.org website source on GitHub (v${version})`}
+      >
+        v{version}
+      </a>
+    </p>
+  </div>
+</footer>

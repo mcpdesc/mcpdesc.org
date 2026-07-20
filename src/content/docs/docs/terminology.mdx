@@ -1,0 +1,87 @@
+---
+title: Terminology
+description: The words the mcpdesc project uses — the format, its documents, the specification, the community, and the tools — and how to use them consistently.
+sidebar:
+  order: 3
+draft: false
+---
+
+Clear, shared vocabulary keeps the project easy to talk about. This page is the
+reader-facing summary; maintainers and contributors follow the fuller **Terminology &
+Positioning** guide kept with the project's governance docs.
+
+## Quick glossary
+
+| Term | Use it for |
+|------|------------|
+| **MCP Description** | The **format** — a portable, machine-readable way to describe MCP servers. |
+| **`mcpdesc`** | The short, **technical** name for MCP Description — used for files, schemas, packages, commands, domains. |
+| **MCP Description document** / **`mcpdesc` document** | A concrete YAML or JSON file written in the format. |
+| **MCP Description specification** | The formal, versioned definition of the format (e.g. v0.7.0). |
+| **MCP Toolkit** | One tool suite that reads and writes the format; an open-source project initiated by Cisco DevNet, maintained at cisco-open. |
+| **mcpdesc Editor** | The open-source editor component behind the Live Editor (tool id: **mcpeditor**, `@cisco_open/mcptoolkit-editor`). |
+| **Live Editor** | The hosted, browser-based editor experience at mcpdesc.org for `mcpdesc` documents (formal: **Live MCP Description Editor**). |
+| **`{mcpdesc}`** | The **brand / wordmark** — the project, community, and visual identity. |
+| **the `{mcpdesc}` project** | The initiative as a whole — format, spec, docs, tools, site, governance. |
+| **the `{mcpdesc}` Community** | The people around it — maintainers, contributors, users, adopters. |
+
+## What it is
+
+The **`{mcpdesc}` project** is an independent open source initiative promoting an open,
+portable, machine-readable **description format** for MCP servers. The goal is to help the
+MCP ecosystem converge on interoperable server descriptions.
+
+**MCP Description** (`mcpdesc`) is that format: it declares what an MCP server offers — its
+tools, resources, prompts, transports, security, and metadata — in a single static
+document. Think OpenAPI, but for the Model Context Protocol.
+
+- The formal name is **MCP Description**; the short technical name is **`mcpdesc`**; the
+  brand/wordmark is **`{mcpdesc}`**.
+- The format is for **describing** servers. Validating, documenting, mocking, and testing
+  are things **tools** do with a description — not properties of the format itself.
+
+## Documents
+
+A concrete file in the format is an **MCP Description document** (formal) or an
+**`mcpdesc` document** (short). The recommended file extension is **`.mcpdesc.yaml`** or
+**`.mcpdesc.json`**.
+
+Please **do not pluralize the format name** as "MCP Descriptions" — use "MCP Description
+documents" or "`mcpdesc` documents".
+
+## The specification
+
+The **MCP Description specification** is the formal, versioned definition of the format.
+The current version is **0.7.0**, maintained today in the
+[cisco-open contract repository](https://github.com/cisco-open/mcptoolkit-contract/tree/main/spec).
+A community-hosted specification at `spec.mcpdesc.org` is planned.
+
+## The community
+
+The **`{mcpdesc}` project** is **led by its maintainers** and open to contributions from the
+broader community — contributors, users, adopters, and tool builders. Contributors retain
+copyright to their work and license it under Apache-2.0; there is no CLA and no copyright
+assignment.
+
+The project is **not** a Cisco product, service, or official Cisco standardization effort.
+"MCP" and "Model Context Protocol" refer to the open protocol ecosystem; this project is
+not affiliated with or endorsed by Anthropic or other MCP ecosystem vendors unless
+explicitly stated.
+
+## The tools
+
+- **MCP Toolkit** — one of the first tool suites that use `mcpdesc` documents to inspect,
+  document, compare, mock, validate, and test MCP servers. It is an open-source project
+  initiated by Cisco DevNet, released under Apache-2.0 and maintained at cisco-open — `@cisco_open/mcptoolkit-*` package names.
+- **Live Editor** — the hosted, browser-based editor experience at mcpdesc.org for
+  authoring, validating, previewing, and exporting `mcpdesc` documents (formal: **Live MCP
+  Description Editor**). It embeds the open-source **mcpdesc Editor** component (tool id:
+  **mcpeditor**, `@cisco_open/mcptoolkit-editor`).
+
+Other tools that read or write `mcpdesc` are welcome in the neutral [tools catalog](/tools).
+
+## Wordmark
+
+The braced form **`{mcpdesc}`** is the project's **brand and wordmark** — use it for the
+project, community, and visual identity. Use the plain name **`mcpdesc`** for technical
+references (files, packages, commands), and **MCP Description** for the formal format name.

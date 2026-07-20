@@ -1,0 +1,27 @@
+/* Tailwind v4 + Starlight integration entry point.
+   Used both by Starlight (via customCss) and by the marketing BaseLayout. */
+@layer base, starlight, theme, components, utilities;
+
+@import '@astrojs/starlight-tailwind';
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+@plugin '@tailwindcss/typography';
+
+/* Brand tokens shared across marketing pages. */
+@theme {
+  --color-brand: oklch(0.55 0.18 265);
+  --color-brand-dark: oklch(0.45 0.17 265);
+}
+
+/* Top-level docs sidebar groups (Documentation, Specifications, Project) are always
+   expanded and non-collapsible: disable the summary toggle and hide its caret. Nested
+   groups (e.g. a version like 0.7.0) stay collapsible — the selector only matches
+   first-level groups that are direct children of `.top-level`. */
+.sidebar .top-level > li > details > summary {
+  cursor: default;
+  pointer-events: none;
+}
+.sidebar .top-level > li > details > summary .caret {
+  display: none;
+}

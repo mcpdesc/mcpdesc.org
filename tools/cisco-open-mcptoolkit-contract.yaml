@@ -1,0 +1,30 @@
+id: cisco-open-mcptoolkit-contract
+name: mcpcontract CLI
+tagline: >-
+  Dump capabilities from live MCP servers, detect breaking changes, and
+  generate changelogs and documentation.
+categories:
+  - creation
+  - quality
+  - documentation
+languages:
+  - TypeScript
+registries:
+  - name: npm
+    url: https://www.npmjs.com/package/@cisco_open/mcptoolkit-contract
+status: Available
+href: https://github.com/cisco-open/mcptoolkit-contract
+entrypoint: https://github.com/cisco-open/mcptoolkit-contract
+outbound: true
+
+visibility: public
+
+# Records-only metadata (never rendered on the site).
+repoUrl: https://github.com/cisco-open/mcptoolkit-contract
+specVersions:
+  - 0.7.0
+license: Apache-2.0
+contact:
+  name: Stève Sfartz
+  email: stsfartz@cisco.com
+added: 2026-07-17

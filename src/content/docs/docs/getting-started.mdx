@@ -1,0 +1,49 @@
+---
+title: Getting started
+description: Experiment with the MCP Description (mcpdesc) format in the Live Editor, then capture a live MCP server of your own.
+sidebar:
+  order: 2
+draft: false
+---
+
+The quickest way to get a feel for **MCP Description** (`mcpdesc`) is to open it in the
+Live Editor and experiment — no install required. Once you're comfortable with the format,
+capture one of your own MCP servers with the `mcpcontract` CLI.
+
+## Experiment in the Live Editor
+
+Start visually: open the [Live MCP Description Editor](/live-editor) and edit a description
+right in your browser. Tweak tools, transports, and metadata to see how a description is
+shaped, with live validation as you type. The editor runs entirely in your browser; nothing
+you type is uploaded to our servers.
+
+## Run your first dump
+
+When you're ready to describe a real server, install the `mcpcontract` CLI and extract the
+capabilities of a live MCP server — no project setup required:
+
+```bash
+# Install from npm
+npm install -g @cisco_open/mcptoolkit-contract
+
+# Extract capabilities from a live MCP server into an MCP Description
+mcpcontract dump \
+  --transport streamable-http \
+  --url https://learn.microsoft.com/api/mcp \
+  --format yaml \
+  --output ms-learn.yaml
+```
+
+You now have `ms-learn.yaml` — an MCP Description document describing every tool the
+server exposes. Open it back in the [Live Editor](/live-editor) to explore it visually, or
+validate it, generate documentation, and compare it against other versions from the CLI.
+
+For the full five-minute walkthrough — including validation, documentation, and
+comparing versions to detect breaking changes — follow the canonical
+[**101 Tutorial**](https://github.com/cisco-open/mcptoolkit-contract/blob/main/docs/101-tutorial.md)
+in the `mcptoolkit-contract` repository.
+
+## Next steps
+
+- [101 Tutorial](https://github.com/cisco-open/mcptoolkit-contract/blob/main/docs/101-tutorial.md) — dump, validate, document, and compare a real server.
+- [What is MCP Description?](/format) — the format every tool reads and writes.

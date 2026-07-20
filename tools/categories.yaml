@@ -1,0 +1,31 @@
+# Category definitions for the tools catalog.
+# Each entry defines a category chip displayed on tool cards and the legend on /tools.
+# When to use each category is described below — keep this the canonical reference.
+# The id must match the enum in src/content.config.ts and the values in tool YAML files.
+
+categories:
+  - id: creation
+    name: creation
+    description: >-
+      Tools for producing MCP Description documents — capturing capabilities from
+      a live MCP server, editing a description in the browser, or generating one
+      from scratch.
+
+  - id: documentation
+    name: documentation
+    description: >-
+      Tools for generating or rendering human-readable output from a description —
+      changelogs, documentation pages, and embeddable card views for portals.
+
+  - id: hosting
+    name: hosting
+    description: >-
+      Tools that serve or proxy at runtime — mock MCP servers, gateways, and
+      adapters that spin up a server directly from a description.
+
+  - id: quality
+    name: quality
+    description: >-
+      Tools for ensuring description accuracy and consistency — schema validation,
+      linting style rules, testing server behaviour against a description, and
+      detecting breaking changes between versions.

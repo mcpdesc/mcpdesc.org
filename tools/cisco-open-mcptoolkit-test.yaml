@@ -1,0 +1,24 @@
+id: cisco-open-mcptoolkit-test
+name: mcptest CLI
+tagline: >-
+  Automated Testing for MCP servers, test scenarios auto-generated from mcpdesc documents.
+categories:
+  - quality
+languages:
+  - TypeScript
+registries:
+status: Available
+href: https://github.com/cisco-open/mcptoolkit-test
+entrypoint: https://github.com/cisco-open/mcptoolkit-test
+outbound: true
+visibility: public
+# Records-only metadata (never rendered on the site).
+repoUrl: https://github.com/cisco-open/mcptoolkit-test
+badge: false
+specVersions:
+  - 0.7.0
+license: Apache-2.0
+contact:
+  name: Stève Sfartz
+  email: stsfartz@cisco.com
+added: 2026-07-17

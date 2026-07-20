@@ -1,0 +1,27 @@
+id: cisco-open-mcptoolkit-editor
+name: mcpeditor 
+tagline: >-
+  Embedabble TypeScript component for authoring, validating, previewing, and
+  exporting mcpdesc documents. Powers the Live Editor at mcpdesc.org.
+categories:
+  - creation
+languages:
+  - TypeScript
+registries:
+  - name: npm
+    url: https://www.npmjs.com/package/@cisco_open/mcptoolkit-editor-dist
+status: Available
+href: https://github.com/cisco-open/mcptoolkit-editor
+entrypoint: https://github.com/cisco-open/mcptoolkit-editor
+outbound: true
+visibility: public
+# Records-only metadata (never rendered on the site).
+repoUrl: https://github.com/cisco-open/mcptoolkit-editor
+badge: false
+specVersions:
+  - 0.7.0
+license: Apache-2.0
+contact:
+  name: Stève Sfartz
+  email: stsfartz@cisco.com
+added: 2026-07-17

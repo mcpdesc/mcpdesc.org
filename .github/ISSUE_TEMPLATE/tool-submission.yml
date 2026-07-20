@@ -1,0 +1,160 @@
+name: Tool submission
+description: Propose a tool or project to add to the mcpdesc tools catalog.
+title: "[Tool]: <name>"
+labels: ["tool-submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for proposing a tool for the {mcpdesc} catalog!
+
+        Before you submit, please read
+        [how to add a tool](https://mcpdesc.org/docs/add-a-tool). The hard
+        requirements are:
+
+        1. Your repository **README** displays the **mcpdesc badge** stating the
+           supported specification version.
+
+        The catalog does not display versions — each tool self-declares its supported
+        spec version through the badge in its own README. We only verify that the badge
+        exists and points at a real published specification version.
+
+  - type: input
+    id: name
+    attributes:
+      label: Tool name
+      placeholder: My MCP Tool
+    validations:
+      required: true
+  - type: input
+    id: repo
+    attributes:
+      label: Repository URL
+      description: Root repository whose README carries the mcpdesc badge.
+      placeholder: https://github.com/org/repo
+    validations:
+      required: true
+  - type: input
+    id: entrypoint
+    attributes:
+      label: Tool entry point URL
+      description: >-
+        The canonical landing URL for this specific tool — may be a deep path inside a
+        monorepo README, a dedicated website, or an npm/package page. Leave blank if the
+        same as the repository URL.
+      placeholder: https://github.com/org/repo/blob/main/packages/mytool/README.md
+    validations:
+      required: false
+  - type: input
+    id: tagline
+    attributes:
+      label: One-line description
+      description: A short, plain-language summary shown on the tools catalog card.
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Longer description (optional)
+      description: What the tool does and how it uses MCP Description documents.
+    validations:
+      required: false
+  - type: dropdown
+    id: categories
+    attributes:
+      label: Categories
+      description: >-
+        Select all that apply. These are coarse, goal-oriented buckets: what does the tool
+        help users do?
+      multiple: true
+      options:
+        - creation
+        - quality
+        - documentation
+        - hosting
+    validations:
+      required: true
+  - type: dropdown
+    id: languages
+    attributes:
+      label: Programming language(s)
+      description: The language(s) the tool is written in.
+      multiple: true
+      options:
+        - TypeScript
+        - JavaScript
+        - Python
+        - Go
+        - Rust
+        - Java
+        - Kotlin
+        - C#
+        - Scala
+        - Dart
+        - Ruby
+        - Elixir
+        - C/C++
+        - Swift
+        - Bash
+        - Common Lisp
+    validations:
+      required: false
+  - type: dropdown
+    id: registries
+    attributes:
+      label: Package registry / distribution
+      description: Where is the tool published?
+      multiple: true
+      options:
+        - npm
+        - PyPI
+        - crates.io
+        - Go
+        - Maven
+        - NuGet
+        - RubyGems
+        - Hex
+        - pub.dev
+    validations:
+      required: false
+  - type: input
+    id: license
+    attributes:
+      label: License
+      placeholder: Apache-2.0
+    validations:
+      required: true
+  - type: dropdown
+    id: spec-version
+    attributes:
+      label: Latest supported specification version
+      description: >-
+        The latest MCP Description specification version your tool supports. This must match
+        the version shown on the mcpdesc badge in your README.
+      options:
+        - v0.7
+    validations:
+      required: true
+  - type: input
+    id: contact-name
+    attributes:
+      label: Main point of contact (name)
+    validations:
+      required: true
+  - type: input
+    id: contact-email
+    attributes:
+      label: Main point of contact (email)
+    validations:
+      required: true
+  - type: checkboxes
+    id: requirements
+    attributes:
+      label: Submission checklist
+      options:
+        - label: The repository README displays the mcpdesc badge (see https://mcpdesc.org/docs/add-a-tool).
+          required: true
+        - label: I am a maintainer of this tool, or authorized to submit it on the maintainers' behalf.
+          required: true
+        - label: I have read and agree to the project's Code of Conduct.
+          required: true

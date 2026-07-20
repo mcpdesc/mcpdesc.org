@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+---
+
+<BaseLayout
+  title="Community"
+  description={'The {mcpdesc} Community brings together maintainers, contributors, and tool builders that promote, support and avocate for a portable description format to describe MCP servers capabilities.'}
+  pageType="community"
+>
+  <section class="py-10 text-center">
+    <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">Community</h1>
+    <p class="mx-auto mt-4 max-w-2xl text-lg text-slate-600 dark:text-slate-300">
+      The {'{mcpdesc}'} Community is made up of individuals who <strong>advocate</strong> for the benefits of a portable format to describe MCP servers, <strong>build</strong> tools that support the format, and <strong>evolve</strong> the specification.
+    </p>
+    <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
+      <a
+        href="https://github.com/orgs/mcpdesc/discussions"
+        target="_blank"
+        rel="noopener"
+        data-analytics-outbound="github"
+        class="inline-block rounded-md bg-[var(--color-brand)] px-5 py-2.5 font-medium text-white no-underline hover:bg-[var(--color-brand-dark)]"
+      >
+        Join the discussions
+      </a>
+      <a
+        href="mailto:contact@mcpdesc.org"
+        class="inline-block rounded-md border border-slate-300 px-5 py-2.5 font-medium text-slate-800 no-underline hover:border-slate-400 dark:border-slate-700 dark:text-slate-100"
+      >
+        contact@mcpdesc.org
+      </a>
+    </div>
+  </section>
+
+  <section class="mt-12">
+    <h2 class="text-2xl font-bold tracking-tight">How the project is organized</h2>
+    <p class="mt-3 max-w-3xl text-slate-600 dark:text-slate-300">
+      The {'{mcpdesc}'} project uses a lightweight, consensus-oriented governance model with two
+      distinct roles. Check the <a href="/docs/governance" class="font-medium text-[var(--color-brand)] hover:underline">project governance</a> documentation for more details.
+    </p>
+    <div class="mt-6 grid gap-4 sm:grid-cols-2">
+      <div class="rounded-lg border border-slate-200 p-5 dark:border-slate-800">
+        <h3 class="font-semibold">Contributors</h3>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">
+          Contributors <strong>shape</strong> the project by proposing, discussing, or
+          submitting improvements — code, docs, specification feedback, examples, articles.
+          Contributions are licensed under Apache-2.0: contributors <strong>retain copyright</strong> to their work; there is no CLA, no copyright assignment, and no DCO sign-off required.
+        </p>
+      </div>
+      <div class="rounded-lg border border-slate-200 p-5 dark:border-slate-800">
+        <h3 class="font-semibold">Maintainers</h3>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">
+          Maintainers <strong>lead</strong> the project. They review and merge contributions,
+          guide the roadmap, maintain the MCP Description specification, publish releases,
+          curate the tools catalog, and keep governance, licensing, and attribution coherent.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contributors" class="mt-12 scroll-mt-24">
+    <h2 class="text-2xl font-bold tracking-tight">Maintainers</h2>
+    <div class="mt-4 rounded-lg border border-slate-200 p-6 dark:border-slate-800">
+      <h3 class="font-semibold">Stève Sfartz</h3>
+      <p class="text-sm text-slate-500">Initiator &amp; maintainer</p>
+      <p class="mt-3 max-w-3xl text-sm text-slate-600 dark:text-slate-300">
+        Stève Sfartz is a Principal Architect at Cisco and the initiator of the {'{mcpdesc}'} project. 
+        He created the initial MCP Description format, and the MCP Toolkit open-sourced at cisco-open.
+      </p>
+      <p class="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-sm">
+        <a
+          class="font-medium text-[var(--color-brand)] hover:underline"
+          href="https://github.com/ObjectIsAdvantag"
+          target="_blank"
+          rel="noopener"
+          data-analytics-outbound="github">GitHub</a
+        >
+        <a
+          class="font-medium text-[var(--color-brand)] hover:underline"
+          href="https://www.linkedin.com/in/stevesfartz"
+          target="_blank"
+          rel="noopener">LinkedIn</a
+        >
+        <a
+          class="font-medium text-[var(--color-brand)] hover:underline"
+          href="mailto:steve@mcpdesc.org">steve@mcpdesc.org</a
+        >
+      </p>
+    </div>
+  </section>
+
+</BaseLayout>

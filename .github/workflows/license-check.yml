@@ -1,0 +1,54 @@
+name: License compliance
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  license-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: License files are present
+        run: |
+          test -f LICENSE || { echo "::error::Root LICENSE (Apache-2.0) is missing"; exit 1; }
+          test -f LICENSE-docs || { echo "::error::LICENSE-docs (CC-BY-4.0) is missing"; exit 1; }
+          grep -q "Apache License" LICENSE || { echo "::error::LICENSE does not contain the Apache License text"; exit 1; }
+          grep -qi "Creative Commons" LICENSE-docs || { echo "::error::LICENSE-docs does not reference the Creative Commons license"; exit 1; }
+
+      - name: Package license metadata is Apache-2.0
+        run: |
+          license=$(node -p "require('./package.json').license")
+          if [ "$license" != "Apache-2.0" ]; then
+            echo "::error::package.json license must be Apache-2.0 (found: ${license})"; exit 1
+          fi
+
+      - name: SPDX identifiers (when present) use an allowed license
+        run: |
+          # SPDX headers are optional. When present, they must use Apache-2.0 or CC-BY-4.0.
+          # This workflow and the licensing policy contain the string as patterns/examples.
+          bad=$(grep -RIn 'SPDX-License-Identifier:' . \
+            --exclude-dir=node_modules --exclude-dir=dist --exclude-dir=.astro \
+            --exclude-dir=ref --exclude-dir=.git \
+            --exclude=license-check.yml --exclude=licensing-policy.md \
+            | grep -Ev 'SPDX-License-Identifier:[[:space:]]*(Apache-2.0|CC-BY-4.0)([[:space:]]|$|-->)' || true)
+          if [ -n "$bad" ]; then
+            echo "::error::Unexpected SPDX license identifier(s) found:"; echo "$bad"; exit 1
+          fi
+
+      - name: No centralized/nominative copyright in first-party sources
+        run: |
+          hits=$(grep -RInE 'Copyright[[:space:]]+(\(c\)[[:space:]]*)?[0-9]{4}[[:space:]]+(mcpdesc|Contributors to the)' \
+            --include='*.ts' --include='*.tsx' --include='*.js' --include='*.mjs' --include='*.cjs' \
+            --include='*.css' --include='*.astro' \
+            --exclude-dir=node_modules --exclude-dir=dist --exclude-dir=.astro \
+            --exclude-dir=ref --exclude-dir=.git . || true)
+          if [ -n "$hits" ]; then
+            echo "::error::Centralized/nominative copyright lines are not allowed in source files:"; echo "$hits"; exit 1
+          fi

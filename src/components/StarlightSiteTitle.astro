@@ -1,0 +1,24 @@
+---
+// Override of Starlight's default SiteTitle so the docs header logo matches the
+// marketing site's "{mcpdesc}" wordmark (see SiteHeader.astro) instead of the plain
+// text site title.
+const { siteTitleHref } = Astro.locals.starlightRoute;
+---
+
+<a href={siteTitleHref} class="site-title sl-flex">
+  <span class="text-[1.15rem] leading-none font-bold text-slate-900 dark:text-white">
+    <span class="text-[var(--color-brand)]">{'{'}</span>mcpdesc<span class="text-[var(--color-brand)]">{'}'}</span>
+  </span>
+</a>
+
+<style>
+  @layer starlight.core {
+    .site-title {
+      align-items: center;
+      gap: var(--sl-nav-gap);
+      max-width: 100%;
+      overflow: hidden;
+      text-decoration: none;
+    }
+  }
+</style>

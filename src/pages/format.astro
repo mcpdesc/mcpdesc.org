@@ -1,0 +1,231 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Code } from 'astro:components';
+
+const specVersion = '0.7.0';
+const specStatus = 'Draft';
+
+const comparison = [
+  { protocol: 'Runtime communication', description: 'Static declaration' },
+  { protocol: 'Initialize handshake', description: 'Server metadata' },
+  { protocol: 'Tool invocation', description: 'Tool definitions' },
+  { protocol: 'Resource fetching', description: 'Resource definitions' },
+];
+
+const exampleYaml = `mcpdesc: "0.7.0"
+info:
+  name: chess-rating-server
+  version: 1.0.0
+transports:
+  - type: stdio
+    command: chess-rating
+    args: [serve]
+tools:
+  - name: get_player_rating
+    description: Get the current Elo rating for a chess player
+    inputSchema:
+      type: object
+      properties:
+        player_id:
+          type: string
+          description: Player identifier
+      required: [player_id]`;
+
+const exampleJson = `{
+  "mcpdesc": "0.7.0",
+  "info": {
+    "name": "chess-rating-server",
+    "version": "1.0.0"
+  },
+  "transports": [
+    { "type": "stdio", "command": "chess-rating", "args": ["serve"] }
+  ],
+  "tools": [
+    {
+      "name": "get_player_rating",
+      "description": "Get the current Elo rating for a chess player",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "player_id": { "type": "string", "description": "Player identifier" }
+        },
+        "required": ["player_id"]
+      }
+    }
+  ]
+}`;
+---
+
+<BaseLayout
+  title="MCP Description - mcpdesc"
+  description="MCP Description is a portable, machine-readable format for what an MCP server offers — Think OpenAPI, but for the Model Context Protocol."
+  pageType="format"
+>
+  <section class="py-10 text-center">
+    <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">MCP Description - 'mcpdesc'</h1>
+    <p class="mx-auto mt-4 max-w-2xl text-lg text-slate-600 dark:text-slate-300">
+      A portable, machine-readable format for describing what an MCP server offers — its tools,
+      resources, prompts, transports, and security — declared in a single static
+      document. Think OpenAPI, but for the Model Context Protocol.
+    </p>
+
+    <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+      <a
+        href="/docs/specification/0.7.0/"
+        data-analytics-cta="read_spec"
+        class="inline-block rounded-md bg-[var(--color-brand)] px-6 py-3 text-lg font-medium text-white hover:bg-[var(--color-brand-dark)]"
+      >
+        Read the specification
+      </a>
+      <a
+        href="/live-editor"
+        data-analytics-cta="open_editor"
+        class="inline-block rounded-md border border-slate-300 px-6 py-3 text-lg font-medium text-slate-800 hover:border-slate-400 dark:border-slate-700 dark:text-slate-100"
+      >
+        Try it in the Editor
+      </a>
+    </div>
+    <p class="mx-auto mt-4 max-w-2xl text-sm text-slate-500">
+      Specification version {specVersion} · {specStatus}.
+    </p>
+  </section>
+
+  <section class="mt-12">
+    <h2 class="text-2xl font-bold tracking-tight">What it is</h2>
+    <p class="mt-3 max-w-3xl text-slate-600 dark:text-slate-300">
+      The MCP ecosystem relies on runtime discovery through protocol initialization and
+      capability inspection. That works well for dynamic interactions, but it limits
+      offline tooling, cross-platform interoperability, and design-first workflows. 
+    </p>
+    <p class="mt-3 max-w-3xl text-slate-600 dark:text-slate-300">
+      An MCP Description addresses this by declaring a server's capabilities as a static,
+      curated document you can version, share, and validate — independently of any running
+      server.
+    </p>
+  </section>
+
+
+  <section class="mt-12">
+    <h2 class="text-2xl font-bold tracking-tight">Protocol vs. Description</h2>
+    <p class="mt-3 max-w-3xl text-slate-600 dark:text-slate-300">
+      An MCP Description does <strong>not</strong> replace the MCP protocol — it complements
+      it. The protocol defines runtime behavior; a description defines what the server offers.
+    </p>
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full max-w-2xl border-collapse text-left text-sm">
+        <thead>
+          <tr class="border-b border-slate-300 dark:border-slate-700">
+            <th class="py-2 pr-4 font-semibold">MCP Protocol</th>
+            <th class="py-2 font-semibold">MCP Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            comparison.map((row) => (
+              <tr class="border-b border-slate-200 dark:border-slate-800">
+                <td class="py-2 pr-4 text-slate-600 dark:text-slate-400">{row.protocol}</td>
+                <td class="py-2 text-slate-600 dark:text-slate-400">{row.description}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="mt-12">
+    <h2 class="text-2xl font-bold tracking-tight">A minimal example</h2>
+    <p class="mt-3 max-w-3xl text-slate-600 dark:text-slate-300">
+      An MCP Description can be written in YAML or JSON.
+      
+      Either way, an mcpdesc document includes the specification version,
+      server <code>info</code>, at least one transport, and at least one capability —
+      tools, resources, resource templates, or prompts.
+    </p>
+    <div class="mt-4" data-example-tabs>
+      <div
+        class="flex gap-1 border-b border-slate-200 dark:border-slate-800"
+        role="tablist"
+        aria-label="Example format"
+      >
+        <button
+          type="button"
+          role="tab"
+          aria-selected="true"
+          data-example-tab="yaml"
+          class="-mb-px border-b-2 border-transparent px-4 py-2 text-sm font-medium text-[#8c7060] hover:text-[#5c4030] aria-selected:border-[var(--color-brand)] aria-selected:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 dark:aria-selected:text-white"
+        >
+          YAML
+        </button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected="false"
+          data-example-tab="json"
+          class="-mb-px border-b-2 border-transparent px-4 py-2 text-sm font-medium text-[#8c7060] hover:text-[#5c4030] aria-selected:border-[var(--color-brand)] aria-selected:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 dark:aria-selected:text-white"
+        >
+          JSON
+        </button>
+      </div>
+      <div data-example-panel="yaml" class="example-panel overflow-x-auto rounded-b-lg text-sm">
+        <Code code={exampleYaml} lang="yaml" theme="github-light" />
+      </div>
+      <div
+        data-example-panel="json"
+        hidden
+        class="example-panel overflow-x-auto rounded-b-lg text-sm"
+      >
+        <Code code={exampleJson} lang="json" theme="github-light" />
+      </div>
+    </div>
+  </section>
+
+  <section class="mt-12">
+    <h2 class="text-2xl font-bold tracking-tight">Generate an MCP description from a live server</h2>
+    <p class="mt-3 max-w-3xl text-slate-600 dark:text-slate-300">
+      Point the <code>mcpcontract</code> CLI at any MCP server to produce an <code>mcpdesc</code> document you can open in the editor:
+    </p>
+    <pre class="mt-3 overflow-x-auto rounded-md bg-slate-900 p-4 text-sm text-slate-100"><code>mcpcontract dump \
+  --transport streamable-http \
+  --url "https://your-mcp-server/mcp" \
+  --output server.mcpdesc.json</code></pre>
+    <p class="mt-3 text-sm">
+      <a
+        class="font-medium text-[var(--color-brand)] hover:underline"
+        href="/docs/getting-started/#run-your-first-dump"
+        data-analytics-cta="read_docs">Read the docs →</a
+      >
+    </p>
+  </section>
+
+</BaseLayout>
+
+<script>
+  function initExampleTabs() {
+    document.querySelectorAll<HTMLElement>('[data-example-tabs]').forEach((root) => {
+      const tabs = root.querySelectorAll<HTMLButtonElement>('[data-example-tab]');
+      const panels = root.querySelectorAll<HTMLElement>('[data-example-panel]');
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          const key = tab.dataset.exampleTab;
+          tabs.forEach((t) => t.setAttribute('aria-selected', String(t === tab)));
+          panels.forEach((p) => {
+            p.hidden = p.dataset.examplePanel !== key;
+          });
+        });
+      });
+    });
+  }
+
+  initExampleTabs();
+  document.addEventListener('astro:page-load', initExampleTabs);
+</script>
+
+<style>
+  .example-panel :global(pre) {
+    margin: 0;
+    padding: 1rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+    background-color: #ffffff !important; /* white */
+  }
+</style>

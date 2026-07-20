@@ -1,0 +1,18 @@
+id: mcpdesc-spectral-ruleset
+name: spectral ruleset
+tagline: >-
+  A Spectral ruleset for linting MCP Description documents — naming,
+  completeness, description quality, security metadata, and consistency.
+  Package @mcpdesc/spectral-ruleset.
+categories:
+  - quality
+languages:
+  - TypeScript
+registries:
+status: Coming soon
+visibility: draft
+# Records-only metadata (never rendered on the site).
+contact:
+  name: Stève Sfartz
+  email: steve@mcpdesc.org
+added: 2026-07-17

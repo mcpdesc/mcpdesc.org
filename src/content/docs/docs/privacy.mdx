@@ -1,0 +1,222 @@
+---
+title: Privacy
+description: What this site and the hosted editor collect, and how the open-source tools you run yourself behave.
+sidebar:
+  order: 4
+draft: false
+---
+
+Privacy works differently depending on **what you are using**. This page separates two
+very different things:
+
+1. **What we host** — this website (`mcpdesc.org`) and the hosted editor
+   (`editor.mcpdesc.org`), and the anonymous analytics they use.
+2. **The open-source tools you run yourself** — the command-line tools, which send **no**
+   usage information at all, and the editor build, which ships **analytics-free** and only
+   gains optional, opt-out analytics when someone *hosts* it.
+
+## Your content stays in your browser
+
+> Your MCP Description stays in your browser. No MCP server description content is uploaded
+> to our servers. Analytics only tracks anonymous product usage events.
+
+The editor is a fully client-side application. Parsing, validation, preview, and export all
+run locally in your browser. Your MCP Description is never sent to us.
+
+---
+
+## What we host: `mcpdesc.org` and `editor.mcpdesc.org`
+
+Both the website and the hosted editor are **static sites**. When analytics is enabled,
+they use [Plausible](https://plausible.io/) — a privacy-preserving, cookieless analytics
+tool that records only aggregate, anonymous product-usage events. No cookies, no
+cross-site tracking, no personal profiles, no fingerprinting.
+
+Analytics is **disabled by default** and only enabled in our production deployment. In
+local development and preview builds it does nothing.
+
+### We only ever send an allow-listed set of scalar metadata
+
+Every event passes through a single sanitizer with a hard allow-list. Any key that is not
+explicitly allowed is dropped before anything leaves your browser. This is the privacy
+backstop for the whole site
+([`src/analytics/events.ts`](https://github.com/mcpdesc/mcpdesc.org/blob/main/src/analytics/events.ts)):
+
+```ts
+// Only these keys are ever allowed to leave the browser.
+// Everything else is dropped. This is the privacy backstop for the whole site.
+const ALLOWED_KEYS = new Set([
+  // --- Group A: sent by the website today ---
+  'page_type',        // which kind of page a click came from
+  'cta_id',           // which call-to-action button was clicked
+  'outbound_target',  // bucketed outbound destination category
+  'utm_source',       // campaign attribution: where the visit originated
+  'utm_medium',       // campaign attribution: channel
+  'utm_campaign',     // campaign attribution: named campaign
+
+  // --- Group C: reserved for future editor events, NOT currently sent ---
+  'schema_version',
+  'input_format',
+  'output_format',
+  'valid',
+  'error_count_bucket',
+  'example_id',
+  'size_bucket',
+  'copy_format',
+  'app_version',
+]);
+
+/**
+ * Reduce arbitrary props to a safe, allow-listed set of scalar values.
+ * - Drops any key not explicitly allowed.
+ * - Drops null/undefined values.
+ * - Truncates long strings.
+ * - Never forwards raw document content, URLs, or identifiers.
+ */
+export function sanitizeAnalyticsProps(
+  props: AnalyticsProps = {},
+): Record<string, string | number | boolean> {
+  const sanitized: Record<string, string | number | boolean> = {};
+
+  for (const [key, value] of Object.entries(props)) {
+    if (!ALLOWED_KEYS.has(key)) continue;
+    if (value === undefined || value === null) continue;
+
+    if (typeof value === 'string') {
+      sanitized[key] = value.slice(0, 80);
+    } else if (typeof value === 'number' || typeof value === 'boolean') {
+      sanitized[key] = value;
+    }
+  }
+
+  return sanitized;
+}
+```
+
+Values are bucketed and truncated wherever possible — for example an error count is sent as
+a range like `2-5`, not an exact number, and a document size is sent as `small` or `large`,
+never the content or its length.
+
+### What each key means
+
+The website sends only a small set of keys, and every one is a fixed enum or bucket — never
+free-form content:
+
+| Key | What it is for |
+|-----|----------------|
+| `page_type` | Which kind of page a click came from (home, editor landing, docs, blog) — the entry point of the funnel. |
+| `cta_id` | Which call-to-action was clicked (for example `open_editor`) — the core conversion signal. |
+| `outbound_target` | A bucketed destination category (`github`, `npm`, `docs`, `companion_site`, `issue`, `other`) — where people go to adopt the tools. Never a raw URL. |
+| `utm_source` | Campaign attribution: where a visit originated. |
+| `utm_medium` | Campaign attribution: the channel (for example a blog post or social link). |
+| `utm_campaign` | Campaign attribution: the named campaign. |
+
+### Reserved keys, not currently sent
+
+The allow-list also reserves a set of keys for **possible future editor events** —
+`schema_version`, `input_format`, `output_format`, `valid`, `error_count_bucket`,
+`example_id`, `size_bucket`, `copy_format`, and `app_version`. **No code in this repository
+or the hosted editor sends any of these today.** They exist so that, if the editor ever
+gains opt-out usage events, the same allow-list and sanitizer already govern them — nothing
+new can be sent without being added here first.
+
+### Events are wired declaratively, never by hand
+
+UI code never calls the analytics vendor directly. Events are attached in markup with
+`data-analytics-*` attributes and bound centrally, so the same allow-listed metadata is the
+only thing that can ever be sent
+([`src/components/Analytics.astro`](https://github.com/mcpdesc/mcpdesc.org/blob/main/src/components/Analytics.astro)):
+
+```astro
+{usePlausible && <script is:inline defer data-domain={domain} src={src}></script>}
+```
+
+```html
+<!-- Safe, declarative event wiring in page markup -->
+<a href="/live-editor" data-analytics-cta="open_editor">Try the Live Editor</a>
+<a href="https://github.com/cisco-open" data-analytics-outbound="github">GitHub</a>
+```
+
+### What analytics never tracks
+
+The website and the hosted editor never send any of the following to analytics:
+
+- MCP Description content
+- Server URLs entered by users
+- Tool, resource, or prompt names
+- Prompt text
+- Uploaded filenames
+- Validation error text
+- Raw schema content
+- Authentication configuration values
+- Any private customer or project identifier
+
+The full analytics design is documented in
+[`docs/analytics.md`](https://github.com/mcpdesc/mcpdesc.org/blob/main/docs/analytics.md).
+
+---
+
+## The open-source tools you run yourself
+
+### Command-line tools — no usage information at all
+
+The command-line tools run entirely on your machine and **do not collect or transmit any
+usage information**. There is no telemetry, no "phone home", and no analytics:
+
+- `mcpcontract` — [`@cisco_open/mcptoolkit-contract`](https://www.npmjs.com/package/@cisco_open/mcptoolkit-contract)
+- `mcpmock` — [`@cisco_open/mcptoolkit-mock`](https://www.npmjs.com/package/@cisco_open/mcptoolkit-mock)
+- `mcptest` — [`@cisco-open/mcptoolkit-test`](https://www.npmjs.com/package/@cisco-open/mcptoolkit-test)
+
+Anything these tools read stays on your machine (or goes only to the MCP servers you
+explicitly point them at). Nothing is sent to us.
+
+### The editor build — analytics-free, with optional opt-out analytics when hosted
+
+The editor is a **portable, host-neutral static build**, distributed as
+[`@cisco_open/mcptoolkit-editor-dist`](https://www.npmjs.com/package/@cisco_open/mcptoolkit-editor-dist).
+**The build itself contains no analytics.** If you self-host it, or run it locally, it sends
+nothing anywhere — it is a purely client-side application.
+
+Analytics is a **hosting-layer choice**, added at deploy time — not baked into the editor.
+The editor stays a clean, host-neutral tool that anyone can deploy anywhere, and each host
+decides whether to add privacy-preserving analytics.
+
+Our own deployment at `editor.mcpdesc.org` injects the Plausible script into `index.html`
+at build time, and that injection is **off by default** — controlled by a single
+`ANALYTICS_ENABLED` flag that we only set in production. When it is off, no analytics script
+is added at all
+([`scripts/build.mjs`](https://github.com/mcpdesc/editor/blob/main/scripts/build.mjs)):
+
+```js
+function injectAnalytics(indexPath) {
+  if (process.env.ANALYTICS_ENABLED !== 'true') {
+    console.log('• analytics: disabled (set ANALYTICS_ENABLED=true to enable)');
+    return;
+  }
+  const domain = process.env.PLAUSIBLE_DOMAIN || 'editor.mcpdesc.org';
+  const src = process.env.PLAUSIBLE_SRC || 'https://plausible.io/js/script.js';
+  let html = readFileSync(indexPath, 'utf8');
+  if (html.includes(src)) {
+    console.log('• analytics: already present, skipping');
+    return;
+  }
+  const tag = `<script defer data-domain="${domain}" src="${src}"></script>`;
+  html = html.replace('</head>', `    ${tag}\n  </head>`);
+  writeFileSync(indexPath, html);
+  console.log(`• analytics: Plausible enabled for ${domain}`);
+}
+```
+
+In other words: if you deploy the editor yourself and never set `ANALYTICS_ENABLED=true`,
+there is no analytics — and even when it is enabled, it is the same cookieless,
+allow-listed Plausible setup described above for the hosted site.
+
+---
+
+## Where to see the code
+
+- Website analytics: [`mcpdesc/mcpdesc.org`](https://github.com/mcpdesc/mcpdesc.org)
+  (`src/analytics/`, `src/components/Analytics.astro`, `docs/analytics.md`)
+- Hosted editor build + analytics injection: [`mcpdesc/editor`](https://github.com/mcpdesc/editor)
+  (`scripts/build.mjs`, `overlay/_headers`)
+- The tools themselves: [`cisco-open`](https://github.com/cisco-open) on GitHub

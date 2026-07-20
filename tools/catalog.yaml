@@ -1,0 +1,10 @@
+# Tools catalog TOC — controls the display order of the /tools page.
+# Add new tool IDs here (in the desired position) when accepting a submission.
+# The ID must match the YAML filename (without .yaml) in this folder.
+toc:
+  - cisco-open-mcptoolkit-contract
+  - cisco-open-mcptoolkit-mock
+  - cisco-open-mcptoolkit-editor
+  - cisco-open-mcptoolkit-editor-viewer
+  - cisco-open-mcptoolkit-test
+  - mcpdesc-spectral-ruleset

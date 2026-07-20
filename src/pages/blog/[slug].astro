@@ -1,0 +1,82 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const showDrafts = import.meta.env.DEV;
+  const posts = (await getCollection('blog')).filter((post) => showDrafts || !post.data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const showDrafts = import.meta.env.DEV;
+const { Content } = await render(post);
+
+// Known authors linked to their bio on the Community page. Unknown authors render as plain text.
+const authorLinks: Record<string, string> = {
+  'Stève Sfartz': '/community#contributors',
+};
+const authorHref = authorLinks[post.data.author];
+---
+
+<BaseLayout title={post.data.title} description={post.data.description} pageType="blog_post">
+  <article class="prose prose-slate mx-auto max-w-3xl dark:prose-invert" data-external-links>
+    {
+      showDrafts && post.data.draft && (
+        <p class="mb-4">
+          <span class="inline-flex items-center rounded-full border border-amber-500/40 bg-amber-50 px-2 py-0.5 text-xs font-semibold uppercase tracking-wide text-amber-700 dark:border-amber-400/40 dark:bg-amber-500/10 dark:text-amber-300">
+            Draft (visible only in dev env)
+          </span>
+        </p>
+      )
+    }
+    <h1>{post.data.title}</h1>
+    <p class="text-sm text-slate-500">
+      <time datetime={post.data.date.toISOString()}>
+        {post.data.date.toLocaleDateString('en-US', { dateStyle: 'medium' })}
+      </time>
+      {' · '}
+      {authorHref ? (
+        <a
+          href={authorHref}
+          class="font-medium text-slate-500 hover:text-[var(--color-brand)] hover:underline"
+        >
+          {post.data.author}
+        </a>
+      ) : (
+        post.data.author
+      )}
+    </p>
+    <Content />
+  </article>
+</BaseLayout>
+
+<script>
+  // Open outbound links inside blog post content in a new tab.
+  // Links to mcpdesc.org (and relative/internal links) stay in the same tab.
+  const scope = document.querySelector('[data-external-links]');
+  if (scope) {
+    scope.querySelectorAll<HTMLAnchorElement>('a[href]').forEach((a) => {
+      const href = a.getAttribute('href');
+      if (!href) return;
+      let url: URL;
+      try {
+        url = new URL(href, location.href);
+      } catch {
+        return;
+      }
+      if (url.protocol !== 'http:' && url.protocol !== 'https:') return;
+      const isInternal =
+        url.hostname === location.hostname || url.hostname === 'mcpdesc.org';
+      if (isInternal) return;
+      a.target = '_blank';
+      const rel = new Set((a.getAttribute('rel') ?? '').split(/\s+/).filter(Boolean));
+      rel.add('noopener');
+      rel.add('noreferrer');
+      a.setAttribute('rel', [...rel].join(' '));
+    });
+  }
+</script>

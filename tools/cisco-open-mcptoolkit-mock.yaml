@@ -1,0 +1,26 @@
+id: cisco-open-mcptoolkit-mock
+name: mcpmock CLI
+tagline: >-
+  Run mock MCP servers from mcpdesc files, record/replay traffic from live servers.
+categories:
+  - hosting
+languages:
+  - TypeScript
+registries:
+  - name: npm
+    url:  https://www.npmjs.com/package/@cisco_open/mcptoolkit-mock
+status: Available
+href: https://github.com/cisco-open/mcptoolkit-mock
+entrypoint: https://github.com/cisco-open/mcptoolkit-mock
+outbound: true
+visibility: public
+# Records-only metadata (never rendered on the site).
+repoUrl: https://github.com/cisco-open/mcptoolkit-mock
+badge: false
+specVersions:
+  - 0.7.0
+license: Apache-2.0
+contact:
+  name: Stève Sfartz
+  email: stsfartz@cisco.com
+added: 2026-07-17

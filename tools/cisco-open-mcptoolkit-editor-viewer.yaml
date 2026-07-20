@@ -1,0 +1,26 @@
+id: cisco-open-mcptoolkit-editor-viewer
+name: mcpviewer
+tagline: >-
+  Embeddable, read-only view of an mcpdesc document — corresponds to the right pane of the MCP Descriotion editor.
+categories:
+  - documentation
+languages:
+  - TypeScript
+registries:
+  - name: npm
+    url: https://www.npmjs.com/package/@cisco_open/mcptoolkit-viewer
+status: Available
+href: https://github.com/cisco-open/mcptoolkit-editor/blob/main/packages/mcptoolkit-viewer/README.md
+entrypoint: https://github.com/cisco-open/mcptoolkit-editor/blob/main/packages/mcptoolkit-viewer/README.md
+outbound: true
+visibility: public
+# Records-only metadata (never rendered on the site).
+repoUrl: https://github.com/cisco-open/mcptoolkit-editor
+badge: false
+specVersions:
+  - 0.7.0
+license: Apache-2.0
+contact:
+  name: Stève Sfartz
+  email: stsfartz@cisco.com
+added: 2026-07-17

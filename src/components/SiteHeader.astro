@@ -1,0 +1,144 @@
+---
+const nav: { label: string; href: string; newTab?: boolean }[] = [
+  { label: 'Format', href: '/format' },
+  { label: 'Try it', href: '/live-editor' },
+  { label: 'Tools', href: '/tools' },
+  { label: 'Community', href: '/community' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Docs', href: '/docs' },
+];
+
+const githubHref = 'https://github.com/mcpdesc/mcpdesc.org';
+---
+
+<header>
+  <div class="mx-auto w-full max-w-5xl px-6">
+    <div class="flex items-center justify-between py-4">
+      <a href="/" class="inline-block no-underline leading-none" aria-label="mcpdesc — home">
+        <span class="text-[1.8rem] font-bold text-slate-900 dark:text-white">
+          <span class="text-[var(--color-brand)]">{'{'}</span>mcpdesc<span class="text-[var(--color-brand)]">{'}'}</span>
+        </span>
+      </a>
+
+      <!-- Desktop navigation -->
+      <nav aria-label="Primary" class="hidden items-center gap-5 text-sm md:flex">
+        {
+          nav.map((item) => (
+            <a
+              class="text-slate-600 no-underline hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+              href={item.href}
+              target={item.newTab ? '_blank' : undefined}
+              rel={item.newTab ? 'noopener' : undefined}
+            >
+              {item.label}
+            </a>
+          ))
+        }
+        <a
+          class="text-slate-600 no-underline hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+          href={githubHref}
+          target="_blank"
+          data-analytics-outbound="github"
+          rel="noopener"
+          aria-label="mcpdesc.org website source on GitHub"
+        >
+          <svg viewBox="0 0 16 16" width="20" height="20" fill="currentColor" aria-hidden="true">
+            <path
+              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+            ></path>
+          </svg>
+        </a>
+      </nav>
+
+      <!-- Mobile menu toggle -->
+      <button
+        type="button"
+        id="mobile-menu-toggle"
+        class="inline-flex items-center justify-center rounded-md p-2 text-slate-600 hover:bg-slate-100 hover:text-slate-900 md:hidden dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+        aria-label="Open main menu"
+      >
+        <svg
+          class="h-6 w-6"
+          data-icon="open"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+        <svg
+          class="hidden h-6 w-6"
+          data-icon="close"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile navigation -->
+    <nav id="mobile-menu" aria-label="Primary" class="hidden flex-col gap-1 pb-4 md:hidden">
+      {
+        nav.map((item) => (
+          <a
+            class="rounded-md px-2 py-2 text-slate-600 no-underline hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+            href={item.href}
+            target={item.newTab ? '_blank' : undefined}
+            rel={item.newTab ? 'noopener' : undefined}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <a
+        class="flex items-center gap-2 rounded-md px-2 py-2 text-slate-600 no-underline hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+        href={githubHref}
+        target="_blank"
+        data-analytics-outbound="github"
+        rel="noopener"
+        aria-label="mcpdesc.org website source on GitHub"
+      >
+        <svg viewBox="0 0 16 16" width="20" height="20" fill="currentColor" aria-hidden="true">
+          <path
+            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+          ></path>
+        </svg>
+        <span>GitHub</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const openIcon = toggle?.querySelector('[data-icon="open"]');
+  const closeIcon = toggle?.querySelector('[data-icon="close"]');
+
+  function setOpen(open: boolean) {
+    if (!toggle || !menu) return;
+    menu.classList.toggle('hidden', !open);
+    menu.classList.toggle('flex', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close main menu' : 'Open main menu');
+    openIcon?.classList.toggle('hidden', open);
+    closeIcon?.classList.toggle('hidden', !open);
+  }
+
+  toggle?.addEventListener('click', () => {
+    setOpen(menu?.classList.contains('hidden') ?? false);
+  });
+
+  // Close the menu when a link is tapped.
+  menu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => setOpen(false));
+  });
+</script>

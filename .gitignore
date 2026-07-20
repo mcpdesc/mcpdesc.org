@@ -1,0 +1,23 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+.astro/
+
+# environment
+.env
+.env.*
+!.env.example
+
+# local reference clones of sibling repos (not part of this repo)
+ref/
+
+# draft blogs, not ready for publishing
+drafts/
+
+# logs / misc
+npm-debug.log*
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
