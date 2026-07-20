@@ -81,3 +81,31 @@ Attach safe events in markup via data attributes; `Analytics.astro` binds them:
 
 See [`.env.example`](../.env.example). Enabled only in the Cloudflare Pages production
 environment; disabled for previews and local dev.
+
+| Variable | Purpose |
+|----------|---------|
+| `PUBLIC_ANALYTICS_ENABLED` | Master switch. Analytics runs only when this is exactly `true`. Must keep the `PUBLIC_` prefix — the flag is also read in the browser bundle (`analytics.ts`), and Astro only inlines `PUBLIC_`-prefixed vars into client code. |
+| `PUBLIC_ANALYTICS_PROVIDER` | Provider to use. Currently only `plausible`. |
+| `PUBLIC_PLAUSIBLE_DOMAIN` | Site domain (`mcpdesc.org`). Retained as the "site is configured" enable signal. |
+| `PUBLIC_PLAUSIBLE_SRC` | The site-specific Plausible script bundle URL. |
+
+## Plausible script
+
+`Analytics.astro` injects Plausible's current script format when analytics is enabled: an
+`async` site-specific bundle plus a small init stub that sets up the `window.plausible`
+event queue.
+
+```html
+<script async src="https://plausible.io/js/pa-<site-id>.js"></script>
+<script>
+  window.plausible = window.plausible || function () { (plausible.q = plausible.q || []).push(arguments) };
+  plausible.init = plausible.init || function (i) { plausible.o = i || {} };
+  plausible.init();
+</script>
+```
+
+The site identity is embedded in the bundle filename (`PUBLIC_PLAUSIBLE_SRC`), so the older
+`data-domain` attribute is no longer used. The inline stub is the sanctioned Plausible
+bootstrap inside `Analytics.astro`; UI code still never calls `window.plausible` directly —
+it goes through `analytics.track(...)`.
+

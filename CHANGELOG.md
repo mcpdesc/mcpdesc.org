@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-07-20
+
+### Changed
+
+- Activated Plausible analytics using its latest script format (async site-specific
+  bundle plus `window.plausible` init stub); the legacy `data-domain` script was removed.
+- Optimized the introductory blog post's title and meta description for SEO and rendering.
+- Copy-edited the governance, attribution, FAQ, and blog content (spelling, grammar, Oxford commas, trailing whitespace).
+
+
 ## [0.2.1] - 2026-07-20
 
 - Clarifications per sanity check of the governance, attribution and FAQ documentations

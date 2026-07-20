@@ -8,12 +8,26 @@
 const enabled = import.meta.env.PUBLIC_ANALYTICS_ENABLED === 'true';
 const provider = import.meta.env.PUBLIC_ANALYTICS_PROVIDER;
 const domain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
-const src = import.meta.env.PUBLIC_PLAUSIBLE_SRC ?? 'https://plausible.io/js/script.js';
+// Plausible's current script bundles the site identity into the script filename
+// (e.g. pa-XXXX.js), so `data-domain` is no longer used; the domain env var is
+// retained only as the "site is configured" enable signal.
+const src =
+  import.meta.env.PUBLIC_PLAUSIBLE_SRC ??
+  'https://plausible.io/js/pa-Cvk4BmjwCv3FXrU6y2Rcl.js';
 
 const usePlausible = enabled && provider === 'plausible' && Boolean(domain);
 ---
 
-{usePlausible && <script is:inline defer data-domain={domain} src={src}></script>}
+{
+  usePlausible && (
+    <>
+      <script is:inline async src={src} />
+      <script is:inline>
+        {`window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()`}
+      </script>
+    </>
+  )
+}
 
 <script>
   import { analytics } from '../analytics/analytics';
