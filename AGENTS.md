@@ -98,9 +98,8 @@ Avoid unless explicitly approved:
 - Docs are served at `mcpdesc.org/docs` (path) for v1.
 - `spec.mcpdesc.org` (community-hosted specification) is **planned**; spec links currently
   point to the live `cisco-open/mcptoolkit-contract` (`mcpdesc` 0.7.0).
-- `editor.mcpdesc.org` (hosted **Live Editor**) is **coming soon**. The `/live-editor` page is a
-  **landing page**, and its "Open the Editor" CTA is intentionally **disabled** until the
-  hosted editor is live — do not re-enable it before then.
+- `editor.mcpdesc.org` (hosted **Live Editor**) is **live**. The `/live-editor` page is a
+  landing page whose "Open the Editor" CTA links out to the hosted editor.
 - Legacy `mcptoolkit.org` → `mcpdesc.org/tools`; secondary domains
   (`.com/.io/.eu/.tech`) → `mcpdesc.org`. Do **not** redirect `.org` to `.com`.
 

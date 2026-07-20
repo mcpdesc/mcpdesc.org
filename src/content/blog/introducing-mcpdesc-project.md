@@ -2,7 +2,7 @@
 title: 'Introducing the {mcpdesc} project'
 listTitle: 'Introducing the {mcpdesc} project'
 description: 'MCP servers lack a shared, portable way to describe what they expose. Introducing the {mcpdesc} project and the MCP Description format.'
-date: 2026-07-19
+date: 2026-07-20
 author: Stève Sfartz
 draft: false
 ---

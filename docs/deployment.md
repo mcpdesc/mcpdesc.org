@@ -15,14 +15,14 @@ plan; upgrade to Pro only when traffic or security signals justify it.
 | Production domain | `mcpdesc.org` |
 
 The hosted editor is a **separate** Cloudflare Pages project (`mcpdesc-editor`,
-production domain `editor.mcpdesc.org`, **coming soon**) built from its own repository.
+production domain `editor.mcpdesc.org`, **live**) built from its own repository.
 
 ## DNS
 
 ```text
 mcpdesc.org                 Cloudflare Pages (this site)
 www.mcpdesc.org             Redirect to mcpdesc.org
-editor.mcpdesc.org          Cloudflare Pages (editor project) — coming soon
+editor.mcpdesc.org          Cloudflare Pages (editor project)
 spec.mcpdesc.org            Community-hosted specification — planned
 mcpdesc.com/.io/.eu/.tech   Redirect to mcpdesc.org
 ```
