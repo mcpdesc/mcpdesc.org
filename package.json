@@ -1,7 +1,7 @@
 {
   "name": "mcpdesc.org",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Website of the mcpdesc Community — an open proposal for describing MCP servers (mcpdesc.org).",
   "license": "Apache-2.0",
