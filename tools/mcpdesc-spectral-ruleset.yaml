@@ -5,7 +5,7 @@ tagline: >-
   completeness, description quality, security metadata, and consistency.
   Package @mcpdesc/spectral-ruleset.
 categories:
-  - quality
+  - testing
 languages:
   - TypeScript
 registries:

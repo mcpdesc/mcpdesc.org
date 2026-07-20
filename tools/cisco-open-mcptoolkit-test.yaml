@@ -3,7 +3,7 @@ name: mcptest CLI
 tagline: >-
   Automated Testing for MCP servers, test scenarios auto-generated from mcpdesc documents.
 categories:
-  - quality
+  - testing
 languages:
   - TypeScript
 registries:

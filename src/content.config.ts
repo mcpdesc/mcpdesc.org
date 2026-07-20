@@ -41,9 +41,9 @@ const toolCategories = defineCollection({
 // Tool IDs always contain at least one dash, so the glob *-*.yaml naturally excludes
 // catalog.yaml. The display order is controlled by tools/catalog.yaml.
 // Categories are coarse, goal-oriented buckets defined in tools/categories.yaml.
-// creation=produce a description, quality=validate/lint/test/diff,
+// creation=produce a description, testing=validate/lint/test/diff,
 // documentation=generate readable output, hosting=serve/proxy at runtime.
-const TOOL_CATEGORIES = ['creation', 'quality', 'documentation', 'hosting'] as const;
+const TOOL_CATEGORIES = ['creation', 'documentation', 'hosting', 'testing'] as const;
 
 // Language set follows the awesome-mcp-devtools SDK legend.
 const TOOL_LANGUAGES = [

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-07-20
+
+### Changed
+
+- The 'quality' category was too vague, it is now 'testing'. Tools cards and documentation reflect the updated name and reference.
+
 ## [0.1.1] - 2026-07-20
 
 ### Changed

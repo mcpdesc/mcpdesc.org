@@ -23,9 +23,8 @@ categories:
       Tools that serve or proxy at runtime — mock MCP servers, gateways, and
       adapters that spin up a server directly from a description.
 
-  - id: quality
-    name: quality
+  - id: testing
+    name: testing
     description: >-
-      Tools for ensuring description accuracy and consistency — schema validation,
-      linting style rules, testing server behaviour against a description, and
-      detecting breaking changes between versions.
+      Tools for ensuring descriptions accuracy and consistency — format compliance,
+      linting style rules, evaluate a server behaviour against a description.

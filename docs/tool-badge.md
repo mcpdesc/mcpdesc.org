@@ -87,9 +87,9 @@ categorizes servers by domain). The four buckets map to a build-vs-run axis:
 | Category | Covers | Axis |
 |---|---|---|
 | `creation` | capture/dump, generate, edit descriptions | build |
-| `quality` | validate, lint, test, diff/compare, conformance | build |
 | `documentation` | generate + render human-readable docs | build |
 | `hosting` | mock, serve, gateway, proxy from a description | run |
+| `testing` | validate, lint, test, diff/compare, conformance | build |
 
 **Languages** follow the awesome-mcp-devtools SDK legend (TypeScript, Python, Go, Rust, …).
 **Registries** record where the tool is published (npm, PyPI, crates.io, …). Both render as a

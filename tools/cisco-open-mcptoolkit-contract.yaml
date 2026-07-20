@@ -1,11 +1,9 @@
 id: cisco-open-mcptoolkit-contract
 name: mcpcontract CLI
 tagline: >-
-  Dump capabilities from live MCP servers, detect breaking changes, and
-  generate changelogs and documentation.
+  Dump capabilities from live MCP servers, generate changelogs and documentation.
 categories:
   - creation
-  - quality
   - documentation
 languages:
   - TypeScript

@@ -5,6 +5,7 @@ tagline: >-
   exporting mcpdesc documents. Powers the Live Editor at mcpdesc.org.
 categories:
   - creation
+  - testing
 languages:
   - TypeScript
 registries:
