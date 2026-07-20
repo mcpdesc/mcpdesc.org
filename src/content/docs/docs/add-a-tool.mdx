@@ -6,43 +6,40 @@ sidebar:
 ---
 
 The [tools catalog](/tools) is a **curated list** of open-source tools and projects that
-support or build on the **MCP Description** (`mcpdesc`) format. This page explains how to
-get a tool listed.
+support or build on the `mcpdesc` format. This page explains how to get a tool listed.
 
 ## Prerequisites
 
-The one hard requirement is the **mcpdesc badge**:
-
-- **Display the mcpdesc badge in its README**, stating the supported specification version.
+The one hard requirement is the **mcpdesc badge**, that states the supported version of the MCP Description specification.
 
 We also recommend that a tool:
 
-- **Be open source**, or at minimum have a public repository whose README documents its
-  `mcpdesc` support.
-- **Support the latest published specification version.** The current MCP Description
-  specification is **0.7.0** (see the [specification](/docs/specification)).
-- Have a **maintainer point of contact** we can reach.
+- **Be open source**, or at minimum have a public page that documents the tool support for the MCP Description format,
+- **Support the latest version** of the MCP Description specification,
+- Identify a **point of contact** for the projet maintainers.
 
-The catalog does **not** display which spec version a tool supports — each tool self-declares
-that in its own README via the badge. We only verify that the badge exists and points at a
-real published specification version. The submission form captures the latest supported
-version for our records.
+The tools catalog does **not** display which version of the MCP Description specification a tool supports — each tool
+self-declares the information in its own README using the `mcpdesc` badge.
+
+We only verify that the badge exists and points at a real published specification version.
 
 ## Add the mcpdesc badge
 
-Add the mcpdesc badge near the top of your README. Use the **hosted badge**: it references a
-badge definition maintained by the project, so the label, version, and brand color stay
-consistent across every tool and can be maintained centrally over time.
+You can add the `mcpdesc` badge at the top of your repo's README using:
 
-```markdown
+```markdown wrap
 [![mcpdesc](https://img.shields.io/endpoint?url=https://mcpdesc.org/badge/0.7.0.json)](https://mcpdesc.org)
 ```
 
-It renders as **mcpdesc | 0.7.0**.
+> Note that the badge reference is hosted at mcpdesc.org, so the label, version, and brand color stay
+> consistent across every tool and can be maintained centrally over time.
 
-- Use the file for the spec version your tool supports, e.g. `/badge/0.7.0.json` — it must be
-  a published version.
-- If your tool supports several versions, add one badge per version.
+It renders as:
+
+![mcpdesc badge showing version 0.7.0](/img/mcpdesc-0.7.0-badge.png)
+
+- Use the file for the spec version your tool supports, e.g. `/badge/0.7.0.json`.
+- If your tool supports multiple versions, we recommend displaying the latest, but you may prefer displaying multiple badges (simply repeat the badge snippet).
 - The badge is **self-declared**: it is not a certification, conformance guarantee, or
   endorsement by the `{mcpdesc}` project.
 

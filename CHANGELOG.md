@@ -11,7 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- The 'quality' category was too vague, it is now 'testing'. Tools cards and documentation reflect the updated name and reference.
+- The 'quality' category was too vague, it is now renamed 'testing'. Tools cards and documentation reflect the updated name.
+- The documentation to add a tool has been updated
 
 ## [0.1.1] - 2026-07-20
 
