@@ -73,7 +73,7 @@ Server Cards, gateways, or inspectors. It **complements** them.
 
 Registries and Server Cards answer *which server this is, who publishes it, and where to find and run it*.
 
-MCP Description documents cover the *full capability set* of an MCP server — the detailed description of the tools, resources, and prompts, with their schemas and security expectations offered by a particular version of an MCP server.
+MCP Description documents cover the *full capability set* of an MCP server — the detailed description of the tools, resources, and prompts, with their schemas and security expectations offered by a particular version of a server.
 
 ## Help us shape the format
 
@@ -87,4 +87,4 @@ There are multiple ways to get involved:
 - contribute your own [tools](/tools) as reference implementations, 
 - or help us evolve the [specification](/format).
 
-**[Join the conversation on GitHub Discussions](https://github.com/orgs/mcpdesc/discussions)** — we would love to hear from you.**
+**[Join the conversation](https://github.com/orgs/mcpdesc/discussions)** on GitHub Discussions — we would love to hear from you.

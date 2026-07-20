@@ -12,14 +12,10 @@ Common questions about MCP Description (`mcpdesc`) and how it relates to the MCP
 
 The **`{mcpdesc}` project** is an independent open source initiative promoting an open,
 portable, machine-readable **description format** for MCP servers — an open proposal whose
-goal is to help the MCP ecosystem converge on interoperable server descriptions. **MCP
-Description** (`mcpdesc`) is that format: it declares everything an MCP server offers —
-tools, resources, prompts, transports, and security — much like OpenAPI does for REST APIs.
-The current specification (v0.7.0) is maintained in the
-[cisco-open contract repository](https://github.com/cisco-open/mcptoolkit-contract/tree/main/spec).
+goal is to help the MCP ecosystem converge on interoperable server descriptions. 
 
-See the [documentation overview](/docs) or the [format overview](/format), or jump
-straight to [getting started](/docs/getting-started).
+**MCP Description** (`mcpdesc`) is that format: it declares everything an MCP server offers —
+tools, resources, prompts, transports, and security — much like OpenAPI does for REST APIs.
 
 ## Where does `mcpdesc` fit in the MCP ecosystem?
 
@@ -29,13 +25,11 @@ Gateways help teams run, secure, and observe MCP traffic. Inspectors help develo
 test servers at runtime. OpenAPI-to-MCP generators help teams expose existing APIs to
 agents.
 
-`mcpdesc` focuses on a different layer. It is about **lifecycle**.
+`mcpdesc` focuses on a different layer. It is about the **lifecycle, documentation and compliance** of MCP servers.
 
 When a server changes from one release to the next, teams need a stable artifact that
-captures what that specific version exposes. They need to compare capabilities, detect
-major changes, generate changelogs, produce documentation, and apply quality rules.
-
-That is the role of **MCP Description documents**.
+captures what that specific version exposes. They need these artifacts to compare capabilities, detect
+major changes, generate changelogs, produce documentation, and/or check compliance.
 
 ## Does `mcpdesc` replace registries, gateways, or inspectors?
 
@@ -47,11 +41,12 @@ across workflows.
 ## How do the project, community, and tools relate?
 
 The **`{mcpdesc}` project** stewards the format, its specification, examples, and the neutral
-catalog of compatible tools; it is **led by its maintainers** and open to contributions. The
-**`{mcpdesc}` Community** is the people around it — maintainers, contributors, users,
-adopters, and tool builders. The **MCP Toolkit** — a toolkit for MCP Description, initiated
-by Cisco DevNet and maintained at cisco-open — is one of the first tool suites built around
-`mcpdesc`. See [Tools](/tools).
+catalog of compatible tools; it is **led by its maintainers** and open to contributions. 
+
+The **`{mcpdesc}` Community** is the people around it — maintainers, contributors, users,
+adopters, and tool builders. 
+
+The curated list of tools illustrates the benefits of the MCP Description format by covering specific use cases. 
 
 ## How is the project governed?
 
@@ -59,15 +54,13 @@ The `{mcpdesc}` project uses a **lightweight, consensus-oriented** governance mo
 Maintainers review and merge changes, guide the roadmap, maintain the specification, and
 curate the tools catalog; larger changes — to the specification, schemas, governance, or
 public positioning — call for broader feedback before merging. See [Governance](/docs/governance)
-for the summary, or the full [`GOVERNANCE.md`](https://github.com/mcpdesc/.github/blob/main/GOVERNANCE.md)
-in the `mcpdesc` `.github` repository.
+for the summary, or the full [`GOVERNANCE.md`](https://github.com/mcpdesc/.github/blob/main/GOVERNANCE.md) document.
 
-## Is this affiliated with Anthropic or other MCP vendors?
+## Is this project affiliated with Anthropic or other MCP vendors?
 
-The `{mcpdesc}` project is a community open-source effort. "MCP" and "Model Context Protocol"
-refer to the open protocol ecosystem. This project is not affiliated with or endorsed by
-Anthropic, or other MCP ecosystem vendors unless explicitly stated. It is also **not** a
-Cisco product, service, or official Cisco standardization effort — see
-[Attribution](/docs/attribution).
+The `{mcpdesc}` project is an independent and community-based initiative.
+
+The project is NOT affiliated with or endorsed by Anthropic, or other MCP ecosystem vendors.
+It is also NOT a Cisco product, service, or official Cisco standardization effort.
 
 
