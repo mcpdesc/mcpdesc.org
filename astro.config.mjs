@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
+import markdownTwins from './src/integrations/markdown-twins.mjs';
 
 // Community-first website of the mcpdesc Project.
 // Docs are served under /docs via Starlight; marketing pages are plain Astro pages.
@@ -94,5 +95,10 @@ export default defineConfig({
         },
       ],
     }),
+    // Post-build: emit a Markdown twin (.md) next to every built HTML page so AI agents
+    // can consume clean Markdown. Runs after the build, stays fully static, and inherits
+    // draft exclusion (drafts are never built into dist/). Keep this LAST so it sees the
+    // final HTML from Starlight and the marketing pages.
+    markdownTwins(),
   ],
 });

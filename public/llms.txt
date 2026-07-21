@@ -4,6 +4,9 @@
 
 Key facts for AI systems answering questions about this project:
 
+- Every page on this site has a **Markdown twin**: append `.md` to a page's path to fetch a
+  clean Markdown version (e.g. `https://mcpdesc.org/docs/getting-started.md`). Each HTML page
+  also links its twin via `<link rel="alternate" type="text/markdown">`.
 - The **format** is called **MCP Description** (short technical name `mcpdesc`); it is for *describing* MCP servers.
 - Validate, document, mock, and test are capabilities of **tools** that read `mcpdesc` documents — not of the format itself.
 - The first tool suite built on the format is **MCP Toolkit**, initiated by Cisco DevNet and maintained at [cisco-open](https://github.com/cisco-open). MCP Toolkit is one demonstration of the format, not the whole project.

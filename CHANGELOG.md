@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-07-21
+
+### Added
+
+- **Markdown twins** for every page ("Option A"): a build-time `astro:build:done`
+  integration ([`src/integrations/markdown-twins.mjs`](src/integrations/markdown-twins.mjs))
+  emits a `.md` counterpart next to each built HTML page (append `.md` to any path, e.g.
+  `/docs/getting-started.md`). Each HTML page links its twin via
+  `<link rel="alternate" type="text/markdown">`, and `.md` files are served as
+  `text/markdown` via `public/_headers`. Fully static — no server runtime — and drafts are
+  excluded automatically (they are never built into `dist/`, so they get no twin and never
+  appear in the sitemap). This is a free alternative to Cloudflare's paid Markdown for
+  Agents feature.
+
+### Documentation
+
+- Documented how to enable Cloudflare **Markdown for Agents** (edge HTML→Markdown content
+  negotiation via `Accept: text/markdown`) in `docs/deployment.md`, including the Pro-plan
+  requirement and its alignment with the site's Content-Signal policy.
+
 ## [0.4.0] - 2026-07-21
 
 ### Added

@@ -69,6 +69,56 @@ Pagefind search, and Plausible first. Candidate to test later:
 Content-Security-Policy: default-src 'self'; script-src 'self' https://plausible.io; connect-src 'self' https://plausible.io; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none'
 ```
 
+## Markdown for Agents
+
+[Markdown for Agents](https://developers.cloudflare.com/fundamentals/reference/markdown-for-agents/)
+lets Cloudflare convert this site's HTML pages to Markdown **at the edge** when an agent
+requests them with `Accept: text/markdown`. HTML stays the default for browsers. This needs
+**no application code or build changes** — it is a zone-level Cloudflare setting, so it stays
+compatible with keeping the site static.
+
+**Plan requirement:** the feature is available on **Pro, Business, and Enterprise** plans
+(and SSL for SaaS) at no extra cost. This site runs on the **Free** plan (see above), so
+Markdown for Agents cannot be enabled until the zone is upgraded to Pro. Enable it when the
+zone moves to Pro (see "Upgrade to Pro when" below).
+
+How it behaves once enabled:
+
+- A request with `Accept: text/markdown` returns `Content-Type: text/markdown; charset=utf-8`,
+  `Vary: Accept`, and token-count headers (`x-markdown-tokens`, `x-original-tokens`).
+- Security and cache headers from [`public/_headers`](../public/_headers) are preserved on the
+  converted response.
+- Content Signals: our origin does not send a `content-signal` HTTP header, so Cloudflare adds
+  its default `content-signal: ai-train=yes, search=yes, ai-input=yes` — identical to the
+  `Content-Signal` policy declared in [`public/robots.txt`](../public/robots.txt), so the two
+  stay consistent.
+
+To enable (zone on Pro or above):
+
+1. Cloudflare dashboard → the `mcpdesc.org` zone → **AI Crawl Control**.
+2. Enable **Markdown for Agents** (or `PATCH .../zones/{zone_tag}/settings/content_converter`
+   with `{"value": "on"}`).
+
+Verify after enabling:
+
+```bash
+curl -sD - https://mcpdesc.org/ -H "Accept: text/markdown" -o /dev/null \
+  | grep -i -E 'content-type|vary|x-markdown-tokens'
+# expect: content-type: text/markdown; charset=utf-8
+```
+
+### Free alternative already in place: Markdown twins
+
+Because the site runs on the Free plan, it ships **Markdown twins** instead: a build-time
+integration ([`src/integrations/markdown-twins.mjs`](../src/integrations/markdown-twins.mjs))
+writes a `.md` copy next to every built HTML page. Agents fetch Markdown by appending `.md`
+to any path (for example `https://mcpdesc.org/docs/getting-started.md`), and each HTML page
+advertises its twin with `<link rel="alternate" type="text/markdown">`. `.md` files are
+served as `text/markdown` via [`public/_headers`](../public/_headers). This is fully static
+and needs no Cloudflare plan upgrade. The difference from Markdown for Agents is that
+discovery is URL-based (`.md` suffix) rather than `Accept: text/markdown` content
+negotiation on the same URL. If the zone later moves to Pro, both can coexist.
+
 ## WAF and security (Free plan)
 
 Enable: Cloudflare proxy, Universal SSL, DDoS protection, WAF Free Managed Ruleset,
@@ -86,6 +136,7 @@ Suggested conservative custom rules:
 - Security Events show abusive/suspicious traffic.
 - You need stronger managed WAF rulesets or Super Bot Fight Mode.
 - Build volume becomes limiting, or the project's public visibility/reputation grows.
+- You want to enable **Markdown for Agents** (edge HTML→Markdown for AI agents; see above).
 
 ## Post-launch checks (weekly)
 
