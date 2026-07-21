@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-07-21
+
+### Changed
+
+- **Footer version label** now reads **"mcpdesc.org site v{version}"** (was just
+  "v{version}") to make clear it is the *website* version and avoid confusion with the
+  `mcpdesc` / MCP Description format version (currently 0.7.0). Rendered by
+  `src/components/SiteFooter.astro`.
+- **Community page licensing wording** now reflects the project's two-license model —
+  code under Apache-2.0, documentation and editorial content under CC BY 4.0 — instead of
+  attributing all contributions to Apache-2.0 (`src/pages/community.astro`).
+
+### Fixed
+
+- Copy typos: "something that support" → "supports" (`src/pages/tools.astro`),
+  "Embedabble" → "Embeddable" (`tools/cisco-open-mcptoolkit-editor.yaml`),
+  "MCP Descriotion" → "MCP Description" (`tools/cisco-open-mcptoolkit-editor-viewer.yaml`),
+  "ensuring descriptions accuracy" → "ensuring description accuracy"
+  (`tools/categories.yaml`), and "avocate" → "advocate" (`src/pages/community.astro`).
+
 ## [0.6.0] - 2026-07-21
 
 ### Added

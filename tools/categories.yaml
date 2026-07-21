@@ -26,5 +26,5 @@ categories:
   - id: testing
     name: testing
     description: >-
-      Tools for ensuring descriptions accuracy and consistency — format compliance,
+      Tools for ensuring description accuracy and consistency — format compliance,
       linting style rules, evaluate a server behaviour against a description.

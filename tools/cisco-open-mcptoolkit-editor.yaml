@@ -1,7 +1,7 @@
 id: cisco-open-mcptoolkit-editor
 name: mcpeditor 
 tagline: >-
-  Embedabble TypeScript component for authoring, validating, previewing, and
+  Embeddable TypeScript component for authoring, validating, previewing, and
   exporting mcpdesc documents. Powers the Live Editor at mcpdesc.org.
 categories:
   - creation

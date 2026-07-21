@@ -1,7 +1,7 @@
 id: cisco-open-mcptoolkit-editor-viewer
 name: mcpviewer
 tagline: >-
-  Embeddable, read-only view of an mcpdesc document — corresponds to the right pane of the MCP Descriotion editor.
+  Embeddable, read-only view of an mcpdesc document — corresponds to the right pane of the MCP Description editor.
 categories:
   - documentation
 languages:
