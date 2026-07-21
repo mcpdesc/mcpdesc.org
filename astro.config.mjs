@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 // Community-first website of the mcpdesc Project.
@@ -18,6 +19,10 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   integrations: [
+    // Emits sitemap-index.xml (+ sitemap-0.xml) at build time from all non-draft
+    // routes. Referenced by public/robots.txt so search engines and AI crawlers can
+    // discover the full page set. `site` (above) is required for absolute URLs.
+    sitemap(),
     starlight({
       title: 'mcpdesc',
       description:

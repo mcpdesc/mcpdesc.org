@@ -1,0 +1,8 @@
+# mcpdesc.org is intended to be publicly discoverable and usable by
+# search engines and AI systems for retrieval and grounded answers.
+
+User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+Allow: /
+
+Sitemap: https://mcpdesc.org/sitemap-index.xml

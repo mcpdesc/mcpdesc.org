@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-07-21
+
+### Added
+
+- `robots.txt` explicitly allowing search and AI crawling (including `Content-Signal:
+  search=yes, ai-input=yes, ai-train=yes`) and advertising the sitemap.
+- XML sitemap generation via the `@astrojs/sitemap` integration; `sitemap-index.xml`
+  (and `sitemap-0.xml`) are emitted at build time and referenced from `robots.txt`.
+- `llms.txt` pointing AI crawlers to the site's most important pages (introductory blog
+  post, format, docs, specification, tools, community).
+
 ## [0.3.1] - 2026-07-20
 
 ### Changed
