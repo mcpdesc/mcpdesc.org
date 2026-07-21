@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Mobile horizontal overflow caused by missing base reset styles: added Tailwind preflight import so global `box-sizing: border-box` and zero `body` margin are applied, preventing full-width containers with horizontal padding from exceeding the viewport (`src/styles/global.css`).
+
 ## [0.8.0] - 2026-07-21
 
 ### Changed
