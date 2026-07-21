@@ -109,3 +109,43 @@ The site identity is embedded in the bundle filename (`PUBLIC_PLAUSIBLE_SRC`), s
 bootstrap inside `Analytics.astro`; UI code still never calls `window.plausible` directly —
 it goes through `analytics.track(...)`.
 
+> **Emit the inline stub as raw JS.** In a `.astro` file, the content of a `<script>` tag is
+> treated as **raw text** — Astro does not evaluate a JSX expression like `` {`…`} `` inside
+> it. Writing the stub as `` <script is:inline>{`…plausible.init()`}</script> `` therefore
+> emits the braces and backticks *literally* into the page, so `plausible.init()` never runs
+> and **no pageviews are tracked**. Inject the bootstrap via `set:html` (raw executable JS)
+> instead:
+>
+> ```astro
+> <script is:inline set:html={`window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()`} />
+> ```
+
+## How mcpdesc.org and editor.mcpdesc.org differ
+
+Both sites load the same Plausible snippet, but they wire it up differently. They are two
+**separate** Plausible sites (different `pa-<site-id>.js` bundles), so they collect
+independent stats.
+
+| Aspect | mcpdesc.org (this repo) | editor.mcpdesc.org |
+|---|---|---|
+| Site nature | Full Astro site (pages are built here) | Hosting layer that **wraps** a prebuilt editor build (`@cisco_open/mcptoolkit-editor-dist`) |
+| Injection mechanism | Astro component `Analytics.astro`, rendered in the layout | Node script `scripts/build.mjs` that rewrites `index.html` (`replace('<head>', …)`) |
+| Injection time | Astro build, via `import.meta.env` | Node post-build step on the copied HTML |
+| Enable condition | Three vars: `PUBLIC_ANALYTICS_ENABLED` + `PUBLIC_ANALYTICS_PROVIDER=plausible` + `PUBLIC_PLAUSIBLE_DOMAIN` | One var: `ANALYTICS_ENABLED=true` |
+| Env var prefix | `PUBLIC_` (inlined into the browser bundle — required by Astro) | no prefix (read only in the Node build) |
+| Script source | `PUBLIC_PLAUSIBLE_SRC` | `PLAUSIBLE_SRC` (**different** Plausible site) |
+| CSP | None served yet (see [deployment.md](./deployment.md) TODO) | Strict CSP in `overlay/_headers`, with a build-time **SHA-256 hash** of the inline stub |
+| Analytics layer | Rich: `src/analytics/**` (typed provider, sanitized events, UTM, `data-analytics-*` wiring) | Minimal: just the two `<script>` tags; the editor emits its own events |
+
+Practical consequences:
+
+- **Enabling is easier to miss here.** This repo needs all **three** `PUBLIC_*` vars set (in
+  the correct Cloudflare Pages environment scope) before the script is injected; the editor
+  needs only one.
+- **CSP lives with the editor, not here.** The editor whitelists `https://plausible.io` and
+  hashes its inline stub. When a CSP is eventually added to this site, the same inline stub
+  will need an equivalent allowance (hash or `script-src https://plausible.io`).
+- **Raw-JS injection is the shared requirement.** The editor injects raw JS via Node string
+  replacement; this repo must do the equivalent with `set:html` (see the note above). Both
+  ultimately ship the identical executable bootstrap.
+
