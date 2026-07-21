@@ -119,6 +119,18 @@ and needs no Cloudflare plan upgrade. The difference from Markdown for Agents is
 discovery is URL-based (`.md` suffix) rather than `Accept: text/markdown` content
 negotiation on the same URL. If the zone later moves to Pro, both can coexist.
 
+## AI discoverability and crawling
+
+The site is intentionally open to search engines and AI agents. The full design (robots.txt,
+sitemap, `llms.txt`, and our build-time Markdown twins) is documented in
+[`ai-discoverability.md`](./ai-discoverability.md).
+
+Cloudflare-side note: the zone's **managed/default `robots.txt` is disabled** in the
+dashboard, because it did not merge cleanly with ours. With it off, the static
+[`public/robots.txt`](../public/robots.txt) is the single authoritative file served at
+`/robots.txt`. For Markdown, the site uses its **own Markdown twins** (see above), not the
+Cloudflare Markdown for Agents feature.
+
 ## WAF and security (Free plan)
 
 Enable: Cloudflare proxy, Universal SSL, DDoS protection, WAF Free Managed Ruleset,
