@@ -1,7 +1,7 @@
 ---
 title: 'Introducing the {mcpdesc} project'
 description: 'MCP servers need a portable way to describe what they expose. The {mcpdesc} project proposes an open format that brings API-style lifecycle thinking to MCP.'
-date: 2026-07-20
+date: 2026-07-21
 author: Stève Sfartz
 draft: false
 ---
@@ -67,23 +67,23 @@ We believe high-quality MCP servers should be designed to go beyond runtime corr
 
 The MCP Description format emerged from practical engineering needs — inspecting, comparing, documenting, and governing MCP servers.
 
-The mcpdesc format is not a change to the MCP protocol, and it does not compete with registries,
-Server Cards, gateways, or inspectors. It **complements** them.
+The proposed format is not a change to the MCP protocol, and it does not compete with registries, Server Cards, gateways, or inspectors. It **complements** them.
 
 Registries and Server Cards answer *which server this is, who publishes it, and where to find and run it*.
 
-MCP Description documents cover the *full capability set* of an MCP server — the detailed description of the tools, resources, and prompts, with their schemas and security expectations offered by a particular version of a server.
+MCP Description documents cover the *full capability set* of an MCP server — tools, resources, prompts, transport, security expectations offered by a particular version of a server.
 
-## Help us shape the format
+## Help us improve the format
 
-Does the MCP ecosystem need a shared, portable way to describe servers? We think the answer
-is yes — and we would love to shape it with you.
+The MCP Description specification, currently at version 0.7.0, is an open proposal.
 
-The MCP Description specification, currently at version 0.7.0, is an open proposal. We welcome feedback from MCP server builders and users, API compliance & governance teams, and technical documentation teams.
+Does the MCP ecosystem need a shared, portable way to describe servers? We think the answer is yes — and we would love to evolve it with you.
 
 There are multiple ways to get involved:
 - tell us about other benefits or use cases you'd like to see covered,
 - contribute your own [tools](/tools) as reference implementations,
 - or help us evolve the [specification](/format).
 
-**[Join the conversation](https://github.com/orgs/mcpdesc/discussions)** on GitHub Discussions — we would love to hear from you.
+We are looking for feedback from MCP server builders and users, technical writing, compliance and governance teams:
+
+**[Join the conversation](https://github.com/orgs/mcpdesc/discussions)**.

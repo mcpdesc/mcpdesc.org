@@ -5,7 +5,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout
   title="Community"
-  description={'The {mcpdesc} Community brings together maintainers, contributors, and tool builders that promote, support and advocate for a portable description format to describe MCP servers capabilities.'}
+  description={'The {mcpdesc} community brings together maintainers, contributors, and tool builders that promote, support and advocate for a portable description format to describe MCP servers capabilities.'}
   pageType="community"
 >
   <section class="py-10 text-center">
@@ -24,10 +24,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         Join the discussions
       </a>
       <a
-        href="mailto:contact@mcpdesc.org"
+        href="https://github.com/mcpdesc/mcpdesc.org"
+        target="_blank"
+        rel="noopener"
+        title="Star to support the creation of an MCP Description format"
+        data-analytics-cta="star_github"
         class="inline-block rounded-md border border-slate-300 px-5 py-2.5 font-medium text-slate-800 no-underline hover:border-slate-400 dark:border-slate-700 dark:text-slate-100"
       >
-        contact@mcpdesc.org
+        ⭐ Star on GitHub
       </a>
     </div>
   </section>
@@ -42,17 +46,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="rounded-lg border border-slate-200 p-5 dark:border-slate-800">
         <h3 class="font-semibold">Contributors</h3>
         <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">
-          Contributors <strong>shape</strong> the project by proposing, discussing, or
+          Contributors advance the project by proposing, discussing, or
           submitting improvements — code, docs, specification feedback, examples, articles.
-          Contributions are accepted under the project's two licenses — <strong>code under Apache-2.0</strong>, <strong>documentation and editorial content under CC BY 4.0</strong>. Contributors <strong>retain copyright</strong> to their work; there is no CLA, no copyright assignment, and no DCO sign-off required.
+          Contributions are accepted for — code under <strong>Apache-2.0</strong>, and — documentation and editorial content under <strong>CC BY 4.0</strong>. 
         </p>
       </div>
       <div class="rounded-lg border border-slate-200 p-5 dark:border-slate-800">
         <h3 class="font-semibold">Maintainers</h3>
         <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">
-          Maintainers <strong>lead</strong> the project. They review and merge contributions,
-          guide the roadmap, maintain the MCP Description specification, publish releases,
-          curate the tools catalog, and keep governance, licensing, and attribution coherent.
+          Maintainers guide the roadmap, maintain the MCP Description specification, publish releases,
+          curate the tools catalog, review and merging contributions.
         </p>
       </div>
     </div>

@@ -1,8 +1,7 @@
 ---
-// Per-page "Copy as Markdown" control. Copies the page's Markdown twin to the clipboard
-// and offers a "View as Markdown" link (which also works without JavaScript). The twin URL
-// is derived from the current path (see src/lib/twinPath.ts) and matches the .md file
-// emitted by the markdown-twins build integration.
+// Per-page "Copy as Markdown" control. Copies the page's Markdown twin to the clipboard.
+// The twin URL is derived from the current path (see src/lib/twinPath.ts) and matches the
+// .md file emitted by the markdown-twins build integration.
 //
 // Analytics: the button carries `data-analytics-cta="copy_markdown"`, which the site's
 // declarative analytics wiring (Analytics.astro) turns into a privacy-safe
@@ -30,7 +29,6 @@ const href = twinUrl(Astro.url.pathname);
     </svg>
     <span class="md-actions__label">Copy</span>
   </button>
-  <a class="md-actions__view" href={href} data-md-view aria-label="View this page as Markdown">.md</a>
 </div>
 
 <script>
@@ -99,14 +97,11 @@ const href = twinUrl(Astro.url.pathname);
     height: 0.95rem;
     flex: none;
   }
-  .md-actions__view {
-    color: inherit;
-    opacity: 0.6;
-    text-decoration: none;
-    white-space: nowrap;
-  }
-  .md-actions__view:hover {
-    opacity: 1;
-    text-decoration: underline;
+  .md-actions__label {
+    /* Reserve room for the widest state ("Copied!") so the header doesn't shift
+       when the label changes after a click. */
+    display: inline-block;
+    min-width: 3rem;
+    text-align: left;
   }
 </style>
