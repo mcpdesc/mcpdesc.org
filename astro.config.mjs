@@ -58,6 +58,8 @@ export default defineConfig({
         // Match the marketing site's "{mcpdesc}" wordmark instead of Starlight's
         // default plain-text site title (see SiteHeader.astro).
         SiteTitle: './src/components/StarlightSiteTitle.astro',
+        // Append the "Copy as Markdown" control after the GitHub social icon.
+        SocialIcons: './src/components/StarlightSocialIcons.astro',
       },
       social: [
         {
@@ -74,6 +76,7 @@ export default defineConfig({
             { slug: 'docs/getting-started' },
             { slug: 'docs/add-a-tool' },
             { slug: 'docs/terminology' },
+            { slug: 'docs/using-with-ai' },
           ],
         },
         {

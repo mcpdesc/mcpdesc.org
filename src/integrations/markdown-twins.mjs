@@ -71,6 +71,22 @@ function normalizeExpressiveCode(root) {
   }
 }
 
+// Adjacent inline items (category/status pills as bare <span>s, or link rows like social
+// profiles and hero CTAs) have no whitespace between them, so they run together in Markdown
+// ("creationdocumentation", "[GitHub][LinkedIn]"). Append a trailing space to each inline
+// item in a multi-item flex row so they stay separated.
+function separateInlineBadges(root) {
+  for (const row of root.querySelectorAll('[class*="flex"]')) {
+    const items = row.childNodes.filter(
+      (node) =>
+        node.nodeType === 1 && (node.rawTagName === 'span' || node.rawTagName === 'a'),
+    );
+    if (items.length > 1) {
+      for (const item of items) item.set_content(`${item.innerHTML} `);
+    }
+  }
+}
+
 export default function markdownTwins() {
   return {
     name: 'markdown-twins',
@@ -86,7 +102,6 @@ export default function markdownTwins() {
           const root = parse(html);
           const content =
             root.querySelector('.sl-markdown-content') ??
-            root.querySelector('main article') ??
             root.querySelector('main');
           if (!content) continue;
 
@@ -96,6 +111,7 @@ export default function markdownTwins() {
             .querySelectorAll('a.sl-anchor-link, figcaption, button, .copy')
             .forEach((node) => node.remove());
           normalizeExpressiveCode(content);
+          separateInlineBadges(content);
 
           const body = nhm.translate(content.innerHTML).trim();
           if (!body) continue;
@@ -119,7 +135,14 @@ export default function markdownTwins() {
             .filter(Boolean)
             .join('\n');
 
-          await writeFile(path.join(distPath, rel), `${frontmatter}\n\n${body}\n`, 'utf8');
+          // Prepend a UTF-8 BOM so viewers that ignore the HTTP charset (local file opens,
+          // servers that omit `charset=utf-8`) still decode accented characters correctly.
+          // Production also serves these as `text/markdown; charset=utf-8` (public/_headers).
+          await writeFile(
+            path.join(distPath, rel),
+            `\uFEFF${frontmatter}\n\n${body}\n`,
+            'utf8',
+          );
 
           // Advertise the twin from the HTML page's <head> for agent discovery.
           const link = `<link rel="alternate" type="text/markdown" href="${url}">`;

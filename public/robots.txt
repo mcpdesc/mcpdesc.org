@@ -1,8 +1,10 @@
 # mcpdesc.org is intended to be publicly discoverable and usable by
 # search engines and AI systems for retrieval and grounded answers.
+# AI training is disallowed for now: the specification is still a Draft, so the
+# content should be used only as a reference (search + AI input), not for training.
 
 User-agent: *
-Content-Signal: search=yes, ai-input=yes, ai-train=yes
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 Allow: /
 
 Sitemap: https://mcpdesc.org/sitemap-index.xml

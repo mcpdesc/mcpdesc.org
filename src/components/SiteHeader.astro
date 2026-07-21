@@ -1,4 +1,6 @@
 ---
+import MarkdownActions from './MarkdownActions.astro';
+
 const nav: { label: string; href: string; newTab?: boolean }[] = [
   { label: 'Format', href: '/format' },
   { label: 'Try it', href: '/live-editor' },
@@ -48,6 +50,9 @@ const githubHref = 'https://github.com/mcpdesc/mcpdesc.org';
             ></path>
           </svg>
         </a>
+        <div class="flex items-center text-slate-600 dark:text-slate-300">
+          <MarkdownActions />
+        </div>
       </nav>
 
       <!-- Mobile menu toggle -->
@@ -113,6 +118,9 @@ const githubHref = 'https://github.com/mcpdesc/mcpdesc.org';
         </svg>
         <span>GitHub</span>
       </a>
+      <div class="flex items-center px-2 py-2 text-slate-600 dark:text-slate-300">
+        <MarkdownActions />
+      </div>
     </nav>
   </div>
 </header>

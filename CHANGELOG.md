@@ -7,6 +7,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-07-21
+
+### Added
+
+- **"Copy as Markdown" control** in the site header (next to the GitHub icon): copies the
+  current page's Markdown twin to the clipboard and offers a compact **`.md`** link (which
+  also works without JavaScript). Rendered by `src/components/MarkdownActions.astro`, shown on
+  marketing/blog pages via `SiteHeader` and on docs pages via a Starlight `SocialIcons`
+  override. The copy click is tracked via the existing privacy-safe `data-analytics-cta`
+  wiring where analytics is active.
+- New docs page **"Using the site with AI"** (`/docs/using-with-ai`, in the Project sidebar
+  group) explaining, from a user's perspective, how the site is accessible to AI and how to
+  use the Markdown twins, `.md` URLs, and `llms.txt` with an assistant.
+
+### Changed
+
+- **`robots.txt` now sets `ai-train=no`** (was `ai-train=yes`): while the specification is a
+  Draft, the content may be used for search and AI input (retrieval/grounding) but not for
+  model training. Documented in `docs/ai-discoverability.md`.
+
+### Fixed
+
+- Markdown twins now capture the **full** page content on pages with multiple `<article>`
+  cards (e.g. the tools catalog) — previously only the first card was included — and separate
+  adjacent inline items (category pills, social/CTA link rows) so they don't run together.
+- Markdown twins are written with a UTF-8 BOM so accented characters (e.g. "Stève") display
+  correctly even in viewers that ignore the HTTP `charset=utf-8` (the files were already
+  valid UTF-8; production also serves them with the correct charset).
+
 ## [0.5.0] - 2026-07-21
 
 ### Added

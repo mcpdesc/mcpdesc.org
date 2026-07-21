@@ -28,19 +28,21 @@ Released in `0.4.0` (robots.txt, sitemap, llms.txt) and `0.5.0` (Markdown twins)
 
 ## 1. robots.txt
 
-[`public/robots.txt`](../public/robots.txt) allows everything, including AI training, and
-points crawlers at the sitemap:
+[`public/robots.txt`](../public/robots.txt) allows crawling for search and AI input, but
+**disallows AI training**, and points crawlers at the sitemap:
 
 ```text
 User-agent: *
-Content-Signal: search=yes, ai-input=yes, ai-train=yes
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 Allow: /
 
 Sitemap: https://mcpdesc.org/sitemap-index.xml
 ```
 
 - `Content-Signal` is the [Content Signals](https://contentsignals.org/) framework: we
-  explicitly permit search indexing, AI input (retrieval/grounding), and AI training.
+  permit search indexing and AI input (retrieval/grounding), but **not AI training**. The
+  specification is still a **Draft**, so the content should be used only as a reference, not
+  as training data. Revisit `ai-train` when the spec stabilizes.
 - **Cloudflare interaction (important):** Cloudflare's managed/default `robots.txt` was
   **disabled** in the dashboard. Its managed file did not merge cleanly with ours, so leaving
   it on risked serving a conflicting policy. With it off, our static `public/robots.txt` is
@@ -91,10 +93,12 @@ every HTML page writes a Markdown counterpart:
   (served at `/docs/getting-started.md`).
 - Discovery: it injects `<link rel="alternate" type="text/markdown" href="…">` into each
   HTML page's `<head>`, and the twin path is simply the page path + `.md`.
-- Content extraction selects, in order: `.sl-markdown-content` (Starlight docs) →
-  `main article` (blog posts) → `main` (marketing pages).
+- Content extraction selects, in order: `.sl-markdown-content` (Starlight docs) → `main`
+  (marketing and blog pages). Note: `<main>` is used rather than a nested `article`, so pages
+  with multiple `<article>` cards (e.g. the tools catalog) are captured in full.
 - It strips non-content chrome (Starlight heading anchor links, Expressive Code copy buttons
-  and captions) and reconstructs code blocks with real newlines and language fences.
+  and captions), reconstructs code blocks with real newlines and language fences, and
+  separates adjacent inline badges (e.g. category pills) so they don't run together.
 - Redirect stubs (pages with a `<meta http-equiv="refresh">`) are skipped.
 - Each twin gets YAML frontmatter (`title`, `description`, `source`) derived from the page's
   `<title>`, meta description, and canonical URL.

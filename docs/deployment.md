@@ -89,9 +89,10 @@ How it behaves once enabled:
 - Security and cache headers from [`public/_headers`](../public/_headers) are preserved on the
   converted response.
 - Content Signals: our origin does not send a `content-signal` HTTP header, so Cloudflare adds
-  its default `content-signal: ai-train=yes, search=yes, ai-input=yes` — identical to the
-  `Content-Signal` policy declared in [`public/robots.txt`](../public/robots.txt), so the two
-  stay consistent.
+  its default `content-signal: ai-train=yes, search=yes, ai-input=yes`. Note this **differs**
+  from our [`public/robots.txt`](../public/robots.txt) policy, which sets `ai-train=no` while
+  the spec is a Draft. If Markdown for Agents is ever enabled, set a matching `content-signal`
+  HTTP header at the origin so the converted responses honor the same `ai-train=no` policy.
 
 To enable (zone on Pro or above):
 

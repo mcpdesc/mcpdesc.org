@@ -1,0 +1,20 @@
+---
+// Override of Starlight's SocialIcons so the "Copy as Markdown" control appears right after
+// the GitHub icon in the docs header (and mobile menu). Re-uses the built-in SocialIcons for
+// the configured social links, then appends our control.
+import Default from '@astrojs/starlight/components/SocialIcons.astro';
+import MarkdownActions from './MarkdownActions.astro';
+---
+
+<Default><slot /></Default>
+<div class="md-actions-host">
+  <MarkdownActions />
+</div>
+
+<style>
+  .md-actions-host {
+    display: inline-flex;
+    align-items: center;
+    color: var(--sl-color-text-accent);
+  }
+</style>

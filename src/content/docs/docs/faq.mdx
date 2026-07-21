@@ -38,6 +38,26 @@ package formats. They **complement** them by giving engineering teams a versione
 description of server capabilities that can be stored, reviewed, compared, and reused
 across workflows.
 
+## Server Cards exclude primitives — why does `mcpdesc` describe them?
+
+[SEP-2127 (MCP Server Cards)](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/sep/mcp-server-cards/seps/2127-mcp-server-cards.md)
+intentionally omits primitive definitions (tools, resources, and prompts) from Server
+Cards. Its reasoning is sound **for what a Server Card is**: a small, public, read-only
+document served for **pre-connection discovery**. Because an MCP server's runtime surface
+can vary by user, session, and configuration, a public discovery document should not carry
+primitives — and clients should never treat a static manifest as an access-control or
+safety signal.
+
+`mcpdesc` operates at a different layer: an MCP Description document is not a public discovery endpoint; 
+it is a **versioned engineering artifact** that describes what one specific release of a server exposes — reviewed in pull
+requests, stored in Git, and used to compare releases, generate documentation, and check
+consistency. It answers *"what does this version globally offer, and what changed?"*, it does not address: *"what can
+a particular authenticated user call right now?"* (which is covered by the runtime `tools/list`).
+
+Notably, the SEP itself flags this gap as unfinished work: *"a follow-on SEP should address the
+prerequisites … before primitive advertisement is added."* The `{mcpdesc}` project explores
+that space today.
+
 ## How do the project, community, and tools relate?
 
 The **`{mcpdesc}` project** stewards the format, its specification, examples, and the neutral

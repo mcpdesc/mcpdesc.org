@@ -1,0 +1,55 @@
+---
+title: Using the site with AI
+description: How mcpdesc.org is made accessible to AI assistants and agents, and how you can feed its content to the tools you already use.
+sidebar:
+  order: 6
+draft: false
+---
+
+This site is built to be read by both people and AI. Every page is available as clean
+Markdown, and the site is openly discoverable by search engines and AI assistants — so you
+can bring MCP Description (`mcpdesc`) content into whatever tool you already use.
+
+## How this site is accessible to AI
+
+- **Open to search and AI assistants.** The site welcomes search engines and AI crawlers for
+  indexing and for answering questions grounded in its content. (Using the content to *train*
+  models is not permitted while the specification is a Draft — it is a reference, not training
+  data.)
+- **A site map for machines.** A machine-readable index of key pages lives at
+  [`/llms.txt`](https://mcpdesc.org/llms.txt), so an assistant can quickly orient itself to
+  the most important content.
+- **A Markdown version of every page.** Each page has a Markdown twin: the same content,
+  without the site chrome, ready for an assistant to read with fewer wasted tokens.
+
+## How you can use it
+
+### Copy a page as Markdown
+
+Use the **Copy** button in the site header (next to the GitHub icon) to copy the current page
+as Markdown, then paste it into your assistant (ChatGPT, Claude, Copilot, or any other) and
+ask questions grounded in it. Prefer to see the raw text first? Use the **`.md`** link next to
+the Copy button.
+
+### Append `.md` to any URL
+
+Every page answers to a `.md` address. Add `.md` to a page's path to fetch its Markdown
+directly — handy for scripts, prompts, or "read this URL" features:
+
+```text
+https://mcpdesc.org/docs/getting-started        (the page)
+https://mcpdesc.org/docs/getting-started.md     (its Markdown)
+```
+
+### Point an assistant at the whole site
+
+Give an assistant [`https://mcpdesc.org/llms.txt`](https://mcpdesc.org/llms.txt) as a starting
+point. It lists the format overview, documentation, specification, tools catalog, and more, so
+the assistant can follow links (and their `.md` twins) to whatever it needs.
+
+### Ask grounded questions
+
+Once you have a page's Markdown in your assistant, you can ask things like "summarize what
+`mcpdesc` describes," "explain this section in plain terms," or "draft an `mcpdesc` document
+for a server with these tools" — with the assistant working from the actual content rather
+than guessing.

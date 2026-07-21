@@ -1,7 +1,7 @@
 {
   "name": "mcpdesc.org",
   "type": "module",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "private": true,
   "description": "Website of the mcpdesc Community — an open proposal for describing MCP servers (mcpdesc.org).",
   "license": "Apache-2.0",
@@ -11,7 +11,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "check": "astro check"
+    "check": "astro check",
+    "preversion": "npm run check && npm run build",
+    "version": "git add package.json package-lock.json"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",

@@ -164,6 +164,26 @@ npm run build   # must succeed
 npm run check   # type/diagnostics should pass
 ```
 
+## Releasing
+
+Bump the version with **`npm version`** — **never** edit the `version` field in
+`package.json` by hand. Manual edits leave `package-lock.json` out of sync (its `version`
+and `packages[""].version` are only rewritten when npm regenerates the lock).
+
+```bash
+# 1. Move the CHANGELOG "[Unreleased]" entries under a new "[x.y.z] - <date>" heading first.
+# 2. Then bump. npm updates package.json + package-lock.json and creates the version commit/tag.
+npm version patch   # or: minor | major
+```
+
+The `preversion` hook runs `npm run check && npm run build` (aborts the release if either
+fails); the `version` hook stages `package.json` and `package-lock.json` into the version
+commit. If a lock ever drifts, resync it without touching dependencies:
+
+```bash
+npm install --package-lock-only
+```
+
 ## Licensing
 
 - Code contributions: Apache-2.0 (`LICENSE`).

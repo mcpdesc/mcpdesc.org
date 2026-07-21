@@ -1,0 +1,112 @@
+---
+// Per-page "Copy as Markdown" control. Copies the page's Markdown twin to the clipboard
+// and offers a "View as Markdown" link (which also works without JavaScript). The twin URL
+// is derived from the current path (see src/lib/twinPath.ts) and matches the .md file
+// emitted by the markdown-twins build integration.
+//
+// Analytics: the button carries `data-analytics-cta="copy_markdown"`, which the site's
+// declarative analytics wiring (Analytics.astro) turns into a privacy-safe
+// `campaign_cta_clicked` event wherever analytics is active (marketing/blog pages).
+import { twinUrl } from '../lib/twinPath';
+
+const href = twinUrl(Astro.url.pathname);
+---
+
+<div class="md-actions" data-md-actions>
+  <button
+    type="button"
+    class="md-actions__btn"
+    data-md-copy
+    data-md-href={href}
+    data-analytics-cta="copy_markdown"
+    aria-label="Copy this page as Markdown"
+  >
+    <svg class="md-actions__icon" viewBox="0 0 208 128" aria-hidden="true" focusable="false">
+      <rect width="198" height="118" x="5" y="5" ry="10" fill="none" stroke="currentColor" stroke-width="10" />
+      <path
+        fill="currentColor"
+        d="M30 98V30h20l20 25 20-25h20v68H90V59L70 84 50 59v39zm125 0l-30-33h20V30h20v35h20z"
+      />
+    </svg>
+    <span class="md-actions__label">Copy</span>
+  </button>
+  <a class="md-actions__view" href={href} data-md-view aria-label="View this page as Markdown">.md</a>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-md-copy]').forEach((btn) => {
+    if (btn.dataset.mdBound) return;
+    btn.dataset.mdBound = 'true';
+
+    const label = btn.querySelector<HTMLElement>('.md-actions__label');
+    const original = label?.textContent ?? 'Copy';
+
+    btn.addEventListener('click', async () => {
+      const href = btn.dataset.mdHref;
+      if (!href) return;
+      try {
+        const res = await fetch(href, { headers: { Accept: 'text/markdown' } });
+        if (!res.ok) throw new Error(String(res.status));
+        const markdown = await res.text();
+        await navigator.clipboard.writeText(markdown);
+        if (label) label.textContent = 'Copied!';
+        btn.classList.add('is-copied');
+        setTimeout(() => {
+          if (label) label.textContent = original;
+          btn.classList.remove('is-copied');
+        }, 2000);
+      } catch {
+        // Clipboard unavailable (or fetch failed): fall back to opening the raw Markdown.
+        window.open(href, '_blank', 'noopener');
+      }
+    });
+  });
+</script>
+
+<style>
+  .md-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    line-height: 1;
+  }
+  .md-actions__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid currentColor;
+    border-radius: 0.375rem;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-size: 0.8125rem;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.15s ease, color 0.15s ease;
+  }
+  .md-actions__btn:hover {
+    opacity: 1;
+  }
+  .md-actions__btn.is-copied {
+    color: var(--color-brand, #3c68d9);
+    opacity: 1;
+  }
+  .md-actions__icon {
+    width: 0.95rem;
+    height: 0.95rem;
+    flex: none;
+  }
+  .md-actions__view {
+    color: inherit;
+    opacity: 0.6;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .md-actions__view:hover {
+    opacity: 1;
+    text-decoration: underline;
+  }
+</style>
