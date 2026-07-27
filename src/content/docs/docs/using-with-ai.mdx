@@ -24,6 +24,23 @@ can bring MCP Description (`mcpdesc`) content into whatever tool you already use
 
 ## How you can use it
 
+### Read the whole specification in one request
+
+You don't have to stitch together the individual section pages. The entire specification is
+published as a single Markdown file, so an assistant (or a script) can fetch it in one request:
+
+```text
+https://mcpdesc.org/specification/latest/mcpdesc.md   (the current latest version)
+https://mcpdesc.org/specification/0.7.0/mcpdesc.md    (an immutable, pinned version)
+```
+
+To discover the available, current, and upcoming versions programmatically — with each
+version's full-file, canonical-source, and schema URLs — fetch the machine-readable index:
+
+```text
+https://mcpdesc.org/specification/index.json
+```
+
 ### Copy a page as Markdown
 
 Use the **Copy** button in the site header (next to the GitHub icon) to copy the current page

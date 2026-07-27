@@ -7,6 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Cache and discovery headers for the specification bundles.** `public/_headers` now
+  gives each first-party specification resource a self-contained, explicit caching contract
+  instead of relying on Cloudflare's default heuristics: `/specification/index.json` and the
+  mutable `/specification/latest/*` alias are cached briefly (`max-age=300`, with
+  `stale-while-revalidate` for `latest`), while versioned bundles under
+  `/specification/0.7.0/*` are cached for a week (`max-age=604800`,
+  `stale-while-revalidate=86400`) — stable but not marked `immutable`, so a regenerated
+  bundle still propagates within a bounded window. Each rule restates its content type and
+  CORS so behaviour does not depend on how overlapping `_headers` rules are merged.
+- **`rel="alternate"` link to the single-file specification.** The 0.7.0 specification
+  overview page now advertises its complete Markdown bundle
+  (`/specification/0.7.0/mcpdesc.md`) via a `<link rel="alternate" type="text/markdown">`
+  in the page head, so crawlers and agents starting from the HTML page can discover the
+  one-request source.
+
+### Changed
+
+- **"Using the site with AI" documents one-request spec retrieval.** The
+  `/docs/using-with-ai` page now explains that the complete specification can be fetched in
+  a single request from `/specification/latest/mcpdesc.md` (or a pinned
+  `/specification/<version>/mcpdesc.md`) and discovered via `/specification/index.json`.
+
 ## [0.9.1] - 2026-07-27
 
 ### Added
