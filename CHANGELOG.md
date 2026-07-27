@@ -23,6 +23,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   (`/specification/0.7.0/mcpdesc.md`) via a `<link rel="alternate" type="text/markdown">`
   in the page head, so crawlers and agents starting from the HTML page can discover the
   one-request source.
+- **Homepage search-engine optimization.** The homepage now has a descriptive, keyword-rich
+  `<title>` ("MCP Description: a portable format for MCP servers · mcpdesc") instead of the
+  bare word "mcpdesc", an H1 and opening paragraph that name both **MCP Description** and
+  `mcpdesc` and enumerate what the format declares, a focused meta description, a `WebSite`
+  JSON-LD block (via a new named `head` slot in `BaseLayout`), and a prominent descriptive
+  link to the 0.7.0 specification. This helps search engines index the site under its real
+  identity rather than a parked-domain heuristic.
 
 ### Changed
 

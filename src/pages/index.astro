@@ -1,6 +1,17 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': 'https://mcpdesc.org/#website',
+  url: 'https://mcpdesc.org/',
+  name: 'mcpdesc',
+  alternateName: ['MCP Description', 'MCP Description format'],
+  description:
+    'The community-first website of the mcpdesc project — an open, portable format for describing MCP servers.',
+};
+
 const ctas = [
   { label: 'Try it', href: '/live-editor', primary: true, cta: 'open_editor' },
   { label: 'Learn the Format', href: '/format', primary: false, cta: 'learn_format' },
@@ -36,17 +47,21 @@ const pillars: { title: string; body: string }[] = [
 ---
 
 <BaseLayout
-  title="mcpdesc"
-  description={'The {mcpdesc} project is an independent open source initiative promoting a portable, machine-readable description format for MCP servers.'}
+  title="MCP Description: a portable format for MCP servers"
+  description="MCP Description (mcpdesc) is an open, portable format for describing MCP servers — their tools, resources, prompts, transports, security, and metadata."
   pageType="home"
 >
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(websiteSchema)} is:inline />
+
   <section class="pt-10 pb-4 text-center">
     <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">
-      Portable descriptions for MCP servers
+      MCP Description (mcpdesc) — a portable format for MCP servers
     </h1>
     <p class="mx-auto mt-4 max-w-2xl text-lg text-slate-600 dark:text-slate-300">
-      The {'{mcpdesc}'} project is an independent open source initiative promoting an
-      open, portable, machine-readable description format for MCP servers.
+      The {'{mcpdesc}'} project is an independent open source initiative promoting
+      MCP Description (mcpdesc) — an open, portable, machine-readable format that declares
+      everything an MCP server offers: its tools, resources, prompts, transports, security
+      requirements, and metadata in a single static document.
     </p>
   </section>
 
@@ -67,6 +82,16 @@ const pillars: { title: string; body: string }[] = [
       ))
     }
   </div>
+
+  <p class="mt-4 text-center text-sm text-slate-600 dark:text-slate-400">
+    Or read the{' '}
+    <a
+      class="font-medium text-[var(--color-brand)] hover:underline"
+      href="/docs/specification/0.7.0/"
+    >
+      MCP Description 0.7.0 specification
+    </a>.
+  </p>
 
   <section class="mt-12">
     <h2 class="text-2xl font-bold tracking-tight">Benefits</h2>
