@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.1] - 2026-07-27
+
 ### Added
 
 - **First-party specification bundles for AI retrieval.** The whole MCP Description
@@ -19,6 +21,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `scripts/build-spec-bundle.mjs` from the committed section pages and advertised via
   `public/llms.txt`, the spec landing pages, and `public/_headers`. See
   `docs/specification-mirror-strategy.md` §6.
+
+### Changed
+
+- **Specification references pinned to an immutable upstream tag.** The 0.7.0 section
+  pages, single-file bundle, and `index.json` now link the canonical source and JSON Schema
+  at `cisco-open/mcptoolkit-contract` tag `mcpdesc-v0.7.0` instead of the moving `main`
+  branch. `scripts/import-spec.mjs` is now tag-aware (`--repo`/`--path`/`--tag`, defaulting
+  to `mcpdesc-v<version>`) so future imports reference an exact release.
 
 ## [0.9.0] - 2026-07-21
 
