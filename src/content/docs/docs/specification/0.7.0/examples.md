@@ -44,10 +44,10 @@ tools:
 
 The canonical repository provides additional examples covering more transports and features:
 
-- [`minimal.yaml`](https://github.com/cisco-open/mcptoolkit-contract/blob/main/spec/examples/minimal.yaml)
-- [`stdio-server.yaml`](https://github.com/cisco-open/mcptoolkit-contract/blob/main/spec/examples/stdio-server.yaml)
-- [`http-server.yaml`](https://github.com/cisco-open/mcptoolkit-contract/blob/main/spec/examples/http-server.yaml)
-- [`multi-transport.yaml`](https://github.com/cisco-open/mcptoolkit-contract/blob/main/spec/examples/multi-transport.yaml)
-- [`full-featured.yaml`](https://github.com/cisco-open/mcptoolkit-contract/blob/main/spec/examples/full-featured.yaml)
+- [`minimal.yaml`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/examples/minimal.yaml)
+- [`stdio-server.yaml`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/examples/stdio-server.yaml)
+- [`http-server.yaml`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/examples/http-server.yaml)
+- [`multi-transport.yaml`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/examples/multi-transport.yaml)
+- [`full-featured.yaml`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/examples/full-featured.yaml)
 
 You can open any of these in the [Live Editor](/live-editor) to explore and validate them.

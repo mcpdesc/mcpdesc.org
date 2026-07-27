@@ -7,7 +7,7 @@ sidebar:
 ---
 
 :::note[Mirrored specification]
-This page mirrors **3. Document Structure** of the MCP Description specification **v0.7.0**. The canonical source of truth is [`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract/blob/main/spec/sections/03-document-structure.md). Where this page differs from upstream, upstream wins.
+This page mirrors **3. Document Structure** of the MCP Description specification **v0.7.0**. The canonical source of truth is [`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/sections/03-document-structure.md). Where this page differs from upstream, upstream wins.
 :::
 
 ## 3. Document Structure

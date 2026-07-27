@@ -7,7 +7,7 @@ sidebar:
 ---
 
 :::note[Mirrored specification]
-This page mirrors **5. Info Object** of the MCP Description specification **v0.7.0**. The canonical source of truth is [`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract/blob/main/spec/sections/05-info-object.md). Where this page differs from upstream, upstream wins.
+This page mirrors **5. Info Object** of the MCP Description specification **v0.7.0**. The canonical source of truth is [`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/sections/05-info-object.md). Where this page differs from upstream, upstream wins.
 :::
 
 ## 5. Info Object
