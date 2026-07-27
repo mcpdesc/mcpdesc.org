@@ -5,6 +5,13 @@ slug: docs/specification/0.7.0
 sidebar:
   label: Overview
   order: 0
+head:
+  - tag: link
+    attrs:
+      rel: alternate
+      type: text/markdown
+      title: Complete MCP Description Specification 0.7.0
+      href: https://mcpdesc.org/specification/0.7.0/mcpdesc.md
 ---
 
 :::note[Mirrored specification]
