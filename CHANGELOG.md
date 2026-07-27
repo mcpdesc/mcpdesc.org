@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.2] - 2026-07-27
+
 ### Added
 
 - **Cache and discovery headers for the specification bundles.** `public/_headers` now
