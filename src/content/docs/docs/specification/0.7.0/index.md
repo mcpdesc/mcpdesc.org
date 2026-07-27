@@ -10,7 +10,7 @@ sidebar:
 :::note[Mirrored specification]
 This is the landing page for the MCP Description specification **v0.7.0** (Status: **Draft**,
 2026-03-23). The canonical source of truth is
-[`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract/blob/main/spec/mcp-description.md).
+[`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/mcp-description.md).
 Where these pages differ from upstream, upstream wins.
 :::
 
