@@ -48,6 +48,7 @@ const ogImageURL = new URL('/mcpdesc-og.png', Astro.site);
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
     <Analytics />
+    <slot name="head" />
   </head>
   <body data-page-type={pageType} class="min-h-screen bg-white text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100">
     <SiteHeader />

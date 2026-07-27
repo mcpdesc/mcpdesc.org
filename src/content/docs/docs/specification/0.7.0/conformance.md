@@ -7,7 +7,7 @@ sidebar:
 ---
 
 :::note[Mirrored specification]
-This page mirrors **15. Conformance** of the MCP Description specification **v0.7.0**. The canonical source of truth is [`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract/blob/main/spec/sections/15-conformance.md). Where this page differs from upstream, upstream wins.
+This page mirrors **15. Conformance** of the MCP Description specification **v0.7.0**. The canonical source of truth is [`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/sections/15-conformance.md). Where this page differs from upstream, upstream wins.
 :::
 
 ## 15. Conformance
@@ -66,7 +66,7 @@ Clients MUST support `image/png` and `image/jpeg`. Clients SHOULD also support `
 
 ## Appendix B: Complete Example
 
-See [examples/full-featured.yaml](https://github.com/cisco-open/mcptoolkit-contract/blob/main/spec/examples/full-featured.yaml) for a complete MCP Description document demonstrating all features of this specification.
+See [examples/full-featured.yaml](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/examples/full-featured.yaml) for a complete MCP Description document demonstrating all features of this specification.
 
 ---
 
@@ -74,7 +74,7 @@ See [examples/full-featured.yaml](https://github.com/cisco-open/mcptoolkit-contr
 
 The normative JSON Schema for this specification version is available at:
 
-- [../../schemas/mcp-description/0.7.0.json](https://github.com/cisco-open/mcptoolkit-contract/blob/main/spec/../schemas/mcp-description/0.7.0.json)
+- [../../schemas/mcp-description/0.7.0.json](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/../schemas/mcp-description/0.7.0.json)
 - `https://developer.cisco.com/mcp-description/schema/0.7.0`
 
 ---

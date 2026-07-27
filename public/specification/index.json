@@ -1,0 +1,83 @@
+{
+  "$comment": "Machine-readable index of MCP Description specification versions. Fetch this first to discover available versions, the current latest, and any work-in-progress draft. Each version exposes a single-file `full` Markdown for one-request retrieval.",
+  "site": "https://mcpdesc.org",
+  "latest": "0.7.0",
+  "latestFull": "https://mcpdesc.org/specification/latest/mcpdesc.md",
+  "next": null,
+  "versions": [
+    {
+      "version": "0.7.0",
+      "channel": "latest",
+      "maturity": "draft",
+      "date": "2026-03-23",
+      "html": "https://mcpdesc.org/docs/specification/0.7.0/",
+      "full": "https://mcpdesc.org/specification/0.7.0/mcpdesc.md",
+      "sha256": "b8e12b24f8d92f337542d648476b3537767fe74b4b9a93e5c25a4b78d4cfbab4",
+      "canonical": "https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/mcp-description.md",
+      "canonicalRaw": "https://raw.githubusercontent.com/cisco-open/mcptoolkit-contract/mcpdesc-v0.7.0/spec/mcp-description.md",
+      "schema": "https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/schemas/mcp-description/0.7.0.json",
+      "sections": [
+        {
+          "title": "1. Introduction",
+          "url": "https://mcpdesc.org/docs/specification/0.7.0/introduction"
+        },
+        {
+          "title": "2. Terminology",
+          "url": "https://mcpdesc.org/docs/specification/0.7.0/terminology"
+        },
+        {
+          "title": "3. Document Structure",
+          "url": "https://mcpdesc.org/docs/specification/0.7.0/document-structure"
+        },
+        {
+          "title": "4. Versioning",
+          "url": "https://mcpdesc.org/docs/specification/0.7.0/versioning"
+        },
+        {
+          "title": "5. Info Object",
+          "url": "https://mcpdesc.org/docs/specification/0.7.0/info-object"
+        },
+        {
+          "title": "6. Transports",
+          "url": "https://mcpdesc.org/docs/specification/0.7.0/transports"
+        },
+        {
+          "title": "7. Security",
+          "url": "https://mcpdesc.org/docs/specification/0.7.0/security"
+        },
+        {
+          "title": "8. Capabilities",
+          "url": "https://mcpdesc.org/docs/specification/0.7.0/capabilities"
+        },
+        {
+          "title": "9. Tools",
+          "url": "https://mcpdesc.org/docs/specification/0.7.0/tools"
+        },
+        {
+          "title": "10. Resources and Resource Templates",
+          "url": "https://mcpdesc.org/docs/specification/0.7.0/resources"
+        },
+        {
+          "title": "11. Prompts",
+          "url": "https://mcpdesc.org/docs/specification/0.7.0/prompts"
+        },
+        {
+          "title": "12. Tags",
+          "url": "https://mcpdesc.org/docs/specification/0.7.0/tags"
+        },
+        {
+          "title": "13. Specification Extensions",
+          "url": "https://mcpdesc.org/docs/specification/0.7.0/specification-extensions"
+        },
+        {
+          "title": "14. Serialization",
+          "url": "https://mcpdesc.org/docs/specification/0.7.0/serialization"
+        },
+        {
+          "title": "15. Conformance",
+          "url": "https://mcpdesc.org/docs/specification/0.7.0/conformance"
+        }
+      ]
+    }
+  ]
+}

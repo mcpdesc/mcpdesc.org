@@ -103,6 +103,22 @@ Avoid unless explicitly approved:
 - Legacy `mcptoolkit.org` → `mcpdesc.org/tools`; secondary domains
   (`.com/.io/.eu/.tech`) → `mcpdesc.org`. Do **not** redirect `.org` to `.com`.
 
+## Specification versions
+
+- The spec is **mirrored** from `cisco-open/mcptoolkit-contract` into
+  `src/content/docs/docs/specification/<version>/**` (fully versioned, immutable folders).
+  Full procedure: `docs/specification-mirror-strategy.md`. Current: `mcpdesc` 0.7.0 (Draft,
+  latest).
+- To add or bump a version: run `scripts/import-spec.mjs <version> --tag <release-tag>`
+  (mirrors the section pages from an **immutable upstream tag** — `--tag` defaults to
+  `mcpdesc-v<version>`; `--repo`/`--path` override the source), then
+  `scripts/build-spec-bundle.mjs` (regenerates the single-file bundles + `index.json` under
+  `public/specification/`). Commit both. Never rewrite an old version.
+- The editorial source of truth for the version index — which version is `latest`, and any
+  work-in-progress draft (`next`/`wip`) — is the **`VERSIONS` registry** in
+  `scripts/build-spec-bundle.mjs`. Advertise an in-progress draft by adding a `wip`/`next`
+  entry there; no on-site pages are required until it is mirrored.
+
 ## Tech and conventions
 
 - Astro + Starlight (docs) + Tailwind CSS v4. Package manager: **npm**.

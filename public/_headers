@@ -18,3 +18,30 @@
 /*.md
   Content-Type: text/markdown; charset=utf-8
   Access-Control-Allow-Origin: *
+
+# First-party single-file specification bundles + machine-readable version index.
+# Fully specify each rule (content type, CORS, caching) so behaviour does not depend
+# on how Cloudflare merges the broader /*.md and /* rules above.
+#
+# The version index changes whenever a new version ships — cache briefly.
+/specification/index.json
+  Content-Type: application/json; charset=utf-8
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=300
+
+# The `latest` alias is mutable (it re-points when a new version ships): cache
+# briefly and allow stale-while-revalidate so agents still get fast responses.
+/specification/latest/*
+  Content-Type: text/markdown; charset=utf-8
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=300, stale-while-revalidate=3600
+
+# Versioned bundles are stable but not strictly frozen — we may regenerate a
+# released version's bundle (e.g. formatting fixes or a content re-import). So
+# cache for a week rather than marking it `immutable`, giving caches and agents a
+# bounded, predictable window in which a regeneration will propagate.
+# NOTE: add a matching rule for each new version bundle (e.g. /specification/0.8.0/*).
+/specification/0.7.0/*
+  Content-Type: text/markdown; charset=utf-8
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
