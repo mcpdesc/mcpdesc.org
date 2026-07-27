@@ -7,9 +7,9 @@
 > Complete MCP Description specification (all sections) as a single Markdown file,
 > for one-request retrieval by AI assistants and build tools.
 >
-> Canonical source of truth: https://github.com/cisco-open/mcptoolkit-contract/blob/main/spec/mcp-description.md
-> Raw Markdown: https://raw.githubusercontent.com/cisco-open/mcptoolkit-contract/main/spec/mcp-description.md
-> JSON Schema: https://github.com/cisco-open/mcptoolkit-contract/blob/main/schemas/mcp-description/0.7.0.json
+> Canonical source of truth: https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/mcp-description.md
+> Raw Markdown: https://raw.githubusercontent.com/cisco-open/mcptoolkit-contract/mcpdesc-v0.7.0/spec/mcp-description.md
+> JSON Schema: https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/schemas/mcp-description/0.7.0.json
 > Version index (machine-readable): https://mcpdesc.org/specification/index.json
 >
 > This first-party copy mirrors the versioned section pages at
@@ -38,9 +38,14 @@ specification may change before reaching a stable release.
 
 ## Source & schema
 
-- **Canonical specification** — [`spec/mcp-description.md`](https://github.com/cisco-open/mcptoolkit-contract/blob/main/spec/mcp-description.md)
-- **JSON Schema (0.7.0)** — [`schemas/mcp-description/0.7.0.json`](https://github.com/cisco-open/mcptoolkit-contract/blob/main/schemas/mcp-description/0.7.0.json)
+- **Canonical specification** — [`spec/mcp-description.md`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/mcp-description.md) ([raw](https://raw.githubusercontent.com/cisco-open/mcptoolkit-contract/mcpdesc-v0.7.0/spec/mcp-description.md))
+- **JSON Schema (0.7.0)** — [`schemas/mcp-description/0.7.0.json`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/schemas/mcp-description/0.7.0.json)
 - **Reference tooling** — [`mcpcontract`](https://github.com/cisco-open/mcptoolkit-contract)
+
+### For AI assistants and tools
+
+- **Complete spec, single file** — [`/specification/0.7.0/mcpdesc.md`](https://mcpdesc.org/specification/0.7.0/mcpdesc.md): every section concatenated into one Markdown document for one-request retrieval. The latest version is always at [`/specification/latest/mcpdesc.md`](https://mcpdesc.org/specification/latest/mcpdesc.md).
+- **Version index (JSON)** — [`/specification/index.json`](https://mcpdesc.org/specification/index.json): machine-readable list of all versions, the current latest, any work-in-progress draft, and each version's full-file, canonical-source, and schema URLs.
 
 ---
 
@@ -1227,7 +1232,7 @@ Clients MUST support `image/png` and `image/jpeg`. Clients SHOULD also support `
 
 ## Appendix B: Complete Example
 
-See [examples/full-featured.yaml](https://github.com/cisco-open/mcptoolkit-contract/blob/main/spec/examples/full-featured.yaml) for a complete MCP Description document demonstrating all features of this specification.
+See [examples/full-featured.yaml](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/examples/full-featured.yaml) for a complete MCP Description document demonstrating all features of this specification.
 
 ---
 
@@ -1235,7 +1240,7 @@ See [examples/full-featured.yaml](https://github.com/cisco-open/mcptoolkit-contr
 
 The normative JSON Schema for this specification version is available at:
 
-- [../../schemas/mcp-description/0.7.0.json](https://github.com/cisco-open/mcptoolkit-contract/blob/main/spec/../schemas/mcp-description/0.7.0.json)
+- [../../schemas/mcp-description/0.7.0.json](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/../schemas/mcp-description/0.7.0.json)
 - `https://developer.cisco.com/mcp-description/schema/0.7.0`
 
 ---
@@ -1290,10 +1295,10 @@ tools:
 
 The canonical repository provides additional examples covering more transports and features:
 
-- [`minimal.yaml`](https://github.com/cisco-open/mcptoolkit-contract/blob/main/spec/examples/minimal.yaml)
-- [`stdio-server.yaml`](https://github.com/cisco-open/mcptoolkit-contract/blob/main/spec/examples/stdio-server.yaml)
-- [`http-server.yaml`](https://github.com/cisco-open/mcptoolkit-contract/blob/main/spec/examples/http-server.yaml)
-- [`multi-transport.yaml`](https://github.com/cisco-open/mcptoolkit-contract/blob/main/spec/examples/multi-transport.yaml)
-- [`full-featured.yaml`](https://github.com/cisco-open/mcptoolkit-contract/blob/main/spec/examples/full-featured.yaml)
+- [`minimal.yaml`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/examples/minimal.yaml)
+- [`stdio-server.yaml`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/examples/stdio-server.yaml)
+- [`http-server.yaml`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/examples/http-server.yaml)
+- [`multi-transport.yaml`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/examples/multi-transport.yaml)
+- [`full-featured.yaml`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/examples/full-featured.yaml)
 
 You can open any of these in the [Live Editor](https://mcpdesc.org/live-editor) to explore and validate them.

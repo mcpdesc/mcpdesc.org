@@ -58,8 +58,9 @@ const VERSIONS = [
     maturity: 'draft',
     date: '2026-03-23',
     canonicalRepo: 'cisco-open/mcptoolkit-contract',
-    // TODO: pin to an immutable tag/commit once upstream tags releases (see below).
-    canonicalRef: 'main',
+    // Pinned to an immutable upstream release tag so canonical/raw/schema links are stable
+    // (not the moving `main` branch). Bump this when a new tag mirrors a new version.
+    canonicalRef: 'mcpdesc-v0.7.0',
   },
   // When vNext begins, uncomment and adjust — no on-site pages required for a wip entry:
   // {
@@ -155,6 +156,18 @@ function absolutizeLinks(md) {
   return md.replace(/\]\((\/[^)]*)\)/g, `](${SITE}$1)`);
 }
 
+// Pin upstream repo links that the mirrored pages left on the moving `main` branch (e.g.
+// example-file and appendix references) to the version's immutable canonical ref, so a
+// per-version bundle points only at stable URLs.
+function pinUpstreamRef(md, repo, ref) {
+  if (!ref || ref === 'main') return md;
+  return md
+    .split(`github.com/${repo}/blob/main/`)
+    .join(`github.com/${repo}/blob/${ref}/`)
+    .split(`raw.githubusercontent.com/${repo}/main/`)
+    .join(`raw.githubusercontent.com/${repo}/${ref}/`);
+}
+
 function cleanSection(raw, { isOverview, slug }) {
   const { data, body } = parseFrontmatter(raw);
   let md = transformAsides(body);
@@ -218,7 +231,7 @@ function buildFull(v) {
     ``,
   ].join('\n');
 
-  const full = header + parts.map((p) => p.md).join('\n\n---\n\n') + '\n';
+  const full = header + pinUpstreamRef(parts.map((p) => p.md).join('\n\n---\n\n'), v.canonicalRepo, v.canonicalRef) + '\n';
 
   const outDir = join(OUT_ROOT, v.version);
   mkdirSync(outDir, { recursive: true });
