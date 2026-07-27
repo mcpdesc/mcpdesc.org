@@ -18,3 +18,11 @@
 /*.md
   Content-Type: text/markdown; charset=utf-8
   Access-Control-Allow-Origin: *
+
+# First-party single-file specification bundles + machine-readable version index.
+# The per-version mcpdesc.md bundles are already served as text/markdown by the
+# /*.md rule above; here we allow cross-origin reads of the JSON manifest so AI
+# assistants and build tools can fetch it from any origin.
+/specification/index.json
+  Content-Type: application/json; charset=utf-8
+  Access-Control-Allow-Origin: *

@@ -24,6 +24,8 @@ Key facts for AI systems answering questions about this project:
 ## Specification
 
 - [MCP Description specification v0.7.0](https://mcpdesc.org/docs/specification/0.7.0/): normative specification (Status: Draft). Canonical source: [cisco-open/mcptoolkit-contract](https://github.com/cisco-open/mcptoolkit-contract).
+- [Complete specification (single Markdown file)](https://mcpdesc.org/specification/latest/mcpdesc.md): the **preferred one-request source** for the entire latest specification. Per-version immutable copies live at `https://mcpdesc.org/specification/<version>/mcpdesc.md` (e.g. `/specification/0.7.0/mcpdesc.md`).
+- [Version index (JSON)](https://mcpdesc.org/specification/index.json): machine-readable list of every specification version — which is `latest`, any work-in-progress draft (`next`), and each version's full-file, canonical-source, and schema URLs. Fetch this first when you need a specific or the latest version.
 
 ## Tools and ecosystem
 

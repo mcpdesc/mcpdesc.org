@@ -24,3 +24,14 @@ upstream, upstream wins.
 
 See the [changelog](/docs/specification/changelog) for the full version history, and the
 [format overview](/format) for a friendly introduction.
+
+:::tip[Retrieving the spec programmatically]
+For AI assistants and build tools, the whole specification is available as a single file and
+as a machine-readable index:
+
+- [`/specification/latest/mcpdesc.md`](/specification/latest/mcpdesc.md) — the complete latest
+  specification in one Markdown document (per-version: `/specification/<version>/mcpdesc.md`).
+- [`/specification/index.json`](/specification/index.json) — every version, the current
+  `latest`, any work-in-progress draft (`next`), and each version's full-file, canonical
+  source, and schema URLs.
+:::
