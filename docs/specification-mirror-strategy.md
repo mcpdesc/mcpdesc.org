@@ -153,8 +153,12 @@ frozen, editable source for that version (annotations added by hand afterwards).
 
 When upstream releases a new spec version (e.g. 0.7.1 or 0.8.0):
 
-1. **Import:** run `scripts/import-spec.mjs <version>` to generate
-   `/docs/specification/<version>/**` from the upstream `sections/` for that version.
+1. **Import:** run `scripts/import-spec.mjs <version> --tag <release-tag>` to generate
+   `/docs/specification/<version>/**` from the upstream `sections/` at an **immutable tag**
+   (`--tag` defaults to `mcpdesc-v<version>`; `--repo`/`--path` override the source repo and
+   subpath). The generated provenance banners and links point at that exact tag — never the
+   moving `main` branch — so it is unambiguous what was mirrored. Check the vendored clone
+   under `ref/<repo-name>/` out at the same tag (the script warns if it is not).
 2. **Landing + examples:** author the version landing page and curated examples page.
 3. **Changelog:** update `/docs/specification/changelog` from upstream `CHANGELOG.md`.
 4. **Version index:** add the new version and re-mark which version is **latest**; add a

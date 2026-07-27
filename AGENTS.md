@@ -109,9 +109,11 @@ Avoid unless explicitly approved:
   `src/content/docs/docs/specification/<version>/**` (fully versioned, immutable folders).
   Full procedure: `docs/specification-mirror-strategy.md`. Current: `mcpdesc` 0.7.0 (Draft,
   latest).
-- To add or bump a version: run `scripts/import-spec.mjs <version>` (mirrors the section
-  pages), then `scripts/build-spec-bundle.mjs` (regenerates the single-file bundles +
-  `index.json` under `public/specification/`). Commit both. Never rewrite an old version.
+- To add or bump a version: run `scripts/import-spec.mjs <version> --tag <release-tag>`
+  (mirrors the section pages from an **immutable upstream tag** — `--tag` defaults to
+  `mcpdesc-v<version>`; `--repo`/`--path` override the source), then
+  `scripts/build-spec-bundle.mjs` (regenerates the single-file bundles + `index.json` under
+  `public/specification/`). Commit both. Never rewrite an old version.
 - The editorial source of truth for the version index — which version is `latest`, and any
   work-in-progress draft (`next`/`wip`) — is the **`VERSIONS` registry** in
   `scripts/build-spec-bundle.mjs`. Advertise an in-progress draft by adding a `wip`/`next`
