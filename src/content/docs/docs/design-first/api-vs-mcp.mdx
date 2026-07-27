@@ -1,0 +1,601 @@
+---
+title: Deciding Between an MCP Server and an HTTP API
+description: A practical framework for deciding whether a service should expose an MCP interface, an HTTP API, or both.
+sidebar:
+  order: 5
+draft: true
+-----------------------------------------------------------------------------------------------------------------------
+
+# Deciding Between an MCP Server and an HTTP API
+
+When a team wants to make data or functionality available to an AI application, a common question is:
+
+> Should we build an MCP server, or expose a conventional HTTP API?
+
+The two approaches are not direct substitutes in every situation, and the question can create a false distinction.
+
+HTTP is a general application protocol. MCP is a protocol specifically designed to connect AI applications with external tools, contextual data, and workflows. A remote MCP server may itself use HTTP as its transport.
+
+The more precise decision is:
+
+> Should consumers integrate through a domain-specific HTTP interface, through a standardized MCP interface for AI applications, or through both?
+
+The answer depends primarily on who the consumers are and how they need to interact with the service.
+
+## Start with the consumer
+
+The clearest distinction is not the server’s programming language, deployment platform, or backend system. It is the client.
+
+A conventional HTTP API is usually designed for:
+
+* web applications;
+* mobile applications;
+* backend services;
+* automation scripts;
+* partner integrations;
+* developers building deterministic clients.
+
+An MCP server is usually designed for:
+
+* AI assistants;
+* agentic applications;
+* IDEs with AI capabilities;
+* MCP-compatible hosts;
+* models that need to discover and select capabilities;
+* workflows composed across multiple external systems.
+
+If the primary client is known and its behaviour is implemented directly in application code, an HTTP API is often sufficient.
+
+If multiple AI applications should discover and use the same capabilities through a standard model-oriented interface, MCP may provide substantial value.
+
+## MCP does not replace HTTP
+
+MCP defines a protocol architecture that includes:
+
+* JSON-RPC messages;
+* initialization;
+* capability negotiation;
+* tools;
+* resources;
+* prompts;
+* notifications and other protocol features.
+
+For remote connectivity, MCP’s Streamable HTTP transport uses HTTP requests and may use Server-Sent Events for streaming.
+
+A remote architecture may therefore look like:
+
+```text
+AI application
+      │
+      │ MCP over Streamable HTTP
+      ▼
+MCP server
+      │
+      │ Internal HTTP, database, queue, SDK, or service call
+      ▼
+Domain system
+```
+
+The question is not whether packets travel over HTTP. The question is which application-level contract the consumer receives.
+
+## What an HTTP API provides
+
+HTTP is a stateless application-level protocol with standardized request and response semantics. It provides a generic interface for working with networked resources and is supported throughout the software ecosystem.
+
+A conventional API might expose:
+
+```http
+GET    /customers/{customerId}
+POST   /orders
+PATCH  /orders/{orderId}
+DELETE /orders/{orderId}
+```
+
+The application consuming the API determines:
+
+* which endpoint to call;
+* when to call it;
+* how to sequence calls;
+* how to present results;
+* how to recover from errors;
+* how to combine the API with other services.
+
+The API can be documented with a machine-readable contract and consumed by generated or hand-written clients.
+
+## Benefits of an HTTP API
+
+### Broad compatibility
+
+HTTP can be consumed by almost every mainstream programming language, browser environment, integration platform, gateway, and automation system.
+
+An MCP server requires an MCP-compatible client or an adapter.
+
+### Deterministic application control
+
+With an HTTP API, application code controls the workflow.
+
+This is appropriate when the expected sequence is known:
+
+```text
+Load form
+→ validate fields
+→ create record
+→ display confirmation
+```
+
+There is no need for a language model to decide which operation should occur.
+
+### Mature infrastructure
+
+HTTP APIs benefit from established infrastructure for:
+
+* routing;
+* proxies;
+* gateways;
+* caching;
+* load balancing;
+* observability;
+* rate limiting;
+* web application firewalls;
+* service meshes;
+* testing;
+* client generation.
+
+MCP traffic can also use parts of this infrastructure when transported over HTTP, but conventional APIs align more directly with standard HTTP methods, paths, and status semantics.
+
+### Efficient graphical applications
+
+Web and mobile interfaces usually need predictable, structured operations and direct control over rendering.
+
+Adding an LLM and MCP layer to a deterministic form or dashboard can increase latency, cost, and variability without improving the user experience.
+
+### Existing partner and developer ecosystems
+
+When external developers already integrate through an HTTP API, replacing that interface with MCP would unnecessarily narrow compatibility.
+
+MCP can be added as another interface rather than replacing the established API.
+
+## Limitations of an HTTP API for AI applications
+
+An HTTP API is not automatically a model-usable interface.
+
+An AI application may still require:
+
+* provider-specific tool definitions;
+* an adapter that maps endpoints to model operations;
+* descriptions written for model selection;
+* orchestration logic;
+* conversion of errors into model-understandable results;
+* custom handling for contextual data;
+* a new integration for each AI host or agent framework.
+
+An API description can document endpoints and schemas, but the AI host still needs an agreed mechanism for discovering and invoking them.
+
+A poor model integration may expose a generic operation such as:
+
+```json
+{
+  "method": "POST",
+  "path": "/v2/accounts/472/actions",
+  "body": {}
+}
+```
+
+This preserves the HTTP interface but forces the model to understand low-level API mechanics.
+
+A better agent interface might expose:
+
+```text
+suspend_customer_account
+```
+
+with a description explaining:
+
+* when suspension is appropriate;
+* which confirmation is required;
+* what effects it causes;
+* whether it can be reversed.
+
+## What MCP provides
+
+MCP is an open standard for connecting AI applications to external systems. Servers can expose tools, contextual resources, and reusable prompts or workflows through a common protocol.
+
+An MCP host can:
+
+1. connect to the server;
+2. negotiate supported capabilities;
+3. discover the capabilities the server exposes;
+4. present relevant capabilities to a model or user;
+5. invoke them through a standardized protocol.
+
+The host manages the user experience and may coordinate connections to multiple MCP servers.
+
+## Benefits of an MCP server
+
+### Standardized discovery for AI hosts
+
+A compatible host can discover the server’s tools, resources, and prompts without a bespoke integration for every capability.
+
+This reduces the need to recreate equivalent tool definitions for different AI platforms.
+
+### Model-oriented tool interfaces
+
+MCP tools include names, descriptions, metadata, and schemas designed to support model discovery and invocation. Tools can query systems, call APIs, perform computations, or create side effects.
+
+The interface can be designed around user intentions rather than backend endpoints.
+
+For example:
+
+```text
+HTTP-oriented operations
+
+GET  /projects/{id}
+GET  /projects/{id}/tasks
+GET  /projects/{id}/risks
+POST /reports
+
+
+Agent-oriented MCP capability
+
+prepare_project_review
+```
+
+The MCP tool does not need to collapse everything into one operation, but design-first analysis may reveal that the agent benefits from a higher-level capability.
+
+### Different primitives for different roles
+
+MCP distinguishes between:
+
+* tools for actions;
+* resources for contextual data;
+* prompts for user-controlled workflows.
+
+Resources can provide application-specific context such as files, records, schemas, or documentation. Prompts can structure reusable interactions and may reference tools and resources.
+
+A conventional HTTP API can support all the underlying functionality, but it does not natively express these AI interaction roles to an MCP host.
+
+### Portability across compatible hosts
+
+The same MCP server can potentially be connected to multiple compatible AI hosts without defining a completely different integration for each one.
+
+This is most valuable when the server is intended for an ecosystem rather than one controlled application.
+
+### Composition with other MCP servers
+
+An AI host may coordinate capabilities from several connected MCP servers.
+
+For example, a user could request:
+
+```text
+Review the open incident, find the relevant runbook,
+create an action plan, and schedule a follow-up.
+```
+
+The host might combine:
+
+* an incident-management server;
+* a documentation server;
+* a project-management server;
+* a calendar server.
+
+With HTTP APIs, an application developer would normally implement this orchestration directly.
+
+### Host-provided conversational experience
+
+The MCP server does not necessarily need to build and operate its own chat interface. It can provide capabilities to hosts that already manage:
+
+* model interaction;
+* conversation history;
+* user presentation;
+* confirmation;
+* tool selection;
+* connections to other servers.
+
+## Costs and limitations of MCP
+
+MCP should not be selected merely because a service may eventually be mentioned in a conversation.
+
+### Additional protocol complexity
+
+Compared with a small HTTP endpoint, an MCP implementation introduces protocol concepts such as initialization, capability negotiation, JSON-RPC operations, and MCP-specific lifecycle handling.
+
+### Smaller client ecosystem
+
+HTTP is universally supported. Direct MCP consumption requires a compatible host, client, SDK, or adapter.
+
+### Model variability
+
+A model may:
+
+* select the wrong tool;
+* omit information;
+* call tools in an inefficient order;
+* misinterpret descriptions;
+* retry an operation unexpectedly.
+
+The server must validate every request and enforce business, security, and authorization rules independently of the model.
+
+### Latency and cost
+
+A conversational flow may involve one or more model calls in addition to server calls.
+
+For deterministic operations, this can be slower and more expensive than a direct application request.
+
+### Less direct use of HTTP semantics
+
+An MCP tool call transported over HTTP is not the same interface as a resource-oriented HTTP endpoint.
+
+Conventional HTTP applications may benefit more directly from:
+
+* method semantics;
+* status codes;
+* conditional requests;
+* intermediary caching;
+* resource-specific URLs.
+
+### Host-dependent presentation
+
+Different MCP hosts may present tools, resources, prompts, approvals, and results differently.
+
+A service requiring a tightly controlled user interface may still need a dedicated web or mobile experience.
+
+## Comparison
+
+| Dimension                 | HTTP API                                | MCP server                                        |
+| ------------------------- | --------------------------------------- | ------------------------------------------------- |
+| Primary consumer          | Applications and services               | AI hosts and agents                               |
+| Client behaviour          | Implemented in code                     | May be selected or orchestrated by a model        |
+| Discovery                 | Documentation or API description        | MCP runtime discovery                             |
+| Main abstractions         | HTTP resources and operations           | Tools, resources, prompts                         |
+| Client compatibility      | Nearly universal                        | MCP-compatible clients                            |
+| Determinism               | High                                    | Depends partly on model and host                  |
+| Multi-system composition  | Implemented by the application          | Can be coordinated by the host and model          |
+| Graphical interfaces      | Natural fit                             | Usually host-dependent                            |
+| Agent portability         | Requires adapters                       | Core objective                                    |
+| Infrastructure maturity   | Very high                               | Growing                                           |
+| Model-facing descriptions | Additional integration concern          | Part of the capability interface                  |
+| Transport                 | HTTP                                    | stdio, Streamable HTTP, or supported alternatives |
+| Best fit                  | Known clients and predictable workflows | Discoverable capabilities for AI applications     |
+
+## When to choose an HTTP API
+
+Prefer a conventional HTTP API when most of the following are true:
+
+* the primary clients are web, mobile, backend, or partner applications;
+* the interaction flow is known in advance;
+* application code should choose every operation;
+* HTTP caching or resource semantics are important;
+* broad client compatibility is required;
+* the service must support developers who do not use MCP;
+* the user experience requires precise graphical control;
+* introducing a model would add cost without adding meaningful flexibility.
+
+Examples include:
+
+* checkout and payment APIs;
+* public data APIs;
+* mobile application backends;
+* webhook receivers;
+* media delivery;
+* deterministic forms and dashboards;
+* machine-to-machine integrations.
+
+## When to choose an MCP server
+
+Prefer an MCP server when most of the following are true:
+
+* AI applications are first-class consumers;
+* capabilities should be discovered dynamically;
+* the interface should work across multiple compatible AI hosts;
+* a model needs to select among domain operations;
+* contextual data should be exposed as resources;
+* reusable workflows should be exposed as prompts;
+* users will express intentions conversationally;
+* composition with other MCP servers is valuable;
+* the service should avoid provider-specific tool integrations;
+* the agent-facing interface differs from the backend API.
+
+Examples include:
+
+* searching internal knowledge from an assistant;
+* investigating incidents across operational systems;
+* managing development workflows from an IDE;
+* querying and updating project-management systems;
+* supporting research across several data sources;
+* performing domain actions from different AI hosts.
+
+## When to expose both
+
+Many durable services should provide both interfaces.
+
+A common architecture is:
+
+```text
+                    ┌───────────────────────┐
+Web and mobile ────▶│ HTTP API adapter      │
+                    └───────────┬───────────┘
+                                │
+                    ┌───────────▼───────────┐
+                    │ Domain services       │
+                    │                       │
+                    │ Business rules        │
+                    │ Authorization         │
+                    │ Persistence           │
+                    │ Audit                 │
+                    └───────────▲───────────┘
+                                │
+                    ┌───────────┴───────────┐
+AI hosts ──────────▶│ MCP adapter           │
+                    │ Tools/resources/      │
+                    │ prompts               │
+                    └───────────────────────┘
+```
+
+The adapters serve different consumers while sharing the same domain logic.
+
+The HTTP interface can remain:
+
+* resource-oriented;
+* broadly compatible;
+* efficient for application use;
+* aligned with existing partners.
+
+The MCP interface can be:
+
+* intention-oriented;
+* discoverable by AI hosts;
+* designed around model comprehension;
+* selective about which backend capabilities are exposed.
+
+The MCP layer should not reproduce business rules already enforced elsewhere. Authorization, validation, state transitions, and audit logic should remain in shared domain services.
+
+## Avoid mechanical API wrapping
+
+An MCP server is not automatically useful because it forwards HTTP requests.
+
+This is a weak MCP tool:
+
+```text
+call_api(method, path, headers, body)
+```
+
+It exposes implementation mechanics and gives the model few domain-level cues.
+
+A one-to-one mapping is also not necessarily sufficient:
+
+```text
+create_order
+read_order
+update_order
+delete_order
+```
+
+It may be appropriate, but it should be the result of a deliberate agent-interface design—not an automatic translation of endpoints.
+
+Ask:
+
+* What intentions will users express?
+* Which operations should a model be allowed to select?
+* Which information belongs in context?
+* Which actions require confirmation?
+* Which backend operations should never be exposed?
+* Can several low-level calls become one safe domain capability?
+* Does the output help the model understand the result and next step?
+
+The differentiator is not merely that MCP can call the API. The differentiator is a standard, discoverable, model-oriented capability surface.
+
+## A practical decision tree
+
+```text
+Are AI applications first-class consumers?
+│
+├─ No
+│  └─ Prefer an HTTP API or another conventional interface.
+│
+└─ Yes
+   │
+   ├─ Is there only one controlled AI application?
+   │  │
+   │  ├─ Yes
+   │  │  └─ Either approach may work.
+   │  │     Choose MCP when standard discovery or future portability matters.
+   │  │
+   │  └─ No
+   │     └─ MCP becomes more valuable across multiple compatible hosts.
+   │
+   ├─ Do non-AI applications also need the service?
+   │  │
+   │  ├─ Yes
+   │  │  └─ Consider both HTTP and MCP interfaces over shared domain logic.
+   │  │
+   │  └─ No
+   │     └─ An MCP-only interface may be sufficient.
+   │
+   └─ Is the workflow deterministic and UI-controlled?
+      │
+      ├─ Yes
+      │  └─ A direct HTTP integration may remain simpler.
+      │
+      └─ No
+         └─ MCP may suit conversational and composable interaction.
+```
+
+## Questions to answer before deciding
+
+Document answers to these questions:
+
+1. Who are the intended consumers?
+2. Is an AI model expected to choose operations?
+3. Must the service work with more than one AI host?
+4. Will conventional applications consume the same functionality?
+5. Is the interaction deterministic or conversational?
+6. Does the service expose contextual data, actions, reusable workflows, or all three?
+7. How important are standard HTTP resource and caching semantics?
+8. What latency and model cost are acceptable?
+9. Which operations create side effects?
+10. Can the agent-facing interface differ from the backend API?
+11. Where will authentication and authorization be enforced?
+12. Does MCP create a real interoperability benefit, or only another wrapper?
+
+## Rule of thumb
+
+Use an HTTP API when the client already knows what it wants to call.
+
+Use MCP when an AI host needs to discover what it can do.
+
+Use both when conventional applications and AI applications are equally important consumers.
+
+## Conclusion
+
+MCP and HTTP solve problems at different layers.
+
+HTTP provides a universal foundation for networked application interfaces. MCP provides a standardized capability interface for AI applications, including tools, contextual resources, prompts, discovery, and protocol lifecycle.
+
+Neither is universally better.
+
+A successful decision begins with the consumer:
+
+* For deterministic applications, broad integrations, and conventional developer ecosystems, an HTTP API is usually the natural choice.
+* For discoverable, model-oriented capabilities used across AI hosts, MCP can remove bespoke integration work and provide more appropriate abstractions.
+* For services serving both audiences, separate HTTP and MCP adapters over shared domain logic often provide the strongest architecture.
+
+The goal is not to make every service an MCP server. It is to use MCP where its agent-oriented interoperability creates value that a direct API alone does not provide.
+
+## Further reading
+
+| Reference                              | Reader benefit                                                                    | Difference from our methodology                                                 | Independence                                                                                                |
+| -------------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| **What is MCP?**                       | Accessible overview for newcomers                                                 | Introductory and benefits-led, not a balanced MCP-versus-HTTP analysis          | **Medium.** Official protocol-project content, but naturally advocates MCP                                  |
+| **MCP Specification and architecture** | Authoritative facts about what MCP actually standardizes                          | Does not advise whether a business should use MCP, HTTP, or both                | **High authority**, though still maintained within the MCP project                                          |
+| **RFC 9110**                           | Establishes what HTTP is and prevents oversimplified comparisons                  | Defines protocol semantics, not API design methodology or AI integration        | **Very high.** IETF standards-track reference                                                               |
+| **OpenAPI Specification**              | Demonstrates structured discovery and contracts for HTTP APIs                     | Describes HTTP APIs, not model-facing capability negotiation                    | **High.** Vendor-neutral OpenAPI Initiative governance under the Linux Foundation ([OpenAPI Initiative][1]) |
+| **OpenAPI design-first guidance**      | Shows that mocking, generation, validation, and CI are not MCP-exclusive benefits | Focuses on OpenAPI’s description lifecycle rather than AI-host interoperability | **High**, with the caveat that it represents the OpenAPI Initiative’s preferred methodology                 |
+| **MCP Security Best Practices**        | Adds necessary caution to an otherwise benefit-focused MCP discussion             | MCP-specific and not a comparative security analysis                            | **Medium-high.** Official technical guidance, not independent research                                      |
+
+[1]: https://www.openapis.org/faq?utm_source=chatgpt.com "FAQ – OpenAPI Initiative"
+
+
+### What is the Model Context Protocol?
+
+The official MCP introduction provides an accessible explanation of MCP’s purpose: connecting AI applications to external data, tools, and workflows through a standard interface. It is a useful starting point for readers unfamiliar with MCP, but its introductory framing is intended to explain MCP’s benefits rather than provide a neutral comparison with HTTP APIs.
+
+### Model Context Protocol Specification and architecture
+
+The MCP specification is the authoritative source for initialization, capability negotiation, JSON-RPC communication, hosts, clients, servers, tools, resources, prompts, and transports. It should be used to verify technical claims about what MCP standardizes. It does not determine whether MCP is the appropriate architecture for a particular product; that decision still depends on consumers, workflows, operational constraints, and interoperability requirements.
+
+### RFC 9110: HTTP Semantics
+
+RFC 9110 defines the architecture and common semantics of HTTP, including resources, methods, representations, status codes, and extensibility. It is the most authoritative foundation for understanding what HTTP already provides before comparing it with MCP. Because MCP can itself be transported over HTTP, this reference also helps distinguish the transport protocol from the model-facing application contract.
+
+### OpenAPI Specification
+
+OpenAPI provides a language-independent format for describing HTTP APIs so that humans and software can discover and understand their capabilities without access to implementation code. It is valuable for comparing MCP runtime discovery with machine-readable HTTP API contracts and for avoiding the incorrect claim that only MCP supports discoverable, structured interfaces. OpenAPI describes HTTP operations and schemas; it does not standardize model-controlled tools, application-provided resources, user-selected prompts, or MCP lifecycle negotiation.
+
+### OpenAPI design-first best practices
+
+The OpenAPI Initiative’s design-first guidance explains how an HTTP API description can become a source-controlled contract that drives validation, documentation, code generation, and continuous integration. It demonstrates that many design-first benefits are not unique to MCP. The differentiator for MCP is therefore not contract-first development itself, but the standardized delivery of capabilities to AI hosts using MCP-specific interaction primitives and lifecycle mechanisms.
+
+### MCP Security Best Practices
+
+The official MCP security guidance documents risks and recommended protections for MCP implementations, particularly around authorization, access control, and interactions with external systems. It is useful because architectural decisions should consider not only interoperability benefits but also the security consequences of allowing models to discover and invoke capabilities. It complements the decision framework in this article but does not compare MCP security directly with all possible HTTP API architectures.
+

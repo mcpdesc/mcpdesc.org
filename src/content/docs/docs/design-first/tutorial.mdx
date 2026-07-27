@@ -1,0 +1,344 @@
+---
+title: Design an MCP Server Before You Build It
+description: A practical, design-first walkthrough that turns a product idea into a reviewed, validated MCP Description document — using an MCP Protocol Quiz example — and stops before implementation.
+sidebar:
+  order: 2
+draft: true
+-----------------------------------------------------------------------------------------------------------------------
+
+# Design-first Walkthrough for MCP Servers
+
+This tutorial applies the design-first method to a concrete service and finishes with a
+**reviewed, validated MCP Description document** — not an implementation. You will make the
+interface decisions while they are still cheap to change, and hand off a design that is ready
+to build.
+
+It assumes you have already read the two conceptual articles and does not repeat them:
+
+- [Design-First for MCP Servers](/docs/design-first/methodology) — what design-first means and why the capability surface is the product.
+- [Deciding Between an MCP Server and an HTTP API](/docs/design-first/api-vs-mcp) — how to choose the interface for your consumers.
+
+The complete example lives in this repository at
+[`examples/mcp-protocol-quiz/`](https://github.com/mcpdesc/mcpdesc.org/tree/main/examples/mcp-protocol-quiz).
+Clone the repository and work alongside it.
+
+## 1. What you will produce
+
+By the end you will have assembled a design package:
+
+```text
+product brief
++ capability map
++ MCP Description document
++ decision record
++ deterministic mock fixtures
++ review notes
+= an implementation-ready design
+```
+
+Implementation is deliberately deferred. You will **not** write a server, handlers,
+persistence, authentication, or tests here. A design-time mock is used only to review the
+interface — clearly labelled as design validation.
+
+### Tools you will use
+
+All commands below are verified against these tools. Reverify versions before you rely on
+them; the format version and the tool versions are separate values.
+
+| Purpose | Command | Package |
+|---|---|---|
+| Validate the description | `mcpcontract validate <file> --schema mcpdesc --strict` | `@cisco_open/mcptoolkit-contract` |
+| Run a design-time mock | `mcpmock run <file> --data mock-data/` | `@cisco_open/mcptoolkit-mock` |
+| Visual review | the [Live Editor](/live-editor) | hosted |
+
+This tutorial was written against MCP Description **0.7.0**, `mcpcontract` 1.0.0, and
+`mcpmock` 1.0.0 (Node ≥ 20).
+
+## 2. Start from the outcome
+
+The example product is an **MCP Protocol Quiz**: it helps a participant check their knowledge
+of the Model Context Protocol through an AI host. The host presents one question at a time,
+submits the participant's explicit answers, and reports a score, duration, and leaderboard
+position.
+
+Tutorial constraints keep the example small and safe:
+
+- **human quiz mode** — the model is a facilitator, never the contestant;
+- no authentication and no personal data beyond a display name;
+- a small, deterministic question bank served in fixed order;
+- no external service and no production implementation.
+
+**Your turn.** Open
+[`capability-map.md`](https://github.com/mcpdesc/mcpdesc.org/blob/main/examples/mcp-protocol-quiz/capability-map.md)
+and record the actors, the desired outcome, the operations that cause side effects, and the
+data that must stay protected (here: the correct answers).
+
+## 3. Confirm that MCP adds value
+
+Do not re-run the whole MCP-versus-HTTP framework — [apply it](/docs/design-first/api-vs-mcp).
+A conventional quiz website would use an HTTP API. This example chooses MCP because AI hosts
+are the first-class consumers: the model should discover the quiz tools, read the rules and
+leaderboard as resources, and run a reusable prompt, without a bespoke integration per host.
+A production version could later expose both HTTP and MCP over shared domain logic.
+
+**Your turn.** Record a short decision in
+[`decisions.md`](https://github.com/mcpdesc/mcpdesc.org/blob/main/examples/mcp-protocol-quiz/decisions.md)
+(see “Decision 1”): the verdict (MCP), the rationale, and the costs you accept.
+
+## 4. Map intentions to primitives
+
+Now map each user intention to a primitive, and **challenge every candidate** so that not
+everything becomes a tool. This is where the [design-first method](/docs/design-first/methodology)
+does its work.
+
+| User intention | Primitive | Name |
+|---|---|---|
+| Learn the rules | Resource | `quiz://rules` |
+| Start a quiz | Tool | `start_quiz` |
+| See the current question | Resource template | `quiz://sessions/{session_id}/current-question` |
+| Answer a question | Tool | `submit_answer` |
+| Finish or stop early | Tool | `complete_quiz` |
+| Read a finished result | Resource template | `quiz://results/{result_id}` |
+| View the leaderboard | Resource | `quiz://leaderboard/global` |
+| Run the quiz conversationally | Prompt | `run_mcp_quiz` |
+
+Two challenges change the design:
+
+- **The leaderboard is a resource, not a tool.** It is read-only ranked data; a tool would
+  imply an action. This is the clearest “resource over tool” decision in the example.
+- **“Get the current question” is not a tool.** Reading a question is not a state-mutating
+  action, so it becomes a resource template. The tools also return the next question inline,
+  so a separate fetch tool is unnecessary.
+
+The result is a surface of **three tools, two resources, two resource templates, and one
+prompt**. Record the approved map and the rejected alternatives in `capability-map.md`.
+
+## 5. Design state and safety before schemas
+
+Decide behaviour before you write schemas — names, state, timing, privacy, and retries are
+all part of the agent-facing interface.
+
+```text
+created ──start_quiz──▶ active ──submit_answer (final) / complete_quiz──▶ completed
+                          │
+                          └──idle 30 min──▶ expired
+```
+
+Key decisions (full reasoning in `decisions.md`):
+
+- **Server-minted identifiers.** A private `session_id` (prefix `qz_sess_`) and a public
+  `result_id` (prefix `qz_res_`) are distinct, so a result can be shared without exposing the
+  session.
+- **Timing is server-side.** Elapsed time is measured by the server, not supplied by the host.
+- **Duplicate submissions are designed.** A second answer to the same question returns a
+  recoverable `ANSWER_ALREADY_SUBMITTED`; `complete_quiz` is idempotent.
+- **Privacy.** Public fields are `displayName`, `score`, `maxScore`, `durationSeconds`,
+  `completedAt`, and `rank`. Correct answers never appear in any resource.
+- **Anti-cheating is server-enforced.** The prompt asks the model to facilitate only, and the
+  server never exposes an answer key — guidance alone is not a control.
+
+## 6. Write the first MCP Description
+
+Build the [`mcp-protocol-quiz.mcpdesc.yaml`](https://github.com/mcpdesc/mcpdesc.org/blob/main/examples/mcp-protocol-quiz/mcp-protocol-quiz.mcpdesc.yaml)
+in logical stages, validating after each. Show only the excerpt that matters at each step;
+the full document lives in the repository.
+
+**Identity and transport.** For a design-time mock, `stdio` is enough; remote transport,
+hosting, and authentication are implementation concerns.
+
+```yaml
+mcpdesc: 0.7.0
+info:
+  name: mcp-protocol-quiz
+  title: MCP Protocol Quiz
+  version: 0.1.0
+  protocolVersion: '2025-06-18'
+transports:
+- type: stdio
+  command: mcp-protocol-quiz
+  args:
+  - serve
+```
+
+**A tool, written for the agent.** The description says what the tool does, when to call it,
+and — importantly — when *not* to.
+
+```yaml
+- name: submit_answer
+  title: Submit Answer
+  description: >-
+    Submit the participant's explicit answer to the current question. Only call this with
+    an option the participant actually chose; never guess, never answer on their behalf,
+    and never call it without an explicit answer.
+  inputSchema:
+    type: object
+    properties:
+      sessionId: { type: string }
+      questionId: { type: string }
+      selectedOption:
+        type: string
+        enum: [A, B, C, D]
+    required: [sessionId, questionId, selectedOption]
+    additionalProperties: false
+```
+
+**Structured output, success only.** The 0.7.0 format has no native tool-error catalogue, so
+`outputSchema` describes success; expected domain errors are documented in `decisions.md` and
+surfaced by the mock using MCP's `isError: true` mechanism. Note also that a document root
+`$defs` is not allowed, so shared shapes (the question object) are inlined.
+
+**Resources and a template.** The rules and leaderboard are resources; the result and current
+question are resource templates that never carry the correct answer.
+
+```yaml
+resources:
+- uri: quiz://leaderboard/global
+  name: global_leaderboard
+  mimeType: application/json
+  annotations: { readOnlyHint: true }
+resourceTemplates:
+- uriTemplate: quiz://results/{result_id}
+  name: quiz_result
+  mimeType: application/json
+  annotations: { readOnlyHint: true }
+```
+
+**Prompt and annotations.** The `run_mcp_quiz` prompt carries the facilitator boundary, and
+each tool declares conservative annotation hints (for example, `complete_quiz` is
+`idempotentHint: true`).
+
+Validate after each stage:
+
+```bash
+mcpcontract validate mcp-protocol-quiz.mcpdesc.yaml --schema mcpdesc --strict
+```
+
+A clean run reports `Errors: 0` and `Warnings: 0`.
+
+## 7. Review in the Live Editor
+
+Open the [Live Editor](/live-editor) and paste the YAML. Use it to review the design
+visually:
+
+1. confirm the **validation panel** shows no errors;
+2. read the **capability cards** — the leaderboard and result appear as a resource and a
+   template, not tools, which confirms the primitive decisions;
+3. read the **Markdown view** of the tool descriptions as an agent would.
+
+To see validation working, introduce one deliberate error — for example, add a document root
+`$defs:` block — observe the schema error, then remove it. Reproducible capture steps for
+these views are recorded in
+[`screenshot-manifest.md`](https://github.com/mcpdesc/mcpdesc.org/blob/main/examples/mcp-protocol-quiz/screenshot-manifest.md).
+
+## 8. Prepare deterministic mock fixtures
+
+The mock is a **design instrument**, not a test of a real server. Custom fixtures are one
+JSON file per tool, passed with `--data`:
+
+```text
+mock-data/
+├── start_quiz.json
+├── submit_answer.json
+└── complete_quiz.json
+```
+
+Each file holds that tool's structured success response and contains **no answer keys**. Run
+the mock over stdio:
+
+```bash
+mcpmock run mcp-protocol-quiz.mcpdesc.yaml --data mock-data/
+```
+
+Verify what this mock version actually supports rather than assuming. For `mcpmock` 1.0.0:
+
+- it serves **one response per tool** (no branching on arguments);
+- tool output is returned as a **text** content block, not as `structuredContent`;
+- `resources/read` returns **auto-generated placeholder** content — `--data` overrides apply
+  to tools only.
+
+These are documented in
+[`mock-data/README.md`](https://github.com/mcpdesc/mcpdesc.org/blob/main/examples/mcp-protocol-quiz/mock-data/README.md),
+not worked around.
+
+## 9. Run representative design conversations
+
+Walk the required scenarios and record what the design *should* do — not fabricated command
+output. Because the mock serves one response per tool, error and branching paths are captured
+as design fixtures in
+[`scenarios/`](https://github.com/mcpdesc/mcpdesc.org/tree/main/examples/mcp-protocol-quiz/scenarios).
+
+| Scenario | Expected design behaviour |
+|---|---|
+| Happy path | Start → answer → complete; outputs carry the next question and result references. |
+| Duplicate answer | `ANSWER_ALREADY_SUBMITTED` (recoverable); the model re-reads the current question. |
+| Invalid option | `INVALID_ANSWER_OPTION` with `details.allowedOptions`. |
+| Unknown / expired session | `SESSION_NOT_FOUND` / `SESSION_EXPIRED`; start a new quiz. |
+| “Answer it for me” | The model declines; the server exposes no answer key. |
+| Leaderboard / result | Read as a resource / resource template, not a tool call. |
+
+The full observations are in
+[`scenarios/mock-observations.md`](https://github.com/mcpdesc/mcpdesc.org/blob/main/examples/mcp-protocol-quiz/scenarios/mock-observations.md).
+
+## 10. Refine the description
+
+Reviewing the interaction reveals a concrete weakness: the next things the model needs to read
+— the current question and the result — are resource **templates**, so a model holding only a
+`sessionId` must assemble the URI itself. And because tool output is consumed as opaque JSON,
+a response should identify its own session.
+
+Three refinements follow, applied to the tool outputs:
+
+| Tool | Before | After |
+|---|---|---|
+| `start_quiz` | sessionId, state, totalQuestions, nextQuestion | + `currentQuestionUri` |
+| `submit_answer` | wasCorrect, runningScore, questionsRemaining, state, nextQuestion, resultId | + `sessionId`, `currentQuestionUri`, `resultUri` |
+| `complete_quiz` | resultId, state, score, maxScore, durationSeconds, rank | + `sessionId`, `resultUri` |
+
+After editing, revalidate — a clean design still reports `Errors: 0`. The full rationale is in
+[`design-review-report.md`](https://github.com/mcpdesc/mcpdesc.org/blob/main/examples/mcp-protocol-quiz/design-review-report.md).
+This is the point of design-first: the interface changed while change was still cheap.
+
+## 11. Assemble the handoff
+
+The approved design package:
+
+```text
+examples/mcp-protocol-quiz/
+├── README.md
+├── capability-map.md
+├── decisions.md
+├── mcp-protocol-quiz.mcpdesc.yaml   # validated, 0 errors
+├── mock-data/                       # deterministic fixtures
+├── scenarios/                       # design transcripts + observations
+├── design-review-report.md
+└── screenshot-manifest.md
+```
+
+Implementation-readiness checklist:
+
+- [x] Interface decision recorded;
+- [x] Capability map with rejected alternatives;
+- [x] Description validates strict against the resolved schema;
+- [x] State, timing, privacy, and retry behaviour designed;
+- [x] Deterministic mock fixtures with no protected data;
+- [x] Review refinements captured.
+
+What remains for the **implementation and testing** workstream (a separate article): SDK and
+language selection, server implementation, persistence, authentication, a real leaderboard
+service, runtime-versus-design comparison, and protocol/conformance testing. None of it
+reopens the design decisions above without new evidence.
+
+## 12. Conclusion
+
+You turned a product idea into a reviewed, validated MCP Description document. You chose the
+interface deliberately, modelled the leaderboard as a resource, kept answer keys off every
+resource, designed duplicate and completion behaviour before any code, and let a design-time
+mock reveal three contract improvements — all before writing a server.
+
+Next steps:
+
+- Reuse this workflow with the [`design-mcp-server` Agent Skill](https://github.com/mcpdesc/mcpdesc.org/tree/main/skills/design-mcp-server).
+- Revisit the concepts: [Design-First for MCP Servers](/docs/design-first/methodology) and [Deciding Between an MCP Server and an HTTP API](/docs/design-first/api-vs-mcp).
+- Explore the full [example package](https://github.com/mcpdesc/mcpdesc.org/tree/main/examples/mcp-protocol-quiz) and open the description in the [Live Editor](/live-editor).
+
+A follow-up article will take this exact package into implementation and testing.

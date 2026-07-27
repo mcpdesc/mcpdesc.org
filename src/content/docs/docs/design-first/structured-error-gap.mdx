@@ -1,0 +1,212 @@
+---
+title: Structured errors for MCP tools execution runtime failures
+description: This article introduces the current gap in the MCP specifications, a potential resolution to discuss with the community for a future version of MCP, and a way-out using the _meta extensibility compatible with existing versions of the MCP specfication.
+sidebar:
+  order: 3
+draft: true
+-----------------------------------------------------------------------------------------------------------------------
+
+# Structured Tool Errors: An Opportunity for MCP 
+
+
+MCP currently provides structuredContent and outputSchema for schema-governed successful tool outputs.
+
+Tool-execution errors, by contrast, are represented using isError: true and primarily human-readable content. There is no equivalent machine-readable, schema-governed error result.
+
+This proposal introduces such a path without weakening or overloading the successful-output contract.
+
+## The present model
+
+Conceptually, MCP currently has this asymmetry:
+
+```text
+Successful execution
+    content
+    structuredContent
+    outputSchema
+    isError absent or false
+
+Failed execution
+    content
+    isError true
+    no structured error contract
+    no error schema
+```
+
+The November 2025 specification identifies API failures, input-validation failures, and business-logic failures as tool-execution errors.
+
+It recommends making these errors available to the model, but its example communicates the failure only through textual content.
+
+What textual content cannot reliably convey
+
+Text is useful because it can explain the failure to a user or language model.
+
+However, text alone does not provide a reliable contract for automated client behavior. A client cannot safely depend on parsing prose to determine:
+
+- a stable error code;
+- whether the request can be retried;
+- how long it should wait before retrying;
+- which input was invalid;
+- how the invocation should be corrected;
+- whether user intervention is required;
+- whether the failure is temporary or permanent.
+
+**Rate limiting example**
+
+A server may return:
+
+```json
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "API quota exceeded. Retry after 30 seconds."
+    }
+  ],
+  "isError": true
+}
+```
+
+A model may understand this message, but a client cannot reliably extract the retry delay without interpreting natural language.
+
+Structured error information could allow the client to wait 30 seconds and replay the same invocation automatically.
+
+**Business logic error example**
+
+Consider a tool invoked with an unsupported delivery option.
+
+A textual error might say:
+
+Express delivery is not available for this address. Use standard delivery.
+
+A model may be able to correct the invocation, but an automated client does not know which argument was invalid or which replacement value is allowed.
+
+Structured information could identify the affected input and provide a valid replacement before replaying the tool call.
+
+
+## The way out: a separate structured-error field
+
+In an ideal model, error management could look like this:
+
+```json
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "API quota exceeded. Retry after 30 seconds."
+    }
+  ],
+  "structuredError": {
+    "code": "RATE_LIMITED",
+    "message": "API quota exceeded for region us-west-1",
+    "details": {
+      "retryAfterMs": 30000,
+      "region": "us-west-1"
+    }
+  },
+  "isError": true
+}
+```
+
+The corresponding tool declaration could provide a separate error schema:
+
+```json
+{
+  "outputSchema": {
+    "$ref": "#/$defs/successResult"
+  },
+  "errorSchema": {
+    "$ref": "#/$defs/toolExecutionError"
+  }
+}
+```
+
+This creates an unambiguous model:
+
+```text
+structuredContent + outputSchema
+    successful execution result
+
+structuredError + errorSchema
+    failed execution result
+
+isError
+    execution-status discriminator
+
+content
+    human-readable, LLM-facing, and backward-compatible representation
+```
+
+A rate-limiting error could then be handled automatically:
+
+```json
+{
+  "code": "RATE_LIMITED",
+  "message": "API quota exceeded.",
+  "details": {
+    "retryAfterMs": 30000
+  }
+}
+```
+
+A correctable business error could identify the invalid argument and suggest a replacement:
+
+```json
+{
+  "code": "DELIVERY_OPTION_UNAVAILABLE",
+  "message": "Express delivery is not available for this address.",
+  "details": {
+    "input": "deliveryMethod",
+    "rejectedValue": "express",
+    "allowedValues": ["standard"]
+  }
+}
+```
+
+This approach would require a change to the MCP specification, but it would preserve the existing meaning of structuredContent as the successful result.
+
+
+## An alternative: use _meta extensibility
+
+An alternative explored in the MCP Description design-first documentation is to place structured error information inside the extensible _meta object.
+
+For example:
+
+```json
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "API quota exceeded. Retry after 30 seconds."
+    }
+  ],
+  "_meta": {
+    "example.com/tool-error": {
+      "code": "RATE_LIMITED",
+      "retryAfterMs": 30000
+    }
+  },
+  "isError": true
+}
+```
+
+This approach can be implemented without immediately changing the MCP wire format. It also allows experimental tooling to document, mock, and process structured errors.
+
+However, _meta has important limitations:
+
+- generic clients do not understand the custom convention;
+- metadata may not be passed to the model;
+- there is no standard errorSchema;
+- different implementations may define incompatible structures;
+- error information remains outside the principal tool-result contract.
+
+It is therefore a useful compatibility or experimentation mechanism, but not a complete long-term solution.
+
+[Link to the MCP Description design-first documentation will be added when available.]
+
+
+## Conclusion
+
+MCP has a schema-governed path for successful tool results, but not for tool-execution errors.
+
+Human-readable content should remain available for users, models, and backward compatibility. A separate structuredError, governed by an errorSchema, would additionally allow clients to validate errors, retry safely, correct invocations, and implement consistent recovery behavior.

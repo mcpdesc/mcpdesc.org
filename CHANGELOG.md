@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Pre-build MDX validation** (`scripts/check-mdx.mjs`, wired as the `prebuild` and
+  `check:mdx` npm scripts): compiles every `.mdx` file individually and, on failure,
+  reports the offending **file:line:col** plus a fix hint. `astro build` surfaces MDX
+  syntax errors (e.g. a bare `{` parsed as a JSX expression) without the file name — only
+  a bare `line:col` — making the failing file hard to locate. This runs before
+  `astro build` so bad MDX now fails fast with the filename.
+
+### Fixed
+
+- MDX build failure in `src/content/docs/docs/design-first/structured-error-gap.mdx`:
+  raw JSON examples were written as unfenced body text, so MDX parsed the leading `{` as a
+  JSX expression and the build failed with `Could not parse expression with oxc`. Wrapped
+  the JSON examples in fenced ```` ```json ```` code blocks.
+
 ## [0.9.0] - 2026-07-21
 
 ### Fixed

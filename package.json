@@ -12,6 +12,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "check": "astro check",
+    "check:mdx": "node scripts/check-mdx.mjs",
+    "prebuild": "npm run check:mdx",
     "preversion": "npm run check && npm run build",
     "version": "git add package.json package-lock.json"
   },

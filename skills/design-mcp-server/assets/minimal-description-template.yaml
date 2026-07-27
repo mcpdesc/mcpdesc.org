@@ -1,0 +1,80 @@
+mcpdesc: 0.7.0
+
+# Minimal valid MCP Description skeleton (design-only). Replace placeholder values.
+# Verify the current format version and rules with references/format-reference.md.
+# outputSchema describes SUCCESSFUL output only; document errors separately.
+
+info:
+  name: example-server
+  title: Example Server
+  version: 0.1.0
+  description: >-
+    One or two sentences describing what this server helps a user or agent achieve.
+  protocolVersion: '2025-06-18'
+
+# Design-time transport for the mock. Remote transport, hosting, and auth are deferred.
+transports:
+- type: stdio
+  command: example-server
+  args:
+  - serve
+
+capabilities:
+  tools:
+    listChanged: false
+  resources:
+    subscribe: false
+    listChanged: false
+  prompts:
+    listChanged: false
+
+tools:
+- name: do_something
+  title: Do Something
+  description: >-
+    State what this achieves, when the model should call it, when it must not, key
+    preconditions, and any explicit-user-input requirement.
+  inputSchema:
+    type: object
+    properties:
+      input_value:
+        type: string
+        description: What this input is and any constraints.
+    required:
+    - input_value
+    additionalProperties: false
+  outputSchema:
+    type: object
+    properties:
+      result_value:
+        type: string
+        description: What the caller receives on success.
+    required:
+    - result_value
+    additionalProperties: false
+  annotations:
+    readOnlyHint: false
+    destructiveHint: false
+    idempotentHint: false
+    openWorldHint: false
+
+resources:
+- uri: example://reference
+  name: example_reference
+  title: Example Reference
+  description: Read-only contextual data the consumer can use.
+  mimeType: text/markdown
+  annotations:
+    readOnlyHint: true
+
+prompts:
+- name: run_example
+  title: Run the Example Workflow
+  description: >-
+    A reusable, user-initiated workflow. State the facilitator boundaries and any rules the
+    server must enforce rather than the prompt.
+  arguments:
+  - name: input_value
+    title: Input Value
+    description: Optional starting value; ask the user if omitted.
+    required: false
