@@ -82,7 +82,7 @@ Each item lists the options, the **recommended** choice, and the rationale. Item
 - **JSON Schema:** publish a versioned static copy at
   `/schema/mcp-description/<version>.json`, sourced from the corresponding upstream release
   or release-candidate artifact. These URLs are immutable and served with open CORS. The
-  `0.7.0` copy changes only its legacy Cisco `$id` to the first-party canonical URL.
+  published file preserves the source schema's `$id`, which may differ from its retrieval URL.
 
 ### E. Annotation mechanism ("we may want to add details")
 
