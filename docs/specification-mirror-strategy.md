@@ -79,7 +79,10 @@ Each item lists the options, the **recommended** choice, and the rationale. Item
   link to the full set upstream.
 - **Guides** (`comparison-with-openapi`, `design-principles`, `faq`, …): **link out**;
   selectively adopt later if we want them rendered on-site.
-- **JSON Schema:** **never copy**; always link the versioned file in `cisco-open`.
+- **JSON Schema:** publish a versioned static copy at
+  `/schema/mcp-description/<version>.json`, sourced from the corresponding upstream release
+  or release-candidate artifact. These URLs are immutable and served with open CORS. The
+  `0.7.0` copy changes only its legacy Cisco `$id` to the first-party canonical URL.
 
 ### E. Annotation mechanism ("we may want to add details")
 
@@ -159,14 +162,17 @@ When upstream releases a new spec version (e.g. 0.7.1 or 0.8.0):
    subpath). The generated provenance banners and links point at that exact tag — never the
    moving `main` branch — so it is unambiguous what was mirrored. Check the vendored clone
    under `ref/<repo-name>/` out at the same tag (the script warns if it is not).
-2. **Landing + examples:** author the version landing page and curated examples page.
-3. **Changelog:** update `/docs/specification/changelog` from upstream `CHANGELOG.md`.
-4. **Version index:** add the new version and re-mark which version is **latest**; add a
+2. **Schema:** run `node scripts/publish-schema.mjs <version> <source-file-or-url>` to
+  validate and publish the schema under `/schema/mcp-description/<version>.json`. The
+  publisher refuses to overwrite an existing version.
+3. **Landing + examples:** author the version landing page and curated examples page.
+4. **Changelog:** update `/docs/specification/changelog` from upstream `CHANGELOG.md`.
+5. **Version index:** add the new version and re-mark which version is **latest**; add a
    **superseded** banner to the previous version's landing.
-5. **Sidebar:** point the Specification group at the new latest version.
-6. **Editor's notes:** author any new annotations directly in the new frozen version.
-7. **Terminology:** re-confirm arbitration C still holds for any new/changed wording.
-8. **AI-retrieval bundles:** update the `VERSIONS` registry in
+6. **Sidebar:** point the Specification group at the new latest version.
+7. **Editor's notes:** author any new annotations directly in the new frozen version.
+8. **Terminology:** re-confirm arbitration C still holds for any new/changed wording.
+9. **AI-retrieval bundles:** update the `VERSIONS` registry in
    `scripts/build-spec-bundle.mjs` (mark the new version `channel: "latest"`, demote the
    previous one to `channel: "previous"`), then run `node scripts/build-spec-bundle.mjs` to
    regenerate `public/specification/**` (single-file bundles + `index.json`) and commit the

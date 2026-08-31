@@ -46,6 +46,7 @@ npm run dev      # http://localhost:4321
 ├── public/
 │   ├── _headers              # Cloudflare Pages security headers
 │   ├── badge/                # Hosted mcpdesc badge JSON (shields.io endpoint)
+│   ├── schema/               # Versioned MCP Description JSON Schemas
 │   └── mcpdesc-favicon.png
 ├── src/
 │   ├── analytics/            # Privacy-preserving analytics plugin

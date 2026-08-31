@@ -9,7 +9,7 @@
 >
 > Canonical source of truth: https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/mcp-description.md
 > Raw Markdown: https://raw.githubusercontent.com/cisco-open/mcptoolkit-contract/mcpdesc-v0.7.0/spec/mcp-description.md
-> JSON Schema: https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/schemas/mcp-description/0.7.0.json
+> JSON Schema: https://mcpdesc.org/schema/mcp-description/0.7.0.json
 > Version index (machine-readable): https://mcpdesc.org/specification/index.json
 >
 > This first-party copy mirrors the versioned section pages at
@@ -39,7 +39,7 @@ specification may change before reaching a stable release.
 ## Source & schema
 
 - **Canonical specification** — [`spec/mcp-description.md`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/mcp-description.md) ([raw](https://raw.githubusercontent.com/cisco-open/mcptoolkit-contract/mcpdesc-v0.7.0/spec/mcp-description.md))
-- **JSON Schema (0.7.0)** — [`schemas/mcp-description/0.7.0.json`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/schemas/mcp-description/0.7.0.json)
+- **JSON Schema (0.7.0)** — [`mcpdesc.org/schema/mcp-description/0.7.0.json`](https://mcpdesc.org/schema/mcp-description/0.7.0.json)
 - **Reference tooling** — [`mcpcontract`](https://github.com/cisco-open/mcptoolkit-contract)
 
 ### For AI assistants and tools
