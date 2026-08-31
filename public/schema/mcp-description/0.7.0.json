@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://mcpdesc.org/schema/mcp-description/0.7.0.json",
+  "$id": "https://developer.cisco.com/mcp-description/schema/0.7.0",
   "title": "MCP Server Description",
   "description": "Standalone MCP Server Description format — a static, curated declaration of what an MCP server offers. Uses MCP-native terminology, OpenAPI-aligned info/security structure, and support for multiple transports and specification extensions. Compatible with MCP protocol versions 2025-03-26, 2025-06-18, and 2025-11-25.",
   "type": "object",

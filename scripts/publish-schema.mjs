@@ -3,8 +3,8 @@
 // Usage:
 //   node scripts/publish-schema.mjs <version> <source-file-or-url>
 //
-// Source bytes are preserved after validation, except for migrating the known legacy Cisco
-// $id to the first-party URL. Released URLs are immutable, so existing files are not replaced.
+// Source bytes are preserved after validation. Released URLs are immutable, so existing files
+// are not replaced.
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -29,18 +29,13 @@ const schema = JSON.parse(sourceText);
 const canonicalId = `https://mcpdesc.org/schema/mcp-description/${VERSION}.json`;
 const legacyId = `https://developer.cisco.com/mcp-description/schema/${VERSION}`;
 const formatVersion = VERSION.split('-')[0];
-let outputText = sourceText;
 
 if (schema.$schema !== 'https://json-schema.org/draft/2020-12/schema' &&
     schema.$schema !== 'http://json-schema.org/draft-07/schema#') {
   throw new Error(`Unsupported JSON Schema dialect: ${schema.$schema}`);
 }
-if (schema.$id === legacyId) {
-  outputText = outputText.replace(JSON.stringify(legacyId), JSON.stringify(canonicalId));
-  schema.$id = canonicalId;
-}
-if (schema.$id !== canonicalId) {
-  throw new Error(`Expected $id ${canonicalId}, received ${schema.$id}`);
+if (schema.$id !== canonicalId && schema.$id !== legacyId) {
+  throw new Error(`Expected $id ${canonicalId} or ${legacyId}, received ${schema.$id}`);
 }
 if (schema.properties?.mcpdesc?.const !== formatVersion) {
   throw new Error(
@@ -52,5 +47,5 @@ const output = join(ROOT, 'public/schema/mcp-description', `${VERSION}.json`);
 if (existsSync(output)) throw new Error(`Refusing to overwrite ${output}`);
 
 mkdirSync(dirname(output), { recursive: true });
-writeFileSync(output, outputText.endsWith('\n') ? outputText : `${outputText}\n`, 'utf8');
+writeFileSync(output, sourceText.endsWith('\n') ? sourceText : `${sourceText}\n`, 'utf8');
 console.log(`Published ${VERSION} schema to ${output}`);
