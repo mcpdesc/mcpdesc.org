@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   syntax errors (e.g. a bare `{` parsed as a JSX expression) without the file name — only
   a bare `line:col` — making the failing file hard to locate. This runs before
   `astro build` so bad MDX now fails fast with the filename.
+- **First-party MCP Description JSON Schemas.** Versioned schemas are available at
+  `/schema/mcp-description/<version>.json`, starting with `0.7.0` and `0.8.0-rc.1`. The
+  immutable static resources support cross-origin loading by IDEs and validation tools.
 
 ### Fixed
 

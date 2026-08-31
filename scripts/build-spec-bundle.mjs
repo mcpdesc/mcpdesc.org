@@ -84,7 +84,7 @@ function canonicalUrls(v) {
   return {
     canonical: `${base}/mcp-description.md`,
     canonicalRaw: `${raw}/mcp-description.md`,
-    schema: `https://github.com/${v.canonicalRepo}/blob/${v.canonicalRef}/schemas/mcp-description/${v.version}.json`,
+    schema: `https://mcpdesc.org/schema/mcp-description/${v.version}.json`,
   };
 }
 
