@@ -12,10 +12,10 @@
       "date": "2026-03-23",
       "html": "https://mcpdesc.org/docs/specification/0.7.0/",
       "full": "https://mcpdesc.org/specification/0.7.0/mcpdesc.md",
-      "sha256": "b8e12b24f8d92f337542d648476b3537767fe74b4b9a93e5c25a4b78d4cfbab4",
+      "sha256": "e8f9c4cdcbfa1b716bc0485b5e0cb2bf25c5469e781516e50cf23a112afb22f7",
       "canonical": "https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/mcp-description.md",
       "canonicalRaw": "https://raw.githubusercontent.com/cisco-open/mcptoolkit-contract/mcpdesc-v0.7.0/spec/mcp-description.md",
-      "schema": "https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/schemas/mcp-description/0.7.0.json",
+      "schema": "https://mcpdesc.org/schema/mcp-description/0.7.0.json",
       "sections": [
         {
           "title": "1. Introduction",
