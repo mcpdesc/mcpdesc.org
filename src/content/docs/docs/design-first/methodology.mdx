@@ -4,29 +4,30 @@ description: Learn how to design an MCP server’s capabilities, schemas, behavi
 sidebar:
   order: 1
 draft: true
-------------------------------------------------------------------------------------------------------------------------------------------
+---
 
-# Design-First for MCP Servers
-
-Building an MCP server often begins with an SDK, a project template, and a first tool handler. This is a convenient way to learn the protocol, but it can cause the implementation to become the design before anyone has deliberately considered what the server should expose.
+Building an MCP server often begins with an SDK, a project template, and a few tools.
+This is a convenient way to learn the protocol, but it can cause the implementation to become the design before you have deliberately considered what the server should expose.
 
 A design-first approach reverses that order.
 
-Instead of beginning with code, the team first defines the server’s intended capability surface:
+This draft applies the method using MCP Description **0.7.0**. Later format versions may add
+useful design primitives, but adopting those features is outside this iteration.
 
-* who will use it;
+Instead of beginning with code, the team first defines the server’s intended capabilities:
+
+* who is the audience;
 * what outcomes it should enable;
-* which capabilities should be tools, resources, resource templates, or prompts;
-* what information each capability accepts and returns;
-* which operations read or modify state;
+* which capabilities should be tools, resources, or prompts;
+* what information are passed through;
 * how failures, retries, permissions, and sensitive data should be handled;
-* how the server will be transported and deployed.
+* how the server will be deployed.
 
-The result is a reviewable contract that can be discussed, validated, visualized, mocked, and refined before implementation decisions become expensive to change.
+The result is a reviewable interface design that can be discussed, validated, visualized, mocked, and refined before implementation decisions become expensive to change.
 
 ## What design-first means
 
-Design-first does not mean producing a large specification before learning anything from users. It means making the external contract explicit before allowing implementation details to define it accidentally.
+Design-first does not mean producing a large specification before learning anything from users. It means making the external interface explicit before allowing implementation details to define it accidentally.
 
 A design-first MCP workflow typically follows this sequence:
 
@@ -173,7 +174,7 @@ These questions are easier to answer before the handler is implemented and deplo
 
 ### Documentation becomes a reconstruction exercise
 
-When documentation is produced after implementation, authors must infer the intended contract from source code, tests, and runtime behaviour.
+When documentation is produced after implementation, authors must infer the intended interface from source code, tests, and runtime behaviour.
 
 A design-first artifact can instead become the source for:
 
@@ -390,7 +391,7 @@ design/
 └── scenarios/
 ```
 
-The description captures the portable capability contract. The accompanying decisions document can record matters that do not fit naturally into the description, such as:
+The description captures the portable capability design. The accompanying decisions document can record matters that do not fit naturally into the description, such as:
 
 * rejected alternatives;
 * authorization assumptions;
@@ -427,7 +428,7 @@ A design review should ask:
 
 A smaller interface is often easier for models to select from and easier for teams to secure and maintain.
 
-## Step 8: test the contract with a mock
+## Step 8: test the interface with a mock
 
 Static review finds many problems, but some weaknesses only become visible during interaction.
 
@@ -441,7 +442,7 @@ A mock MCP server allows a team to test:
 * whether operations are too low-level or too broad;
 * whether the proposed workflow creates excessive calls.
 
-The objective is not to prove that mock data is correct. It is to evaluate the quality of the capability contract before business logic exists.
+The objective is not to prove that mock data is correct. It is to evaluate the quality of the capability interface before business logic exists.
 
 Useful scenarios include:
 
@@ -466,7 +467,7 @@ Design-first is particularly useful when:
 * operations have financial, security, privacy, or operational consequences;
 * the server wraps an existing complex API;
 * documentation and client work must begin before implementation;
-* multiple implementations may share the same contract;
+* multiple implementations may share the same description;
 * compatibility must be reviewed over time;
 * the server will be publicly distributed;
 * an agent must orchestrate several capabilities;
@@ -530,9 +531,9 @@ An MCP server design is ready for implementation when:
 
 Design-first MCP development is not about producing more documentation. It is about moving the most important decisions to the point where they are easiest to examine and cheapest to change.
 
-The central artifact is not the implementation. It is the intended capability contract between the server, the MCP host, the model, and the user.
+The central artifact is not the implementation. It is the intended capability interface between the server, the MCP host, the model, and the user.
 
-By defining that contract before writing handlers, teams can build MCP servers that are easier to understand, safer to operate, simpler to integrate, and less likely to reproduce the accidental structure of an existing backend.
+By defining that interface before writing handlers, teams can build MCP servers that are easier to understand, safer to operate, simpler to integrate, and less likely to reproduce the accidental structure of an existing backend.
 
 
 ## Further reading
@@ -541,7 +542,7 @@ By defining that contract before writing handlers, teams can build MCP servers t
 | --------------------------------- | ------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | **MCP Specification**             | Establishes the exact protocol capabilities and requirements                                                 | Describes runtime interoperability, not design-first development                                                                                               | **High authority.** Official and normative, but not independent of MCP itself                                          |
 | **Build with Agent Skills**       | Shows that the official MCP project also recognizes the need to identify design decisions before scaffolding | Assistant-centric and implementation-oriented; it does not establish a standalone description, mock-first review, or intended-versus-observed conformance loop | **Medium-high.** Protocol-project guidance, but it promotes a particular skills/plugin workflow                        |
-| **OpenAPI design-first guidance** | Supplies a well-established precedent for contract-first work, source control, generation, and CI            | Designed for HTTP API descriptions, not model-selected tools, resources, and prompts                                                                           | **High.** OpenAPI Initiative operates under open, vendor-neutral Linux Foundation governance ([OpenAPI Initiative][1]) |
+| **OpenAPI design-first guidance** | Supplies a well-established precedent for design-first work, source control, generation, and CI              | Designed for HTTP API descriptions, not model-selected tools, resources, and prompts                                                                           | **High.** OpenAPI Initiative operates under open, vendor-neutral Linux Foundation governance ([OpenAPI Initiative][1]) |
 | **Tool-description research**     | Adds independent evidence that semantic design affects tool use                                              | Covers tool-description quality only; not resources, prompts, transport, mocking, security, or lifecycle governance                                            | **High independence**, but it is a recent preprint and should not be presented as settled consensus                    |
 | **Agent Skills specification**    | Supports the proposed interactive design skill                                                               | Describes procedural instructions for agents, not MCP server contracts                                                                                         | **Medium-high.** Open standard with cross-product ambitions, but originally developed by Anthropic ([Agent Skills][2]) |
 | **MCP Description / mcpdesc**     | Gives readers the format and tools needed to apply the article                                               | It is the proposed methodology, not external validation of it                                                                                                  | **Project-specific.** Independent open-source initiative, but inherently self-referential ([`{mcpdesc}` Community][3])   |
@@ -568,7 +569,7 @@ This research paper provides empirical evidence that tool descriptions influence
 
 ### Agent Skills specification
 
-Agent Skills define an open folder-based format for packaging reusable instructions, scripts, references, and templates for AI agents. They are relevant when turning a design-first methodology into an interactive assistant that can question the designer, generate an MCP Description, run validation, or prepare mock data. A skill captures a procedure for creating or reviewing a server; it is not itself the portable contract describing that server.
+Agent Skills define an open folder-based format for packaging reusable instructions, scripts, references, and templates for AI agents. They are relevant when turning a design-first methodology into an interactive assistant that can question the designer, generate an MCP Description, run validation, or prepare mock data. A skill captures a procedure for creating or reviewing a server; it is not itself the portable description of that server.
 
 ### MCP Description and the `{mcpdesc}` toolchain
 

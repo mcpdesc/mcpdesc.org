@@ -6,11 +6,10 @@
 > is implemented here.
 
 Each decision states the options considered, the outcome, and the review trigger that would
-justify revisiting it. The MCP-versus-HTTP and design-first *methodology* live in the two
-conceptual articles and are applied here, not repeated:
+justify revisiting it. The design-first *methodology* lives in the conceptual article and is
+applied here, not repeated:
 
 - [Design-First for MCP Servers](../../src/content/docs/docs/design-first/methodology.mdx)
-- [Deciding Between an MCP Server and an HTTP API](../../src/content/docs/docs/design-first/api-vs-mcp.mdx)
 
 ---
 
@@ -161,20 +160,37 @@ abuse-prevention rules — deferred to implementation.
 
 ## Decision 8 — Privacy and protected data
 
-- Status: accepted
+- Status: accepted (revised 2026-07-28 to add a post-completion result review)
 
-**Public fields** (leaderboard and result): `displayName`, `score`, `maxScore`,
-`durationSeconds`, `completedAt`, `rank`. The result additionally lists per-question
-`{ questionId, wasCorrect }`.
+**Public leaderboard fields** (`quiz://leaderboard/global`): `rank`, `displayName`, `score`,
+`maxScore`, `durationSeconds`, `completedAt`. The leaderboard never carries per-question
+data or answers.
 
-**Never exposed through any resource or output:** `session_id`, correct-answer keys, the
-participant's chosen options, client metadata, IP addresses, host or model information.
+**Completed result** (`quiz://results/{result_id}`): the public fields above **plus a
+per-question review** — for each question `{ questionId, wasCorrect, selectedOption,
+correctOption, explanation }`. The review exists to let the assistant explain to the
+participant *where and why* they missed a question after the quiz ends.
 
-**Rationale.** The public surface is limited to what a leaderboard and a shareable result
-need. Answer keys stay server-side so no resource read can leak them.
+**Never exposed through any resource or output:** `session_id`, client metadata, IP
+addresses, host or model information. Correct answers and chosen options remain hidden
+**while the quiz is active** (Decisions 5 and 9) and appear **only** in a completed result's
+review.
 
-**Review trigger.** A privacy review for real personal data (beyond a display name) would
-revisit which fields are public.
+**Rationale.** Immediate post-quiz review is a core learning use case; a result that only
+says "you got q2 wrong" cannot teach. Keeping the leaderboard answer-free preserves the
+anti-cheating boundary for the shared, ranked surface.
+
+**Accepted trade-off.** Because a result is addressed by a *public* `result_id`, putting the
+answer key in the result makes it readable by anyone who has (or guesses) a result id — the
+answer bank is no longer fully server-private. This is accepted for the tutorial: the bank is
+small, tutorial-only mock data, and the simplicity is worth more than perfect secrecy at this
+stage. The privacy-preserving alternative — keep the public/shareable result answer-free and
+serve the detailed review only through a **participant-scoped** surface — is deferred and
+enumerated under [advanced/](advanced/README.md).
+
+**Review trigger.** Real personal data (beyond a display name), a real multi-user
+leaderboard, or a need to protect the answer bank would move the detailed review to the
+participant-scoped design in `advanced/`.
 
 ---
 
@@ -222,7 +238,7 @@ validation errors actionable.
 
 ## Refinements from design review (M4)
 
-The design-time mock review (`design-review-report.md`) produced three contract refinements.
+The design-time mock review (`design-review-report.md`) produced three interface refinements.
 They make tool outputs self-identifying and point directly to the next readable resource,
 because the current question and result are resource **templates** whose concrete URIs a
 model would otherwise assemble by hand.
@@ -246,7 +262,8 @@ The 0.7.0 schema has **no dedicated error location**.
 > 
 > The tutorial therefore keeps outputSchema limited to successful structured output, represents mock failures using MCP’s isError: true result mechanism, and records expected domain errors and recovery guidance in the design decisions. 
 > 
-> A native tool-error catalogue is tracked as a potential future MCP Description enhancement. TODO: ADD ISSUE NUMBER
+> A native tool-error catalogue remains a potential future MCP Description enhancement. It
+> is deliberately outside this 0.7.0 design.
 
 Accordingly, each tool's `outputSchema` describes **successful** structured output only.
 Expected domain errors are documented here and, in the design-time mock, are surfaced using

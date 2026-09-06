@@ -18,11 +18,10 @@ Help a user design an MCP server **before** implementation and stop at a reviewe
 validated MCP Description document plus its supporting design notes. This skill applies the
 {mcpdesc} design-first method; it does not implement, generate, scaffold, or test a server.
 
-This skill applies — rather than restates — two conceptual articles. Link to them at the
+This skill applies — rather than restates — the conceptual article. Link to it at the
 moment a rationale is needed:
 
 - Design-First for MCP Servers — <https://mcpdesc.org/docs/design-first/methodology>
-- Deciding Between an MCP Server and an HTTP API — <https://mcpdesc.org/docs/design-first/api-vs-mcp>
 
 ## When to use
 
@@ -61,7 +60,7 @@ and record that it was skipped.
 3. **Capability map.** Propose tools, resources, resource templates, and prompts using
    `references/choosing-primitives.md`. For each proposal give a reason and, where the
    primitive choice is ambiguous, one rejected alternative. Fill `assets/capability-map-template.md`.
-4. **Contract design.** Define names, descriptions, inputs/outputs, side effects,
+4. **Interface design.** Define names, descriptions, inputs/outputs, side effects,
    annotations, error behaviour, state and identifiers, retries/duplicate calls, privacy,
    and the security assumption. Use `references/schema-design.md` and
    `references/side-effects-and-retries.md`. Record decisions in `assets/decisions-template.md`.

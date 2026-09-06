@@ -15,13 +15,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   syntax errors (e.g. a bare `{` parsed as a JSX expression) without the file name — only
   a bare `line:col` — making the failing file hard to locate. This runs before
   `astro build` so bad MDX now fails fast with the filename.
+- **Draft design-first learning package for MCP Description 0.7.0.** Adds a methodology,
+  five-minute quickstart, skill-driven tutorial, full walkthrough, structured-error
+  exploration, reusable `design-mcp-server` skill, and validated quiz and issue-triage
+  examples. All site content remains draft-only pending editorial review.
 - **First-party MCP Description JSON Schemas.** Versioned schemas are available at
   `/schema/mcp-description/<version>.json`, starting with `0.7.0` and `0.8.0-rc.1`. The
   immutable static resources support cross-origin loading by IDEs and validation tools.
 
 ### Fixed
 
-- MDX build failure in `src/content/docs/docs/design-first/structured-error-gap.mdx`:
+- MDX build failure in `src/content/blog/structured-error-gap.mdx`:
   raw JSON examples were written as unfenced body text, so MDX parsed the leading `{` as a
   JSX expression and the build failed with `Could not parse expression with oxc`. Wrapped
   the JSON examples in fenced ```` ```json ```` code blocks.

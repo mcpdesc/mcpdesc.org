@@ -1,106 +1,94 @@
 ---
-title: 'From Idea to Mock MCP Server — Before Writing the Implementation'
-listTitle: 'Design-first MCP: from idea to mock'
-description: 'A code-first MCP handler is easy to write — and easy to freeze the wrong design into. Here is what changed when we described and mocked an MCP Protocol Quiz before implementing it.'
-date: 2026-07-26
+title: "Design and Mock an MCP Server Before You Implement It"
+listTitle: "Design-first for MCP servers: lessons from a quiz"
+description: "Shape, validate, and test an MCP server interface with MCP Description 0.7.0 before implementation decisions become expensive to change."
+date: 2026-09-06
 author: Stève Sfartz
 draft: true
 ---
 
-The first MCP tool handler is easy. The harder question is whether it should have been that
-tool at all.
+Starting an MCP server from an SDK is quick. The first tools can appear before anyone has
+deliberately decided what the server should expose, and those early handlers quietly define
+the names, descriptions, schemas, and boundaries that agents will discover.
 
-When you start an MCP server from an SDK template, the first handler arrives before any
-deliberate design. And that first handler quietly decides things that are expensive to change
-later: the capability boundaries, the schemas, the names a model reasons about, the state
-transitions, the retry behaviour, and what information the server exposes. The implementation
-becomes the design by default.
+The implementation becomes the design by default. Only afterward do the harder questions
+arrive: is this the right tool, and should it have been a tool at all?
 
-So we tried the opposite order on a small example: describe the server first, review and mock
-it, and only then consider building it. The example is an **MCP Protocol Quiz** — a quiz about
-the Model Context Protocol that a participant takes through an AI host, one question at a time.
-It is small enough to hold in your head but rich enough to need tools, resources, a resource
-template, and a prompt.
+A design-first approach reverses that order. Start with an MCP Description document, review
+the capability surface, validate it, and run it as a deterministic mock. Implement the server
+only after the interface survives that review.
 
-Working design-first with an [MCP Description](/docs/design-first/methodology) document — the
-portable `{mcpdesc}` format for describing an MCP server — the interface changed three times
-*before* a single handler existed. Each change would have been a refactor if we had coded first.
+## A design-first quiz
 
-## Three things the design review changed
+The design-first learning path uses an **MCP Protocol Quiz** as its worked example. It begins
+with product and interface decisions, produces an MCP Description 0.7.0 document, and then
+loads that document with `mcpmock` so an AI assistant can exercise the proposed server shape.
+
+Choose the depth that fits your goal:
+
+- [Run the finished design in five minutes](/docs/design-first/quickstart).
+- [Use the `design-mcp-server` skill in fifteen minutes](/docs/design-first/skill-tutorial).
+- [Build the complete quiz design step by step](/docs/design-first/tutorial).
+- Read the underlying [Design-First for MCP Servers methodology](/docs/design-first/methodology).
+
+The complete walkthrough ends with an implementation-ready package: a validated description,
+a capability map, a decision record, deterministic fixtures, and review notes. It deliberately
+stops before server implementation and runtime conformance testing.
+
+## What changed before any code existed
+
+The quiz design changed several times while it was still only a description and a set of mock
+interactions. Those changes are the practical value of moving interface decisions earlier.
 
 ### 1. The leaderboard stopped being a tool
 
-The obvious first sketch had a `get_leaderboard` tool. Writing the capability map made the
-question explicit: is reading the leaderboard an *action*, or is it *data*? It is read-only
-ranked data, so it became a resource — `quiz://leaderboard/global` — not a tool. The same
-reasoning turned "get the current question" from a tool into a resource template. A code-first
-start would have shipped both as tools, because a handler is the path of least resistance.
+The first sketch included a `get_leaderboard` tool. The capability map forced a more useful
+question: is reading the leaderboard an action, or is it data?
 
-### 2. Tool responses learned to identify themselves
+It is read-only ranked data, so it became the `quiz://leaderboard/global` resource. The same
+reasoning turned “get the current question” into a resource template. Both would have worked
+as tools, but working is not the same as communicating the right semantics to an MCP host.
 
-The result and the current question are resource *templates* — addresses like
-`quiz://results/{result_id}`. Reviewing the mocked interaction surfaced a gap: a model that
-had just completed a quiz held only a `resultId`, and would have to assemble the resource URI
-by hand to read the result. The responses were also anonymous — nothing tied a reply back to
-its session.
+### 2. Tool responses became self-identifying
 
-So the tool outputs gained a few fields: the resolved `resultUri` and `currentQuestionUri`,
-and an echoed `sessionId`. Small changes, but they are exactly the kind of thing you only
-notice when you look at the interaction as a whole — and exactly the kind of thing that is
-annoying to retrofit once clients depend on the old shape.
+Quiz results and current questions are addressed through resource templates such as
+`quiz://results/{result_id}`. During the mocked interaction, a model that completed a quiz held
+only a `resultId`; it had to assemble the resource URI itself, and the response did not clearly
+identify its session.
 
-### 3. "Don't answer for the player" became a rule, not a hope
+The tool outputs gained resolved `resultUri` and `currentQuestionUri` values and echoed the
+`sessionId`. These are small changes, but they are much easier to make before clients depend on
+the original output shape.
 
-The quiz only works if the assistant *facilitates* — it must not answer on the participant's
-behalf or reveal the correct option. It is tempting to write that instruction into the prompt
-and move on. But prompt text is guidance, not a control. Designing first made the boundary
-concrete: no resource exposes an answer key, the current-question resource omits the correct
-option, and the server validates every submitted answer. The prompt still sets the tone; the
-server enforces the rule.
+### 3. “Do not answer for the player” became an enforceable boundary
 
-## What describing it first made possible
+The quiz works only when the assistant facilitates instead of answering on the participant’s
+behalf or revealing the correct option. Prompt text can express that instruction, but prompt
+text is guidance rather than a security control.
 
-None of this required a running server. Because the design was a real document, we could:
+The design therefore keeps answer keys out of every resource, omits the correct option from
+the current-question representation, and requires the server to validate submitted answers.
+The prompt sets the interaction style; the server design enforces the boundary.
 
-- **review** it against a checklist and in the [Live Editor](/live-editor), where the
-  capability cards make "resource vs tool" visible at a glance;
-- **validate** it against the format schema, so structural mistakes surfaced immediately;
-- **mock** it deterministically and walk the actual conversations — the happy path, a
-  duplicate answer, an invalid option, and "just answer it for me";
-- **reuse** the same artifact as the basis for documentation, fixtures, and an eventual
-  implementation.
+### 4. Tool-execution failures exposed a protocol gap
 
-A note on the mock, because it is easy to overclaim: it is a *design instrument*. It showed us
-whether the names read well, whether the model would reach for a resource instead of a tool,
-and whether any response leaked a protected value. It also made the format's limits concrete:
-this mock serves one canonical response per tool and returns generated content for resource
-reads, so the error paths and real leaderboard data are documented alongside the fixtures
-rather than pretended. It did **not** prove the business logic, the storage, the security, or
-the protocol conformance of a future server. Mocking a design is not testing an
-implementation, and we were careful to keep those two ideas apart.
+An expired session, a duplicate answer, or a rate limit can require a client to retry, correct
+an argument, or ask the participant to start again. MCP can mark such a result with
+`isError: true` and provide human-readable content, but it does not provide a standard,
+schema-governed error result equivalent to a successful tool’s `structuredContent` and
+`outputSchema`.
 
-## Where this workflow stops
+A model can understand “session expired; start a new quiz,” but client code cannot safely parse
+that prose to choose a recovery action. The design records expected failures without pretending
+that MCP Description 0.7.0 can standardize a protocol feature that MCP itself does not define.
+The separate [structured tool-errors draft](/blog/structured-error-gap) explores that gap.
 
-The tutorial ends with an implementation-ready package: a validated description, a decision
-record, deterministic fixtures, and review notes. It deliberately stops before writing the
-server. Choosing an SDK, implementing domain logic, adding persistence and authentication,
-standing up a real leaderboard, and running conformance tests are a separate workstream — and
-a separate article that starts from this exact package. Designing first does not remove that
-work; it makes it start from a reviewed target instead of an accidental one.
+## Design first, then implement
 
-This is not an argument that MCP should replace HTTP APIs, or that every service belongs behind
-a model. Part of the design-first method is
-[deciding whether MCP is the right interface at all](/docs/design-first/api-vs-mcp). For this
-example, AI hosts are the first-class consumers, so MCP earns its place.
+Design-first does not remove implementation work. It moves the decisions that shape an
+agent-facing interface to the point where they are easiest to inspect and least expensive to
+change.
 
-## Try it
-
-- Walk the full [design-first tutorial](/docs/design-first/tutorial) and reproduce the design.
-- Read the concepts behind it: [Design-First for MCP Servers](/docs/design-first/methodology)
-  and [Deciding Between an MCP Server and an HTTP API](/docs/design-first/api-vs-mcp).
-- Open a description in the [Live Editor](/live-editor).
-- Browse the complete [MCP Protocol Quiz example](https://github.com/mcpdesc/mcpdesc.org/tree/main/examples/mcp-protocol-quiz),
-  or reuse the workflow with the [`design-mcp-server` skill](https://github.com/mcpdesc/mcpdesc.org/tree/main/skills/design-mcp-server).
-
-Describe the agent-facing interface before you write the handler. It is the cheapest time to
-change your mind.
+The quiz still needs handlers, persistence, authentication decisions, runtime tests, and
+deployment before it becomes a production server. What it no longer needs is an implementation
+to discover what its interface should have been.

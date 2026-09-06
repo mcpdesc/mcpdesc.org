@@ -1,0 +1,8 @@
+{
+  "entries": [
+    { "rank": 1, "displayName": "Ada",           "score": 3, "maxScore": 3, "durationSeconds": 61, "completedAt": "2026-07-27T09:12:00Z" },
+    { "rank": 2, "displayName": "Grace",         "score": 3, "maxScore": 3, "durationSeconds": 88, "completedAt": "2026-07-27T10:03:00Z" },
+    { "rank": 3, "displayName": "Tutorial Test", "score": 2, "maxScore": 3, "durationSeconds": 74, "completedAt": "2026-07-28T06:15:00Z" },
+    { "rank": 4, "displayName": "Alan",          "score": 1, "maxScore": 3, "durationSeconds": 52, "completedAt": "2026-07-26T14:20:00Z" }
+  ]
+}

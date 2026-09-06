@@ -20,6 +20,30 @@ conformance, or coverage.
 The advertised surface matches the design: the leaderboard and result appear as
 **resources/templates**, not tools; the prompt carries the anti-cheating boundary.
 
+## Connected-host check (Streamable HTTP)
+
+Verified 2026-07-27 by running the mock as an MCP server and connecting as a host would:
+
+```bash
+mcpmock run mcp-protocol-quiz.mcpdesc.yaml --data mock-data/ \
+  --transport streamable-http --port 3111
+# endpoint: http://localhost:3111/mcp
+```
+
+The MCP handshake completed and discovery returned exactly the designed surface:
+
+- `initialize` → `protocolVersion: 2025-06-18`; `serverInfo.name: mcp-protocol-quiz`;
+  capabilities `tools`, `resources`, `prompts` as declared.
+- `tools/list` → `start_quiz`, `submit_answer`, `complete_quiz`.
+- `prompts/list` → `run_mcp_quiz`.
+- `tools/call start_quiz` → the fixture, including `sessionId`, `nextQuestion`, and the
+  refined `currentQuestionUri`.
+
+This confirms a real host can connect, negotiate capabilities, discover the primitives, and
+invoke a tool. It is a **protocol/discovery** check — it does not exercise a language model's
+tool-selection judgement (that requires conversing through a coding assistant) and does not
+establish correctness (the mock returns fixed data).
+
 ## Required scenarios
 
 | Scenario | How reviewed | Observation |

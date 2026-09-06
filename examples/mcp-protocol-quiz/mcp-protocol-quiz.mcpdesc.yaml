@@ -337,9 +337,10 @@ resources:
   name: global_leaderboard
   title: Global Leaderboard
   description: >-
-    Public ranked results. Read-only contextual data — not a tool. Exposes only public
-    fields (displayName, score, maxScore, durationSeconds, completedAt, rank). Ranked by
-    score, then shorter duration, then earlier completion. Tutorial-only mock data.
+    Public ranked results. Read-only contextual data — not a tool. Read it to answer
+    "where do I rank?" and "who is at the top?". Exposes only public fields per entry
+    (rank, displayName, score, maxScore, durationSeconds, completedAt). Ranked by score,
+    then shorter duration, then earlier completion. Tutorial-only mock data.
   mimeType: application/json
   annotations:
     readOnlyHint: true
@@ -352,8 +353,15 @@ resourceTemplates:
   title: Quiz Result
   description: >-
     A completed quiz result addressed by its public result identifier. Exposes public
-    fields and per-question correct/incorrect status, but never the correct answers or the
-    participant's chosen options.
+    fields (rank, displayName, score, maxScore, durationSeconds, completedAt) and a
+    per-question review used to explain the outcome: for each question, questionId,
+    wasCorrect, the participant's selectedOption, the correctOption, and a short
+    explanation of the correct answer. The review is available only after completion; the
+    current-question resource and mid-quiz outputs still never reveal the correct option
+    (Decisions 5 and 8). Answer keys thus become readable through a completed result — an
+    accepted simplification for this tutorial; the privacy-preserving variant (public
+    result stays answer-free, detailed review is participant-scoped) is enumerated under
+    ./advanced/.
   mimeType: application/json
   annotations:
     readOnlyHint: true

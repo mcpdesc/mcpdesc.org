@@ -1,0 +1,8 @@
+{
+  "issueId": "ISSUE-102",
+  "state": "closed",
+  "resolution": "duplicate",
+  "duplicateOf": "ISSUE-101",
+  "issueUri": "triage://issues/ISSUE-102",
+  "closedAt": "2026-07-28T10:07:00Z"
+}

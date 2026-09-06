@@ -1,0 +1,32 @@
+{
+  "resultId": "qz_res_REPLAY03",
+  "displayName": "Tutorial Test",
+  "score": 2,
+  "maxScore": 3,
+  "durationSeconds": 74,
+  "rank": 3,
+  "completedAt": "2026-07-28T06:15:00Z",
+  "questions": [
+    {
+      "questionId": "q1",
+      "wasCorrect": true,
+      "selectedOption": "B",
+      "correctOption": "B",
+      "explanation": "Correct. Resources expose read-only contextual data for a client to read."
+    },
+    {
+      "questionId": "q2",
+      "wasCorrect": false,
+      "selectedOption": "A",
+      "correctOption": "C",
+      "explanation": "You chose 'Resource template', a parameterized resource. A reusable, user-initiated workflow is a Prompt (C)."
+    },
+    {
+      "questionId": "q3",
+      "wasCorrect": true,
+      "selectedOption": "C",
+      "correctOption": "C",
+      "explanation": "Correct. Tools expose an executable action a client can invoke."
+    }
+  ]
+}

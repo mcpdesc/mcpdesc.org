@@ -28,6 +28,23 @@ mcpmock run examples/mcp-protocol-quiz/mcp-protocol-quiz.mcpdesc.yaml \
   --transport streamable-http --port 3000
 ```
 
+## Connecting a coding assistant / MCP host
+
+Beyond raw JSON-RPC, connect a real coding assistant to exercise tool discovery and
+selection with a model in the loop (design-time validation of naming/selection, not
+correctness):
+
+- **stdio config** — register the mock command in the host's MCP configuration:
+  `command: mcpmock`, `args: ["run", "mcp-protocol-quiz.mcpdesc.yaml", "--data", "mock-data/"]`.
+- **Streamable HTTP** — for URL-based hosts, endpoint `http://localhost:<port>/mcp`.
+- **MCP inspector** — an interactive alternative; use its current documented command.
+
+Verified host handshake (2026-07-27, Streamable HTTP `/mcp`): `initialize` negotiated the
+declared capabilities; `tools/list` returned the three tools; `prompts/list` returned
+`run_mcp_quiz`; `tools/call start_quiz` returned the fixture. See
+`scenarios/mock-observations.md`.
+
+
 ## Fixtures to prepare (deterministic, no implementation logic)
 
 | Fixture | Purpose | Scenario |

@@ -1,21 +1,23 @@
 ---
-title: Structured errors for MCP tool execution
+title: Structured content for tool errors
 description: MCP offers no structured content schema for tool-execution errors. This article describes the mcpdesc _meta error extension that servers and clients can adopt while remaining compliant with the MCP specifications.
 sidebar:
   order: 4
 draft: true
------------------------------------------------------------------------------------------------------------------------
+---
 
 # Structured errors for MCP tool execution
 
-MCP distinguishes 2 types of errors for tools: protocol-level failures and tool execution errors. 
-That distinction is useful, but when a tool fails during execution, the error consists only in unstructured content - generally text - that is valuable to a human or a language model, but not to to automated code logic.
-The execution error cannot be fully passed to a client using a structured schema.
+MCP distinguishes two types of tool errors: protocol-level failures and tool-execution
+failures. That distinction is useful, but when a tool fails during execution, its standard
+result carries unstructured content, generally text. The text is valuable to a person or a
+language model, but client code cannot reliably use it for automated recovery.
 
-This matters because MCP clients cannot 
-- identify what went wrong with the tool execution, 
-- decide whether the call is worth retrying, 
-- or drive recovery logic: 
+This matters because MCP clients cannot reliably:
+
+- identify what went wrong during tool execution;
+- decide whether the call is worth retrying;
+- drive deterministic recovery logic.
 
 This article describes the mcpdesc `_meta` error extension to close that gap while keeping MCP servers and clients fully compliant with the MCP specifications.
 
@@ -24,7 +26,7 @@ It builds on two mechanisms that MCP already provides:
 * `isError: true` signals that a tool's execution failed.
 * The unstructured `content` field carries a human-readable description of the failure, which the invoking client can pass to an LLM.
 
-The extension adds two mechanisms using the _meta extensibility attribute of the protocol:
+The extension adds two mechanisms using the `_meta` extensibility field of the protocol:
 
 * Return a complementary, machine-readable error object in the `_meta` entry of the tool's response.
 * Advertise the matching error schema and known error codes in each tool's `_meta` at discovery time.

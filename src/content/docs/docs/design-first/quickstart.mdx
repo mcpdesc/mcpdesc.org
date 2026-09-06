@@ -1,0 +1,135 @@
+---
+title: "Quickstart: Run an MCP Design in 5 Minutes"
+description: See a validated MCP Description document run as a design-time mock and talk to it from a coding assistant — no authoring, no server, about five minutes.
+sidebar:
+  order: 0
+draft: true
+---
+
+# Run an MCP Design in 5 Minutes
+
+The fastest way to understand the design-first method is to *see it work*. In this quickstart
+you take a finished, validated **MCP Description document**, run it as a design-time mock, view
+it in the Live Editor, and talk to it from a coding assistant — **without writing any code or
+authoring anything**. About five minutes.
+
+You will not build a server here. The mock is a *design instrument*: it serves fixed,
+deterministic responses so you can review the interface, not test an implementation.
+
+## Choose your path
+
+This is the shortest of three ways to learn the method. Pick the one that fits your time:
+
+| Path | Time | You will… |
+|---|---|---|
+| **Quickstart** (this page) | ~5 min | Run a finished design and talk to it. No authoring. |
+| [Skill-driven tutorial](/docs/design-first/skill-tutorial) | ~15 min | Use the `design-mcp-server` skill to turn a small idea into a running design. |
+| [Full walkthrough](/docs/design-first/tutorial) | ~1.5–2 hr | Author a complete design by hand, decision by decision. |
+
+## Before you start
+
+You need:
+
+- **Node.js 20 or newer** — check with `node --version`.
+- The **`mcpmock`** command, from the `@cisco_open/mcptoolkit-mock` package:
+
+```bash
+npm install -g @cisco_open/mcptoolkit-mock
+```
+
+Verify it installed:
+
+```bash
+mcpmock --version
+```
+
+This quickstart was verified with `mcpmock` **1.2.2** and an MCP Description document at
+format version **0.7.0**. Reverify versions before relying on them.
+
+## Step 1 — Get the example (~2 min)
+
+Clone the repository and move into the finished example:
+
+```bash
+git clone --depth 1 https://github.com/mcpdesc/mcpdesc.org.git
+cd mcpdesc.org/examples/mcp-protocol-quiz
+```
+
+The [`mcp-protocol-quiz/`](https://github.com/mcpdesc/mcpdesc.org/tree/main/examples/mcp-protocol-quiz)
+folder is a complete, reviewed design for an **MCP Protocol Quiz**: a small service that helps a
+participant test their MCP knowledge through an AI host. Its capability surface is three tools,
+two resources, two resource templates, and one prompt — all defined in
+[`mcp-protocol-quiz.mcpdesc.yaml`](https://github.com/mcpdesc/mcpdesc.org/blob/main/examples/mcp-protocol-quiz/mcp-protocol-quiz.mcpdesc.yaml).
+
+## Step 2 — Run the mock (~30 sec)
+
+Start the design as a mock MCP server over stdio, using the deterministic fixtures in
+`mock-data/`:
+
+```bash
+mcpmock run mcp-protocol-quiz.mcpdesc.yaml --data mock-data/
+```
+
+The mock is now serving the designed capabilities: the tools `start_quiz`, `submit_answer`, and
+`complete_quiz`, the `run_mcp_quiz` prompt, and the rules and leaderboard resources. It reads
+the interface straight from the description — no handlers, no database. Leave it running, or
+stop it with `Ctrl+C`; the next steps do not depend on this process staying up.
+
+## Step 3 — See the design in the Live Editor (~1 min)
+
+Open the [Live Editor](/live-editor) and paste the contents of
+`mcp-protocol-quiz.mcpdesc.yaml`. You get an immediate visual review of the same design:
+
+- the **validation panel** shows the document is clean;
+- the **capability cards** show the leaderboard and the result as a *resource* and a *resource
+  template* — not tools — which is a deliberate design decision, not an accident;
+- the **Markdown view** shows each tool description exactly as a model would read it.
+
+This is what "design-first" buys you: you can inspect and critique the whole agent-facing
+surface before a single line of server code exists.
+
+## Step 4 — Talk to it from your assistant (~1–2 min)
+
+The real payoff is watching a *model* use the design. Register the mock as an MCP server in your
+coding assistant's configuration (most hosts launch a server from a command over stdio):
+
+```json
+{
+  "servers": {
+    "mcp-protocol-quiz": {
+      "command": "mcpmock",
+      "args": ["run", "mcp-protocol-quiz.mcpdesc.yaml", "--data", "mock-data/"]
+    }
+  }
+}
+```
+
+Paths are resolved from wherever your assistant launches the server — if it cannot find the
+files, use the absolute path to `mcp-protocol-quiz.mcpdesc.yaml` and to the `mock-data/` folder.
+
+Now ask the assistant to start a quiz. Because the surface is well designed, watch it:
+
+- **discover** `start_quiz` from the description alone;
+- **read** the leaderboard as a resource instead of hunting for a `get_leaderboard` tool;
+- **decline** if you say "just answer it for me" — the facilitator boundary is written into the
+  design.
+
+The mock returns fixed data, so this validates **naming, discoverability, and workflow shape —
+not correctness**. That is design-time validation, and it is exactly what you want before
+committing to an implementation.
+
+## What just happened
+
+In five minutes you ran a reviewed MCP interface, inspected it visually, and had a model use it
+— all with zero implementation. Every one of those decisions (resource-vs-tool, the answer-key
+privacy boundary, duplicate-submission behaviour) was made while it was still cheap to change.
+
+## Next steps
+
+- **Design your own in ~15 minutes.** Use the
+  [`design-mcp-server` Agent Skill](https://github.com/mcpdesc/mcpdesc.org/tree/main/skills/design-mcp-server)
+  to turn a small idea into a running design.
+- **Go deep.** The [full walkthrough](/docs/design-first/tutorial) builds this exact package by
+  hand, one decision at a time.
+- **Understand the method.** Read
+  [Design-First for MCP Servers](/docs/design-first/methodology).

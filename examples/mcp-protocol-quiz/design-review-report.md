@@ -12,7 +12,7 @@ not a conformance or coverage claim.
 
 ## Findings and refinements
 
-The review produced three meaningful contract refinements. Each improves the agent-facing
+The review produced three meaningful interface refinements. Each improves the agent-facing
 interface; none expands scope toward implementation.
 
 ### R1 — Return a resolved `currentQuestionUri`

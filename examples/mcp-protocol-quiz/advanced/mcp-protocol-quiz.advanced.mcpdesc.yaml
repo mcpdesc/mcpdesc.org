@@ -1,0 +1,157 @@
+mcpdesc: 0.7.0
+
+# MCP Protocol Quiz — ADVANCED surfaces (exploratory design sketch, NOT canonical).
+#
+# This skeleton illustrates the headline advanced options from ./README.md. It declares only
+# the NEW or CHANGED surfaces and is meant to be MERGED onto the canonical base
+# (../mcp-protocol-quiz.mcpdesc.yaml) — do not run it as a standalone server description.
+# Dynamic behaviour is deferred; implementation will come via automated code generation.
+
+info:
+  name: mcp-protocol-quiz-advanced
+  title: MCP Protocol Quiz (advanced surfaces)
+  version: 0.0.1
+  description: >-
+    Exploratory sketch of advanced MCP surfaces for the quiz: a privacy-preserving split of
+    the result (answer-free public result plus a participant-scoped review), a per-difficulty
+    leaderboard, and an optional practice mode. Merges onto the canonical base; not a
+    validated canonical artifact.
+  protocolVersion: '2025-06-18'
+  id: urn:mcp:mcp-protocol-quiz-advanced
+  websiteUrl: https://mcpdesc.org/examples/mcp-protocol-quiz/advanced
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+
+transports:
+- type: stdio
+  command: mcp-protocol-quiz
+  args:
+  - serve
+
+capabilities:
+  tools:
+    listChanged: false
+  resources:
+    subscribe: false
+    listChanged: false
+  prompts:
+    listChanged: false
+
+# Option C — practice mode: start_quiz gains a `mode` input. Shown as the only tool here;
+# submit_answer / complete_quiz are inherited unchanged from the canonical base.
+tools:
+- name: start_quiz
+  title: Start Quiz
+  description: >-
+    Begin a new MCP Protocol Quiz. Adds `mode`: in `practice`, submit_answer may reveal the
+    correct option and an explanation immediately (relaxing Decision 5); in `quiz` (default)
+    behaviour is unchanged and only `quiz`-mode sessions appear on the ranked leaderboard.
+  inputSchema:
+    type: object
+    properties:
+      displayName:
+        type: string
+        description: Public name shown on the leaderboard. 1–40 characters after trimming; no control characters.
+        minLength: 1
+        maxLength: 40
+      difficulty:
+        type: string
+        description: Question difficulty for the session.
+        enum:
+        - easy
+        - medium
+        - hard
+      questionCount:
+        type: integer
+        description: 'Number of questions to ask (default: 5).'
+        minimum: 3
+        maximum: 10
+      mode:
+        type: string
+        description: 'Session mode: quiz (ranked, answers hidden) or practice (teaching, answers may be revealed).'
+        enum:
+        - quiz
+        - practice
+        default: quiz
+    required:
+    - displayName
+    - difficulty
+    additionalProperties: false
+  annotations:
+    readOnlyHint: false
+    destructiveHint: false
+    idempotentHint: false
+    openWorldHint: false
+  tags:
+  - session
+
+resources:
+# Option A — the PUBLIC result becomes answer-free (see resourceTemplates below).
+# The global leaderboard is inherited unchanged from the canonical base.
+- uri: quiz://topics
+  name: quiz_topics
+  title: Quiz Topics
+  description: >-
+    Option E. Read-only list of MCP topics covered by the bank, each with a link to the
+    relevant MCP documentation, so a review can point the participant at further reading.
+  mimeType: application/json
+  annotations:
+    readOnlyHint: true
+  tags:
+  - reference
+
+resourceTemplates:
+# Option A — split result into a public, answer-free summary and a participant-scoped review.
+- uriTemplate: quiz://results/{result_id}
+  name: quiz_result_public
+  title: Quiz Result (public, answer-free)
+  description: >-
+    Option A. Public, shareable result: public fields plus per-question wasCorrect only.
+    Never exposes correctOption, selectedOption, or explanations — safe to place on a
+    leaderboard.
+  mimeType: application/json
+  annotations:
+    readOnlyHint: true
+  tags:
+  - results
+
+- uriTemplate: quiz://results/{result_id}/review
+  name: quiz_result_review
+  title: Quiz Result Review (participant-scoped)
+  description: >-
+    Option A. Detailed review intended for the owning participant only: adds selectedOption,
+    correctOption, and explanation per question. In a real implementation this is
+    access-scoped to the participant; at design time it is documented as participant-only.
+  mimeType: application/json
+  annotations:
+    readOnlyHint: true
+  tags:
+  - results
+
+# Option B — per-difficulty leaderboard alongside the global board.
+- uriTemplate: quiz://leaderboard/{difficulty}
+  name: leaderboard_by_difficulty
+  title: Leaderboard by Difficulty
+  description: >-
+    Option B. Public ranked results for a single difficulty tier (easy | medium | hard).
+    Same public fields and tie-breaks as the global leaderboard.
+  mimeType: application/json
+  annotations:
+    readOnlyHint: true
+  tags:
+  - results
+
+prompts:
+- name: review_my_result
+  title: Review My Result
+  description: >-
+    Option A. Walk the participant through their completed result: read the participant-scoped
+    review and explain, per missed question, what they chose, the correct option, and why.
+  arguments:
+  - name: resultId
+    title: Result ID
+    description: The public result identifier to review.
+    required: true
+  tags:
+  - results

@@ -122,16 +122,82 @@ way for the model to obtain the leaderboard?
 
 ---
 
-## T8 — Read a finished result
+## T8 — Read a finished result (with review)
 
 ```text
 ◆ model: reads resource quiz://results/qz_res_01
 ⧉ server: { resultId: "qz_res_01", displayName: "Ada", score: 4, maxScore: 5,
             durationSeconds: 132, rank: 3, completedAt: "…",
-            questions: [ { questionId: "q1", wasCorrect: true }, … ] }
+            questions: [ { questionId: "q1", wasCorrect: true, selectedOption: "B",
+                           correctOption: "B", explanation: "…" }, … ] }
 ```
 
-No correct-answer key and no chosen options appear in the result (Decision 8).
+Per the **revised** Decision 8, a completed result includes a per-question review
+(`selectedOption`, `correctOption`, `explanation`) so the assistant can explain outcomes.
+Correct options remain hidden mid-quiz and in the current-question resource.
+
+---
+
+## T9 — Read the rules before starting
+
+```text
+▶ participant: How does this quiz work, and how is it scored?
+◆ model: reads resource quiz://rules (no tool call)
+⧉ server: { markdown: "Sessions… difficulty… scoring… 30-min idle expiry… the assistant
+            facilitates and never answers for you." }
+◆ model: summarises the rules, then offers to start_quiz.
+```
+
+Trigger for a **resource** read (static reference), not a tool call. Seeds the facilitator
+boundary before any question is asked.
+
+---
+
+## T10 — "Where do I rank?" (leaderboard read)
+
+```text
+▶ participant: Where do I rank?
+◆ model: reads resource quiz://leaderboard/global (no tool call) — see T7 payload
+◆ model: "You're 3rd of 4 — 2/3, 74s. Ada and Grace lead with 3/3." (public fields only)
+```
+
+The leaderboard is read-only ranked data; the model reads it rather than "calling" for it.
+Illustrated with `resource-fixtures/leaderboard.json`.
+
+---
+
+## T11 — "Why did I miss that one?" (result review)
+
+```text
+▶ participant: I finished — where and why did I go wrong?
+◆ model: reads resource quiz://results/qz_res_REPLAY03 — see resource-fixtures/
+⧉ server: { score: 2, maxScore: 3, rank: 3,
+            questions: [ { q1: correct },
+                         { q2: wasCorrect:false, selectedOption:"A", correctOption:"C",
+                           explanation:"A reusable, user-initiated workflow is a Prompt (C);
+                           'Resource template' (A) is a parameterized resource." },
+                         { q3: correct } ] }
+◆ model: "You scored 2/3. On q2 you chose A (Resource template); the answer is C (Prompt),
+          because a prompt is the reusable, user-initiated workflow."
+```
+
+This is the new capability: the review lets the assistant explain **where and why** the
+participant failed. It relies on the revised Decision 8 (answer keys appear in a completed
+result — accepted tutorial trade-off; privacy-preserving variant under `advanced/`).
+
+---
+
+## T12 — "What was the question again?" (current-question read)
+
+```text
+▶ participant: Sorry, can you repeat the current question and options?
+◆ model: reads resource quiz://sessions/qz_sess_REPLAY03/current-question (no advance)
+⧉ server: { currentQuestion: { questionId: "q2", prompt: "…", options: [A,B,C,D] } }
+◆ model: re-presents q2 without submitting anything.
+```
+
+Reading is idempotent and never advances the quiz — deliberately distinct from
+`submit_answer`. Also the recovery path for T3 (duplicate answer) and T4 (invalid option).
 
 ---
 

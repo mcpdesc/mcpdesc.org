@@ -26,7 +26,7 @@ across hosts. A production version could expose HTTP too, over shared domain log
   action).
 - `run_mcp_quiz` → **prompt** (facilitator workflow + anti-abuse boundary).
 
-## Phase 4 — Contract design (highlights)
+## Phase 4 — Interface design (highlights)
 
 - `submit_answer` auto-completes on the final answer; `complete_quiz` is idempotent.
 - `outputSchema` is success-only; domain errors are documented and surfaced via `isError`.

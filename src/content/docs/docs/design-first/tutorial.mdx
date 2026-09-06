@@ -1,10 +1,10 @@
 ---
 title: Design an MCP Server Before You Build It
-description: A practical, design-first walkthrough that turns a product idea into a reviewed, validated MCP Description document — using an MCP Protocol Quiz example — and stops before implementation.
+description: A practical, design-first walkthrough that turns a product idea into a reviewed, validated MCP Description document.
 sidebar:
-  order: 2
+  order: 3
 draft: true
------------------------------------------------------------------------------------------------------------------------
+---
 
 # Design-first Walkthrough for MCP Servers
 
@@ -13,14 +13,45 @@ This tutorial applies the design-first method to a concrete service and finishes
 interface decisions while they are still cheap to change, and hand off a design that is ready
 to build.
 
-It assumes you have already read the two conceptual articles and does not repeat them:
+It assumes you have already read the conceptual introduction and does not repeat it:
 
 - [Design-First for MCP Servers](/docs/design-first/methodology) — what design-first means and why the capability surface is the product.
-- [Deciding Between an MCP Server and an HTTP API](/docs/design-first/api-vs-mcp) — how to choose the interface for your consumers.
 
 The complete example lives in this repository at
 [`examples/mcp-protocol-quiz/`](https://github.com/mcpdesc/mcpdesc.org/tree/main/examples/mcp-protocol-quiz).
 Clone the repository and work alongside it.
+
+## Choose your path
+
+This is the deepest of three ways to learn the method. If two hours is more than you want right
+now, start smaller and come back:
+
+| Path | Time | You will… |
+|---|---|---|
+| [Quickstart](/docs/design-first/quickstart) | ~5 min | Run a finished design and talk to it. No authoring. |
+| [Skill-driven tutorial](/docs/design-first/skill-tutorial) | ~15 min | Use the `design-mcp-server` skill to turn a small idea into a running design. |
+| **Full walkthrough** (this page) | ~1.5–2 hr | Author a complete design by hand, decision by decision. |
+
+## How long this takes
+
+This is the complete, hands-on walkthrough. Done properly the first time — installing the
+tools, reading the two prerequisite articles, and completing every action — it takes about
+**1.5 to 2 hours**. The figures below are approximate and assume you are doing each step, not
+just reading.
+
+| Stage | First-time, hands-on |
+|---|---|
+| Read the prerequisite methodology | ~15–20 min |
+| Install Node ≥ 20, `mcpcontract`, `mcpmock`; clone the repo | ~10–15 min |
+| Sections 1–5 — interface decision, capability map, state and safety | ~30 min |
+| Section 6 — author and validate the description | ~20 min |
+| Sections 7–9 — Live Editor, mock fixtures, connect an assistant | ~25 min |
+| Sections 10–12 — refine, hand off, conclude | ~15 min |
+
+You do not have to complete it in one sitting. The design package is built incrementally, so
+you can stop after any section and resume later. If you only want to *see* a validated MCP
+Description running before you commit the time, start the mock on the finished example first
+(Section 8) and come back to the authoring steps.
 
 ## 1. What you will produce
 
@@ -51,8 +82,8 @@ them; the format version and the tool versions are separate values.
 | Run a design-time mock | `mcpmock run <file> --data mock-data/` | `@cisco_open/mcptoolkit-mock` |
 | Visual review | the [Live Editor](/live-editor) | hosted |
 
-This tutorial was written against MCP Description **0.7.0**, `mcpcontract` 1.0.0, and
-`mcpmock` 1.0.0 (Node ≥ 20).
+This tutorial was verified against MCP Description **0.7.0**, `mcpcontract` **2.0.0-rc.1**,
+and `mcpmock` **1.2.2** (Node ≥ 20).
 
 ## 2. Start from the outcome
 
@@ -75,11 +106,29 @@ data that must stay protected (here: the correct answers).
 
 ## 3. Confirm that MCP adds value
 
-Do not re-run the whole MCP-versus-HTTP framework — [apply it](/docs/design-first/api-vs-mcp).
+Apply the interface-decision questions from the methodology before choosing a protocol.
 A conventional quiz website would use an HTTP API. This example chooses MCP because AI hosts
 are the first-class consumers: the model should discover the quiz tools, read the rules and
 leaderboard as resources, and run a reusable prompt, without a bespoke integration per host.
 A production version could later expose both HTTP and MCP over shared domain logic.
+
+There is a third option worth naming, because it is the one you are most tempted by: instead of
+an MCP server you could ship an agent **skill** that calls an HTTP API directly. For simple
+cases that is genuinely the right call. But a skill-over-an-API cannot do what MCP does:
+
+| Capability | Skill + direct API | MCP server |
+|---|---|---|
+| **Resources** the host surfaces as attachable context | ✗ every read is an imperative call | ✓ first-class, re-read cheaply |
+| **Server-authored prompts** (slash-command-like) | ✗ cannot ship prompts to arbitrary hosts | ✓ native |
+| **Elicitation / sampling** (server asks the user or model mid-flow) | ✗ one-directional | ✓ bidirectional |
+| **Machine-actionable safety** (`readOnlyHint`, `idempotentHint`, `destructiveHint`) driving host consent | ✗ prose only ("be careful") | ✓ hosts gate on metadata |
+| **Write once, any host** | ✗ re-author per host (Copilot ≠ Claude ≠ Cursor) | ✓ one server, every MCP host |
+| **An agent-shaped interface** distinct from the raw HTTP surface | ✗ the agent sees your real API (auth, pagination, error codes) | ✓ you design the surface |
+
+The honest flip side: for a **stateless, single-call** service, a skill+API is genuinely fine —
+MCP earns its keep only when several rows above light up. So the example was chosen to cross
+that threshold on purpose: the quiz has sessions, resources, a reusable prompt, and
+consent-sensitive answer submission, so the MCP-specific rows all light up.
 
 **Your turn.** Record a short decision in
 [`decisions.md`](https://github.com/mcpdesc/mcpdesc.org/blob/main/examples/mcp-protocol-quiz/decisions.md)
@@ -249,34 +298,85 @@ the mock over stdio:
 mcpmock run mcp-protocol-quiz.mcpdesc.yaml --data mock-data/
 ```
 
-Verify what this mock version actually supports rather than assuming. For `mcpmock` 1.0.0:
+Verify what this mock version actually supports rather than assuming. For `mcpmock` 1.2.0:
 
-- it serves **one response per tool** (no branching on arguments);
-- tool output is returned as a **text** content block, not as `structuredContent`;
-- `resources/read` returns **auto-generated placeholder** content — `--data` overrides apply
-  to tools only.
+- static `--data` serves **one response per tool** (no branching on arguments); `--replay` adds
+  argument-dependent responses;
+- tool output includes **`structuredContent`** (from `outputSchema`) alongside the text block;
+- `resources/read` under `--data` returns **auto-generated placeholder** content; use `--replay`
+  to serve real per-URI resource content.
 
 These are documented in
 [`mock-data/README.md`](https://github.com/mcpdesc/mcpdesc.org/blob/main/examples/mcp-protocol-quiz/mock-data/README.md),
 not worked around.
 
-## 9. Run representative design conversations
+## 9. Connect the mock to a coding assistant
 
-Walk the required scenarios and record what the design *should* do — not fabricated command
-output. Because the mock serves one response per tool, error and branching paths are captured
-as design fixtures in
-[`scenarios/`](https://github.com/mcpdesc/mcpdesc.org/tree/main/examples/mcp-protocol-quiz/scenarios).
+Raw JSON-RPC confirms the shape, but the real design question is whether a *model* can use the
+server. Run the mock as an MCP server and connect a coding assistant (or an MCP inspector) to
+it, then hold the actual conversation.
 
-| Scenario | Expected design behaviour |
+**Option A — register it in your assistant's MCP configuration (stdio).** Most hosts launch an
+MCP server from a command. Point yours at the mock:
+
+```json
+{
+  "servers": {
+    "mcp-protocol-quiz": {
+      "command": "mcpmock",
+      "args": ["run", "mcp-protocol-quiz.mcpdesc.yaml", "--data", "mock-data/"]
+    }
+  }
+}
+```
+
+**Option B — run it over Streamable HTTP** for hosts that connect by URL:
+
+```bash
+mcpmock run mcp-protocol-quiz.mcpdesc.yaml --data mock-data/ \
+  --transport streamable-http --port 3111 --verbose
+# MCP endpoint: http://localhost:3111/mcp
+```
+
+Then point the assistant at that URL instead of a command — most hosts use an `http` server
+entry:
+
+```json
+{
+  "servers": {
+    "mcp-protocol-quiz": {
+      "type": "http",
+      "url": "http://localhost:3111/mcp"
+    }
+  }
+}
+```
+
+An interactive MCP inspector is a good alternative for stepping through capabilities by hand;
+use the current command from its own documentation.
+
+On connection the host completes the MCP handshake and discovers the surface. For this design
+it negotiates the declared capabilities and lists exactly the intended primitives — the three
+tools (`start_quiz`, `submit_answer`, `complete_quiz`), the `run_mcp_quiz` prompt, and the
+rules and leaderboard resources.
+
+Now converse with the assistant and **watch what it does** — that is what the mock validates:
+
+| Watch for | The design is working when… |
 |---|---|
-| Happy path | Start → answer → complete; outputs carry the next question and result references. |
-| Duplicate answer | `ANSWER_ALREADY_SUBMITTED` (recoverable); the model re-reads the current question. |
-| Invalid option | `INVALID_ANSWER_OPTION` with `details.allowedOptions`. |
-| Unknown / expired session | `SESSION_NOT_FOUND` / `SESSION_EXPIRED`; start a new quiz. |
-| “Answer it for me” | The model declines; the server exposes no answer key. |
-| Leaderboard / result | Read as a resource / resource template, not a tool call. |
+| Tool discovery | the assistant finds `start_quiz` from the description alone, without hints. |
+| Tool selection | it calls `submit_answer` only with the option you actually gave it. |
+| Resource vs tool | it *reads* the leaderboard resource instead of hunting for a `get_leaderboard` tool. |
+| Next-step guidance | it follows `currentQuestionUri` / `resultUri` from a tool's output. |
+| Facilitator boundary | it declines when you say “just answer it for me,” and never surfaces a correct option. |
 
-The full observations are in
+Because the mock returns fixed data, this validates **naming, discoverability, tool selection,
+and workflow shape — not correctness**. It is design-time validation, not implementation
+testing. Error and branching paths (duplicate answer, invalid option, expired session) are
+captured as design fixtures in
+[`scenarios/`](https://github.com/mcpdesc/mcpdesc.org/tree/main/examples/mcp-protocol-quiz/scenarios),
+because the mock serves one response per tool. The full observations — including the connected
+handshake — are in
 [`scenarios/mock-observations.md`](https://github.com/mcpdesc/mcpdesc.org/blob/main/examples/mcp-protocol-quiz/scenarios/mock-observations.md).
 
 ## 10. Refine the description
@@ -333,12 +433,12 @@ reopens the design decisions above without new evidence.
 You turned a product idea into a reviewed, validated MCP Description document. You chose the
 interface deliberately, modelled the leaderboard as a resource, kept answer keys off every
 resource, designed duplicate and completion behaviour before any code, and let a design-time
-mock reveal three contract improvements — all before writing a server.
+mock reveal three interface improvements — all before writing a server.
 
 Next steps:
 
 - Reuse this workflow with the [`design-mcp-server` Agent Skill](https://github.com/mcpdesc/mcpdesc.org/tree/main/skills/design-mcp-server).
-- Revisit the concepts: [Design-First for MCP Servers](/docs/design-first/methodology) and [Deciding Between an MCP Server and an HTTP API](/docs/design-first/api-vs-mcp).
+- Revisit the concepts in [Design-First for MCP Servers](/docs/design-first/methodology).
 - Explore the full [example package](https://github.com/mcpdesc/mcpdesc.org/tree/main/examples/mcp-protocol-quiz) and open the description in the [Live Editor](/live-editor).
 
 A follow-up article will take this exact package into implementation and testing.

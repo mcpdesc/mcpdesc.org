@@ -11,10 +11,9 @@ Context Protocol through an AI host.
 
 ## Read the methodology first
 
-This example applies, without repeating, the two conceptual articles:
+This example applies, without repeating, the conceptual article:
 
 - [Design-First for MCP Servers](../../src/content/docs/docs/design-first/methodology.mdx)
-- [Deciding Between an MCP Server and an HTTP API](../../src/content/docs/docs/design-first/api-vs-mcp.mdx)
 
 ## Contents
 
@@ -26,6 +25,9 @@ This example applies, without repeating, the two conceptual articles:
 | [mock-plan.md](mock-plan.md) | How the design-time mock is used for review. |
 | [mcp-protocol-quiz.mcpdesc.yaml](mcp-protocol-quiz.mcpdesc.yaml) | Canonical MCP Description document (validates against 0.7.0). |
 | [mock-data/](mock-data/) | Deterministic mock fixtures for the three tools. |
+| [resource-fixtures/](resource-fixtures/) | Static fake content for the leaderboard and a result review (illustrates the resource reads). |
+| [replay/](replay/) | Advanced: a `--replay` dataset for a full 3-question playthrough. |
+| [advanced/](advanced/) | Advanced use cases & next steps (privacy-preserving review, per-difficulty leaderboard, practice mode). |
 | [scenarios/mock-observations.md](scenarios/mock-observations.md) | What the design-time mock actually showed. |
 | [design-review-report.md](design-review-report.md) | Review findings and the before/after refinements. |
 | [screenshot-manifest.md](screenshot-manifest.md) | Live Editor visuals (reproducible capture steps). |
@@ -40,8 +42,9 @@ This example applies, without repeating, the two conceptual articles:
 ## Design-time tools (verified versions)
 
 - Validate: `mcpcontract validate mcp-protocol-quiz.mcpdesc.yaml --schema mcpdesc --strict`
-  (`@cisco_open/mcptoolkit-contract`)
-- Mock: `mcpmock run mcp-protocol-quiz.mcpdesc.yaml` (`@cisco_open/mcptoolkit-mock`)
+  (`@cisco_open/mcptoolkit-contract`, verified with 2.0.0-rc.1)
+- Mock: `mcpmock run mcp-protocol-quiz.mcpdesc.yaml` (`@cisco_open/mcptoolkit-mock`,
+  verified with 1.2.2)
 - Visual review: the [Live Editor](https://editor.mcpdesc.org)
 
 Schema: **MCP Description 0.7.0**. The document validates clean (0 errors, 0 warnings,
