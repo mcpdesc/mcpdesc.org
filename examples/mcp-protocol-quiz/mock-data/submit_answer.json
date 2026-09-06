@@ -1,0 +1,18 @@
+{
+  "sessionId": "qz_sess_TUTORIAL01",
+  "wasCorrect": true,
+  "runningScore": 1,
+  "questionsRemaining": 4,
+  "state": "active",
+  "nextQuestion": {
+    "questionId": "q2",
+    "prompt": "Which MCP primitive represents a reusable, user-initiated workflow?",
+    "options": [
+      { "optionId": "A", "text": "Resource template" },
+      { "optionId": "B", "text": "Tool" },
+      { "optionId": "C", "text": "Prompt" },
+      { "optionId": "D", "text": "Notification" }
+    ]
+  },
+  "currentQuestionUri": "quiz://sessions/qz_sess_TUTORIAL01/current-question"
+}

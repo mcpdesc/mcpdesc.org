@@ -1,0 +1,16 @@
+{
+  "sessionId": "qz_sess_TUTORIAL01",
+  "state": "active",
+  "totalQuestions": 5,
+  "nextQuestion": {
+    "questionId": "q1",
+    "prompt": "In MCP, which primitive is designed to expose contextual data for a client to read?",
+    "options": [
+      { "optionId": "A", "text": "Tool" },
+      { "optionId": "B", "text": "Resource" },
+      { "optionId": "C", "text": "Prompt" },
+      { "optionId": "D", "text": "Transport" }
+    ]
+  },
+  "currentQuestionUri": "quiz://sessions/qz_sess_TUTORIAL01/current-question"
+}

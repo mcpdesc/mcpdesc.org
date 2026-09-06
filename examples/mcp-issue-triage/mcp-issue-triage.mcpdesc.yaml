@@ -1,0 +1,301 @@
+mcpdesc: 0.7.0
+
+# MCP Issue Triage — canonical MCP Description document (design-only).
+# Applies the {mcpdesc} design-first method; see ./decisions.md and ./capability-map.md.
+#
+# Brownfield framing: an issue tracker already exists behind an HTTP API. This document
+# designs an MCP interface for AI hosts instead of wrapping that API in a per-host skill.
+# It presents an agent-shaped surface (assign / set priority / close, plus the open queue
+# and issue detail as resources) rather than the tracker's raw REST endpoints.
+#
+# outputSchema describes SUCCESSFUL structured output only. Expected domain errors
+# (e.g. issue not found) are documented in decisions.md and surfaced by the design-time
+# mock via `isError: true`.
+
+info:
+  name: mcp-issue-triage
+  title: MCP Issue Triage
+  version: 0.1.0
+  description: >-
+    Help a maintainer triage issues from an existing tracker through an MCP host. The AI
+    host reads the open queue and issue details as resources, proposes a priority and an
+    assignee, and mutates an issue only after the maintainer explicitly confirms. It never
+    closes or reassigns an issue on its own initiative.
+  protocolVersion: '2025-06-18'
+  id: urn:mcp:mcp-issue-triage
+  websiteUrl: https://mcpdesc.org/examples/mcp-issue-triage
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+
+# Design-time transport for the mock. The real tracker's HTTP API, authentication, and
+# hosting are implementation concerns and are intentionally deferred (there is no server
+# here).
+transports:
+- type: stdio
+  command: mcp-issue-triage
+  args:
+  - serve
+
+capabilities:
+  tools:
+    listChanged: false
+  resources:
+    subscribe: false
+    listChanged: false
+  prompts:
+    listChanged: false
+
+tools:
+- name: set_priority
+  title: Set Issue Priority
+  description: >-
+    Set the triage priority of an open issue. Call this once the maintainer has agreed a
+    priority. Priorities are P0 (drop everything) to P3 (someday). Idempotent: setting the
+    same priority again returns the same result. Does not assign, comment on, or close the
+    issue.
+  inputSchema:
+    type: object
+    properties:
+      issueId:
+        type: string
+        description: Tracker-owned issue identifier, e.g. ISSUE-101. Not minted by this server.
+      priority:
+        type: string
+        description: Triage priority to set.
+        enum:
+        - P0
+        - P1
+        - P2
+        - P3
+    required:
+    - issueId
+    - priority
+    additionalProperties: false
+  outputSchema:
+    type: object
+    properties:
+      issueId:
+        type: string
+        description: The issue whose priority was set. Echoed so the caller can match responses to issues.
+      priority:
+        type: string
+        description: The priority now recorded on the issue.
+        enum:
+        - P0
+        - P1
+        - P2
+        - P3
+      state:
+        type: string
+        description: Lifecycle state of the issue after the change.
+        enum:
+        - open
+        - closed
+      issueUri:
+        type: string
+        description: Resolved URI of the issue detail resource (triage://issues/{issueId}). Read it to review the updated issue.
+      updatedAt:
+        type: string
+        description: Server-side timestamp of the change, ISO 8601.
+    required:
+    - issueId
+    - priority
+    - state
+    - issueUri
+    additionalProperties: false
+  annotations:
+    readOnlyHint: false
+    destructiveHint: false
+    idempotentHint: true
+    openWorldHint: false
+  tags:
+  - triage
+
+- name: assign_issue
+  title: Assign Issue
+  description: >-
+    Assign an open issue to a person. Call this only with an assignee the maintainer has
+    explicitly chosen; never guess an owner and never reassign on your own initiative.
+    Idempotent: assigning the same person again returns the same result. Assigning a closed
+    issue is rejected with a recoverable error.
+  inputSchema:
+    type: object
+    properties:
+      issueId:
+        type: string
+        description: Tracker-owned issue identifier, e.g. ISSUE-101.
+      assignee:
+        type: string
+        description: Handle of the person to assign, e.g. alice. Must be a person the maintainer named.
+    required:
+    - issueId
+    - assignee
+    additionalProperties: false
+  outputSchema:
+    type: object
+    properties:
+      issueId:
+        type: string
+        description: The issue that was assigned. Echoed for traceability.
+      assignee:
+        type: string
+        description: The handle the issue is now assigned to.
+      state:
+        type: string
+        description: Lifecycle state of the issue after the change.
+        enum:
+        - open
+        - closed
+      issueUri:
+        type: string
+        description: Resolved URI of the issue detail resource (triage://issues/{issueId}).
+      updatedAt:
+        type: string
+        description: Server-side timestamp of the change, ISO 8601.
+    required:
+    - issueId
+    - assignee
+    - state
+    - issueUri
+    additionalProperties: false
+  annotations:
+    readOnlyHint: false
+    destructiveHint: false
+    idempotentHint: true
+    openWorldHint: false
+  tags:
+  - triage
+
+- name: close_issue
+  title: Close Issue
+  description: >-
+    Close an open issue with a resolution. This is a state-losing action: only call it
+    after the maintainer explicitly confirms closing this specific issue. When the
+    resolution is duplicate, duplicateOf is required and must be an issue the maintainer
+    confirmed. Idempotent: closing an already-closed issue returns the same result rather
+    than erroring.
+  inputSchema:
+    type: object
+    properties:
+      issueId:
+        type: string
+        description: Tracker-owned issue identifier to close, e.g. ISSUE-102.
+      resolution:
+        type: string
+        description: Why the issue is being closed.
+        enum:
+        - fixed
+        - wont_fix
+        - duplicate
+        - cannot_reproduce
+      duplicateOf:
+        type: string
+        description: Required only when resolution is duplicate. The canonical issue this duplicates.
+    required:
+    - issueId
+    - resolution
+    additionalProperties: false
+  outputSchema:
+    type: object
+    properties:
+      issueId:
+        type: string
+        description: The issue that was closed. Echoed for traceability.
+      state:
+        type: string
+        enum:
+        - closed
+      resolution:
+        type: string
+        enum:
+        - fixed
+        - wont_fix
+        - duplicate
+        - cannot_reproduce
+      duplicateOf:
+        type:
+        - string
+        - 'null'
+        description: The canonical issue when resolution is duplicate; null otherwise.
+      issueUri:
+        type: string
+        description: Resolved URI of the issue detail resource (triage://issues/{issueId}).
+      closedAt:
+        type: string
+        description: Server-side timestamp of closure, ISO 8601.
+    required:
+    - issueId
+    - state
+    - resolution
+    - issueUri
+    additionalProperties: false
+  annotations:
+    readOnlyHint: false
+    destructiveHint: true
+    idempotentHint: true
+    openWorldHint: false
+  tags:
+  - triage
+
+resources:
+- uri: triage://issues/open
+  name: open_issues
+  title: Open Issue Queue
+  description: >-
+    The list of open issues awaiting triage — read-only contextual data, not a tool. Read
+    it to answer "what needs triage?" before acting. Each entry exposes issueId, title,
+    priority (or null if untriaged), assignee (or null), reportedAt, and issueUri. Ordered
+    by reportedAt, oldest first. Tutorial-only mock data.
+  mimeType: application/json
+  annotations:
+    readOnlyHint: true
+  tags:
+  - queue
+
+- uri: triage://reference/labels
+  name: triage_reference
+  title: Triage Reference
+  description: >-
+    Reference data for triage decisions: the allowed priorities (P0–P3, with their meaning)
+    and the allowed close resolutions. Read-only. Read this so proposals use valid values.
+  mimeType: application/json
+  annotations:
+    readOnlyHint: true
+  tags:
+  - reference
+
+resourceTemplates:
+- uriTemplate: triage://issues/{issue_id}
+  name: issue_detail
+  title: Issue Detail
+  description: >-
+    A single issue addressed by its tracker identifier. Exposes issueId, title, body,
+    state, priority, assignee, reporter, reportedAt, and (when closed) resolution and
+    duplicateOf. Read this to review an issue before proposing a priority or assignee.
+    Reading has no side effect.
+  mimeType: application/json
+  annotations:
+    readOnlyHint: true
+  tags:
+  - queue
+
+prompts:
+- name: triage_next
+  title: Triage the Next Issue
+  description: >-
+    Facilitate triaging the next open issue. Read triage://issues/open, pick the oldest
+    untriaged issue (or the one the maintainer names), read its detail, and propose a
+    priority and an assignee with a short rationale. Apply changes only after the
+    maintainer explicitly confirms, one action at a time. Never close an issue as a
+    duplicate without a maintainer-confirmed canonical issue, and never assign or close on
+    your own initiative.
+  arguments:
+  - name: issueId
+    title: Issue Id
+    description: A specific issue to triage. If omitted, use the oldest untriaged open issue.
+    required: false
+  - name: suggestedAssignee
+    title: Suggested Assignee
+    description: An optional assignee the maintainer is considering; still requires explicit confirmation.
+    required: false

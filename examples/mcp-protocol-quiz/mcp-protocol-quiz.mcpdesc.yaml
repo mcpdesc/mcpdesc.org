@@ -1,0 +1,416 @@
+mcpdesc: 0.7.0
+
+# MCP Protocol Quiz — canonical MCP Description document (design-only).
+# Applies the {mcpdesc} design-first method; see ./decisions.md and ./capability-map.md.
+# outputSchema describes SUCCESSFUL structured output only. Expected domain errors are
+# documented in decisions.md and surfaced by the design-time mock via `isError: true`.
+
+info:
+  name: mcp-protocol-quiz
+  title: MCP Protocol Quiz
+  version: 0.1.0
+  description: >-
+    A short, human-answered quiz about the Model Context Protocol, delivered through an
+    MCP host. The AI host acts as a facilitator: it presents one question at a time and
+    submits only the answer the participant explicitly provides. It never answers on the
+    participant's behalf and never reads or infers the correct answers.
+  protocolVersion: '2025-06-18'
+  id: urn:mcp:mcp-protocol-quiz
+  websiteUrl: https://mcpdesc.org/examples/mcp-protocol-quiz
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+
+# Design-time transport for the mock. Remote hosting, HTTP transport, and authentication
+# are implementation concerns and are intentionally deferred (there is no server here).
+transports:
+- type: stdio
+  command: mcp-protocol-quiz
+  args:
+  - serve
+
+capabilities:
+  tools:
+    listChanged: false
+  resources:
+    subscribe: false
+    listChanged: false
+  prompts:
+    listChanged: false
+
+tools:
+- name: start_quiz
+  title: Start Quiz
+  description: >-
+    Begin a new MCP Protocol Quiz for a participant. Call this once, at the start, after
+    the participant has provided a display name and chosen a difficulty. Creates a new
+    server-minted session and returns the first question. Do not call it again to fetch
+    the current question — read the current-question resource or use the question returned
+    by submit_answer instead.
+  inputSchema:
+    type: object
+    properties:
+      displayName:
+        type: string
+        description: Public name shown on the leaderboard. 1–40 characters after trimming; no control characters.
+        minLength: 1
+        maxLength: 40
+      difficulty:
+        type: string
+        description: Question difficulty for the session.
+        enum:
+        - easy
+        - medium
+        - hard
+      questionCount:
+        type: integer
+        description: 'Number of questions to ask, selected in fixed order from the bank (default: 5).'
+        minimum: 3
+        maximum: 10
+    required:
+    - displayName
+    - difficulty
+    additionalProperties: false
+  outputSchema:
+    type: object
+    properties:
+      sessionId:
+        type: string
+        description: Server-minted private session identifier (prefix qz_sess_). Never shown on public resources.
+      state:
+        type: string
+        description: Lifecycle state of the session after starting.
+        enum:
+        - active
+      totalQuestions:
+        type: integer
+        description: Total number of questions in this session.
+      nextQuestion:
+        type: object
+        description: The first question of the quiz, without its correct answer.
+        properties:
+          questionId:
+            type: string
+            description: Identifier of the question, used when submitting an answer.
+          prompt:
+            type: string
+            description: The question text shown to the participant.
+          options:
+            type: array
+            description: The available answer options. Exactly one is correct, but the correct one is not marked.
+            minItems: 2
+            maxItems: 4
+            items:
+              type: object
+              properties:
+                optionId:
+                  type: string
+                  enum:
+                  - A
+                  - B
+                  - C
+                  - D
+                text:
+                  type: string
+              required:
+              - optionId
+              - text
+              additionalProperties: false
+        required:
+        - questionId
+        - prompt
+        - options
+        additionalProperties: false
+      currentQuestionUri:
+        type: string
+        description: Resolved URI of the current-question resource for this session (quiz://sessions/{sessionId}/current-question). Read it to re-present the current question.
+    required:
+    - sessionId
+    - state
+    - totalQuestions
+    - nextQuestion
+    - currentQuestionUri
+    additionalProperties: false
+  annotations:
+    readOnlyHint: false
+    destructiveHint: false
+    idempotentHint: false
+    openWorldHint: false
+  tags:
+  - session
+
+- name: submit_answer
+  title: Submit Answer
+  description: >-
+    Submit the participant's explicit answer to the current question. Only call this with
+    an option the participant actually chose; never guess, never answer on their behalf,
+    and never call it without an explicit answer. Records the answer, advances to the next
+    question, and — when the final question is answered — automatically completes the quiz
+    and returns a resultId. Returns wasCorrect for immediate feedback but never reveals the
+    correct option while the quiz is active.
+  inputSchema:
+    type: object
+    properties:
+      sessionId:
+        type: string
+        description: The session identifier returned by start_quiz.
+      questionId:
+        type: string
+        description: Identifier of the question being answered.
+      selectedOption:
+        type: string
+        description: The option the participant explicitly chose.
+        enum:
+        - A
+        - B
+        - C
+        - D
+    required:
+    - sessionId
+    - questionId
+    - selectedOption
+    additionalProperties: false
+  outputSchema:
+    type: object
+    properties:
+      sessionId:
+        type: string
+        description: The session this result belongs to (prefix qz_sess_). Echoed so the caller can match responses to sessions.
+      wasCorrect:
+        type: boolean
+        description: Whether the submitted option was correct. The correct option itself is not disclosed.
+      runningScore:
+        type: integer
+        description: Number of correct answers so far in this session.
+      questionsRemaining:
+        type: integer
+        description: Number of questions still to answer (0 when the quiz has completed).
+      state:
+        type: string
+        description: Lifecycle state after this submission.
+        enum:
+        - active
+        - completed
+      nextQuestion:
+        description: The next question, or null when the quiz has completed.
+        oneOf:
+        - type: object
+          description: A single quiz question without its correct answer.
+          properties:
+            questionId:
+              type: string
+              description: Identifier of the question, used when submitting an answer.
+            prompt:
+              type: string
+              description: The question text shown to the participant.
+            options:
+              type: array
+              description: The available answer options. Exactly one is correct, but the correct one is not marked.
+              minItems: 2
+              maxItems: 4
+              items:
+                type: object
+                properties:
+                  optionId:
+                    type: string
+                    enum:
+                    - A
+                    - B
+                    - C
+                    - D
+                  text:
+                    type: string
+                required:
+                - optionId
+                - text
+                additionalProperties: false
+          required:
+          - questionId
+          - prompt
+          - options
+          additionalProperties: false
+        - type: 'null'
+      currentQuestionUri:
+        type:
+        - string
+        - 'null'
+        description: Resolved URI of the current-question resource, or null when the quiz has completed.
+      resultId:
+        type: string
+        description: Present only when state is completed. Public result identifier (prefix qz_res_) for quiz://results/{result_id}.
+      resultUri:
+        type: string
+        description: Present only when state is completed. Resolved URI of the result resource (quiz://results/{result_id}).
+    required:
+    - sessionId
+    - wasCorrect
+    - runningScore
+    - questionsRemaining
+    - state
+    - nextQuestion
+    - currentQuestionUri
+    additionalProperties: false
+  annotations:
+    readOnlyHint: false
+    destructiveHint: false
+    idempotentHint: false
+    openWorldHint: false
+  tags:
+  - session
+
+- name: complete_quiz
+  title: Complete Quiz
+  description: >-
+    Finish the quiz for a session and produce its result. Use this to stop early, before
+    all questions are answered; it is not required after the final answer because
+    submit_answer completes the quiz automatically. Safe to retry: calling it again on an
+    already-completed session returns the same result (idempotent).
+  inputSchema:
+    type: object
+    properties:
+      sessionId:
+        type: string
+        description: The session identifier returned by start_quiz.
+    required:
+    - sessionId
+    additionalProperties: false
+  outputSchema:
+    type: object
+    properties:
+      sessionId:
+        type: string
+        description: The session this result belongs to (prefix qz_sess_). Echoed for traceability.
+      resultId:
+        type: string
+        description: Public result identifier (prefix qz_res_) for quiz://results/{result_id}.
+      resultUri:
+        type: string
+        description: Resolved URI of the result resource (quiz://results/{result_id}).
+      state:
+        type: string
+        enum:
+        - completed
+      score:
+        type: integer
+        description: Number of correct answers.
+      maxScore:
+        type: integer
+        description: Total number of questions in the session.
+      durationSeconds:
+        type: integer
+        description: Elapsed time from session start to completion, measured server-side, in whole seconds.
+      rank:
+        type: integer
+        description: Position on the global leaderboard at completion time (1 = top).
+    required:
+    - sessionId
+    - resultId
+    - resultUri
+    - state
+    - score
+    - maxScore
+    - durationSeconds
+    - rank
+    additionalProperties: false
+  annotations:
+    readOnlyHint: false
+    destructiveHint: false
+    idempotentHint: true
+    openWorldHint: false
+  tags:
+  - session
+
+resources:
+- uri: quiz://rules
+  name: quiz_rules
+  title: Quiz Rules
+  description: >-
+    The rules of the MCP Protocol Quiz: how sessions work, difficulty levels, scoring,
+    timing, and the facilitator boundary. Read this before starting a quiz.
+  mimeType: text/markdown
+  annotations:
+    readOnlyHint: true
+  tags:
+  - reference
+
+- uri: quiz://leaderboard/global
+  name: global_leaderboard
+  title: Global Leaderboard
+  description: >-
+    Public ranked results. Read-only contextual data — not a tool. Read it to answer
+    "where do I rank?" and "who is at the top?". Exposes only public fields per entry
+    (rank, displayName, score, maxScore, durationSeconds, completedAt). Ranked by score,
+    then shorter duration, then earlier completion. Tutorial-only mock data.
+  mimeType: application/json
+  annotations:
+    readOnlyHint: true
+  tags:
+  - results
+
+resourceTemplates:
+- uriTemplate: quiz://results/{result_id}
+  name: quiz_result
+  title: Quiz Result
+  description: >-
+    A completed quiz result addressed by its public result identifier. Exposes public
+    fields (rank, displayName, score, maxScore, durationSeconds, completedAt) and a
+    per-question review used to explain the outcome: for each question, questionId,
+    wasCorrect, the participant's selectedOption, the correctOption, and a short
+    explanation of the correct answer. The review is available only after completion; the
+    current-question resource and mid-quiz outputs still never reveal the correct option
+    (Decisions 5 and 8). Answer keys thus become readable through a completed result — an
+    accepted simplification for this tutorial; the privacy-preserving variant (public
+    result stays answer-free, detailed review is participant-scoped) is enumerated under
+    ./advanced/.
+  mimeType: application/json
+  annotations:
+    readOnlyHint: true
+  tags:
+  - results
+
+- uriTemplate: quiz://sessions/{session_id}/current-question
+  name: current_question
+  title: Current Question
+  description: >-
+    The current question for an active session, without the correct option. Read this to
+    re-present the current question at any time. Reading it has no side effect and does not
+    advance the quiz; returns an empty currentQuestion when no question is active.
+  mimeType: application/json
+  annotations:
+    readOnlyHint: true
+  tags:
+  - session
+
+prompts:
+- name: run_mcp_quiz
+  title: Run the MCP Protocol Quiz
+  description: >-
+    Facilitate an MCP Protocol Quiz from start to finish. The assistant collects a display
+    name, difficulty, and question count from the participant, starts the quiz, presents
+    each question, and submits only the answers the participant explicitly gives. The
+    assistant acts as a facilitator only: it must not answer on the participant's behalf,
+    must not reveal or guess correct answers, and must not submit an answer the participant
+    did not provide. Report the final score, duration, and leaderboard rank at the end.
+  arguments:
+  - name: displayName
+    title: Display Name
+    description: Public name for the leaderboard (the assistant may ask for this if omitted).
+    required: false
+  - name: difficulty
+    title: Difficulty
+    description: One of easy, medium, or hard (the assistant may ask for this if omitted).
+    required: false
+  - name: questionCount
+    title: Question Count
+    description: Number of questions, 3–10 (defaults to 5 if omitted).
+    required: false
+  tags:
+  - session
+
+tags:
+- name: session
+  description: Starting, answering, completing, and reading a quiz session
+- name: results
+  description: Public results and the global leaderboard
+- name: reference
+  description: Rules and reference material

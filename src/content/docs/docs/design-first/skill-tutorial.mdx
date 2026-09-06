@@ -1,0 +1,190 @@
+---
+title: "Design an MCP Server with the Skill in 15 Minutes"
+description: Use the design-mcp-server Agent Skill to turn a small brownfield idea into a validated MCP Description document, then run it as a design-time mock and talk to it — in about fifteen minutes.
+sidebar:
+  order: 2
+draft: true
+---
+
+# Design an MCP Server with the Skill in 15 Minutes
+
+The [Quickstart](/docs/design-first/quickstart) let you *run* a finished design. This tutorial
+goes one step further: you use the **`design-mcp-server` Agent Skill** to turn a small idea into
+your *own* validated MCP Description document, then run it as a design-time mock and talk to it.
+About fifteen minutes, and you write no server code.
+
+The skill does the design thinking with you — the interface decision, the capability map, the
+schemas, and the review — and stops at an implementation-ready design. This page walks the same
+path on a concrete brownfield example so you know what "good" looks like.
+
+## Choose your path
+
+| Path | Time | You will… |
+|---|---|---|
+| [Quickstart](/docs/design-first/quickstart) | ~5 min | Run a finished design and talk to it. No authoring. |
+| **Skill-driven** (this page) | ~15 min | Use the skill to turn an idea into a running design. |
+| [Full walkthrough](/docs/design-first/tutorial) | ~1.5–2 hr | Author a complete design by hand, decision by decision. |
+
+## Before you start
+
+- An AI coding assistant that can load the
+  [`design-mcp-server` skill](https://github.com/mcpdesc/mcpdesc.org/tree/main/skills/design-mcp-server).
+- **Node.js 20 or newer**, and the two design-time tools:
+
+```bash
+npm install -g @cisco_open/mcptoolkit-contract @cisco_open/mcptoolkit-mock
+```
+
+  These provide the `mcpcontract` and `mcpmock` commands. Verified with `mcpcontract`
+  **2.0.0-rc.1**, `mcpmock` **1.2.2**, and MCP Description format **0.7.0**.
+
+The finished design for this tutorial is committed at
+[`examples/mcp-issue-triage/`](https://github.com/mcpdesc/mcpdesc.org/tree/main/examples/mcp-issue-triage)
+so you can compare, or skip ahead to running it.
+
+## Step 1 — The idea, and the temptation (~2 min)
+
+Your team already runs an **issue tracker with an HTTP API**. People now want to triage issues
+from their AI assistant: set a priority, assign an owner, close duplicates. You could write an
+agent *skill* that documents that API and lets the assistant call it directly — so why build an
+MCP server at all?
+
+That is the real question this example answers, and it is why the example was chosen: **for a
+stateless, single-call service, a skill+API is genuinely fine — MCP earns its keep only when
+read-context, consent-sensitive mutations, or a reusable prompt come into play. So the example
+was chosen to cross that threshold on purpose.** Triage does cross it:
+
+| What triage needs | Skill + direct API | MCP server |
+|---|---|---|
+| The open queue as re-readable **context** | ✗ an imperative call each time | ✓ a resource |
+| A server-shipped **prompt** ("triage the next issue") on any host | ✗ re-authored per host | ✓ native |
+| **Consent** on a destructive close | ✗ prose ("be careful") | ✓ `destructiveHint` the host gates on |
+| An **agent-shaped interface**, not the raw REST surface | ✗ model sees auth, pagination, endpoints | ✓ three intent-level tools |
+
+The full comparison is in the [design-first walkthrough](/docs/design-first/tutorial).
+
+## Step 2 — Run the skill (~4 min)
+
+Load the `design-mcp-server` skill in your assistant and give it the brief:
+
+> "Design an MCP server for triaging issues from our existing tracker (it already has an HTTP
+> API). A maintainer wants to set priority, assign an owner, and close duplicates from an AI
+> host, confirming each change."
+
+The skill works through its phases and produces the design. The decisions it converges on:
+
+- **Interface (Phase 2):** MCP — not a skill over the API — because the queue is read *context*,
+  the mutations need *consent*, and "triage the next issue" is a reusable *prompt*. A production
+  system could expose both MCP and the existing HTTP API over shared logic.
+- **Capability map (Phase 3):** it challenges each candidate so not everything becomes a tool.
+  Listing open issues is a **resource**, not a `get_open_issues` tool; reading one issue is a
+  **resource template**; only the state changes are tools.
+
+The resulting surface is **three tools, two resources, one resource template, and one prompt**:
+
+| Intention | Primitive | Name |
+|---|---|---|
+| See what needs triage | Resource | `triage://issues/open` |
+| Look at one issue | Resource template | `triage://issues/{issue_id}` |
+| Valid priorities / resolutions | Resource | `triage://reference/labels` |
+| Set a priority | Tool | `set_priority` |
+| Assign an owner | Tool | `assign_issue` |
+| Close an issue | Tool | `close_issue` |
+| Triage conversationally | Prompt | `triage_next` |
+
+The key safety decision is written into the tools, not just hoped for: `close_issue` carries
+`destructiveHint: true`, `set_priority` and `assign_issue` are `idempotentHint: true`, and every
+description says the assistant acts **only on explicit confirmation**, one action at a time. See
+[`capability-map.md`](https://github.com/mcpdesc/mcpdesc.org/blob/main/examples/mcp-issue-triage/capability-map.md)
+and [`decisions.md`](https://github.com/mcpdesc/mcpdesc.org/blob/main/examples/mcp-issue-triage/decisions.md).
+
+## Step 3 — Validate (~1 min)
+
+The skill writes the description to
+[`mcp-issue-triage.mcpdesc.yaml`](https://github.com/mcpdesc/mcpdesc.org/blob/main/examples/mcp-issue-triage/mcp-issue-triage.mcpdesc.yaml).
+Validate it strictly:
+
+```bash
+mcpcontract validate mcp-issue-triage.mcpdesc.yaml --schema mcpdesc --strict
+```
+
+A clean design reports `Errors: 0` and `Warnings: 0`. Open the same file in the
+[Live Editor](/live-editor) to see the capability cards — the queue and the issue detail appear
+as a *resource* and a *resource template*, not tools, confirming the primitive decisions.
+
+## Step 4 — Run the mock and triage (~4 min)
+
+Now watch a model use the design. A **replay dataset** gives the mock argument-dependent
+responses and a real error path, so the conversation feels real:
+
+```bash
+mcpmock run mcp-issue-triage.mcpdesc.yaml \
+  --replay replay/triage.jsonl \
+  --similarity-threshold 100
+```
+
+Register it in your assistant's MCP configuration (stdio) and triage:
+
+```json
+{
+  "servers": {
+    "mcp-issue-triage": {
+      "command": "mcpmock",
+      "args": ["run", "mcp-issue-triage.mcpdesc.yaml", "--replay", "replay/triage.jsonl", "--similarity-threshold", "100"]
+    }
+  }
+}
+```
+
+Ask the assistant to "triage the next issue." Because the surface is well designed, watch it:
+
+| Watch for | The design is working when… |
+|---|---|
+| Resource vs tool | it *reads* `triage://issues/open` for context instead of hunting for a `list_issues` tool. |
+| Reading detail | it opens `triage://issues/ISSUE-101` to read the full report before proposing a priority. |
+| Duplicate spotting | it sees `ISSUE-101` and `ISSUE-102` are the same crash. |
+| Consent | it proposes `set_priority` / `assign_issue` / `close_issue` and waits for your confirmation on each. |
+| Error handling | reading a non-existent issue (`ISSUE-999`) returns a clean `Issue not found`, and it recovers. |
+
+Because the mock returns fixed data, this validates **naming, discoverability, tool selection,
+and workflow shape — not correctness**. It is design-time validation, not implementation
+testing. For the quickest "it runs", `--data mock-data/` serves one static response per tool.
+
+:::note[What the mock does and does not do (mcpmock 1.2.0)]
+Tool output includes both the text block and **`structuredContent`** (built from `outputSchema`),
+and the replay dataset serves **distinct content per resource URI** — each individual issue plus a
+resource-level `Issue not found` — so the model reads the queue *and* each issue. **Elicitation**
+is not exercised: a production version could confirm an assignee interactively, but the design does
+not depend on it and the mock does not simulate it.
+:::
+
+## Step 5 — Refine (~2 min)
+
+Reviewing the conversation reveals a small weakness: after a mutation the model holds only an
+`issueId`, so it cannot read the issue back without rebuilding the URI. The fix is to have each
+tool echo an `issueUri` in its output:
+
+| Tool | Before | After |
+|---|---|---|
+| `set_priority` | issueId, priority, state | + `issueUri` |
+| `assign_issue` | issueId, assignee, state | + `issueUri` |
+| `close_issue` | issueId, state, resolution | + `issueUri` |
+
+Re-validate — a clean design still reports `Errors: 0`. This is the point of design-first: the
+interface improved while change was still cheap.
+
+## What you have, and what's next
+
+In fifteen minutes you turned a brownfield idea into a **validated MCP Description document**,
+saw why it beats a skill-over-the-API, and watched a model triage against a design-time mock —
+with no server, no database, and no tracker integration.
+
+What remains for the **implementation** workstream (deferred): the real tracker API binding,
+authentication, persistence, and protocol/conformance testing — plus MCP capabilities the mock
+does not exercise, such as elicitation to confirm an assignee interactively.
+
+- Run a finished design in five minutes: the [Quickstart](/docs/design-first/quickstart).
+- Do it all by hand: the [full walkthrough](/docs/design-first/tutorial).
+- Understand the method: [Design-First for MCP Servers](/docs/design-first/methodology).
+- Reuse the [`design-mcp-server` skill](https://github.com/mcpdesc/mcpdesc.org/tree/main/skills/design-mcp-server)
+  on your own idea.

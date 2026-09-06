@@ -1,0 +1,748 @@
+---
+title: Structured content for tool errors
+description: MCP offers no structured content schema for tool-execution errors. This article describes the mcpdesc _meta error extension that servers and clients can adopt while remaining compliant with the MCP specifications.
+sidebar:
+  order: 4
+draft: true
+---
+
+# Structured errors for MCP tool execution
+
+MCP distinguishes two types of tool errors: protocol-level failures and tool-execution
+failures. That distinction is useful, but when a tool fails during execution, its standard
+result carries unstructured content, generally text. The text is valuable to a person or a
+language model, but client code cannot reliably use it for automated recovery.
+
+This matters because MCP clients cannot reliably:
+
+- identify what went wrong during tool execution;
+- decide whether the call is worth retrying;
+- drive deterministic recovery logic.
+
+This article describes the mcpdesc `_meta` error extension to close that gap while keeping MCP servers and clients fully compliant with the MCP specifications.
+
+It builds on two mechanisms that MCP already provides:
+
+* `isError: true` signals that a tool's execution failed.
+* The unstructured `content` field carries a human-readable description of the failure, which the invoking client can pass to an LLM.
+
+The extension adds two mechanisms using the `_meta` extensibility field of the protocol:
+
+* Return a complementary, machine-readable error object in the `_meta` entry of the tool's response.
+* Advertise the matching error schema and known error codes in each tool's `_meta` at discovery time.
+
+
+## Contents
+
+1. Where errors occur in an MCP interaction
+2. What clients need, and what the specifications lack
+3. What the July 2026 specification introduces but does not solve
+4. The mcpdesc `_meta` error extension
+5. Implementing the `_meta` error extension
+6. Alternatives considered
+7. Conclusion
+
+## Background: where errors occur in an MCP interaction
+
+In an MCP interaction, a client asks a server to run one of the tools that server offers. Two very different things can go wrong, and MCP deliberately keeps them apart: the request can be rejected before the tool ever runs (a _protocol error_), or the tool can run but fail partway through (a _tool-execution error_). That separation is what the rest of this article builds on.
+
+### Protocol errors
+
+A protocol error means the request never reached the point of running a tool. The MCP message — carried as JSON-RPC, the request-and-response format MCP uses on the wire — could not be processed by the server at all. Examples include:
+
+* invalid JSON or an invalid JSON-RPC request,
+* an unknown method that is not part of the protocol,
+* malformed `tools/call` parameters (`tools/call` is the message that asks the server to run a tool),
+* an unknown tool (a misspelled name, or a tool that no longer exists),
+* an internal protocol failure.
+
+These are returned as JSON-RPC error responses, such as:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 4,
+  "error": {
+    "code": -32602,
+    "message": "Unknown tool: invalid_tool_name"
+  }
+}
+```
+
+Because this set of protocol errors is well defined by MCP, every client can recognize them and react in code.
+
+### Tool-execution errors
+
+The other case is the one this article is about. A request can be perfectly valid at the protocol level — correct tool name, well-formed arguments — and the tool can still fail while it runs. This is the everyday kind of failure any real service produces:
+
+| Error                        | Example                                       |
+| ---------------------------- | --------------------------------------------- |
+| Invalid business logic input | A departure date is in the past               |
+| Resource not found           | A requested order no longer exists            |
+| Conflict                     | A document was modified since it was read     |
+| Authentication failure       | A credential for a dependency expired         |
+| Authorization failure        | The caller cannot modify the resource         |
+| Rate limiting                | A quota limit was exceeded                    |
+| Resource exhaustion          | No processing capacity is currently available |
+| Dependency failure           | A downstream service returned an error        |
+| Business-rule failure        | An order can no longer be cancelled           |
+| Partial validation failure   | Several submitted records are invalid         |
+
+MCP does not report these as JSON-RPC errors. Instead, the tool returns a normal result that is flagged as a failure:
+- the result carries `isError: true`, the standard signal that execution failed,
+- and the server can explain what happened as unstructured text — usually a human-readable sentence — in the result's `content` field.
+
+For example, a tool that calls a rate-limited service returns a result like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 4,
+  "result": {
+    "isError": true,
+    "content": [
+      {
+        "type": "text",
+        "text": "The regional API is rate-limited. Retry after 30 seconds or select another region."
+      }
+    ]
+  }
+}
+```
+
+The `isError: true` flag tells the client the call failed, and the `content` text says why in a way a person or a language model can read. That text is all today's protocol carries — there is no machine-readable field a client could inspect to learn, say, how long to wait before retrying. We return to exactly this failure later and show how the extension adds that missing structure.
+
+The MCP specification explicitly recommends making that error text available to language models, so a model can correct its arguments and run the tool again, or choose another action.
+
+## What clients need, and what the specifications lack
+
+Passing that error text to the language model is useful, but it is not enough. The model and the client — the program that drives the model and makes the tool calls — need to consume the same failure in different ways.
+
+Take the rate-limited call from the previous section. The language model only needs a sentence it can act on:
+
+> The service is temporarily rate-limited. Retry after 30 seconds or use another region.
+
+The client code, however, needs the same facts as data it can branch on:
+
+```json
+{
+  "code": "RATE_LIMITED",
+  "message": "API quota exceeded for region us-west-1",
+  "details": {
+    "retryAfterMs": 30000,
+    "region": "us-west-1"
+  }
+}
+```
+
+The two representations serve different consumers:
+
+```text
+unstructured content (exists in the MCP specifications)
+    Actionable, sanitized information that may be passed to the LLM.
+
+structured error (new proposal)
+    Stable data used by client code, user interfaces, retry logic,
+    telemetry and workflow orchestration.
+```
+
+A complete error schema — like the one implied by the structured error above — would give clients four things:
+
+1. **Discoverability:** clients can learn which errors a tool may return.
+2. **Validation:** clients can validate actual errors against that schema.
+3. **Separation of concerns:** client-only details need not be passed to the LLM.
+4. **Compatibility:** clients that do not implement the extension keep working with normal MCP error handling.
+
+Today's specifications provide none of this. The June 18 and November 25, 2025 specifications define two error paths:
+
+1. JSON-RPC errors for protocol failures.
+2. `CallToolResult` with `isError: true` for tool-execution failures.
+
+In both revisions, the object a tool returns — `CallToolResult` — is defined like this:
+
+```typescript
+interface CallToolResult {
+  _meta?: { [key: string]: unknown };
+  isError?: boolean;
+  content: ContentBlock[];
+  structuredContent?: { [key: string]: unknown };
+}
+```
+
+Only `content` is required; `structuredContent`, `isError`, and `_meta` are all optional.
+
+The same revisions let a tool declare an `outputSchema`: a _schema_ — a machine-checkable description of the shape a value must have — for a _successful_ result. When one exists, the server must return structured output that conforms to it, and the client should validate that output against it. That structured output is also copied into a text content block, so older clients that ignore structured results still see something readable.
+
+However, neither revision defines:
+
+* `errorSchema`;
+* an error catalogue;
+* a structured tool-error type;
+* validation rules for errors;
+* an association between an error code and its recovery behavior;
+* a rule selecting a schema according to `isError`;
+* a client-only error channel;
+* a standard retry delay, conflicting resource identifier, or invalid-field representation.
+
+The documented tool-error response contains only text:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 4,
+  "result": {
+    "isError": true,
+    "content": [
+      {
+        "type": "text",
+        "text": "Failed to fetch weather data: API rate limit exceeded"
+      }
+    ]
+  }
+}
+```
+
+The November revision adds useful guidance about passing tool errors to language models, but the example remains unstructured and unvalidated.
+
+So there is a clear asymmetry: a successful result has a declared, checkable shape, while a failure does not.
+
+```text
+Successful structured output
+    Can be declared with outputSchema and validated.
+
+Tool-execution error
+    Can be identified with isError but has no declared structured shape.
+```
+
+A natural first reaction is to reuse `structuredContent` — the channel meant for successful output — to carry the error as well. That does not fully close the gap, for two reasons.
+
+First, an `outputSchema` describes a _successful_ result, so it will normally reject an error-shaped object. Adding an optional `error` property to the success schema only weakens it: unless more advanced schema composition is available, the schema can no longer insist on either the successful fields or the error fields, so even an empty object `{}` may slip through.
+
+Second, and more fundamentally, `outputSchema` only ever looks at `structuredContent`. It never sees the `isError` flag sitting beside it, so it cannot enforce the rule you actually want:
+
+```text
+isError is false → structuredContent is a successful result
+
+isError is true  → structuredContent is an error result
+```
+
+This is the schema-governance gap tracked by MCP issue #3003.
+
+## What the July 2026 specification introduces but does not solve
+
+The July 2026 draft substantially improves how tools can describe their data.
+
+Its `inputSchema` and `outputSchema` definitions now support the full JSON Schema 2020-12 vocabulary — including _composition_ (combine several schemas, for example "match one of these shapes"), _conditionals_ ("if this field is present, require that one") and _references_ (reuse a shape defined elsewhere). `outputSchema` may also describe any JSON value, so a successful result is no longer limited to an object: `structuredContent` may now be an object, array, string, number, boolean or `null`.
+
+This finally makes a success-or-error union expressible — an output schema that says “a result is either a success shape or an error shape”:
+
+```json
+{
+  "oneOf": [
+    {
+      "$ref": "#/$defs/success"
+    },
+    {
+      "$ref": "#/$defs/error"
+    }
+  ]
+}
+```
+
+(`oneOf` means the value must match exactly one of the listed shapes.)
+
+The draft also introduces `resultType`, with values such as `"complete"` for an ordinary finished result and `"input_required"` for a call that needs another request-and-response round trip before it can finish. That tells success apart from _unfinished_, not success apart from _failure_: a tool-execution error is still a completed result carrying `isError: true`.
+
+The documented July error response still has the same essential shape:
+
+```json
+{
+  "resultType": "complete",
+  "content": [
+    {
+      "type": "text",
+      "text": "Invalid departure date: must be in the future."
+    }
+  ],
+  "isError": true
+}
+```
+
+No `errorSchema`, error catalogue or structured error property is added.
+
+So the more expressive schema language helps, but it does not close the gap. Even with a `oneOf` union, the schema still validates only `structuredContent` and still cannot look at the `isError` flag beside it — so it cannot enforce that the branch it matched actually agrees with whether the call succeeded or failed. July makes schemas more expressive; it does not give tool errors a schema of their own.
+
+## The mcpdesc `_meta` error extension
+
+The gap could be closed by changing MCP itself, but that is slow and disruptive. The extension takes a lighter path: it reuses `_meta`, a free-form metadata slot that MCP already allows on both tool definitions and tool results. Anything a client does not recognize in `_meta` is simply ignored, so adding data there cannot break an existing client or server — which is exactly what makes it a safe place to carry structured errors.
+
+The extension puts that slot to work in three places:
+
+```text
+Tool _meta
+    Declares the error schema and the known error catalogue.
+
+CallToolResult content
+    Carries the safe, actionable message for the LLM (unchanged).
+
+CallToolResult _meta
+    Carries the structured error for the client.
+```
+
+The first lives on the tool itself and is read once, when the client discovers the server's tools; the other two travel with each failed result at runtime.
+
+### Declare the error schema
+
+At discovery time — when a client asks the server which tools it offers — each tool can advertise the schema its runtime errors will follow. The extension stores it under a namespaced key in the tool's `_meta`:
+
+```text
+org.mcpdesc/errorSchema
+```
+
+(The `org.mcpdesc/` prefix is a reverse-DNS namespace, the convention MCP recommends so that keys from different extensions never collide.)
+
+For example:
+
+```json
+{
+  "name": "call_regional_api",
+  "description": "Calls an API in the selected region.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "region": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "region"
+    ]
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "requestId": {
+        "type": "string"
+      },
+      "result": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "requestId",
+      "result"
+    ]
+  },
+  "_meta": {
+    "org.mcpdesc/errorSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]*$"
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        },
+        "details": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
+```
+
+The error schema describes a single error object: one tool invocation produces one primary failure, just as a REST call returns one status. This mirrors established API error models such as Google Cloud and gRPC, where a single status carries a `code`, a `message` and a `details` payload. When an invocation fails on several items at once — for example, multiple invalid records — the individual violations belong inside `details` (such as a `details.violations` array), so the result still carries exactly one error while reporting every problem.
+
+The `code`, `message` and `details` structure is inspired by common API error formats, but it should not be described as a JSON-RPC 2.0 error object. JSON-RPC requires an integer `code` and names its optional additional-information field `data`, not `details`. Reusing the exact JSON-RPC shape would also blur the distinction between protocol errors and tool-execution errors.
+
+For tool errors:
+
+* `code` is a stable programmatic identifier.
+* `message` is a concise client-facing explanation.
+* `details` contains code-specific machine-readable information.
+
+### Declare the known error catalogue
+
+The schema above says what an error _looks like_, but not _which_ errors a given tool can raise. A tool may also advertise that list — its expected error outcomes — under a second key:
+
+```text
+org.mcpdesc/errorCatalog
+```
+
+For example:
+
+```json
+{
+  "_meta": {
+    "org.mcpdesc/errorCatalog": [
+      {
+        "code": "INVALID_ARGUMENT",
+        "description": "One or more supplied values are invalid.",
+        "retryable": true
+      },
+      {
+        "code": "CONFLICT",
+        "description": "The operation conflicts with the current resource state.",
+        "retryable": false
+      },
+      {
+        "code": "RATE_LIMITED",
+        "description": "The permitted invocation rate or quota was exceeded.",
+        "retryable": true
+      },
+      {
+        "code": "UNAVAILABLE",
+        "description": "A required service is temporarily unavailable.",
+        "retryable": true
+      }
+    ]
+  }
+}
+```
+
+The schema and catalogue answer different questions:
+
+```text
+errorSchema
+    What does an error instance look like?
+
+errorCatalog
+    Which error outcomes should clients expect?
+```
+
+A richer catalogue can add code-specific `detailsSchema`, recovery instructions, related inputs or suggested tools.
+
+### Return structured errors in `_meta`
+
+With the schema and catalogue declared up front, the runtime part is small. When a call fails, the server returns its usual result — the human-readable `content` and `isError: true`, exactly as before — and attaches the machine-readable error beside it, under `org.mcpdesc/error` in the result's `_meta`:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 4,
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "The regional API is rate-limited. Retry after 30 seconds or select another region."
+      }
+    ],
+    "isError": true,
+    "_meta": {
+      "org.mcpdesc/error": {
+        "code": "RATE_LIMITED",
+        "message": "API quota exceeded for region us-west-1",
+        "details": {
+          "retryAfterMs": 30000,
+          "region": "us-west-1"
+        }
+      }
+    }
+  }
+}
+```
+
+The proposed processing rules are:
+
+1. When `isError` is `true`, an extension-aware server should return an `org.mcpdesc/error` object.
+2. The error must validate against `org.mcpdesc/errorSchema`.
+3. The server should omit `structuredContent` on the error path, avoiding ambiguity with the successful `outputSchema`.
+4. `content` should contain only sanitized and actionable information that may safely be given to the model.
+5. Clients should use `code` and `details` for deterministic behavior.
+6. Clients should not parse `content` or `message` to determine retry or recovery behavior.
+7. Clients should not automatically add `org.mcpdesc/error` to the model context.
+8. A client that does not understand the extension continues processing `content` and `isError` normally.
+
+This all stays within what MCP already allows: `_meta` is permitted on both tools and tool results, and `org.mcpdesc/` is a valid namespaced key that avoids any MCP-reserved prefix.
+
+One limitation must be explicit, though. MCP does not treat `_meta` as confidential or hidden from a language model — that is just a convention this extension relies on. Keeping the structured error out of the model's context is therefore the client's responsibility, not something the protocol enforces.
+
+### Use common error codes
+
+Clients behave more consistently across tools when they can rely on a small shared vocabulary of codes — much as HTTP's standard `4xx` and `5xx` status codes let any client reason about a response without knowing the specific API. The extension suggests a compact starter set:
+
+```text
+INVALID_ARGUMENT
+NOT_FOUND
+ALREADY_EXISTS
+UNAUTHENTICATED
+PERMISSION_DENIED
+CONFLICT
+FAILED_PRECONDITION
+RATE_LIMITED
+RESOURCE_EXHAUSTED
+DEADLINE_EXCEEDED
+UNAVAILABLE
+INTERNAL
+```
+
+Tools can also add domain-specific codes when necessary:
+
+```json
+{
+  "code": "REGION_QUOTA_EXCEEDED",
+  "message": "API quota exceeded for region us-west-1",
+  "details": {
+    "category": "RATE_LIMITED",
+    "retryAfterMs": 30000,
+    "region": "us-west-1"
+  }
+}
+```
+
+Here, `category` supports generic behavior while `code` identifies the precise domain failure.
+
+HTTP status codes may be included in `details`, but they should not be the primary MCP error identifier. MCP is transport-independent, and HTTP codes such as `409` and `429` can represent several distinct conditions.
+
+## Implementing the `_meta` error extension
+
+Because it rides on `_meta`, the extension needs no change to the MCP protocol itself. What it does need is coordinated work by the two sides of every call — servers and clients — plus optional support from MCP Description tooling.
+
+### MCP server changes
+
+A server implementing the extension must:
+
+* Add `org.mcpdesc/errorSchema` to each relevant tool.
+* Optionally add `org.mcpdesc/errorCatalog`.
+* Continue returning `content` and `isError: true`.
+* Add a validated error to `org.mcpdesc/error`.
+* Sanitize both the model-facing content and the structured error.
+* Avoid returning secrets, stack traces, access tokens or unnecessary personal data.
+
+### MCP client changes
+
+An extension-aware client must:
+
+* Read the error schema during tool discovery.
+* Validate runtime errors against that schema.
+* Use stable codes rather than parsing messages.
+* Implement policies for retryable errors, conflicts and authorization failures.
+* Pass `content` to the model when appropriate.
+* Keep client-oriented metadata outside the model context unless explicitly required.
+* Fall back to standard MCP behavior when the extension is absent.
+
+Concretely, a client's recovery policy might map error codes to actions like these:
+
+```text
+RATE_LIMITED with retryAfterMs
+    Schedule or permit a retry after the indicated delay.
+
+CONFLICT
+    Ask the server for the current resource state before retrying.
+
+INVALID_ARGUMENT
+    Give the model the actionable content so it can correct the call.
+
+UNAUTHENTICATED
+    Start a client-controlled authorization flow rather than asking
+    the model to manipulate credentials.
+
+INTERNAL
+    Avoid automatic retries unless the declared policy permits them.
+```
+
+### MCP Description changes
+
+Finally, because the schema and catalogue are just declared data, MCP Description can capture them at design time — when the server is described, before it ever runs — and turn them into tooling:
+
+* A normative schema for `org.mcpdesc/errorSchema`.
+* A standard shape for `org.mcpdesc/errorCatalog`.
+* Recommended canonical categories.
+* Linting rules.
+* Documentation generation.
+* Mock error scenarios.
+* Client and server conformance tests.
+* Code generation for error handlers.
+
+The extension should be versioned independently so that it can evolve without changing the MCP protocol.
+
+### Compatibility consequences
+
+Crucially, no participant has to adopt the extension in lockstep with the others. Each row below can move to "Yes" on its own, and every combination still works:
+
+| Participant            | Extension support | Behavior                                  |
+| ---------------------- | ----------------: | ----------------------------------------- |
+| Existing server        |                No | Returns normal MCP error content          |
+| Extension-aware server |               Yes | Adds structured errors in `_meta`         |
+| Existing client        |                No | Ignores the extension and uses `content`  |
+| Extension-aware client |               Yes | Validates and processes structured errors |
+| Language model         |      Not required | Receives only the selected `content`      |
+
+The extension therefore adds reliable, code-driven error handling for the clients that want it, without taking away the language-model recovery path that already exists.
+
+## Alternatives considered
+
+Two alternatives are worth examining. Only one is a real improvement: making structured tool errors a first-class part of MCP.
+
+### Why `structuredContent.error` is not a sufficient alternative
+
+Putting the error inside `structuredContent` has one appeal: the error could reuse the same schema and code-generation machinery as successful output, instead of adding a separate channel.
+
+For example:
+
+```json
+{
+  "structuredContent": {
+    "error": {
+      "code": "RATE_LIMITED",
+      "message": "API quota exceeded",
+      "details": {
+        "retryAfterMs": 30000
+      }
+    }
+  },
+  "isError": true
+}
+```
+
+But, as the earlier analysis showed, it does not hold up as a general solution.
+
+Under the June and November 2025 definitions, `outputSchema` is restricted to an object schema with `type`, `properties` and `required`, so it cannot portably express a strict "success or error" union. Making the `error` property optional then weakens validation: an empty object
+
+```json
+{}
+```
+
+can slip through unless the successful properties stay required — and keeping them required makes a pure error object invalid. The more expressive July schema can express a `oneOf` union, yet it still cannot assert that the branch it matched agrees with the external `isError` flag, and it mixes client-only data into the channel normally reserved for model-consumable results.
+
+For these reasons, `structuredContent.error` is not a sound compatibility solution.
+
+### Protocol-level alternative
+
+The genuinely stronger option is to build error declarations and responses directly into MCP, instead of tucking them into `_meta`. Error handling would then be _first-class_ — part of the official types that every SDK and conforming client already understands.
+
+A future Tool definition could include:
+
+```json
+{
+  "name": "call_regional_api",
+  "inputSchema": {},
+  "outputSchema": {
+    "$ref": "#/$defs/successResult"
+  },
+  "errorSchema": {
+    "$ref": "#/$defs/error"
+  },
+  "errorCatalog": [
+    {
+      "code": "RATE_LIMITED",
+      "retryable": true
+    },
+    {
+      "code": "CONFLICT",
+      "retryable": false
+    }
+  ]
+}
+```
+
+A future `CallToolResult` could include a top-level `error` property:
+
+```json
+{
+  "isError": true,
+  "content": [
+    {
+      "type": "text",
+      "text": "The regional API is rate-limited. Retry after 30 seconds."
+    }
+  ],
+  "error": {
+    "code": "RATE_LIMITED",
+    "message": "API quota exceeded for region us-west-1",
+    "details": {
+      "retryAfterMs": 30000,
+      "region": "us-west-1"
+    }
+  }
+}
+```
+
+The protocol could then define unambiguous rules:
+
+```text
+isError absent or false
+    structuredContent, when present, is validated against outputSchema.
+    error must be absent.
+
+isError true
+    error is validated against errorSchema.
+    structuredContent is absent unless separately defined.
+```
+
+It could also specify:
+
+* Whether `error` is required when `isError` is true.
+* How batch or multi-item failures are represented within a single error.
+* Which error codes are standardized.
+* How error catalogues are advertised.
+* Which fields may be forwarded to a model.
+* How clients should handle retry delays and conflicts.
+* How the feature is negotiated across protocol versions.
+
+Because MCP result objects permit additional properties, an implementation can technically emit a top-level `error` field today. That alone does not provide interoperability. Portable meaning, validation requirements and client behavior require a specification update.
+
+This protocol-level design is better than the `_meta` extension because it is:
+
+* First-class rather than extension-based.
+* Discoverable by every conforming client.
+* Supported directly by SDK types.
+* Suitable for standard code generation.
+* Governed by normative validation rules.
+* Less likely to be forwarded accidentally to a model.
+
+Its cost is the need to revise the protocol, schemas, SDKs and conformance tests.
+
+There is no advantage in converting ordinary tool-execution failures into JSON-RPC protocol errors. MCP deliberately keeps execution errors inside tool results so that clients can expose actionable feedback to language models. Reversing that distinction would lose the existing recovery behavior.
+
+## Conclusion
+
+MCP already distinguishes protocol errors from tool-execution errors:
+
+```text
+Protocol failure
+    JSON-RPC error response.
+
+Tool-execution failure
+    CallToolResult with isError: true.
+```
+
+The missing part is a declared, machine-readable schema for the second category.
+
+The June and November 2025 specifications provide `content`, `structuredContent`, `outputSchema`, `isError` and `_meta`, but they provide no error schema, error catalogue or error-specific validation path.
+
+The July 2026 work improves JSON Schema support and allows more expressive structured results. It does not define structured tool errors or connect an error schema to `isError`.
+
+A practical extension can be implemented without changing MCP:
+
+```text
+content
+    Sanitized, actionable feedback that may be passed to the LLM.
+
+isError
+    Standard MCP indication that execution failed.
+
+org.mcpdesc/errorSchema
+    Design-time declaration of the structured error format.
+
+org.mcpdesc/errorCatalog
+    Design-time catalogue of expected errors.
+
+org.mcpdesc/error
+    Runtime structured error in CallToolResult._meta.
+```
+
+This preserves compatibility and gives extension-aware clients reliable, code-driven error handling.
+
+The only materially stronger alternative is a protocol revision that adds first-class `errorSchema`, `errorCatalog` and `error` fields, with validation rules explicitly tied to `isError`.
+
+Until MCP defines that schema, a namespaced `_meta` extension provides the cleanest separation between model-facing recovery information and client-facing error processing.

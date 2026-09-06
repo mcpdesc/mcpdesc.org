@@ -80,6 +80,10 @@ export default defineConfig({
           ],
         },
         {
+          label: 'Design-first',
+          items: [{ autogenerate: { directory: 'docs/design-first' } }],
+        },
+        {
           label: 'Specifications',
           items: [
             { slug: 'docs/specification' },
