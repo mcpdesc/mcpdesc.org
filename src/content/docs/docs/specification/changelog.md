@@ -1,21 +1,72 @@
 ---
 title: Changelog
-description: Version history of the MCP Description (mcpdesc) specification.
+description: MCP Description specification version history.
+slug: docs/specification/changelog
 sidebar:
   order: 2
 ---
 
-:::note[Mirrored specification]
-This changelog mirrors the canonical
-[`spec/CHANGELOG.md`](https://github.com/cisco-open/mcptoolkit-contract/blob/main/spec/CHANGELOG.md)
-of `cisco-open/mcptoolkit-contract`. It spans all versions; each released version's pages are
-frozen under `/docs/specification/<version>/`. Where this page differs from upstream, upstream
-wins.
-:::
+# Changelog
 
-All notable changes to the MCP Description Specification are documented here. The format is
-based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). The specification uses
-versioning aligned with its `mcpdesc` field.
+All notable changes to the MCP Description Specification will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+This project uses specification versioning aligned with its `mcpdesc` field.
+
+<!-- update with `markdown-toc -i CHANGELOG.md --maxdepth 2 -->
+<!-- toc -->
+
+- [[0.8.0] — Unreleased (community working draft)](#080--unreleased-community-working-draft)
+- [[0.7.0] — 2026-03-23](#070--2026-03-23)
+- [[0.6.0] — 2026-03-20](#060--2026-03-20)
+- [[0.5.2] — 2026-03-18](#052--2026-03-18)
+- [[0.5.1] — 2026-03-17](#051--2026-03-17)
+- [[0.5.0] — 2026-03-17](#050--2026-03-17)
+- [[0.4.0] — 2026-03-16](#040--2026-03-16)
+- [[0.3.0] — 2026-01-15](#030--2026-01-15)
+- [[0.1.0] — 2025-11-01](#010--2025-11-01)
+
+<!-- tocstop -->
+
+## [0.8.0] — Release Candidate 3 — 2026-09-07 (`v0.8.0-rc.3`)
+
+> MCP Description v0.8.0 is a community working draft under active review and interoperability testing, so its features may still change before release.
+
+Release Candidate 3 is behavior-equivalent to Release Candidate 2 for MCP Description documents. Document-conformance requirements, schema validation behavior, semantic validation behavior, examples, and conformance fixtures are unchanged apart from the RC.3 identity and `$schema` references. Repository publication and artifact-maintenance policy now lives in [`GOVERNANCE.md`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/GOVERNANCE.md), allowing companion-document corrections without a new specification snapshot. The existing `v0.8.0-rc.2` tag and artifacts remain unchanged.
+
+Version 0.8 adds first-class multi-revision descriptions, including protocol-scoped declarations and deterministic views for each MCP revision.
+
+It also introduces reusable components, richer examples and interaction scenarios, client capability requirements, elicitation declarations, extension support, and stronger validation across JSON and YAML documents.
+
+### Breaking
+
+- Removed `info.protocolVersion` and added required root `protocolVersions` using the closed set of MCP revisions whose semantics 0.8.0 validates.
+- Changed root `capabilities` from one object to an array of protocol-scoped Capabilities Objects.
+- Replaced inline security definitions with named root `securitySchemes` and Security Requirement Arrays.
+- Required every Tool to contain an object-rooted `inputSchema`.
+- Updated pre-1.0 versioning policy to permit breaking changes in `0.x` minor releases.
+
+### Added
+
+- MCP `2026-07-28` support and protocol applicability across transports, capabilities, and primitive declarations.
+- Deterministic Effective Protocol Views with projection and conflict-detecting merge behavior.
+- Root `instructions`, formal MCP extension declarations, and primitive `clientRequirements`.
+- Named Tool, Resource, Resource Template, and Prompt examples, plus Tool interaction and completion examples.
+- Reusable typed `components` referenced through local `$componentRef` objects.
+- Operation-level elicitation declarations and object-level `x-*` specification extensions.
+- JSON and restricted YAML serializations, canonical prerelease schema URIs, and expanded semantic validation.
+
+### Changed
+
+- Made `transports` optional and defined omission of an optional section as no declaration rather than evidence of runtime non-support.
+- Required ordinary declaration collections to be non-empty when present and projection or merge to omit collections that become empty.
+- Defined MCP 2025-06-18 as the floor for complete revision-specific semantic validation; older recognized revisions produce incomplete-validation diagnostics.
+- Aligned Tool, Resource, Resource Template, Prompt, annotation, `_meta`, and extension validation with their applicable MCP revisions.
+- Treated unrecognized MCP-reserved extension identifiers and unresolved external Tool schema references as warning-and-preserve conditions.
+- Distinguished MCP 2025-11-25 core Tasks from MCP 2026-07-28 Tasks extensions.
+- Made active specification examples vendor-neutral and removed bundled vendor-specific extension metadata.
+
+Detailed Draft 1–4 and release-candidate history is available in the [GitHub prereleases](https://github.com/mcpdesc/mcpdesc-specification/releases) and [tags](https://github.com/mcpdesc/mcpdesc-specification/tags).
 
 ## [0.7.0] — 2026-03-23
 
@@ -53,7 +104,7 @@ versioning aligned with its `mcpdesc` field.
 ### Changed
 - **Documented MCP `Implementation` type provenance in the Info Object** — `name`, `title`, `description`, `version`, `icons`, and `websiteUrl` are now explicitly traced to the MCP `Implementation` type returned in the `initialize` response (`serverInfo`), with protocol version annotations:
   - `title` — MCP `BaseMetadata`, since 2025-06-18
-  - `description` — MCP `Implementation`, since 2025-06-18
+  - `description` — MCP `Implementation`, since 2025-11-25
   - `websiteUrl` — MCP `Implementation`, since 2025-11-25
   - `icons` — MCP `Implementation` (via `Icons` mixin), since 2025-11-25
 - **Updated Info Object example** to include `icons` and `websiteUrl` fields
@@ -69,7 +120,7 @@ versioning aligned with its `mcpdesc` field.
 ## [0.5.0] — 2026-03-17
 
 ### Changed
-- **Renamed `transport` field to `transports`** (plural) for consistency with `tools`, `resources`, `prompts` and OpenAPI's `servers` — see [DECISION-001](https://github.com/cisco-open/mcptoolkit-contract/blob/main/docs/maintainers/design/mcp-description/DECISION-001-transports-array.md)
+- **Renamed `transport` field to `transports`** (plural) for consistency with `tools`, `resources`, `prompts` and OpenAPI's `servers` — see [DECISION-001](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/docs/maintainers/design/mcp-description/DECISION-001-transports-array.md)
 - **Added transport-scoped `security`** — each transport MAY include its own `security` array that overrides the root-level default (see Section 6.4)
 - Root-level `security` is now the default; transport-level `security` overrides it (OpenAPI-style inheritance)
 
@@ -78,7 +129,7 @@ versioning aligned with its `mcpdesc` field.
 ### Added
 - MCP 2025-11-25 support: icons, websiteUrl, task capabilities, tool execution properties
 - Tool `outputSchema` with explicit `$schema` dialect support (MCP 2025-06-18+)
-- Tool `execution.taskSupport` property for task-augmented execution (MCP 2025-11-25+)
+- Tool `execution.taskSupport` property for task-augmented execution (MCP 2025-11-25 only)
 - `icons` definition for server, tools, resources, resource templates, and prompts
 - `capabilities.tasks` for task-augmented request support
 - `capabilities.completions` and `capabilities.logging` declarations

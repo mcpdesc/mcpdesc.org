@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **MCP Description v0.8.0 RC.3 documentation.** Replaced the pending RC.2 documentation
+  with the immutable RC.3 snapshot from `mcpdesc/mcpdesc-specification`, including all 17
+  normative sections, Appendix A, examples, migration guide, condensed changelog, and a
+  first-party single-file bundle. The version index now exposes explicit `stable` and
+  `candidate` channels while retaining `latest` and `next` compatibility aliases.
+- **Mutable schema aliases.** Added temporary redirects from `latest.json` to stable 0.7.0
+  and from `draft.json` to 0.8.0-rc.3, with short-lived caching separate from immutable
+  versioned schema resources.
 - **First-party MCP Description JSON Schemas.** Versioned schemas are available at
   `/schema/mcp-description/<version>.json`, starting with `0.7.0` and `0.8.0-rc.1`. The
   immutable static resources support cross-origin loading by IDEs and validation tools.

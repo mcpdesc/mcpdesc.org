@@ -96,8 +96,9 @@ Avoid unless explicitly approved:
 
 - Canonical: `https://mcpdesc.org`.
 - Docs are served at `mcpdesc.org/docs` (path) for v1.
-- `spec.mcpdesc.org` (community-hosted specification) is **planned**; spec links currently
-  point to the live `cisco-open/mcptoolkit-contract` (`mcpdesc` 0.7.0).
+- `spec.mcpdesc.org` (community-hosted specification) is **planned**. Stable v0.7 links to
+  `cisco-open/mcptoolkit-contract`; v0.8 development lives in
+  `mcpdesc/mcpdesc-specification`.
 - `editor.mcpdesc.org` (hosted **Live Editor**) is **live**. The `/live-editor` page is a
   landing page whose "Open the Editor" CTA links out to the hosted editor.
 - Legacy `mcptoolkit.org` → `mcpdesc.org/tools`; secondary domains
@@ -105,19 +106,18 @@ Avoid unless explicitly approved:
 
 ## Specification versions
 
-- The spec is **mirrored** from `cisco-open/mcptoolkit-contract` into
+- The spec is **mirrored** from its canonical repository into
   `src/content/docs/docs/specification/<version>/**` (fully versioned, immutable folders).
-  Full procedure: `docs/specification-mirror-strategy.md`. Current: `mcpdesc` 0.7.0 (Draft,
-  latest).
+  Full procedure: `docs/specification-mirror-strategy.md`. Current stable: `mcpdesc` 0.7.0;
+  current candidate: 0.8.0-rc.3.
 - To add or bump a version: run `scripts/import-spec.mjs <version> --tag <release-tag>`
-  (mirrors the section pages from an **immutable upstream tag** — `--tag` defaults to
-  `mcpdesc-v<version>`; `--repo`/`--path` override the source), then
+  (mirrors the section and companion pages from an **immutable upstream tag** — defaults
+  target `mcpdesc/mcpdesc-specification`, `spec/draft`, and `v<version>`), then run
   `scripts/build-spec-bundle.mjs` (regenerates the single-file bundles + `index.json` under
   `public/specification/`). Commit both. Never rewrite an old version.
-- The editorial source of truth for the version index — which version is `latest`, and any
-  work-in-progress draft (`next`/`wip`) — is the **`VERSIONS` registry** in
-  `scripts/build-spec-bundle.mjs`. Advertise an in-progress draft by adding a `wip`/`next`
-  entry there; no on-site pages are required until it is mirrored.
+- The editorial source of truth for stable and candidate channels is the **`VERSIONS`
+  registry** in `scripts/build-spec-bundle.mjs`. Public `latest` and `next` fields remain
+  compatibility aliases for `stable` and `candidate`.
 
 ## Tech and conventions
 

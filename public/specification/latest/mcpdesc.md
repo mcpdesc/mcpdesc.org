@@ -1,8 +1,8 @@
-<!-- mcpdesc-spec version=0.7.0 maturity=draft channel=latest date=2026-03-23 -->
+<!-- mcpdesc-spec version=0.7.0 maturity=stable channel=stable date=2026-03-23 -->
 
 # MCP Description Specification — v0.7.0
 
-**Version:** 0.7.0 · **Maturity:** draft · **Date:** 2026-03-23
+**Version:** 0.7.0 · **Maturity:** stable · **Date:** 2026-03-23
 
 > Complete MCP Description specification (all sections) as a single Markdown file,
 > for one-request retrieval by AI assistants and build tools.
