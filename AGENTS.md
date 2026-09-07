@@ -115,6 +115,9 @@ Avoid unless explicitly approved:
   target `mcpdesc/mcpdesc-specification`, `spec/draft`, and `v<version>`), then run
   `scripts/build-spec-bundle.mjs` (regenerates the single-file bundles + `index.json` under
   `public/specification/`). Commit both. Never rewrite an old version.
+- Schema aliases are temporary redirects in `public/_redirects`: `latest.json` targets the
+  stable schema and `draft.json` targets the active candidate schema. Keep their explicit
+  short-lived cache rules in `public/_headers`; versioned schemas remain immutable.
 - The editorial source of truth for stable and candidate channels is the **`VERSIONS`
   registry** in `scripts/build-spec-bundle.mjs`. Public `latest` and `next` fields remain
   compatibility aliases for `stable` and `candidate`.
@@ -166,9 +169,10 @@ Avoid unless explicitly approved:
   supported MCP Description version via the **mcpdesc badge** in its own README. The version
   data kept in the YAML (`specVersions`) is a private record, not rendered.
 - The **mcpdesc badge** is a hosted shields.io *endpoint* badge; definitions live at
-  `public/badge/<version>.json` (brand color `#3c68d9` = the sRGB of `--color-brand`). Prefer
-  the hosted endpoint over static badges so branding stays centrally maintainable. Strategy:
-  `docs/tool-badge.md`; public how-to: `/docs/add-a-tool`.
+  `public/badge/<series>.json` (brand color `#3c68d9` = the sRGB of `--color-brand`). A
+  series badge such as `0.8` is coarse-grained; tool documentation states the exact tested
+  release or candidate. Prefer the hosted endpoint over static badges so branding stays
+  centrally maintainable. Strategy: `docs/tool-badge.md`; public how-to: `/docs/add-a-tool`.
 - Tool submissions come through the GitHub issue form
   `.github/ISSUE_TEMPLATE/tool-submission.yml`. The **only hard requirement** is that the repo
   README shows the mcpdesc badge; maintainers verify it before adding a catalog entry.

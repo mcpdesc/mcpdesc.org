@@ -14,7 +14,7 @@ can bring MCP Description (`mcpdesc`) content into whatever tool you already use
 
 - **Open to search and AI assistants.** The site welcomes search engines and AI crawlers for
   indexing and for answering questions grounded in its content. (Using the content to *train*
-  models is not permitted while the specification is a Draft — it is a reference, not training
+  models is not permitted — the specification is reference material, not training
   data.)
 - **A site map for machines.** A machine-readable index of key pages lives at
   [`/llms.txt`](https://mcpdesc.org/llms.txt), so an assistant can quickly orient itself to
@@ -30,11 +30,11 @@ You don't have to stitch together the individual section pages. The entire speci
 published as a single Markdown file, so an assistant (or a script) can fetch it in one request:
 
 ```text
-https://mcpdesc.org/specification/latest/mcpdesc.md   (the current latest version)
-https://mcpdesc.org/specification/0.7.0/mcpdesc.md    (an immutable, pinned version)
+https://mcpdesc.org/specification/latest/mcpdesc.md          (the stable version)
+https://mcpdesc.org/specification/0.8.0-rc.3/mcpdesc.md      (the pinned candidate)
 ```
 
-To discover the available, current, and upcoming versions programmatically — with each
+To discover the available stable and candidate versions programmatically — with each
 version's full-file, canonical-source, and schema URLs — fetch the machine-readable index:
 
 ```text
