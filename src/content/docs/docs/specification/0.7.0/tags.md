@@ -6,10 +6,6 @@ sidebar:
   order: 12
 ---
 
-:::note[Mirrored specification]
-This page mirrors **12. Tags** of the MCP Description specification **v0.7.0**. The canonical source of truth is [`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/sections/12-tags.md). Where this page differs from upstream, upstream wins.
-:::
-
 ## 12. Tags
 
 The root-level `tags` array defines a flat list of tags for the MCP server. It is OPTIONAL.

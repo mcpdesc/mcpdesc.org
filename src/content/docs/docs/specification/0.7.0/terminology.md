@@ -6,10 +6,6 @@ sidebar:
   order: 2
 ---
 
-:::note[Mirrored specification]
-This page mirrors **2. Terminology** of the MCP Description specification **v0.7.0**. The canonical source of truth is [`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/sections/02-terminology.md). Where this page differs from upstream, upstream wins.
-:::
-
 ## 2. Terminology
 
 ### 2.1 Key Words

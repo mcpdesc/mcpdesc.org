@@ -1,14 +1,10 @@
 ---
 title: "8. Capabilities"
-description: "MCP Description specification v0.8.0-rc.3 — 8. Capabilities."
-slug: docs/specification/0.8.0-rc.3/capabilities
+description: "MCP Description specification v0.8.0-rc.4 — 8. Capabilities."
+slug: docs/specification/0.8.0-rc.4/capabilities
 sidebar:
   order: 8
 ---
-
-:::note[Mirrored specification]
-This page mirrors **8. Capabilities** of the MCP Description specification **v0.8.0-rc.3**. The canonical source of truth is [`mcpdesc/mcpdesc-specification`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/spec/draft/sections/08-capabilities.md). Where this page differs from upstream, upstream wins.
-:::
 
 ## 8. Capabilities
 

@@ -1,14 +1,10 @@
 ---
 title: "17. Reusable Components and Local References"
-description: "MCP Description specification v0.8.0-rc.3 — 17. Reusable Components and Local References."
-slug: docs/specification/0.8.0-rc.3/components
+description: "MCP Description specification v0.8.0-rc.4 — 17. Reusable Components and Local References."
+slug: docs/specification/0.8.0-rc.4/components
 sidebar:
   order: 17
 ---
-
-:::note[Mirrored specification]
-This page mirrors **17. Reusable Components and Local References** of the MCP Description specification **v0.8.0-rc.3**. The canonical source of truth is [`mcpdesc/mcpdesc-specification`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/spec/draft/sections/17-components.md). Where this page differs from upstream, upstream wins.
-:::
 
 ## 17. Reusable Components and Local References
 
@@ -91,4 +87,4 @@ tools:
 			$componentRef: '#/components/schemas/SearchInput'
 ```
 
-See the [complete reusable-components example](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/spec/draft/examples/reusable-components.yaml) for reusable schemas and a referenced Tool Example Object.
+See the [complete reusable-components example](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/spec/draft/examples/reusable-components.yaml) for reusable schemas and a referenced Tool Example Object.

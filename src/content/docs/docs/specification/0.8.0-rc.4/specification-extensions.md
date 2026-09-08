@@ -1,14 +1,10 @@
 ---
 title: "14. Specification Extensions"
-description: "MCP Description specification v0.8.0-rc.3 — 14. Specification Extensions."
-slug: docs/specification/0.8.0-rc.3/specification-extensions
+description: "MCP Description specification v0.8.0-rc.4 — 14. Specification Extensions."
+slug: docs/specification/0.8.0-rc.4/specification-extensions
 sidebar:
   order: 14
 ---
-
-:::note[Mirrored specification]
-This page mirrors **14. Specification Extensions** of the MCP Description specification **v0.8.0-rc.3**. The canonical source of truth is [`mcpdesc/mcpdesc-specification`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/spec/draft/sections/14-specification-extensions.md). Where this page differs from upstream, upstream wins.
-:::
 
 ## 14. Specification Extensions
 

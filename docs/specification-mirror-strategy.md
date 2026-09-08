@@ -18,8 +18,8 @@ itself. The spec's source of truth remains upstream (see Provenance).
   [`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract).
   Development of v0.8 and later versions lives in
   [`mcpdesc/mcpdesc-specification`](https://github.com/mcpdesc/mcpdesc-specification).
-- **Current channels:** stable `mcpdesc` **0.7.0**; candidate **0.8.0-rc.3**, dated
-  2026-09-07.
+- **Current channels:** stable `mcpdesc` **0.7.0**; candidate **0.8.0-rc.4**, dated
+  2026-09-08.
 - **What lives upstream (do not fork silently):**
   - `mcp-description.md` — assembled normative spec (~1,200 lines).
   - `sections/00…15` — the same normative text, split by section.
@@ -30,7 +30,8 @@ itself. The spec's source of truth remains upstream (see Provenance).
   - `CHANGELOG.md`, `GOVERNANCE.md`, `implementations.md`.
 
 `spec.mcpdesc.org` is planned. Until it exists, this `/docs/specification/**` section is the
-community-rendered home of the spec, and every page links back to the upstream source.
+community-rendered home of the spec. Each version overview identifies and links to its
+canonical upstream source.
 
 ---
 
@@ -69,7 +70,7 @@ Each item lists the options, the **recommended** choice, and the rationale. Item
   contract format", "server contract"). `docs/terminology-and-positioning.md` **bans**
   "contract" for the format (the OpenAPI *analogy* is fine).
 - **Decision: mirror normative text verbatim** (keep "contract" where upstream uses it),
-  with a provenance banner. House style applies only to *our* wrapper/index/commentary
+  with provenance on the version overview. House style applies only to *our* wrapper/index/commentary
   pages, never to the mirrored normative text. Rationale: silently rewording a normative
   spec risks changing meaning and creates a spec that disagrees with the canonical source.
   Revisit if/when the community controls the spec text at `spec.mcpdesc.org`.
@@ -90,15 +91,10 @@ Each item lists the options, the **recommended** choice, and the rationale. Item
 
 - Our additions use Starlight asides clearly marked as ours, e.g.
   `:::note[Editor's note]` … `:::`, never interleaved as if normative.
-- Each mirrored page carries frontmatter recording provenance:
-  ```yaml
-  specSource: sections/09-tools.md
-  specVersion: 0.7.0
-  specUpstream: https://github.com/cisco-open/mcptoolkit-contract/blob/main/spec/sections/09-tools.md
-  ```
-- A visible **provenance banner** at the top of each spec page: "Mirrored from
-  `cisco-open/mcptoolkit-contract` — spec v0.7.0. [View source ↗]". This keeps *ours vs.
-  theirs* unambiguous and satisfies "point the user to the original document".
+- Each version overview carries one visible **Mirrored specification** notice after its
+  source and schema links. The notice identifies the immutable upstream tag and states that
+  upstream wins if the mirror differs. Individual section, guide, and example pages do not
+  repeat the notice.
 
 ### F. Normative keywords & formatting
 
@@ -140,7 +136,7 @@ the sidebar can surface the latest version's sections plus a link to the version
 
 Generation: normative section pages are produced by `scripts/import-spec.mjs` (§5), which
 reads the upstream `sections/*.md` for a given version and writes the versioned `.mdx`
-pages with provenance frontmatter + banner. Generated pages are committed and become the
+pages without repeated provenance notices. Generated pages are committed and become the
 frozen, editable source for that version (annotations added by hand afterwards).
 
 ---
@@ -161,8 +157,8 @@ When upstream releases a new spec version (e.g. 0.7.1 or 0.8.0):
 1. **Import:** run `scripts/import-spec.mjs <version> --tag <release-tag>` to generate
    `/docs/specification/<version>/**` from the upstream `sections/` at an **immutable tag**
   (defaults target `mcpdesc/mcpdesc-specification`, `spec/draft`, and `v<version>`;
-  `--repo`/`--path`/`--tag` override them). The generated provenance banners and links point at that exact tag — never the
-   moving `main` branch — so it is unambiguous what was mirrored. Check the vendored clone
+  `--repo`/`--path`/`--tag` override them). Generated upstream links point at that exact tag,
+  never the moving `main` branch. Check the vendored clone
    under `ref/<repo-name>/` out at the same tag (the script warns if it is not).
 2. **Schema:** run `node scripts/publish-schema.mjs <version> <source-file-or-url>` to
   validate and publish the schema under `/schema/mcp-description/<version>.json`. The
@@ -217,5 +213,5 @@ Signed off 2026-07-16:
 3. **C** — verbatim normative text (keep "contract"); house style only on our own pages. ✅
 4. **D** — mirror examples on-site; link guides out. ✅
 
-Implementation proceeds section by section, each page carrying the provenance banner and
-frontmatter from §2E.
+Implementation proceeds section by section, with one provenance notice on each version
+overview as described in §2E.

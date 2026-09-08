@@ -1,14 +1,10 @@
 ---
 title: "6. Transports"
-description: "MCP Description specification v0.8.0-rc.3 — 6. Transports."
-slug: docs/specification/0.8.0-rc.3/transports
+description: "MCP Description specification v0.8.0-rc.4 — 6. Transports."
+slug: docs/specification/0.8.0-rc.4/transports
 sidebar:
   order: 6
 ---
-
-:::note[Mirrored specification]
-This page mirrors **6. Transports** of the MCP Description specification **v0.8.0-rc.3**. The canonical source of truth is [`mcpdesc/mcpdesc-specification`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/spec/draft/sections/06-transports.md). Where this page differs from upstream, upstream wins.
-:::
 
 ## 6. Transports
 

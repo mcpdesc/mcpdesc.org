@@ -30,7 +30,7 @@
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=31536000, immutable
 
-/schema/mcp-description/0.8.0-rc.3.json
+/schema/mcp-description/0.8.0-rc.4.json
   Content-Type: application/schema+json; charset=utf-8
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=31536000, immutable
@@ -76,7 +76,7 @@
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=604800, stale-while-revalidate=86400
 
-/specification/0.8.0-rc.3/*
+/specification/0.8.0-rc.4/*
   Content-Type: text/markdown; charset=utf-8
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=604800, stale-while-revalidate=86400

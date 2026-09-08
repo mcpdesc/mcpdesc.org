@@ -1,14 +1,10 @@
 ---
 title: "Appendix A: Icon Object"
-description: "MCP Description specification v0.8.0-rc.3 — Appendix A: Icon Object."
-slug: docs/specification/0.8.0-rc.3/appendices
+description: "MCP Description specification v0.8.0-rc.4 — Appendix A: Icon Object."
+slug: docs/specification/0.8.0-rc.4/appendices
 sidebar:
   order: 99
 ---
-
-:::note[Mirrored specification]
-This page mirrors **Appendix A: Icon Object** of the MCP Description specification **v0.8.0-rc.3**. The canonical source of truth is [`mcpdesc/mcpdesc-specification`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/spec/draft/sections/99-appendices.md). Where this page differs from upstream, upstream wins.
-:::
 
 ---
 
@@ -29,7 +25,7 @@ Clients MUST support `image/png` and `image/jpeg`. Clients SHOULD also support `
 
 ## Appendix B: Complete Example
 
-See [examples/full-featured.yaml](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/spec/draft/examples/full-featured.yaml) for a complete MCP Description document demonstrating all features of this specification.
+See [examples/full-featured.yaml](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/spec/draft/examples/full-featured.yaml) for a complete MCP Description document demonstrating all features of this specification.
 
 ---
 
@@ -37,8 +33,8 @@ See [examples/full-featured.yaml](https://github.com/mcpdesc/mcpdesc-specificati
 
 The normative JSON Schema for this specification version is available at:
 
-- [../../../schemas/mcp-description/0.8.0.json](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/schemas/mcp-description/0.8.0.json)
-- `https://mcpdesc.org/schema/mcp-description/0.8.0-rc.3.json` for the Release Candidate 3 canonical schema resource
+- [../../../schemas/mcp-description/0.8.0.json](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/schemas/mcp-description/0.8.0.json)
+- `https://mcpdesc.org/schema/mcp-description/0.8.0-rc.4.json` for the Release Candidate 4 canonical schema resource
 - `https://mcpdesc.org/schema/mcp-description/0.8.0.json` for the stable 0.8.0 canonical schema resource after release
 
 Archival retrieval locations may also exist for frozen historical bytes, including the legacy Draft 3 short URI `https://mcpdesc.org/schema/0.8.0.json` and the stable 0.7.0 mirror `https://mcpdesc.org/schema/mcp-description/0.7.0.json`. Those retrieval URLs do not change the historical embedded `$id` values of the frozen schemas they mirror.

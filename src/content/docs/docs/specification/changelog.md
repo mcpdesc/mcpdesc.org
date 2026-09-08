@@ -28,15 +28,15 @@ This project uses specification versioning aligned with its `mcpdesc` field.
 
 <!-- tocstop -->
 
-## [0.8.0] — Release Candidate 3 — 2026-09-07 (`v0.8.0-rc.3`)
+## [0.8.0] — Release Candidate 4 — 2026-09-08 (`v0.8.0-rc.4`)
 
 > MCP Description v0.8.0 is a community working draft under active review and interoperability testing, so its features may still change before release.
 
-Release Candidate 3 is behavior-equivalent to Release Candidate 2 for MCP Description documents. Document-conformance requirements, schema validation behavior, semantic validation behavior, examples, and conformance fixtures are unchanged apart from the RC.3 identity and `$schema` references. Repository publication and artifact-maintenance policy now lives in [`GOVERNANCE.md`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/GOVERNANCE.md), allowing companion-document corrections without a new specification snapshot. The existing `v0.8.0-rc.2` tag and artifacts remain unchanged.
-
-Version 0.8 adds first-class multi-revision descriptions, including protocol-scoped declarations and deterministic views for each MCP revision.
+Version 0.8 adds multi-revision descriptions, including protocol-scoped declarations and deterministic views for each MCP revision.
 
 It also introduces reusable components, richer examples and interaction scenarios, client capability requirements, elicitation declarations, extension support, and stronger validation across JSON and YAML documents.
+
+Release Candidate 4 includes the compatible Proposal 0022 relaxation: Info metadata is document-wide and no longer restricted by the runtime availability of corresponding MCP `Implementation` fields. Existing conforming documents remain conforming, and documents rejected only by those Info revision gates become conforming. The JSON Schema validation shape is unchanged apart from the RC.4 identity and `$schema` references.
 
 ### Breaking
 
@@ -58,6 +58,7 @@ It also introduces reusable components, richer examples and interaction scenario
 
 ### Changed
 
+- Defined the root Info Object as document-wide metadata independent of MCP protocol revisions, preserving all Info properties during migration and projection and removing runtime `Implementation` availability gates ([Proposal 0022 review snapshot](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/spec/draft/proposal-snapshots/0022-protocol-independent-info-metadata.md)).
 - Made `transports` optional and defined omission of an optional section as no declaration rather than evidence of runtime non-support.
 - Required ordinary declaration collections to be non-empty when present and projection or merge to omit collections that become empty.
 - Defined MCP 2025-06-18 as the floor for complete revision-specific semantic validation; older recognized revisions produce incomplete-validation diagnostics.
@@ -120,7 +121,7 @@ Detailed Draft 1–4 and release-candidate history is available in the [GitHub p
 ## [0.5.0] — 2026-03-17
 
 ### Changed
-- **Renamed `transport` field to `transports`** (plural) for consistency with `tools`, `resources`, `prompts` and OpenAPI's `servers` — see [DECISION-001](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/docs/maintainers/design/mcp-description/DECISION-001-transports-array.md)
+- **Renamed `transport` field to `transports`** (plural) for consistency with `tools`, `resources`, `prompts` and OpenAPI's `servers` — see [DECISION-001](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/docs/maintainers/design/mcp-description/DECISION-001-transports-array.md)
 - **Added transport-scoped `security`** — each transport MAY include its own `security` array that overrides the root-level default (see Section 6.4)
 - Root-level `security` is now the default; transport-level `security` overrides it (OpenAPI-style inheritance)
 

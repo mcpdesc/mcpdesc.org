@@ -6,12 +6,6 @@ sidebar:
   order: 16
 ---
 
-:::note[Mirrored specification]
-Curated examples for **v0.7.0**. The full example set (minimal, stdio-server, http-server,
-multi-transport, and full-featured — in both JSON and YAML) lives in the canonical source:
-[`spec/examples/`](https://github.com/cisco-open/mcptoolkit-contract/tree/main/spec/examples).
-:::
-
 ## Minimal example
 
 The smallest valid MCP Description: one `stdio` transport and one tool.

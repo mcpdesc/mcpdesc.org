@@ -164,7 +164,7 @@ Anthropic" — unless/until formally true.
 ## 10. File & naming conventions
 
 **Verified against the specifications** (`cisco-open/mcptoolkit-contract`, stable `mcpdesc`
-0.7.0; `mcpdesc/mcpdesc-specification`, v0.8.0 RC.3):
+0.7.0; `mcpdesc/mcpdesc-specification`, v0.8.0 RC.4):
 
 - Recommended extension: **`.mcpdesc.yaml`** / **`.mcpdesc.json`** (spec example:
   `chess-coach.mcpdesc.yaml`).

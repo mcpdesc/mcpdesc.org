@@ -6,10 +6,6 @@ sidebar:
   order: 15
 ---
 
-:::note[Mirrored specification]
-This page mirrors **15. Conformance** of the MCP Description specification **v0.7.0**. The canonical source of truth is [`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/sections/15-conformance.md). Where this page differs from upstream, upstream wins.
-:::
-
 ## 15. Conformance
 
 ### 15.1 Document Conformance

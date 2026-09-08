@@ -16,7 +16,7 @@
 //
 // Usage:
 //   node scripts/import-spec.mjs <version> [--repo o/n] [--path spec] [--tag mcpdesc-vX]
-//   node scripts/import-spec.mjs 0.8.0-rc.3
+//   node scripts/import-spec.mjs 0.8.0-rc.4
 //   node scripts/import-spec.mjs 0.7.0 --repo cisco-open/mcptoolkit-contract --path spec --tag mcpdesc-v0.7.0
 //
 // The local clone is read from ref/<repo-name>/<path>/sections (ref/ is gitignored). Check
@@ -172,15 +172,8 @@ function rewriteLinks(body, currentSlug, sourceDir = 'sections') {
 
 mkdirSync(OUT_DIR, { recursive: true });
 
-for (const { file, num, slug, raw } of parsed) {
+for (const { num, slug, raw } of parsed) {
   const title = pageTitle(raw);
-  const banner =
-    `:::note[Mirrored specification]\n` +
-    `This page mirrors **${title}** of the MCP Description specification **v${VERSION}**. ` +
-    `The canonical source of truth is ` +
-    `[\`${REPO}\`](${UPSTREAM_BASE}/sections/${file}). ` +
-    `Where this page differs from upstream, upstream wins.\n:::\n\n`;
-
   const body = rewriteLinks(raw.trimEnd(), slug);
 
   const frontmatter =
@@ -191,7 +184,7 @@ for (const { file, num, slug, raw } of parsed) {
     `sidebar:\n  order: ${num}\n` +
     `---\n\n`;
 
-  writeFileSync(join(OUT_DIR, `${slug}.md`), frontmatter + banner + body + '\n', 'utf8');
+  writeFileSync(join(OUT_DIR, `${slug}.md`), frontmatter + body + '\n', 'utf8');
   console.log(`  wrote ${slug}.md  (${title})`);
 }
 
@@ -199,7 +192,6 @@ console.log(`\nImported ${parsed.length} sections for v${VERSION} into ${OUT_DIR
 
 const migrationSource = join(ROOT, 'ref', REPO_NAME, SPEC_PATH, 'guides', 'migration-0.7-to-0.8.md');
 if (existsSync(migrationSource)) {
-  const sourceUrl = `${UPSTREAM_BASE}/guides/migration-0.7-to-0.8.md`;
   const frontmatter =
     `---\n` +
     `title: Migrate from 0.7 to 0.8\n` +
@@ -207,11 +199,8 @@ if (existsSync(migrationSource)) {
     `slug: docs/specification/${VERSION}/migration-0.7-to-0.8\n` +
     `sidebar:\n  order: 90\n` +
     `---\n\n`;
-  const note =
-    `> This guide is mirrored from [\`${REPO}\`](${sourceUrl}) at ` +
-    `[\`${TAG}\`](https://github.com/${REPO}/tree/${TAG}). Upstream is authoritative.\n\n`;
   const body = rewriteLinks(readFileSync(migrationSource, 'utf8').trimEnd(), '', 'guides');
-  writeFileSync(join(OUT_DIR, 'migration-0.7-to-0.8.md'), frontmatter + note + body + '\n', 'utf8');
+  writeFileSync(join(OUT_DIR, 'migration-0.7-to-0.8.md'), frontmatter + body + '\n', 'utf8');
   console.log('  wrote migration-0.7-to-0.8.md');
 }
 

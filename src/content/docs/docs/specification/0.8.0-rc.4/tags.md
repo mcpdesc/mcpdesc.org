@@ -1,14 +1,10 @@
 ---
 title: "13. Tags"
-description: "MCP Description specification v0.8.0-rc.3 — 13. Tags."
-slug: docs/specification/0.8.0-rc.3/tags
+description: "MCP Description specification v0.8.0-rc.4 — 13. Tags."
+slug: docs/specification/0.8.0-rc.4/tags
 sidebar:
   order: 13
 ---
-
-:::note[Mirrored specification]
-This page mirrors **13. Tags** of the MCP Description specification **v0.8.0-rc.3**. The canonical source of truth is [`mcpdesc/mcpdesc-specification`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/spec/draft/sections/13-tags.md). Where this page differs from upstream, upstream wins.
-:::
 
 ## 13. Tags
 

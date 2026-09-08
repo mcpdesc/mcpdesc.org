@@ -6,10 +6,6 @@ sidebar:
   order: 11
 ---
 
-:::note[Mirrored specification]
-This page mirrors **11. Prompts** of the MCP Description specification **v0.7.0**. The canonical source of truth is [`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/sections/11-prompts.md). Where this page differs from upstream, upstream wins.
-:::
-
 ## 11. Prompts
 
 The `prompts` array declares the prompt templates exposed by the MCP server. Each prompt is a server-side template that clients can invoke with arguments to generate messages.

@@ -1,30 +1,30 @@
-<!-- mcpdesc-spec version=0.8.0-rc.3 maturity=release-candidate channel=candidate date=2026-09-07 -->
+<!-- mcpdesc-spec version=0.8.0-rc.4 maturity=release-candidate channel=candidate date=2026-09-08 -->
 
-# MCP Description Specification — v0.8.0-rc.3
+# MCP Description Specification — v0.8.0-rc.4
 
-**Version:** 0.8.0-rc.3 · **Maturity:** release-candidate · **Date:** 2026-09-07
+**Version:** 0.8.0-rc.4 · **Maturity:** release-candidate · **Date:** 2026-09-08
 
 > Complete MCP Description specification (all sections) as a single Markdown file,
 > for one-request retrieval by AI assistants and build tools.
 >
-> Canonical source of truth: https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/spec/draft/mcp-description.md
-> Raw Markdown: https://raw.githubusercontent.com/mcpdesc/mcpdesc-specification/v0.8.0-rc.3/spec/draft/mcp-description.md
-> JSON Schema: https://mcpdesc.org/schema/mcp-description/0.8.0-rc.3.json
+> Canonical source of truth: https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/spec/draft/mcp-description.md
+> Raw Markdown: https://raw.githubusercontent.com/mcpdesc/mcpdesc-specification/v0.8.0-rc.4/spec/draft/mcp-description.md
+> JSON Schema: https://mcpdesc.org/schema/mcp-description/0.8.0-rc.4.json
 > Version index (machine-readable): https://mcpdesc.org/specification/index.json
 >
 > This first-party copy mirrors the versioned section pages at
-> https://mcpdesc.org/docs/specification/0.8.0-rc.3/. Where it differs from the canonical
+> https://mcpdesc.org/docs/specification/0.8.0-rc.4/. Where it differs from the canonical
 > source above, the canonical source wins.
 
 ---
 
 > **Release candidate**
 >
-> This is MCP Description **v0.8.0 Release Candidate 3**, an immutable prerelease snapshot
-> published for interoperability testing. The current stable release remains
+> This is MCP Description **v0.8.0 Release Candidate 4**, an immutable prerelease snapshot
+> published for community testing. The current stable release remains
 > [v0.7.0](https://mcpdesc.org/docs/specification/0.7.0/).
 
-**Format version**: 0.8.0 · **Snapshot**: v0.8.0-rc.3 · **Date**: September 7, 2026
+**Format version**: 0.8.0 · **Snapshot**: v0.8.0-rc.4 · **Date**: September 8, 2026
 
 ## About this candidate
 
@@ -32,21 +32,18 @@ MCP Description v0.8 adds support for MCP `2026-07-28`, multi-protocol descripti
 extensions and client requirements, reusable security schemes, richer examples and
 interactions, reusable components, and stronger serialization and semantic conformance.
 
-RC.3 is behavior-equivalent to RC.2 for MCP Description documents. It updates the release
-identity and schema references while moving repository publication and artifact-maintenance
-policy into the specification repository's governance document.
-
 ## Source and schema
 
-- **Canonical specification** - [`spec/draft/mcp-description.md`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/spec/draft/mcp-description.md)
-- **Release notes** - [`v0.8.0-rc.3`](https://github.com/mcpdesc/mcpdesc-specification/releases/tag/v0.8.0-rc.3)
-- **Immutable JSON Schema** - [`0.8.0-rc.3.json`](https://mcpdesc.org/schema/mcp-description/0.8.0-rc.3.json)
-- **Migration guide** - [Migrate from 0.7 to 0.8](https://mcpdesc.org/docs/specification/0.8.0-rc.3/migration-0.7-to-0.8)
+- **Canonical specification** - [`spec/draft/mcp-description.md`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/spec/draft/mcp-description.md)
+- **Release notes** - [`v0.8.0-rc.4`](https://github.com/mcpdesc/mcpdesc-specification/releases/tag/v0.8.0-rc.4)
+- **Immutable JSON Schema** - [`0.8.0-rc.4.json`](https://mcpdesc.org/schema/mcp-description/0.8.0-rc.4.json)
+- **Migration guide** - [Migrate from 0.7 to 0.8](https://mcpdesc.org/docs/specification/0.8.0-rc.4/migration-0.7-to-0.8)
 - **Feedback** - [Report an interoperability issue](https://github.com/mcpdesc/mcpdesc-specification/issues)
+
 
 ### For AI assistants and tools
 
-- **Complete candidate, single file** - [`/specification/0.8.0-rc.3/mcpdesc.md`](https://mcpdesc.org/specification/0.8.0-rc.3/mcpdesc.md)
+- **Complete candidate, single file** - [`/specification/0.8.0-rc.4/mcpdesc.md`](https://mcpdesc.org/specification/0.8.0-rc.4/mcpdesc.md)
 - **Version index** - [`/specification/index.json`](https://mcpdesc.org/specification/index.json), including
   explicit `stable` and `candidate` fields and the compatible `latest` and `next` aliases
 
@@ -190,19 +187,19 @@ The root of an MCP Description document is an object with the following structur
 |----------|------|----------|-------------|
 | `$schema` | string | No | JSON Schema reference for IDE validation |
 | `mcpdesc` | string | **Yes** | Specification version (`"0.8.0"`) |
-| `info` | [Info Object](https://mcpdesc.org/docs/specification/0.8.0-rc.3/info-object#5-info-object) | **Yes** | Server metadata |
+| `info` | [Info Object](https://mcpdesc.org/docs/specification/0.8.0-rc.4/info-object#5-info-object) | **Yes** | Server metadata |
 | `protocolVersions` | array\<string\> | **Yes** | MCP protocol revisions described by the document |
 | `instructions` | string | No | Durable natural-language guidance for using the server |
-| `transports` | non-empty array\<[Transport Object](https://mcpdesc.org/docs/specification/0.8.0-rc.3/transports#6-transports)\> | No | Declared transports |
-| `securitySchemes` | non-empty map\<string, [Security Scheme Object](https://mcpdesc.org/docs/specification/0.8.0-rc.3/security#72-security-scheme-object)\> | No | Reusable named security schemes |
-| `security` | [Security Requirement Array](https://mcpdesc.org/docs/specification/0.8.0-rc.3/security#73-security-requirement-array) | No | Default security requirements |
-| `components` | [Components Object](https://mcpdesc.org/docs/specification/0.8.0-rc.3/components#171-components-object) | No | Reusable schemas and named primitive examples |
-| `capabilities` | non-empty array\<[Capabilities Object](https://mcpdesc.org/docs/specification/0.8.0-rc.3/capabilities#8-capabilities)\> | No | Protocol-scoped server capability declarations |
-| `tools` | non-empty array\<[Tool Object](https://mcpdesc.org/docs/specification/0.8.0-rc.3/tools#9-tools)\> | No | Tools declared by the document |
-| `resources` | non-empty array\<[Resource Object](https://mcpdesc.org/docs/specification/0.8.0-rc.3/resources#1011-resource-object)\> | No | Resources declared by the document |
-| `resourceTemplates` | non-empty array\<[Resource Template Object](https://mcpdesc.org/docs/specification/0.8.0-rc.3/resources#1021-resource-template-object)\> | No | Resource templates declared by the document |
-| `prompts` | non-empty array\<[Prompt Object](https://mcpdesc.org/docs/specification/0.8.0-rc.3/prompts#11-prompts)\> | No | Prompts declared by the document |
-| `tags` | non-empty array\<[Tag Object](https://mcpdesc.org/docs/specification/0.8.0-rc.3/tags#13-tags)\> | No | Document-wide flat tag catalogue for primitive categorization |
+| `transports` | non-empty array\<[Transport Object](https://mcpdesc.org/docs/specification/0.8.0-rc.4/transports#6-transports)\> | No | Declared transports |
+| `securitySchemes` | non-empty map\<string, [Security Scheme Object](https://mcpdesc.org/docs/specification/0.8.0-rc.4/security#72-security-scheme-object)\> | No | Reusable named security schemes |
+| `security` | [Security Requirement Array](https://mcpdesc.org/docs/specification/0.8.0-rc.4/security#73-security-requirement-array) | No | Default security requirements |
+| `components` | [Components Object](https://mcpdesc.org/docs/specification/0.8.0-rc.4/components#171-components-object) | No | Reusable schemas and named primitive examples |
+| `capabilities` | non-empty array\<[Capabilities Object](https://mcpdesc.org/docs/specification/0.8.0-rc.4/capabilities#8-capabilities)\> | No | Protocol-scoped server capability declarations |
+| `tools` | non-empty array\<[Tool Object](https://mcpdesc.org/docs/specification/0.8.0-rc.4/tools#9-tools)\> | No | Tools declared by the document |
+| `resources` | non-empty array\<[Resource Object](https://mcpdesc.org/docs/specification/0.8.0-rc.4/resources#1011-resource-object)\> | No | Resources declared by the document |
+| `resourceTemplates` | non-empty array\<[Resource Template Object](https://mcpdesc.org/docs/specification/0.8.0-rc.4/resources#1021-resource-template-object)\> | No | Resource templates declared by the document |
+| `prompts` | non-empty array\<[Prompt Object](https://mcpdesc.org/docs/specification/0.8.0-rc.4/prompts#11-prompts)\> | No | Prompts declared by the document |
+| `tags` | non-empty array\<[Tag Object](https://mcpdesc.org/docs/specification/0.8.0-rc.4/tags#13-tags)\> | No | Document-wide flat tag catalogue for primitive categorization |
 
 The optional `$schema` property selects a JSON Schema resource for structural validation and editor tooling. It does not replace the required `mcpdesc` format discriminator or the document's declared MCP protocol coverage.
 
@@ -243,7 +240,7 @@ Property ordering within objects is not significant. Implementations MUST NOT de
 
 ### 3.7 Specification Extensions
 
-Any property whose name matches the pattern `^x-` on the root or another eligible MCP Description-defined semantic object is a specification extension. See [Section 14: Specification Extensions](https://mcpdesc.org/docs/specification/0.8.0-rc.3/specification-extensions#14-specification-extensions) for eligibility and exclusion rules.
+Any property whose name matches the pattern `^x-` on the root or another eligible MCP Description-defined semantic object is a specification extension. See [Section 14: Specification Extensions](https://mcpdesc.org/docs/specification/0.8.0-rc.4/specification-extensions#14-specification-extensions) for eligibility and exclusion rules.
 
 ### 3.8 Additional Properties
 
@@ -255,7 +252,7 @@ A minimal valid MCP Description document:
 
 ```json
 {
-  "$schema": "https://mcpdesc.org/schema/mcp-description/0.8.0-rc.3.json",
+  "$schema": "https://mcpdesc.org/schema/mcp-description/0.8.0-rc.4.json",
   "mcpdesc": "0.8.0",
   "info": {
     "name": "chess-rating-server",
@@ -295,16 +292,23 @@ The specification uses [Semantic Versioning](https://semver.org/) for its own ve
 
 The root `$schema` property, when present, identifies the JSON Schema resource against which the document's normalized JSON-compatible data model can be structurally validated. It does not replace the instance format discriminator.
 
-The root `$schema` property remains optional. When present, it SHOULD identify the exact stable version or public draft snapshot used to produce or validate the document. Omitting `$schema` does not make an otherwise conforming document invalid; a validator MAY select an applicable bundled schema through its API, surrounding metadata, or explicit user configuration.
-
-The schema document's root `$id` identifies that schema resource and establishes its base URI for JSON Schema reference resolution. The schema document's own `$schema` property identifies the JSON Schema dialect used to interpret the schema. MCP Description 0.8.0 schemas use `https://json-schema.org/draft/2020-12/schema`.
-
 ```yaml
-$schema: https://mcpdesc.org/schema/mcp-description/0.8.0-rc.3.json
+$schema: https://mcpdesc.org/schema/mcp-description/0.8.0.json
 mcpdesc: 0.8.0
 ```
 
-The prerelease label in `$schema` does not change the MCP Description conformance version. Release Candidate 3 documents remain `mcpdesc: 0.8.0`.
+The root `$schema` property remains optional. When present, it SHOULD identify the exact stable version or public draft snapshot used to produce or validate the document. Omitting `$schema` does not make an otherwise conforming document invalid; a validator MAY select an applicable bundled schema through its API, surrounding metadata, or explicit user configuration.
+
+The schema document's root `$id` identifies that schema resource and establishes its base URI for JSON Schema reference resolution.
+
+A prerelease label in `$schema` does not change the MCP Description conformance version: Release Candidate 4 documents remain `mcpdesc: 0.8.0`.
+
+```yaml
+$schema: https://mcpdesc.org/schema/mcp-description/0.8.0-rc.4.json
+mcpdesc: 0.8.0
+```
+
+The schema document's own `$schema` property identifies the JSON Schema dialect used to interpret the schema. MCP Description 0.8.0 schemas use `https://json-schema.org/draft/2020-12/schema`.
 
 ### 4.4 Canonical Schema URI Families
 
@@ -314,7 +318,7 @@ The project controls canonical schema URIs under:
 https://mcpdesc.org/schema/<format-family>/<version-or-snapshot>.json
 ```
 
-This specification assigns `mcp-description` as the MCP Description format family. A stable release uses its semantic version, for example `https://mcpdesc.org/schema/mcp-description/0.8.0.json`. A public prerelease uses the target version followed by its prerelease identifier, for example `https://mcpdesc.org/schema/mcp-description/0.8.0-rc.3.json`.
+This specification assigns `mcp-description` as the MCP Description format family. A stable release uses its semantic version, for example `https://mcpdesc.org/schema/mcp-description/0.8.0.json`. A public prerelease uses the target version followed by its prerelease identifier, for example `https://mcpdesc.org/schema/mcp-description/0.8.0-rc.4.json`.
 
 Assigning a new format family requires an accepted specification decision. Similar repository paths, redirects, or aliases do not create canonical format authority.
 
@@ -371,6 +375,8 @@ Root coverage states which revisions the document describes. It does not prove t
 
 Transports, Capabilities Objects, Tools, Resources, Resource Templates, and Prompts MAY declare `protocolVersions`.
 
+The root Info Object is unscoped, document-wide MCP Description metadata. Its properties are valid independently of root `protocolVersions` and MUST NOT be treated as protocol-scoped declarations.
+
 For root version set `R`, a top-level declaration's effective scope is its explicit `protocolVersions` when present and `R` otherwise. An explicit scope MUST be a non-empty subset of `R`.
 
 For a nested scoped declaration, the effective scope is its explicit `protocolVersions` when present and its parent's effective scope otherwise. An explicit child scope MUST be a non-empty subset of its parent's effective scope.
@@ -383,7 +389,7 @@ The `mcpdesc` version identifies this description format. Root and declaration-l
 
 ### 4.12 Effective Protocol Views and Projection
 
-For protocol revision `V`, the Effective Protocol View `P_V(D)` of document `D` contains each scoped declaration whose effective scope includes `V` and excludes every other scoped declaration.
+For protocol revision `V`, the Effective Protocol View `P_V(D)` of document `D` contains each scoped declaration whose effective scope includes `V` and excludes every other scoped declaration. It preserves the complete Info Object unchanged.
 
 A conforming single-version projection tool MUST:
 
@@ -424,17 +430,21 @@ The `info` object provides metadata about the MCP server. It is REQUIRED.
 
 The `info` object combines OpenAPI-style metadata (`contact`, `license`) with fields from the MCP `Implementation` type used for server identity. The MCP-sourced fields — `name`, `title`, `description`, `version`, `icons`, and `websiteUrl` — allow an MCP Description document to represent server identity metadata that may also be advertised at runtime.
 
+Info is unscoped, document-wide MCP Description metadata. Every property defined by this specification MAY appear regardless of the revisions listed in root `protocolVersions`. A mapping to MCP `Implementation` indicates that a producer MAY obtain or compare the value through runtime initialization when the negotiated revision defines that field. It MUST NOT be interpreted as requiring a runtime origin or restricting the property's presence to those revisions. Validators MUST NOT emit a revision-applicability diagnostic solely because an Info property is unavailable on `Implementation` in an applicable MCP revision.
+
+A producer MAY obtain Info metadata from author input, configuration, package metadata, a registry, runtime discovery, or another source. This specification does not assign trust or precedence among those sources, and consumers MUST NOT infer that an Info value was asserted by a live server.
+
 ### 5.1 Properties
 
 | Property | Type | Required | Description |
 |----------|------|----------|-------------|
 | `name` | string | **Yes** | Programmatic server name (identifier). MUST be non-empty. Maps to `Implementation.name` (MCP `BaseMetadata`). |
 | `version` | string | **Yes** | Server version. Semver RECOMMENDED. MUST be non-empty. Maps to `Implementation.version`. |
-| `title` | string | No | Human-readable display name for UI contexts. Falls back to `name` if not provided. Maps to `Implementation.title` (MCP `BaseMetadata`, since 2025-06-18). |
-| `description` | string | No | Brief description of what the server does. Maps to `Implementation.description` (MCP, since 2025-11-25). |
+| `title` | string | No | Human-readable display name for UI contexts. Falls back to `name` if not provided. Runtime mapping: `Implementation.title` (MCP `BaseMetadata`, available since 2025-06-18). |
+| `description` | string | No | Brief description of what the server does. Runtime mapping: `Implementation.description` (available since MCP 2025-11-25). |
 | `id` | string | No | Unique server identifier (URI, DID, or URN). |
-| `icons` | non-empty array\<[Icon](https://mcpdesc.org/docs/specification/0.8.0-rc.3/appendices#appendix-a-icon-object)\> | No | Icons for UI display. Maps to `Implementation.icons` (MCP, since 2025-11-25). |
-| `websiteUrl` | string (URI) | No | URL of the server's website. Maps to `Implementation.websiteUrl` (MCP, since 2025-11-25). |
+| `icons` | non-empty array\<[Icon](https://mcpdesc.org/docs/specification/0.8.0-rc.4/appendices#appendix-a-icon-object)\> | No | Icons for UI display. Runtime mapping: `Implementation.icons` (available since MCP 2025-11-25). |
+| `websiteUrl` | string (URI) | No | URL of the server's website. Runtime mapping: `Implementation.websiteUrl` (available since MCP 2025-11-25). |
 | `contact` | [Contact Object](#52-contact-object) | No | Contact information (OpenAPI-style, not part of MCP `Implementation`). |
 | `license` | [License Object](#53-license-object) | No | License information (OpenAPI-style, not part of MCP `Implementation`). |
 
@@ -853,18 +863,18 @@ The `tools` array declares the tools exposed by the MCP server. Each tool repres
 | `examples` | map&lt;string, Tool Example Object&gt; | No | Named complete Tool invocation/result pairs. |
 | `interactionExamples` | map&lt;string, Tool Interaction Example Object&gt; | No | Named ordered semantic client-input scenarios attached to one Tool invocation. |
 | `icons` | non-empty array\<Icon\> | No | Icons for UI display. Since MCP 2025-11-25. |
-| `tags` | non-empty array\<string\> | No | Categorization tags. When a root-level `tags` array is present, values MUST reference declared tag names (see [Section 13.3](https://mcpdesc.org/docs/specification/0.8.0-rc.3/tags#133-tag-references)). |
-| `elicitations` | non-empty array\<Elicitation Declaration Object\> | No | Additional user interactions that MAY be required while fulfilling the Tool (see [Section 12](https://mcpdesc.org/docs/specification/0.8.0-rc.3/elicitation#12-elicitation-declarations)). |
+| `tags` | non-empty array\<string\> | No | Categorization tags. When a root-level `tags` array is present, values MUST reference declared tag names (see [Section 13.3](https://mcpdesc.org/docs/specification/0.8.0-rc.4/tags#133-tag-references)). |
+| `elicitations` | non-empty array\<Elicitation Declaration Object\> | No | Additional user interactions that MAY be required while fulfilling the Tool (see [Section 12](https://mcpdesc.org/docs/specification/0.8.0-rc.4/elicitation#12-elicitation-declarations)). |
 | `deprecated` | boolean | No | Whether the tool is deprecated. |
-| `_meta` | object | No | Literal MCP metadata on the Tool declaration, subject to [Section 3.5](https://mcpdesc.org/docs/specification/0.8.0-rc.3/document-structure#35-mcp-_meta). Since MCP 2025-06-18. |
+| `_meta` | object | No | Literal MCP metadata on the Tool declaration, subject to [Section 3.5](https://mcpdesc.org/docs/specification/0.8.0-rc.4/document-structure#35-mcp-_meta). Since MCP 2025-06-18. |
 | `security` | Security Requirement Array | No | Primitive security override. |
-| `clientRequirements` | [Client Capability Requirements Object](https://mcpdesc.org/docs/specification/0.8.0-rc.3/capabilities#85-primitive-client-capability-requirements) | No | Unconditional minimum client capabilities required for `tools/call`; does not apply to `tools/list`. |
+| `clientRequirements` | [Client Capability Requirements Object](https://mcpdesc.org/docs/specification/0.8.0-rc.4/capabilities#85-primitive-client-capability-requirements) | No | Unconditional minimum client capabilities required for `tools/call`; does not apply to `tools/list`. |
 
 ### 9.2 Input and Output Schemas
 
 Every Tool MUST contain `inputSchema`. Absence MUST NOT be interpreted as evidence that the Tool accepts no arguments. The schema root MUST describe an object.
 
-`inputSchema` and `outputSchema` MAY be Reference Objects targeting the `schemas` component namespace. Resolution MUST occur before applying every inline schema rule in this section, including root shape, dialect, protocol applicability, `x-mcp-header`, and example compatibility. See [Section 17](https://mcpdesc.org/docs/specification/0.8.0-rc.3/components#17-reusable-components-and-local-references).
+`inputSchema` and `outputSchema` MAY be Reference Objects targeting the `schemas` component namespace. Resolution MUST occur before applying every inline schema rule in this section, including root shape, dialect, protocol applicability, `x-mcp-header`, and example compatibility. See [Section 17](https://mcpdesc.org/docs/specification/0.8.0-rc.4/components#17-reusable-components-and-local-references).
 
 A closed no-parameter Tool SHOULD use `{ "type": "object", "additionalProperties": false }`. An open unspecified-parameter Tool may use `{ "type": "object" }`, but this is NOT RECOMMENDED because it gives little validation or guidance. A declared-parameter schema uses `properties` and, when undeclared properties must be rejected, `additionalProperties: false`.
 
@@ -899,7 +909,7 @@ The Tool Example Object MUST NOT contain other additional properties. In particu
 
 `result` MUST contain `content` and MUST have the completed Tool Result shape defined by every applicable protocol revision. For MCP 2026-07-28 it MUST contain `resultType: "complete"`; earlier revisions MUST NOT contain `resultType`. Task, input-required, streaming, progress, JSON-RPC envelope, and JSON-RPC protocol-error forms are not Tool Examples. Content blocks MAY use any text, image, audio, embedded-resource, or resource-link form supported by every applicable revision.
 
-Revision-supported `_meta` on the completed result, content blocks, and embedded Resource Contents is literal illustrative metadata governed by [Section 3.5](https://mcpdesc.org/docs/specification/0.8.0-rc.3/document-structure#35-mcp-_meta). It is not a schema or a request-metadata declaration. In MCP 2026-07-28, a result example MAY use `io.modelcontextprotocol/serverInfo` with an MCP Implementation value; request-only and notification-only reserved keys are invalid in these represented contexts.
+Revision-supported `_meta` on the completed result, content blocks, and embedded Resource Contents is literal illustrative metadata governed by [Section 3.5](https://mcpdesc.org/docs/specification/0.8.0-rc.4/document-structure#35-mcp-_meta). It is not a schema or a request-metadata declaration. In MCP 2026-07-28, a result example MAY use `io.modelcontextprotocol/serverInfo` with an MCP Implementation value; request-only and notification-only reserved keys are invalid in these represented contexts.
 
 A successful result MUST omit `isError` or set it to `false`. It MAY contain `structuredContent` only in revisions that support that field. If the Tool declares `outputSchema`, a successful result MUST contain `structuredContent`, which MUST validate against that schema under the applicable schema rules. Unstructured `content` remains required when `structuredContent` is present. If the Tool has no `outputSchema`, a successful result MAY contain revision-supported `structuredContent`, but mcpdesc makes no schema-compatibility claim for that value.
 
@@ -965,7 +975,7 @@ Tool `clientRequirements` applies only to invocation through `tools/call`. It do
 
 ### 9.6 Tool Annotations
 
-Tool Annotations provide hints about Tool behavior. They are distinct from the Resource Annotations used by Resources, Resource Templates, and content blocks (see [Section 10.3](https://mcpdesc.org/docs/specification/0.8.0-rc.3/resources#103-resource-annotations)). A Tool `annotations` object MUST use the fields and semantics in this section; Resource Annotation fields such as `audience`, `priority`, and `lastModified` do not acquire those semantics when placed on a Tool.
+Tool Annotations provide hints about Tool behavior. They are distinct from the Resource Annotations used by Resources, Resource Templates, and content blocks (see [Section 10.3](https://mcpdesc.org/docs/specification/0.8.0-rc.4/resources#103-resource-annotations)). A Tool `annotations` object MUST use the fields and semantics in this section; Resource Annotation fields such as `audience`, `priority`, and `lastModified` do not acquire those semantics when placed on a Tool.
 
 All Tool Annotation properties are advisory. They are not guaranteed to describe Tool behavior faithfully, including `title`. Clients MUST treat Tool Annotations from untrusted servers as untrusted and MUST NOT make Tool-use decisions based on them.
 
@@ -1112,12 +1122,12 @@ The `resources` array declares the static resources exposed by the MCP server. E
 | `annotations` | [Resource Annotations Object](#103-resource-annotations) | No | Audience, priority, and modification-time hints. |
 | `examples` | map\<string, [Resource Example Object](#1042-static-resource-example-object)\> | No | Named completed Resource read examples. |
 | `icons` | non-empty array\<Icon\> | No | Icons for UI display. Since MCP 2025-11-25. |
-| `tags` | non-empty array\<string\> | No | Categorization tags. When a root-level `tags` array is present, values MUST reference declared tag names (see [Section 13.3](https://mcpdesc.org/docs/specification/0.8.0-rc.3/tags#133-tag-references)). |
-| `elicitations` | non-empty array\<Elicitation Declaration Object\> | No | Additional user interactions that MAY be required while reading the Resource (see [Section 12](https://mcpdesc.org/docs/specification/0.8.0-rc.3/elicitation#12-elicitation-declarations)). |
+| `tags` | non-empty array\<string\> | No | Categorization tags. When a root-level `tags` array is present, values MUST reference declared tag names (see [Section 13.3](https://mcpdesc.org/docs/specification/0.8.0-rc.4/tags#133-tag-references)). |
+| `elicitations` | non-empty array\<Elicitation Declaration Object\> | No | Additional user interactions that MAY be required while reading the Resource (see [Section 12](https://mcpdesc.org/docs/specification/0.8.0-rc.4/elicitation#12-elicitation-declarations)). |
 | `deprecated` | boolean | No | Whether the resource is deprecated. |
-| `_meta` | object | No | Literal MCP metadata on the Resource declaration, subject to [Section 3.5](https://mcpdesc.org/docs/specification/0.8.0-rc.3/document-structure#35-mcp-_meta). Since MCP 2025-06-18. |
+| `_meta` | object | No | Literal MCP metadata on the Resource declaration, subject to [Section 3.5](https://mcpdesc.org/docs/specification/0.8.0-rc.4/document-structure#35-mcp-_meta). Since MCP 2025-06-18. |
 | `security` | Security Requirement Array | No | Primitive security override. |
-| `clientRequirements` | [Client Capability Requirements Object](https://mcpdesc.org/docs/specification/0.8.0-rc.3/capabilities#85-primitive-client-capability-requirements) | No | Unconditional minimum client capabilities required for `resources/read`; does not apply to resource listing. |
+| `clientRequirements` | [Client Capability Requirements Object](https://mcpdesc.org/docs/specification/0.8.0-rc.4/capabilities#85-primitive-client-capability-requirements) | No | Unconditional minimum client capabilities required for `resources/read`; does not apply to resource listing. |
 
 #### 10.1.2 Resource URI
 
@@ -1141,12 +1151,12 @@ The `resourceTemplates` array declares parameterized resource definitions using 
 | `examples` | map\<string, [Resource Template Example Object](#1043-resource-template-example-object)\> | No | Named concrete URI and completed read-result examples. |
 | `completionExamples` | map\<string, [Completion Example Object](#1046-resource-template-completion-examples)\> | No | Named `completion/complete` request-result observations for template variables. |
 | `icons` | non-empty array\<Icon\> | No | Icons for UI display. Since MCP 2025-11-25. |
-| `tags` | non-empty array\<string\> | No | Categorization tags. When a root-level `tags` array is present, values MUST reference declared tag names (see [Section 13.3](https://mcpdesc.org/docs/specification/0.8.0-rc.3/tags#133-tag-references)). |
-| `elicitations` | non-empty array\<Elicitation Declaration Object\> | No | Additional user interactions that MAY be required while reading an expanded Resource (see [Section 12](https://mcpdesc.org/docs/specification/0.8.0-rc.3/elicitation#12-elicitation-declarations)). |
+| `tags` | non-empty array\<string\> | No | Categorization tags. When a root-level `tags` array is present, values MUST reference declared tag names (see [Section 13.3](https://mcpdesc.org/docs/specification/0.8.0-rc.4/tags#133-tag-references)). |
+| `elicitations` | non-empty array\<Elicitation Declaration Object\> | No | Additional user interactions that MAY be required while reading an expanded Resource (see [Section 12](https://mcpdesc.org/docs/specification/0.8.0-rc.4/elicitation#12-elicitation-declarations)). |
 | `deprecated` | boolean | No | Whether the template is deprecated. |
-| `_meta` | object | No | Literal MCP metadata on the Resource Template declaration, subject to [Section 3.5](https://mcpdesc.org/docs/specification/0.8.0-rc.3/document-structure#35-mcp-_meta). Since MCP 2025-06-18. |
+| `_meta` | object | No | Literal MCP metadata on the Resource Template declaration, subject to [Section 3.5](https://mcpdesc.org/docs/specification/0.8.0-rc.4/document-structure#35-mcp-_meta). Since MCP 2025-06-18. |
 | `security` | Security Requirement Array | No | Primitive security override. |
-| `clientRequirements` | [Client Capability Requirements Object](https://mcpdesc.org/docs/specification/0.8.0-rc.3/capabilities#85-primitive-client-capability-requirements) | No | Unconditional minimum client capabilities required to read a concrete URI produced from the template; does not apply to template listing. |
+| `clientRequirements` | [Client Capability Requirements Object](https://mcpdesc.org/docs/specification/0.8.0-rc.4/capabilities#85-primitive-client-capability-requirements) | No | Unconditional minimum client capabilities required to read a concrete URI produced from the template; does not apply to template listing. |
 
 ### 10.3 Resource Annotations
 
@@ -1193,7 +1203,7 @@ The object MAY carry `x-*` specification extensions; no other additional propert
 
 #### 10.4.4 Completed Resource Read Result
 
-The `result` value represents the value inside a successful JSON-RPC response's `result` member. It MUST contain a non-empty `contents` array. For MCP 2026-07-28 it MUST contain `resultType: "complete"`, non-negative numeric `ttlMs`, and `cacheScope` equal to `"public"` or `"private"`; these are required fields of the MCP `CacheableResult` extended by `ReadResourceResult`. For earlier supported revisions it MUST NOT contain `resultType`, `ttlMs`, or `cacheScope`. A declaration whose examples would span MCP 2026-07-28 and an earlier revision therefore MUST be split into disjoint protocol-scoped variants with revision-compatible example maps. Result `_meta` and Resource Contents `_meta` are available from MCP 2025-06-18 and are literal illustrative values governed by [Section 3.5](https://mcpdesc.org/docs/specification/0.8.0-rc.3/document-structure#35-mcp-_meta), not reusable metadata contracts. In MCP 2026-07-28, result `_meta` MAY use `io.modelcontextprotocol/serverInfo` with an MCP Implementation value; request-only and notification-only reserved keys are invalid here. JSON-RPC envelope fields, errors, task state, input-required state, and other non-completed workflows MUST NOT appear.
+The `result` value represents the value inside a successful JSON-RPC response's `result` member. It MUST contain a non-empty `contents` array. For MCP 2026-07-28 it MUST contain `resultType: "complete"`, non-negative numeric `ttlMs`, and `cacheScope` equal to `"public"` or `"private"`; these are required fields of the MCP `CacheableResult` extended by `ReadResourceResult`. For earlier supported revisions it MUST NOT contain `resultType`, `ttlMs`, or `cacheScope`. A declaration whose examples would span MCP 2026-07-28 and an earlier revision therefore MUST be split into disjoint protocol-scoped variants with revision-compatible example maps. Result `_meta` and Resource Contents `_meta` are available from MCP 2025-06-18 and are literal illustrative values governed by [Section 3.5](https://mcpdesc.org/docs/specification/0.8.0-rc.4/document-structure#35-mcp-_meta), not reusable metadata contracts. In MCP 2026-07-28, result `_meta` MAY use `io.modelcontextprotocol/serverInfo` with an MCP Implementation value; request-only and notification-only reserved keys are invalid here. JSON-RPC envelope fields, errors, task state, input-required state, and other non-completed workflows MUST NOT appear.
 
 Every `contents` entry MUST contain `uri` and exactly one of `text` or `blob`. A `blob` value MUST be valid base64. An example MAY contain multiple entries; consumers MUST preserve their order and MUST NOT assume every returned URI equals the requested URI.
 
@@ -1371,12 +1381,12 @@ The `prompts` array declares the prompt templates exposed by the MCP server. Eac
 | `examples` | map<string, Prompt Example Object> | No | Named complete Prompt invocation/result pairs. |
 | `completionExamples` | map<string, Completion Example Object> | No | Named `completion/complete` request-result observations for Prompt arguments. |
 | `icons` | non-empty array\<Icon\> | No | Icons for UI display. Since MCP 2025-11-25. |
-| `tags` | non-empty array\<string\> | No | Categorization tags. When a root-level `tags` array is present, values MUST reference declared tag names (see [Section 13.3](https://mcpdesc.org/docs/specification/0.8.0-rc.3/tags#133-tag-references)). |
-| `elicitations` | non-empty array\<Elicitation Declaration Object\> | No | Additional user interactions that MAY be required while retrieving the Prompt (see [Section 12](https://mcpdesc.org/docs/specification/0.8.0-rc.3/elicitation#12-elicitation-declarations)). |
+| `tags` | non-empty array\<string\> | No | Categorization tags. When a root-level `tags` array is present, values MUST reference declared tag names (see [Section 13.3](https://mcpdesc.org/docs/specification/0.8.0-rc.4/tags#133-tag-references)). |
+| `elicitations` | non-empty array\<Elicitation Declaration Object\> | No | Additional user interactions that MAY be required while retrieving the Prompt (see [Section 12](https://mcpdesc.org/docs/specification/0.8.0-rc.4/elicitation#12-elicitation-declarations)). |
 | `deprecated` | boolean | No | Whether the prompt is deprecated. |
-| `_meta` | object | No | Literal MCP metadata on the Prompt declaration, subject to [Section 3.5](https://mcpdesc.org/docs/specification/0.8.0-rc.3/document-structure#35-mcp-_meta). Since MCP 2025-06-18. |
+| `_meta` | object | No | Literal MCP metadata on the Prompt declaration, subject to [Section 3.5](https://mcpdesc.org/docs/specification/0.8.0-rc.4/document-structure#35-mcp-_meta). Since MCP 2025-06-18. |
 | `security` | Security Requirement Array | No | Primitive security override. |
-| `clientRequirements` | [Client Capability Requirements Object](https://mcpdesc.org/docs/specification/0.8.0-rc.3/capabilities#85-primitive-client-capability-requirements) | No | Unconditional minimum client capabilities required for `prompts/get`; does not apply to `prompts/list`. |
+| `clientRequirements` | [Client Capability Requirements Object](https://mcpdesc.org/docs/specification/0.8.0-rc.4/capabilities#85-primitive-client-capability-requirements) | No | Unconditional minimum client capabilities required for `prompts/get`; does not apply to `prompts/list`. |
 
 Prompt declarations with the same `name` MUST have pairwise-disjoint effective protocol scopes. Prompt `security` describes statically known authorization required to retrieve the Prompt and replaces inherited transport or root security in full.
 
@@ -1408,7 +1418,7 @@ The Prompt Example Object MUST NOT contain other additional properties.
 
 `result` MUST preserve the ordered `messages` array and MUST have the completed Prompt result shape defined by every applicable protocol revision. For MCP 2026-07-28 it MUST contain `resultType: "complete"`; earlier revisions MUST NOT contain `resultType`. It MAY preserve the native result `description`. Task, input-required, streaming, partial, and JSON-RPC error forms are not Prompt Examples.
 
-Revision-supported `_meta` on the completed result and message content is literal illustrative metadata governed by [Section 3.5](https://mcpdesc.org/docs/specification/0.8.0-rc.3/document-structure#35-mcp-_meta). It is not request metadata or a schema declaration. Message `content` MAY use any content-block form supported by every applicable revision.
+Revision-supported `_meta` on the completed result and message content is literal illustrative metadata governed by [Section 3.5](https://mcpdesc.org/docs/specification/0.8.0-rc.4/document-structure#35-mcp-_meta). It is not request metadata or a schema declaration. Message `content` MAY use any content-block form supported by every applicable revision.
 
 Prompt examples are illustrative and non-exhaustive. They do not change Prompt arguments, capabilities, security, client requirements, or runtime behavior, and they do not guarantee deterministic or current output. Documentation tooling SHOULD preserve example names and argument/result pairing. Mock or contract-test tooling MAY permit explicit selection by name but MUST NOT present an unnamed selection as a prediction of live behavior.
 
@@ -1890,10 +1900,10 @@ String values MUST be valid JSON strings after decoding. URI values MUST conform
 
 MCP Description documents SHOULD include a `$schema` property referencing the appropriate JSON Schema for IDE validation and tooling support. The property has the same meaning in JSON and YAML, and the referenced schema remains a JSON Schema when the instance is serialized as YAML.
 
-For 0.8.0 Release Candidate 3, the canonical value is `https://mcpdesc.org/schema/mcp-description/0.8.0-rc.3.json`. The stable 0.8.0 release will instead use `https://mcpdesc.org/schema/mcp-description/0.8.0.json`. In both cases, the `$schema` value does not change the required `mcpdesc: 0.8.0` discriminator.
+For 0.8.0 Release Candidate 4, the canonical value is `https://mcpdesc.org/schema/mcp-description/0.8.0-rc.4.json`. The stable 0.8.0 release will instead use `https://mcpdesc.org/schema/mcp-description/0.8.0.json`. In both cases, the `$schema` value does not change the required `mcpdesc: 0.8.0` discriminator.
 
 ```yaml
-$schema: https://mcpdesc.org/schema/mcp-description/0.8.0-rc.3.json
+$schema: https://mcpdesc.org/schema/mcp-description/0.8.0-rc.4.json
 mcpdesc: 0.8.0
 ```
 
@@ -2039,11 +2049,9 @@ tools:
 			$componentRef: '#/components/schemas/SearchInput'
 ```
 
-See the [complete reusable-components example](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/spec/draft/examples/reusable-components.yaml) for reusable schemas and a referenced Tool Example Object.
+See the [complete reusable-components example](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/spec/draft/examples/reusable-components.yaml) for reusable schemas and a referenced Tool Example Object.
 
 ---
-
-> This guide is mirrored from [`mcpdesc/mcpdesc-specification`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/spec/draft/guides/migration-0.7-to-0.8.md) at [`v0.8.0-rc.3`](https://github.com/mcpdesc/mcpdesc-specification/tree/v0.8.0-rc.3). Upstream is authoritative.
 
 # Migrating from MCP Description 0.7.0 to 0.8.0
 
@@ -2059,7 +2067,9 @@ Before treating an existing YAML file as conforming, verify YAML 1.2.2 JSON-sche
 
 ## Schema identity and publication
 
-Draft 4 introduces a new canonical MCP Description schema family under `https://mcpdesc.org/schema/mcp-description/`. When a migrated 0.8.0 draft document emits `$schema`, use `https://mcpdesc.org/schema/mcp-description/0.8.0-rc.3.json` and keep `mcpdesc: 0.8.0` unchanged.
+v0.8.0 introduces a new canonical MCP Description schema family under `https://mcpdesc.org/schema/mcp-description/`.
+
+When a migrated 0.8.0 draft document emits `$schema`, use `https://mcpdesc.org/schema/mcp-description/0.8.0-rc.4.json` and keep `mcpdesc: 0.8.0` unchanged.
 
 Do not rewrite frozen stable 0.7.0 or published Draft 1-3 documents merely to change their embedded schema identifiers. Stable 0.7.0 retains the historical Cisco root `$id`, and Draft 1-3 retain the historical short URI family. Exact historical validation of those snapshots should use the corresponding bundled validator selector rather than guessing from a rewritten URL.
 
@@ -2144,7 +2154,7 @@ Tool schema details are revision-sensitive. Explicit `$schema` declarations requ
 
 Preserve external `$ref` values without automatically retrieving network targets. Prefer converting author-controlled schemas to self-contained local `$defs` where practical. If a target is unavailable to offline validation, retain the reference and emit a warning that complete Tool schema validation was not possible. Consumers that require executable schema certainty should resolve it through an explicitly trusted catalogue or treat the warning as an error.
 
-Likewise, `info.description` requires MCP 2025-11-25 or later, and Streamable HTTP requires MCP 2025-03-26 or later. Associate legacy SSE with modern revisions only when that compatibility surface is intentional; validators warn about that association.
+Info metadata is document-wide and independent of MCP protocol revisions. Preserve every conforming Info property from 0.7.0 regardless of the selected root `protocolVersions`; do not drop a property or silently select a newer protocol revision merely because the corresponding runtime `Implementation` field is unavailable. Streamable HTTP requires MCP 2025-03-26 or later. Associate legacy SSE with modern revisions only when that compatibility surface is intentional; validators warn about that association.
 
 ## Tool examples
 
@@ -2242,7 +2252,7 @@ Add root `instructions` when durable server guidance is authoritatively availabl
 
 1. Parse and validate the 0.7.0 source.
 2. Copy unchanged identity, transport, primitive, tag, and extension fields.
-3. Set `mcpdesc` to `0.8.0` and, when emitting it, set `$schema` to `https://mcpdesc.org/schema/mcp-description/0.8.0-rc.3.json`.
+3. Set `mcpdesc` to `0.8.0` and, when emitting it, set `$schema` to `https://mcpdesc.org/schema/mcp-description/0.8.0-rc.4.json`.
 4. Move `info.protocolVersion` to root `protocolVersions`; require input if absent or unsupported.
 5. Wrap a present Capabilities Object in a one-item array.
 6. Resolve every missing Tool `inputSchema` through author review.
@@ -2257,12 +2267,12 @@ Preserve every syntactically valid `capabilities.extensions` identifier. A valid
 
 ---
 
-These examples come from [the canonical specification repository](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/spec/draft/examples) at [`v0.8.0-rc.3`](https://github.com/mcpdesc/mcpdesc-specification/tree/v0.8.0-rc.3).
+These examples come from [the canonical specification repository](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/spec/draft/examples) at [`v0.8.0-rc.4`](https://github.com/mcpdesc/mcpdesc-specification/tree/v0.8.0-rc.4).
 
 ## Minimal example
 
 ```yaml
-$schema: https://mcpdesc.org/schema/mcp-description/0.8.0-rc.3.json
+$schema: https://mcpdesc.org/schema/mcp-description/0.8.0-rc.4.json
 mcpdesc: 0.8.0
 info:
   name: chess-rating-server
@@ -2274,14 +2284,14 @@ protocolVersions:
 
 ## Complete example set
 
-- [`client-requirements.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/spec/draft/examples/client-requirements.yaml)
-- [`full-featured.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/spec/draft/examples/full-featured.yaml)
-- [`http-server.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/spec/draft/examples/http-server.yaml)
-- [`minimal.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/spec/draft/examples/minimal.yaml)
-- [`multi-transport.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/spec/draft/examples/multi-transport.yaml)
-- [`multi-version.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/spec/draft/examples/multi-version.yaml)
-- [`reusable-components.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/spec/draft/examples/reusable-components.yaml)
-- [`stdio-server.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/spec/draft/examples/stdio-server.yaml)
+- [`client-requirements.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/spec/draft/examples/client-requirements.yaml)
+- [`full-featured.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/spec/draft/examples/full-featured.yaml)
+- [`http-server.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/spec/draft/examples/http-server.yaml)
+- [`minimal.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/spec/draft/examples/minimal.yaml)
+- [`multi-transport.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/spec/draft/examples/multi-transport.yaml)
+- [`multi-version.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/spec/draft/examples/multi-version.yaml)
+- [`reusable-components.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/spec/draft/examples/reusable-components.yaml)
+- [`stdio-server.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/spec/draft/examples/stdio-server.yaml)
 
 ---
 
@@ -2304,7 +2314,7 @@ Clients MUST support `image/png` and `image/jpeg`. Clients SHOULD also support `
 
 ## Appendix B: Complete Example
 
-See [examples/full-featured.yaml](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/spec/draft/examples/full-featured.yaml) for a complete MCP Description document demonstrating all features of this specification.
+See [examples/full-featured.yaml](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/spec/draft/examples/full-featured.yaml) for a complete MCP Description document demonstrating all features of this specification.
 
 ---
 
@@ -2312,8 +2322,8 @@ See [examples/full-featured.yaml](https://github.com/mcpdesc/mcpdesc-specificati
 
 The normative JSON Schema for this specification version is available at:
 
-- [../../../schemas/mcp-description/0.8.0.json](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/schemas/mcp-description/0.8.0.json)
-- `https://mcpdesc.org/schema/mcp-description/0.8.0-rc.3.json` for the Release Candidate 3 canonical schema resource
+- [../../../schemas/mcp-description/0.8.0.json](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/schemas/mcp-description/0.8.0.json)
+- `https://mcpdesc.org/schema/mcp-description/0.8.0-rc.4.json` for the Release Candidate 4 canonical schema resource
 - `https://mcpdesc.org/schema/mcp-description/0.8.0.json` for the stable 0.8.0 canonical schema resource after release
 
 Archival retrieval locations may also exist for frozen historical bytes, including the legacy Draft 3 short URI `https://mcpdesc.org/schema/0.8.0.json` and the stable 0.7.0 mirror `https://mcpdesc.org/schema/mcp-description/0.7.0.json`. Those retrieval URLs do not change the historical embedded `$id` values of the frozen schemas they mirror.

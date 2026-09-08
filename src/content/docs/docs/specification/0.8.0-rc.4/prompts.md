@@ -1,14 +1,10 @@
 ---
 title: "11. Prompts"
-description: "MCP Description specification v0.8.0-rc.3 — 11. Prompts."
-slug: docs/specification/0.8.0-rc.3/prompts
+description: "MCP Description specification v0.8.0-rc.4 — 11. Prompts."
+slug: docs/specification/0.8.0-rc.4/prompts
 sidebar:
   order: 11
 ---
-
-:::note[Mirrored specification]
-This page mirrors **11. Prompts** of the MCP Description specification **v0.8.0-rc.3**. The canonical source of truth is [`mcpdesc/mcpdesc-specification`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/spec/draft/sections/11-prompts.md). Where this page differs from upstream, upstream wins.
-:::
 
 ## 11. Prompts
 
@@ -26,12 +22,12 @@ The `prompts` array declares the prompt templates exposed by the MCP server. Eac
 | `examples` | map<string, Prompt Example Object> | No | Named complete Prompt invocation/result pairs. |
 | `completionExamples` | map<string, Completion Example Object> | No | Named `completion/complete` request-result observations for Prompt arguments. |
 | `icons` | non-empty array\<Icon\> | No | Icons for UI display. Since MCP 2025-11-25. |
-| `tags` | non-empty array\<string\> | No | Categorization tags. When a root-level `tags` array is present, values MUST reference declared tag names (see [Section 13.3](/docs/specification/0.8.0-rc.3/tags#133-tag-references)). |
-| `elicitations` | non-empty array\<Elicitation Declaration Object\> | No | Additional user interactions that MAY be required while retrieving the Prompt (see [Section 12](/docs/specification/0.8.0-rc.3/elicitation#12-elicitation-declarations)). |
+| `tags` | non-empty array\<string\> | No | Categorization tags. When a root-level `tags` array is present, values MUST reference declared tag names (see [Section 13.3](/docs/specification/0.8.0-rc.4/tags#133-tag-references)). |
+| `elicitations` | non-empty array\<Elicitation Declaration Object\> | No | Additional user interactions that MAY be required while retrieving the Prompt (see [Section 12](/docs/specification/0.8.0-rc.4/elicitation#12-elicitation-declarations)). |
 | `deprecated` | boolean | No | Whether the prompt is deprecated. |
-| `_meta` | object | No | Literal MCP metadata on the Prompt declaration, subject to [Section 3.5](/docs/specification/0.8.0-rc.3/document-structure#35-mcp-_meta). Since MCP 2025-06-18. |
+| `_meta` | object | No | Literal MCP metadata on the Prompt declaration, subject to [Section 3.5](/docs/specification/0.8.0-rc.4/document-structure#35-mcp-_meta). Since MCP 2025-06-18. |
 | `security` | Security Requirement Array | No | Primitive security override. |
-| `clientRequirements` | [Client Capability Requirements Object](/docs/specification/0.8.0-rc.3/capabilities#85-primitive-client-capability-requirements) | No | Unconditional minimum client capabilities required for `prompts/get`; does not apply to `prompts/list`. |
+| `clientRequirements` | [Client Capability Requirements Object](/docs/specification/0.8.0-rc.4/capabilities#85-primitive-client-capability-requirements) | No | Unconditional minimum client capabilities required for `prompts/get`; does not apply to `prompts/list`. |
 
 Prompt declarations with the same `name` MUST have pairwise-disjoint effective protocol scopes. Prompt `security` describes statically known authorization required to retrieve the Prompt and replaces inherited transport or root security in full.
 
@@ -63,7 +59,7 @@ The Prompt Example Object MUST NOT contain other additional properties.
 
 `result` MUST preserve the ordered `messages` array and MUST have the completed Prompt result shape defined by every applicable protocol revision. For MCP 2026-07-28 it MUST contain `resultType: "complete"`; earlier revisions MUST NOT contain `resultType`. It MAY preserve the native result `description`. Task, input-required, streaming, partial, and JSON-RPC error forms are not Prompt Examples.
 
-Revision-supported `_meta` on the completed result and message content is literal illustrative metadata governed by [Section 3.5](/docs/specification/0.8.0-rc.3/document-structure#35-mcp-_meta). It is not request metadata or a schema declaration. Message `content` MAY use any content-block form supported by every applicable revision.
+Revision-supported `_meta` on the completed result and message content is literal illustrative metadata governed by [Section 3.5](/docs/specification/0.8.0-rc.4/document-structure#35-mcp-_meta). It is not request metadata or a schema declaration. Message `content` MAY use any content-block form supported by every applicable revision.
 
 Prompt examples are illustrative and non-exhaustive. They do not change Prompt arguments, capabilities, security, client requirements, or runtime behavior, and they do not guarantee deterministic or current output. Documentation tooling SHOULD preserve example names and argument/result pairing. Mock or contract-test tooling MAY permit explicit selection by name but MUST NOT present an unnamed selection as a prediction of live behavior.
 

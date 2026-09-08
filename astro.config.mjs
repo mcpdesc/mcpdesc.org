@@ -84,7 +84,7 @@ export default defineConfig({
           items: [
             { slug: 'docs/specification' },
             { slug: 'docs/specification/changelog' },
-            { label: '0.8 RC.3', collapsed: true, items: [{ autogenerate: { directory: 'docs/specification/0.8.0-rc.3' } }] },
+            { label: '0.8 RC.4', collapsed: true, items: [{ autogenerate: { directory: 'docs/specification/0.8.0-rc.4' } }] },
             { label: '0.7.0', collapsed: true, items: [{ autogenerate: { directory: 'docs/specification/0.7.0' } }] },
           ],
         },

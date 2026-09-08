@@ -42,6 +42,7 @@ specification may change before reaching a stable release.
 - **JSON Schema (0.7.0)** — [`mcpdesc.org/schema/mcp-description/0.7.0.json`](https://mcpdesc.org/schema/mcp-description/0.7.0.json)
 - **Reference tooling** — [`mcpcontract`](https://github.com/cisco-open/mcptoolkit-contract)
 
+
 ### For AI assistants and tools
 
 - **Complete spec, single file** — [`/specification/0.7.0/mcpdesc.md`](https://mcpdesc.org/specification/0.7.0/mcpdesc.md): every section concatenated into one Markdown document for one-request retrieval. The latest version is always at [`/specification/latest/mcpdesc.md`](https://mcpdesc.org/specification/latest/mcpdesc.md).

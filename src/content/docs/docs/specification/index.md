@@ -10,17 +10,16 @@ format for describing the capabilities of a Model Context Protocol (MCP) server 
 tools, resources, prompts, transports, security, and metadata — as a static document.
 
 :::note[Canonical sources]
-The stable v0.7 source remains in [`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract/tree/mcpdesc-v0.7.0/spec).
 Development of v0.8 and later versions is hosted in
-[`mcpdesc/mcpdesc-specification`](https://github.com/mcpdesc/mcpdesc-specification).
-Where these pages differ from their linked canonical source, the canonical source wins.
+[`mcpdesc/mcpdesc-specification`](https://github.com/mcpdesc/mcpdesc-specification). The v0.7 source remains in [`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract/tree/mcpdesc-v0.7.0/spec).
+Where the documentation pages for a specific MCP Description specification differs from its linked canonical source, the canonical source wins.
 :::
 
 ## Versions
 
 | Version | Status | |
 |---|---|---|
-| [**0.8.0 RC.3**](/docs/specification/0.8.0-rc.3/) | Release candidate | **Candidate** |
+| [**0.8.0 RC.4**](/docs/specification/0.8.0-rc.4/) | Release candidate | **Candidate** |
 | [**0.7.0**](/docs/specification/0.7.0/) | Stable | **Latest stable** |
 
 See the [changelog](/docs/specification/changelog) for the full version history, and the

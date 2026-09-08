@@ -1,14 +1,10 @@
 ---
 title: "1. Introduction"
-description: "MCP Description specification v0.8.0-rc.3 — 1. Introduction."
-slug: docs/specification/0.8.0-rc.3/introduction
+description: "MCP Description specification v0.8.0-rc.4 — 1. Introduction."
+slug: docs/specification/0.8.0-rc.4/introduction
 sidebar:
   order: 1
 ---
-
-:::note[Mirrored specification]
-This page mirrors **1. Introduction** of the MCP Description specification **v0.8.0-rc.3**. The canonical source of truth is [`mcpdesc/mcpdesc-specification`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/spec/draft/sections/01-introduction.md). Where this page differs from upstream, upstream wins.
-:::
 
 ## 1. Introduction
 

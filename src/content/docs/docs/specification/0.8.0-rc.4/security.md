@@ -1,14 +1,10 @@
 ---
 title: "7. Security"
-description: "MCP Description specification v0.8.0-rc.3 — 7. Security."
-slug: docs/specification/0.8.0-rc.3/security
+description: "MCP Description specification v0.8.0-rc.4 — 7. Security."
+slug: docs/specification/0.8.0-rc.4/security
 sidebar:
   order: 7
 ---
-
-:::note[Mirrored specification]
-This page mirrors **7. Security** of the MCP Description specification **v0.8.0-rc.3**. The canonical source of truth is [`mcpdesc/mcpdesc-specification`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/spec/draft/sections/07-security.md). Where this page differs from upstream, upstream wins.
-:::
 
 ## 7. Security
 

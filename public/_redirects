@@ -1,4 +1,4 @@
 # Mutable schema aliases. Temporary redirects ensure clients resolve the active target
 # again instead of treating an alias as an immutable schema identity.
 /schema/mcp-description/latest.json  /schema/mcp-description/0.7.0.json       302
-/schema/mcp-description/draft.json   /schema/mcp-description/0.8.0-rc.3.json  302
+/schema/mcp-description/draft.json   /schema/mcp-description/0.8.0-rc.4.json  302

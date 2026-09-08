@@ -14,13 +14,6 @@ head:
       href: https://mcpdesc.org/specification/0.7.0/mcpdesc.md
 ---
 
-:::note[Mirrored specification]
-This is the landing page for the MCP Description specification **v0.7.0** (Status: **Draft**,
-2026-03-23). The canonical source of truth is
-[`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/mcp-description.md).
-Where these pages differ from upstream, upstream wins.
-:::
-
 **Version**: 0.7.0 · **Status**: Draft · **Date**: March 23, 2026
 
 ## Abstract
@@ -44,6 +37,12 @@ specification may change before reaching a stable release.
 - **Canonical specification** — [`spec/mcp-description.md`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/mcp-description.md) ([raw](https://raw.githubusercontent.com/cisco-open/mcptoolkit-contract/mcpdesc-v0.7.0/spec/mcp-description.md))
 - **JSON Schema (0.7.0)** — [`mcpdesc.org/schema/mcp-description/0.7.0.json`](https://mcpdesc.org/schema/mcp-description/0.7.0.json)
 - **Reference tooling** — [`mcpcontract`](https://github.com/cisco-open/mcptoolkit-contract)
+
+:::note[Mirrored specification]
+These pages mirror the MCP Description specification **v0.7.0** from
+[`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/mcp-description.md).
+Where these pages differ from upstream, upstream wins.
+:::
 
 ### For AI assistants and tools
 

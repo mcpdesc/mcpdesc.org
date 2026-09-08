@@ -1,14 +1,10 @@
 ---
 title: "15. Serialization"
-description: "MCP Description specification v0.8.0-rc.3 — 15. Serialization."
-slug: docs/specification/0.8.0-rc.3/serialization
+description: "MCP Description specification v0.8.0-rc.4 — 15. Serialization."
+slug: docs/specification/0.8.0-rc.4/serialization
 sidebar:
   order: 15
 ---
-
-:::note[Mirrored specification]
-This page mirrors **15. Serialization** of the MCP Description specification **v0.8.0-rc.3**. The canonical source of truth is [`mcpdesc/mcpdesc-specification`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/spec/draft/sections/15-serialization.md). Where this page differs from upstream, upstream wins.
-:::
 
 ## 15. Serialization
 
@@ -113,10 +109,10 @@ String values MUST be valid JSON strings after decoding. URI values MUST conform
 
 MCP Description documents SHOULD include a `$schema` property referencing the appropriate JSON Schema for IDE validation and tooling support. The property has the same meaning in JSON and YAML, and the referenced schema remains a JSON Schema when the instance is serialized as YAML.
 
-For 0.8.0 Release Candidate 3, the canonical value is `https://mcpdesc.org/schema/mcp-description/0.8.0-rc.3.json`. The stable 0.8.0 release will instead use `https://mcpdesc.org/schema/mcp-description/0.8.0.json`. In both cases, the `$schema` value does not change the required `mcpdesc: 0.8.0` discriminator.
+For 0.8.0 Release Candidate 4, the canonical value is `https://mcpdesc.org/schema/mcp-description/0.8.0-rc.4.json`. The stable 0.8.0 release will instead use `https://mcpdesc.org/schema/mcp-description/0.8.0.json`. In both cases, the `$schema` value does not change the required `mcpdesc: 0.8.0` discriminator.
 
 ```yaml
-$schema: https://mcpdesc.org/schema/mcp-description/0.8.0-rc.3.json
+$schema: https://mcpdesc.org/schema/mcp-description/0.8.0-rc.4.json
 mcpdesc: 0.8.0
 ```
 

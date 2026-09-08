@@ -6,10 +6,6 @@ sidebar:
   order: 7
 ---
 
-:::note[Mirrored specification]
-This page mirrors **7. Security** of the MCP Description specification **v0.7.0**. The canonical source of truth is [`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/sections/07-security.md). Where this page differs from upstream, upstream wins.
-:::
-
 ## 7. Security
 
 The `security` property declares the authentication and authorization schemes supported by the server. It is OPTIONAL.

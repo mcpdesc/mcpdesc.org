@@ -1,14 +1,10 @@
 ---
 title: "2. Terminology"
-description: "MCP Description specification v0.8.0-rc.3 — 2. Terminology."
-slug: docs/specification/0.8.0-rc.3/terminology
+description: "MCP Description specification v0.8.0-rc.4 — 2. Terminology."
+slug: docs/specification/0.8.0-rc.4/terminology
 sidebar:
   order: 2
 ---
-
-:::note[Mirrored specification]
-This page mirrors **2. Terminology** of the MCP Description specification **v0.8.0-rc.3**. The canonical source of truth is [`mcpdesc/mcpdesc-specification`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.3/spec/draft/sections/02-terminology.md). Where this page differs from upstream, upstream wins.
-:::
 
 ## 2. Terminology
 

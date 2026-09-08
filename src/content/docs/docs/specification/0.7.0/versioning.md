@@ -6,10 +6,6 @@ sidebar:
   order: 4
 ---
 
-:::note[Mirrored specification]
-This page mirrors **4. Versioning** of the MCP Description specification **v0.7.0**. The canonical source of truth is [`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/sections/04-versioning.md). Where this page differs from upstream, upstream wins.
-:::
-
 ## 4. Versioning
 
 ### 4.1 The `mcpdesc` Field
