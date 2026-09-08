@@ -1,29 +1,32 @@
 ---
-title: 'MCP Description v0.8: support for modern MCP servers'
-listTitle: MCP Description v0.8
-description: MCP Description v0.8 adds support for MCP 2026-07-28, multi-protocol descriptions, extensions, reusable components, and a path toward v1.0.
+title: 'MCP Description v0.8 adds support MCP 2026-07-28'
+listTitle: MCP Description now supports MCP 2026-07-28
+description: MCP Description v0.8 adds support for MCP 2026-07-28, multi-protocol descriptions, richer examples, and reusable components on the path toward v1.0.
 date: 2026-09-08
 author: Stève Sfartz
 draft: true
 ---
 
-It has been a busy summer for MCP and `mcpdesc`.
+It has been a busy summer for the MCP protocol and the __mcpdesc__ specification.
 
-The MCP Description specification `v0.8.0` significantly expands the format for describing modern MCP servers, and includes support for the latest MCP version `2026-07-28`.
+Launching today, version 0.8 of the MCP Description specification adds support for MCP `2026-07-28` and expands the `mcpdesc` format with multi-protocol descriptions and projection, richer examples, and reusable components.
 
-## What's new
+## New features
 
 ### MCP 2026-07-28 and multi-protocol descriptions
 
-An `mcpdesc` document can now describe the surface of an MCP server across multiple protocol revisions. Check the [multi-version](https://editor.mcpdesc.org?example=multi-version) example.
+An `mcpdesc` document can now describe the surface of an MCP server across multiple protocol revisions.
 
-Protocol applicability can be declared for transports, capabilities, tools, resources, resource templates, and prompts. This allows a single document to represent both `2025-11-25` and `2026-07-28` behavior without flattening the differences between them.
+Protocol applicability can be declared at multiple levels: transports, capabilities, tools, resources, resource templates, and prompts. This allows a single document to represent both `2025-11-25` and `2026-07-28` behavior without flattening the differences between them.
 
-The specification also defines Effective Protocol Views so tools can project a multi-version document into the description that applies to one particular MCP protocol revision.
+The specification also defines **Effective Protocol Views** so tools can project a multi-version document into a document that applies to a particular MCP revision.
+
+Check the [multi-version](https://editor.mcpdesc.org?example=multi-version) example.
+
 
 ### Richer examples and interaction descriptions
 
-Descriptions can include named examples for tools, resources, resource templates, and prompts.
+An `mcpdesc` document can now include named examples for tools, resources, resource templates, and prompts.
 
 v0.8 also adds completion examples, elicitation declarations, and tool interaction examples for describing durable interactions such as elicitation, sampling, and roots without attempting to reproduce MCP's runtime message flow.
 
@@ -31,11 +34,11 @@ Check the [full-featured](https://editor.mcpdesc.org?example=full-featured) exam
 
 ### Extensions and client requirements
 
-v0.8 adds first-class support for MCP extensions and for declaring capabilities that a client must provide to use a server feature or primitive.
+v0.8 adds first-class support for MCP extensions and for declaring capabilities that a client must provide to use a server primitive.
 
-It also improves recognition of official MCP extensions, including MCP Apps, Tasks, and authorization-related extensions.
+Its extension model distinguishes official, experimental, and unknown MCP extension identifiers without treating recognition as validation of extension-specific settings.
 
-### A stronger security model
+### Enriched security definitions
 
 Reusable named security schemes can now be declared once and applied at the server, transport, or primitive level, including scoped requirements, alternatives, and explicit overrides.
 
@@ -45,25 +48,34 @@ Frequently repeated declarations can be placed in typed components and reused th
 
 Check the [component-ref](https://editor.mcpdesc.org?example=component-ref) example.
 
-### Conformance libraries
+## Tools and migration
 
-v0.8 defines conforming JSON and restricted YAML serializations. This allows semantic validation on top of the structural JSON Schema.
+### Semantic validation
 
-Conformance libraries for TypeScript are developed in [`mcpdesc/core`](https://github.com/mcpdesc/core) and published as two npm packages:
-- [`@mcpdesc/core`](https://www.npmjs.com/package/@mcpdesc/core) for parsing, migration, and Effective Protocol View operations
+v0.8 defines conforming JSON and restricted YAML serialization profiles. The validator applies semantic checks that go beyond the structural JSON Schema.
+
+Conformance libraries for TypeScript are maintained in [`mcpdesc/core`](https://github.com/mcpdesc/core) and published as npm packages:
+
 - [`@mcpdesc/validator`](https://www.npmjs.com/package/@mcpdesc/validator) for structural and semantic validation
+- [`@mcpdesc/core`](https://www.npmjs.com/package/@mcpdesc/core) for parsing, migration, and Effective Protocol View operations
 
-The Live Editor automatically migrates v0.7 documents when they are imported.
+### MCP Description Editor
 
-## Try v0.8
+The Live Editor supports the features above, including protocol-version projection, examples, and reusable components. It can also migrate a v0.7 document to v0.8 when the document is loaded.
 
-The easiest way to explore mcpdesc v0.8 is to open an example in the [Live Editor](https://editor.mcpdesc.org).
+### MCP Toolkit v2
+
+The prerelease `mcpcontract` 2.x CLI supports v0.8. The current `mcpmock` release still vendors the v0.7 schema; a v0.8-compatible release is not yet available.
+
+### Try v0.8
+
+The easiest way to explore `mcpdesc` v0.8 is to open an example in the [Live Editor](https://editor.mcpdesc.org).
 
 You can also generate a description from a live MCP server via the `mcpcontract` CLI:
 
 ```bash
-# Install the CLI
-npm install -g @cisco-open/mcptoolkit-contract
+# Install the prerelease CLI v2
+npm install -g @cisco-open/mcptoolkit-contract@next
 
 # Capture the description of a live server
 mcpcontract dump \
@@ -85,7 +97,7 @@ Before calling the `mcpdesc` format v1.0, we are looking for more practical feed
 - **Design-first workflows:** design a server from a document, refine it with a mock service, and generate code.
 - **Interoperability:** exchange documents among tools that read, write, validate, render, diff, and generate code from the format.
 
-Read and evaluate the [MCP Description specification](/docs/specification/), and tell us:
+We encourage you to read the [MCP Description specification](/docs/specification/0.8.0-rc.4/), test the existing toolset, and let us know:
 
 - Is there anything your MCP server exposes that `mcpdesc` cannot represent?
 - Is any part of the multi-protocol, extension, security, or client-requirement model ambiguous?
