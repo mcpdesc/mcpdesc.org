@@ -5,8 +5,8 @@
 // - Multi-page: one page per numbered normative section and appendix.
 // - Fully versioned URLs: output under src/content/docs/docs/specification/<version>/.
 // - Verbatim normative text (kept faithful to upstream, incl. its own terminology).
-// - Each page gets a provenance banner (Starlight :::note aside) linking to the EXACT
-//   source ref (repo + tag + path), so it is unambiguous what was mirrored.
+// - Generated pages link to the exact source ref; the hand-authored version overview carries
+//   the single provenance notice for the mirror.
 //
 // The source is identified by three coordinates so the on-site pages point at an immutable
 // reference (never the moving `main` branch):
@@ -22,8 +22,8 @@
 // The local clone is read from ref/<repo-name>/<path>/sections (ref/ is gitignored). Check
 // that clone out at <tag> so the mirrored content matches the reference the pages link to.
 //
-// Re-runnable: on a new upstream version, run with the new version number. Existing
-// version folders are immutable and are NOT touched (edit them by hand for annotations).
+// Re-runnable for a new upstream version or a verified editorial-only tag. Released version
+// folders must not be overwritten with normative changes; see the mirror strategy.
 
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, existsSync } from 'node:fs';
 import { join, dirname, posix } from 'node:path';

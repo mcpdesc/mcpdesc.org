@@ -25,7 +25,7 @@ Clients MUST support `image/png` and `image/jpeg`. Clients SHOULD also support `
 
 ## Appendix B: Complete Example
 
-See [examples/full-featured.yaml](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/spec/draft/examples/full-featured.yaml) for a complete MCP Description document demonstrating all features of this specification.
+See [examples/full-featured.yaml](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4+editorial.1/spec/draft/examples/full-featured.yaml) for a complete MCP Description document demonstrating all features of this specification.
 
 ---
 
@@ -33,7 +33,7 @@ See [examples/full-featured.yaml](https://github.com/mcpdesc/mcpdesc-specificati
 
 The normative JSON Schema for this specification version is available at:
 
-- [../../../schemas/mcp-description/0.8.0.json](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/schemas/mcp-description/0.8.0.json)
+- [../../../schemas/mcp-description/0.8.0.json](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4+editorial.1/schemas/mcp-description/0.8.0.json)
 - `https://mcpdesc.org/schema/mcp-description/0.8.0-rc.4.json` for the Release Candidate 4 canonical schema resource
 - `https://mcpdesc.org/schema/mcp-description/0.8.0.json` for the stable 0.8.0 canonical schema resource after release
 

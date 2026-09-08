@@ -15,12 +15,12 @@ head:
 ---
 
 :::caution[Release candidate]
-This is MCP Description **v0.8.0 Release Candidate 4**, an immutable prerelease snapshot
-published for community testing. The current stable release remains
+This is MCP Description **v0.8.0 Release Candidate 4**, refreshed from editorial edition 1
+with no normative or schema changes. It is published for community testing. The current stable release remains
 [v0.7.0](/docs/specification/0.7.0/).
 :::
 
-**Format version**: 0.8.0 · **Snapshot**: v0.8.0-rc.4 · **Date**: September 8, 2026
+**Format version**: 0.8.0 · **Candidate**: v0.8.0-rc.4 · **Edition**: editorial.1 · **Date**: September 8, 2026
 
 ## About this candidate
 
@@ -30,7 +30,8 @@ interactions, reusable components, and stronger serialization and semantic confo
 
 ## Source and schema
 
-- **Canonical specification** - [`spec/draft/mcp-description.md`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/spec/draft/mcp-description.md)
+- **Canonical specification** - [`spec/draft/mcp-description.md`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4+editorial.1/spec/draft/mcp-description.md)
+- **Editorial revision** - [`v0.8.0-rc.4+editorial.1`](https://github.com/mcpdesc/mcpdesc-specification/tree/v0.8.0-rc.4+editorial.1)
 - **Release notes** - [`v0.8.0-rc.4`](https://github.com/mcpdesc/mcpdesc-specification/releases/tag/v0.8.0-rc.4)
 - **Immutable JSON Schema** - [`0.8.0-rc.4.json`](https://mcpdesc.org/schema/mcp-description/0.8.0-rc.4.json)
 - **Migration guide** - [Migrate from 0.7 to 0.8](/docs/specification/0.8.0-rc.4/migration-0.7-to-0.8)
@@ -38,7 +39,8 @@ interactions, reusable components, and stronger serialization and semantic confo
 
 :::note[Mirrored specification]
 These pages mirror MCP Description **v0.8.0 Release Candidate 4** from
-[`mcpdesc/mcpdesc-specification`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/spec/draft/mcp-description.md).
+[`v0.8.0-rc.4+editorial.1`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4+editorial.1/spec/draft/mcp-description.md)
+in `mcpdesc/mcpdesc-specification`.
 Where these pages differ from upstream, upstream wins.
 :::
 

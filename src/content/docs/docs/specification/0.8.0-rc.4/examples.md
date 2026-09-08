@@ -6,7 +6,7 @@ sidebar:
   order: 91
 ---
 
-These examples come from [the canonical specification repository](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/spec/draft/examples) at [`v0.8.0-rc.4`](https://github.com/mcpdesc/mcpdesc-specification/tree/v0.8.0-rc.4).
+These examples come from [the canonical specification repository](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4+editorial.1/spec/draft/examples) at [`v0.8.0-rc.4+editorial.1`](https://github.com/mcpdesc/mcpdesc-specification/tree/v0.8.0-rc.4+editorial.1).
 
 ## Minimal example
 
@@ -23,11 +23,11 @@ protocolVersions:
 
 ## Complete example set
 
-- [`client-requirements.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/spec/draft/examples/client-requirements.yaml)
-- [`full-featured.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/spec/draft/examples/full-featured.yaml)
-- [`http-server.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/spec/draft/examples/http-server.yaml)
-- [`minimal.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/spec/draft/examples/minimal.yaml)
-- [`multi-transport.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/spec/draft/examples/multi-transport.yaml)
-- [`multi-version.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/spec/draft/examples/multi-version.yaml)
-- [`reusable-components.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/spec/draft/examples/reusable-components.yaml)
-- [`stdio-server.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4/spec/draft/examples/stdio-server.yaml)
+- [`client-requirements.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4+editorial.1/spec/draft/examples/client-requirements.yaml)
+- [`full-featured.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4+editorial.1/spec/draft/examples/full-featured.yaml)
+- [`http-server.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4+editorial.1/spec/draft/examples/http-server.yaml)
+- [`minimal.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4+editorial.1/spec/draft/examples/minimal.yaml)
+- [`multi-transport.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4+editorial.1/spec/draft/examples/multi-transport.yaml)
+- [`multi-version.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4+editorial.1/spec/draft/examples/multi-version.yaml)
+- [`reusable-components.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4+editorial.1/spec/draft/examples/reusable-components.yaml)
+- [`stdio-server.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4+editorial.1/spec/draft/examples/stdio-server.yaml)

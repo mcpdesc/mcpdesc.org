@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **RC.4 documentation refresh.** Refreshed the mirrored MCP Description v0.8.0 RC.4
+  documentation from upstream editorial edition `v0.8.0-rc.4+editorial.1`; the normative
+  sections and JSON Schema are unchanged.
+
 ## [1.0.0-rc.1] - 2026-09-08
 
 ### Added

@@ -18,8 +18,8 @@ itself. The spec's source of truth remains upstream (see Provenance).
   [`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract).
   Development of v0.8 and later versions lives in
   [`mcpdesc/mcpdesc-specification`](https://github.com/mcpdesc/mcpdesc-specification).
-- **Current channels:** stable `mcpdesc` **0.7.0**; candidate **0.8.0-rc.4**, dated
-  2026-09-08.
+- **Current channels:** stable `mcpdesc` **0.7.0**; candidate **0.8.0-rc.4**, refreshed
+  from editorial edition `v0.8.0-rc.4+editorial.1`, dated 2026-09-08.
 - **What lives upstream (do not fork silently):**
   - `mcp-description.md` — assembled normative spec (~1,200 lines).
   - `sections/00…15` — the same normative text, split by section.
@@ -174,9 +174,13 @@ When upstream releases a new spec version (e.g. 0.7.1 or 0.8.0):
    regenerate `public/specification/**` (single-file bundles + `index.json`) and commit the
    result. See §6.
 
-Older version folders are **never rewritten** — they are immutable once released. Patch vs.
-minor vs. major handling follows upstream SemVer (spec §4): patch = errata, minor =
-additive/back-compatible, major = breaking.
+Older version folders are **never rewritten** for normative changes — they are immutable
+once released. A version may be refreshed from a later immutable upstream editorial tag
+only when review confirms that its normative sections and schema are unchanged. Pin the
+new editorial tag in the version overview and `VERSIONS` registry, regenerate the mirror
+and bundle, and record the refresh in this site's changelog. Patch vs. minor vs. major
+handling follows upstream SemVer (spec §4): patch = errata, minor = additive/back-compatible,
+major = breaking.
 
 ---
 
