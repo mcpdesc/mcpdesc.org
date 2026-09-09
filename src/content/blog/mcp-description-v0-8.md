@@ -11,7 +11,7 @@ It has been a busy summer for the MCP protocol and the mcpdesc specification.
 
 Launching today, version 0.8 of the MCP Description specification adds support for MCP 2026-07-28 and expands the mcpdesc format with multi-protocol descriptions and projection, richer examples, and reusable components.
 
-> The easiest way to explore the mcpdesc v0.8 format is to open some examples in the [Live Editor](https://editor.mcpdesc.org?example=full-featured).
+> To quickly explore the mcpdesc v0.8 format, open an example in the [Live Editor](https://editor.mcpdesc.org?example=streamable-http).
 
 ## New features
 
@@ -86,12 +86,12 @@ mcpcontract dump \
 ## Help shape the path to mcpdesc v1.0
 
 With version 0.8, the specification now has a dedicated
-home in [`mcpdesc/mcpdesc-specification`](https://github.com/mcpdesc/mcpdesc-specification). Moving it from its original location gives the specification an independent, community-first place for issues, proposals, and contributions.
+home in [mcpdesc/mcpdesc-specification](https://github.com/mcpdesc/mcpdesc-specification), giving the mcpdesc format an independent, community-first place for issues, proposals, and contributions.
 
 The path to v1.0 will be developed in the open, led by
 the project maintainers and shaped by feedback from contributors, users, and tool builders.
 
-Before calling the mcpdesc format v1.0, we are looking for more practical feedback from MCP tool builders and users across these scenarios:
+Before calling the MCP Description specification v1.0, we are looking for more practical feedback from MCP tool builders and users across these scenarios:
 
 - **Accurate documentation:** generate reliable documentation for tools, resources, prompts, transports, and security.
 - **Quality assurance and compliance:** lint, validate, and compare documents for completeness and consistency.
