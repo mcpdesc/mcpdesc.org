@@ -4,20 +4,22 @@ Status: **Accepted** — implementation in progress
 Owner: maintainers · Last updated: 2026-07-16
 
 This document defines how `mcpdesc.org` publishes the **MCP Description specification** under
-`/docs/specification/**`, how it mirrors the canonical source, how it is versioned, and how
+`/docs/specification/**`, how it mirrors the canonical repository, how it is versioned, and how
 we may add our own annotations without corrupting the normative text.
 
 It is the source of truth for *how the spec section is built and kept in sync* — not the spec
-itself. The spec's source of truth remains upstream (see Provenance).
+itself. The specification's source of truth is `mcpdesc/mcpdesc-specification` (see Provenance).
 
 ---
 
 ## 1. Canonical source & provenance
 
-- **Canonical source of truth:** the `spec/` folder of
-  [`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract)
-  (mirrored locally under `ref/mcptoolkit-contract/spec/`).
-- **Current version:** `mcpdesc` **0.7.0** — Status: **Draft** — dated 2026-03-23.
+- **Canonical repository:** the MCP Description specification lives in
+  [`mcpdesc/mcpdesc-specification`](https://github.com/mcpdesc/mcpdesc-specification).
+  The historical v0.7.0 release source remains archived in the `spec/` folder of
+  [`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract).
+- **Current channels:** stable `mcpdesc` **0.8.0**; no active candidate. The previous
+  stable release is **0.7.0**.
 - **What lives upstream (do not fork silently):**
   - `mcp-description.md` — assembled normative spec (~1,200 lines).
   - `sections/00…15` — the same normative text, split by section.
@@ -28,7 +30,8 @@ itself. The spec's source of truth remains upstream (see Provenance).
   - `CHANGELOG.md`, `GOVERNANCE.md`, `implementations.md`.
 
 `spec.mcpdesc.org` is planned. Until it exists, this `/docs/specification/**` section is the
-community-rendered home of the spec, and every page links back to the upstream source.
+community-rendered home of the spec. Each version overview identifies and links to its
+canonical upstream source.
 
 ---
 
@@ -67,7 +70,7 @@ Each item lists the options, the **recommended** choice, and the rationale. Item
   contract format", "server contract"). `docs/terminology-and-positioning.md` **bans**
   "contract" for the format (the OpenAPI *analogy* is fine).
 - **Decision: mirror normative text verbatim** (keep "contract" where upstream uses it),
-  with a provenance banner. House style applies only to *our* wrapper/index/commentary
+  with provenance on the version overview. House style applies only to *our* wrapper/index/commentary
   pages, never to the mirrored normative text. Rationale: silently rewording a normative
   spec risks changing meaning and creates a spec that disagrees with the canonical source.
   Revisit if/when the community controls the spec text at `spec.mcpdesc.org`.
@@ -88,15 +91,10 @@ Each item lists the options, the **recommended** choice, and the rationale. Item
 
 - Our additions use Starlight asides clearly marked as ours, e.g.
   `:::note[Editor's note]` … `:::`, never interleaved as if normative.
-- Each mirrored page carries frontmatter recording provenance:
-  ```yaml
-  specSource: sections/09-tools.md
-  specVersion: 0.7.0
-  specUpstream: https://github.com/cisco-open/mcptoolkit-contract/blob/main/spec/sections/09-tools.md
-  ```
-- A visible **provenance banner** at the top of each spec page: "Mirrored from
-  `cisco-open/mcptoolkit-contract` — spec v0.7.0. [View source ↗]". This keeps *ours vs.
-  theirs* unambiguous and satisfies "point the user to the original document".
+- Each version overview carries one visible **Mirrored specification** notice after its
+  source and schema links. The notice identifies the immutable upstream tag and states that
+  upstream wins if the mirror differs. Individual section, guide, and example pages do not
+  repeat the notice.
 
 ### F. Normative keywords & formatting
 
@@ -138,7 +136,7 @@ the sidebar can surface the latest version's sections plus a link to the version
 
 Generation: normative section pages are produced by `scripts/import-spec.mjs` (§5), which
 reads the upstream `sections/*.md` for a given version and writes the versioned `.mdx`
-pages with provenance frontmatter + banner. Generated pages are committed and become the
+pages without repeated provenance notices. Generated pages are committed and become the
 frozen, editable source for that version (annotations added by hand afterwards).
 
 ---
@@ -158,29 +156,31 @@ When upstream releases a new spec version (e.g. 0.7.1 or 0.8.0):
 
 1. **Import:** run `scripts/import-spec.mjs <version> --tag <release-tag>` to generate
    `/docs/specification/<version>/**` from the upstream `sections/` at an **immutable tag**
-   (`--tag` defaults to `mcpdesc-v<version>`; `--repo`/`--path` override the source repo and
-   subpath). The generated provenance banners and links point at that exact tag — never the
-   moving `main` branch — so it is unambiguous what was mirrored. Check the vendored clone
+  (defaults target `mcpdesc/mcpdesc-specification`, `spec/draft`, and `v<version>`;
+  `--repo`/`--path`/`--tag` override them). Generated upstream links point at that exact tag,
+  never the moving `main` branch. Check the vendored clone
    under `ref/<repo-name>/` out at the same tag (the script warns if it is not).
 2. **Schema:** run `node scripts/publish-schema.mjs <version> <source-file-or-url>` to
   validate and publish the schema under `/schema/mcp-description/<version>.json`. The
   publisher refuses to overwrite an existing version.
-3. **Landing + examples:** author the version landing page and curated examples page.
-4. **Changelog:** update `/docs/specification/changelog` from upstream `CHANGELOG.md`.
-5. **Version index:** add the new version and re-mark which version is **latest**; add a
-   **superseded** banner to the previous version's landing.
-6. **Sidebar:** point the Specification group at the new latest version.
+3. **Landing:** author the version landing page. The importer generates the examples,
+  migration guide, and cross-version changelog when those sources exist.
+4. **Version index:** register the stable or candidate channel in
+  `scripts/build-spec-bundle.mjs`.
+5. **Sidebar:** add the mirrored version to the Specification group.
 7. **Editor's notes:** author any new annotations directly in the new frozen version.
 8. **Terminology:** re-confirm arbitration C still holds for any new/changed wording.
-9. **AI-retrieval bundles:** update the `VERSIONS` registry in
-   `scripts/build-spec-bundle.mjs` (mark the new version `channel: "latest"`, demote the
-   previous one to `channel: "previous"`), then run `node scripts/build-spec-bundle.mjs` to
+8. **AI-retrieval bundles:** run `node scripts/build-spec-bundle.mjs` to
    regenerate `public/specification/**` (single-file bundles + `index.json`) and commit the
    result. See §6.
 
-Older version folders are **never rewritten** — they are immutable once released. Patch vs.
-minor vs. major handling follows upstream SemVer (spec §4): patch = errata, minor =
-additive/back-compatible, major = breaking.
+Older version folders are **never rewritten** for normative changes — they are immutable
+once released. A version may be refreshed from a later immutable upstream editorial tag
+only when review confirms that its normative sections and schema are unchanged. Pin the
+new editorial tag in the version overview and `VERSIONS` registry, regenerate the mirror
+and bundle, and record the refresh in this site's changelog. Patch vs. minor vs. major
+handling follows upstream SemVer (spec §4): patch = errata, minor = additive/back-compatible,
+major = breaking.
 
 ---
 
@@ -193,10 +193,10 @@ publishes committed static artifacts under `public/specification/`, generated by
 
 - `<version>/mcpdesc.md` — every section of a version concatenated into one Markdown file
   (immutable once released).
-- `latest/mcpdesc.md` — a copy of whichever version is `channel: "latest"`.
-- `index.json` — a machine-readable index of all versions: the current `latest`, any
-  work-in-progress draft (`next`), and each version's full-file, canonical (view + raw), and
-  schema URLs plus a `sha256`.
+- `latest/mcpdesc.md` — a copy of the stable version.
+- `index.json` — a machine-readable index of all versions: the current `stable` and
+  `candidate`, compatibility aliases `latest` and `next`, and each version's full-file,
+  canonical (view + raw), and schema URLs plus a `sha256`.
 
 The generator reads the **committed** section pages (§3) — not `ref/`, which is gitignored
 and absent at Cloudflare build time — so output is reproducible. Output is deterministic (no
@@ -204,9 +204,7 @@ embedded timestamps); rerun after any import (§5) and commit. The endpoints are
 `public/llms.txt`, the spec landing pages, and `public/_headers`.
 
 The **`VERSIONS` registry at the top of the script is the editorial source of truth** for
-the index (channels, maturity, dates, canonical ref). To advertise a new draft before it has
-on-site pages, add a `{ channel: "next", maturity: "wip", tracking: <issues-url> }` entry —
-it appears in `index.json` with no pages required, and moves to a versioned folder on release.
+the index (channels, maturity, dates, canonical ref, and canonical path).
 
 ---
 
@@ -219,5 +217,5 @@ Signed off 2026-07-16:
 3. **C** — verbatim normative text (keep "contract"); house style only on our own pages. ✅
 4. **D** — mirror examples on-site; link guides out. ✅
 
-Implementation proceeds section by section, each page carrying the provenance banner and
-frontmatter from §2E.
+Implementation proceeds section by section, with one provenance notice on each version
+overview as described in §2E.

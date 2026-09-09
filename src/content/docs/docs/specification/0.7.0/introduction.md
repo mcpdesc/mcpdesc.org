@@ -6,10 +6,6 @@ sidebar:
   order: 1
 ---
 
-:::note[Mirrored specification]
-This page mirrors **1. Introduction** of the MCP Description specification **v0.7.0**. The canonical source of truth is [`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/sections/01-introduction.md). Where this page differs from upstream, upstream wins.
-:::
-
 ## 1. Introduction
 
 ### 1.1 Purpose

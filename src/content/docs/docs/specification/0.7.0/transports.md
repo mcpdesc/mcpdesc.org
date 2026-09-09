@@ -6,10 +6,6 @@ sidebar:
   order: 6
 ---
 
-:::note[Mirrored specification]
-This page mirrors **6. Transports** of the MCP Description specification **v0.7.0**. The canonical source of truth is [`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/sections/06-transports.md). Where this page differs from upstream, upstream wins.
-:::
-
 ## 6. Transports
 
 The `transports` property declares one or more communication mechanisms supported by the MCP server. It is REQUIRED and MUST contain at least one transport object.

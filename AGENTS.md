@@ -96,8 +96,9 @@ Avoid unless explicitly approved:
 
 - Canonical: `https://mcpdesc.org`.
 - Docs are served at `mcpdesc.org/docs` (path) for v1.
-- `spec.mcpdesc.org` (community-hosted specification) is **planned**; spec links currently
-  point to the live `cisco-open/mcptoolkit-contract` (`mcpdesc` 0.7.0).
+- `spec.mcpdesc.org` (community-hosted specification) is **planned**. The canonical
+  specification repository is `mcpdesc/mcpdesc-specification`; the historical v0.7.0
+  release source is archived in `cisco-open/mcptoolkit-contract`.
 - `editor.mcpdesc.org` (hosted **Live Editor**) is **live**. The `/live-editor` page is a
   landing page whose "Open the Editor" CTA links out to the hosted editor.
 - Legacy `mcptoolkit.org` → `mcpdesc.org/tools`; secondary domains
@@ -105,19 +106,21 @@ Avoid unless explicitly approved:
 
 ## Specification versions
 
-- The spec is **mirrored** from `cisco-open/mcptoolkit-contract` into
+- The spec is **mirrored** from its canonical repository into
   `src/content/docs/docs/specification/<version>/**` (fully versioned, immutable folders).
-  Full procedure: `docs/specification-mirror-strategy.md`. Current: `mcpdesc` 0.7.0 (Draft,
-  latest).
+  Full procedure: `docs/specification-mirror-strategy.md`. Current stable: `mcpdesc` 0.8.0;
+  previous stable: 0.7.0; there is no active candidate.
 - To add or bump a version: run `scripts/import-spec.mjs <version> --tag <release-tag>`
-  (mirrors the section pages from an **immutable upstream tag** — `--tag` defaults to
-  `mcpdesc-v<version>`; `--repo`/`--path` override the source), then
+  (mirrors the section and companion pages from an **immutable upstream tag** — defaults
+  target `mcpdesc/mcpdesc-specification`, `spec/draft`, and `v<version>`), then run
   `scripts/build-spec-bundle.mjs` (regenerates the single-file bundles + `index.json` under
   `public/specification/`). Commit both. Never rewrite an old version.
-- The editorial source of truth for the version index — which version is `latest`, and any
-  work-in-progress draft (`next`/`wip`) — is the **`VERSIONS` registry** in
-  `scripts/build-spec-bundle.mjs`. Advertise an in-progress draft by adding a `wip`/`next`
-  entry there; no on-site pages are required until it is mirrored.
+- Schema aliases are temporary redirects in `public/_redirects`: `latest.json` targets the
+  stable schema and `draft.json`, when present, targets the active candidate schema. Keep
+  their explicit short-lived cache rules in `public/_headers`; versioned schemas remain immutable.
+- The editorial source of truth for stable and candidate channels is the **`VERSIONS`
+  registry** in `scripts/build-spec-bundle.mjs`. Public `latest` and `next` fields remain
+  compatibility aliases for `stable` and `candidate`.
 
 ## Tech and conventions
 
@@ -166,9 +169,10 @@ Avoid unless explicitly approved:
   supported MCP Description version via the **mcpdesc badge** in its own README. The version
   data kept in the YAML (`specVersions`) is a private record, not rendered.
 - The **mcpdesc badge** is a hosted shields.io *endpoint* badge; definitions live at
-  `public/badge/<version>.json` (brand color `#3c68d9` = the sRGB of `--color-brand`). Prefer
-  the hosted endpoint over static badges so branding stays centrally maintainable. Strategy:
-  `docs/tool-badge.md`; public how-to: `/docs/add-a-tool`.
+  `public/badge/<series>.json` (brand color `#3c68d9` = the sRGB of `--color-brand`). A
+  series badge such as `0.8` is coarse-grained; tool documentation states the exact tested
+  release or candidate. Prefer the hosted endpoint over static badges so branding stays
+  centrally maintainable. Strategy: `docs/tool-badge.md`; public how-to: `/docs/add-a-tool`.
 - Tool submissions come through the GitHub issue form
   `.github/ISSUE_TEMPLATE/tool-submission.yml`. The **only hard requirement** is that the repo
   README shows the mcpdesc badge; maintainers verify it before adding a catalog entry.

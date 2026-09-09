@@ -22,9 +22,9 @@ lives on the site at [`/docs/add-a-tool`](../src/content/docs/docs/add-a-tool.md
 
 ## The mcpdesc badge
 
-The mcpdesc badge states the supported MCP Description specification version in the mcpdesc
+The mcpdesc badge states the supported MCP Description specification series in the mcpdesc
 brand blue **`#3c68d9`** (= RGB 60/104/217, the sRGB rendering of the site's
-`--color-brand`). There are two forms; both render as **mcpdesc | 0.7.0**.
+`--color-brand`). There are two forms; both render as **mcpdesc | 0.8**.
 
 ### Hosted endpoint badge (recommended)
 
@@ -34,13 +34,15 @@ version, and color from us, so **the project controls the badge centrally** — 
 JSON and every repo re-renders the new label/color the next time its badge cache refreshes.
 
 ```markdown
-[![mcpdesc](https://img.shields.io/endpoint?url=https://mcpdesc.org/badge/0.7.0.json)](https://mcpdesc.org)
+[![mcpdesc](https://img.shields.io/endpoint?url=https://mcpdesc.org/badge/0.8.json)](https://mcpdesc.org)
 ```
 
-- The JSON files live under [`public/badge/`](../public/badge/), one per published spec
-  version (e.g. `0.7.0.json`). Each is the record for that version.
-- A tool references the file matching the version it supports; multiple versions = multiple
+- The JSON files live under [`public/badge/`](../public/badge/), one per supported
+  compatibility series (for example, `0.8.json`).
+- A tool references the file matching the series it supports; multiple series = multiple
   badges.
+- Tool documentation records the exact release or candidate tested. The series badge does
+  not claim testing against every prerelease or patch in that series.
 - **Caching caveat:** GitHub proxies README images through its Camo cache and shields.io
   caches endpoint responses, so a change to the JSON is **eventually consistent**, not
   instant — it can take minutes to hours to propagate. Colours and labels update
@@ -52,10 +54,10 @@ Use this only where a repository cannot depend on a remote endpoint. It is self-
 forfeits central maintainability — the color and label are frozen into each README:
 
 ```markdown
-[![mcpdesc](https://img.shields.io/badge/mcpdesc-0.7.0-3c68d9)](https://mcpdesc.org)
+[![mcpdesc](https://img.shields.io/badge/mcpdesc-0.8-3c68d9)](https://mcpdesc.org)
 ```
 
-The version segment must be a published MCP Description spec version. The badge links to
+The version segment must be a published MCP Description compatibility series. The badge links to
 `https://mcpdesc.org`.
 
 The badge is **self-declared** in either form. It is not a certification, endorsement, or
@@ -63,9 +65,9 @@ conformance guarantee by the `{mcpdesc}` project.
 
 ### Adding a new spec version
 
-When a new spec version ships, add `public/badge/<version>.json` (copy an existing file and
-bump `message`). Existing per-version badges are unaffected; tools opt in to the new version
-by pointing at the new file.
+When a new specification series ships, add `public/badge/<series>.json` (copy an existing
+file and bump `message`). Existing badges are unaffected; tools opt in to the new series by
+pointing at the new file.
 
 ## The catalog (records)
 

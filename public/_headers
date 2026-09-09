@@ -13,12 +13,36 @@
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=3600
 
-# Versioned MCP Description JSON Schemas. Published versions are immutable so IDEs,
-# validators, and other tools can cache them permanently and load them cross-origin.
-/schema/mcp-description/*
+# Versioned MCP Description JSON Schemas are immutable. Keep these paths explicit so the
+# mutable latest.json and draft.json redirects do not inherit immutable caching.
+/schema/mcp-description/0.7.0.json
   Content-Type: application/schema+json; charset=utf-8
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=31536000, immutable
+
+/schema/mcp-description/0.8.0-rc.1.json
+  Content-Type: application/schema+json; charset=utf-8
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=31536000, immutable
+
+/schema/mcp-description/0.8.0-rc.2.json
+  Content-Type: application/schema+json; charset=utf-8
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=31536000, immutable
+
+/schema/mcp-description/0.8.0-rc.4.json
+  Content-Type: application/schema+json; charset=utf-8
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=31536000, immutable
+
+/schema/mcp-description/0.8.0.json
+  Content-Type: application/schema+json; charset=utf-8
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=31536000, immutable
+
+/schema/mcp-description/latest.json
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=300
 
 # Markdown twins (Option A): a .md counterpart of every page, for AI agents.
 # Serve them with the Markdown content type and allow cross-origin reads.
@@ -49,6 +73,11 @@
 # bounded, predictable window in which a regeneration will propagate.
 # NOTE: add a matching rule for each new version bundle (e.g. /specification/0.8.0/*).
 /specification/0.7.0/*
+  Content-Type: text/markdown; charset=utf-8
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+/specification/0.8.0/*
   Content-Type: text/markdown; charset=utf-8
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=604800, stale-while-revalidate=86400

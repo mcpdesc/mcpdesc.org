@@ -2,31 +2,31 @@
 // Starlight docs collection as versioned, per-section Markdown pages.
 //
 // Strategy: docs/specification-mirror-strategy.md (arbitrations A–D, signed off 2026-07-16).
-// - Multi-page: one page per normative section (01–15).
+// - Multi-page: one page per numbered normative section and appendix.
 // - Fully versioned URLs: output under src/content/docs/docs/specification/<version>/.
 // - Verbatim normative text (kept faithful to upstream, incl. its own terminology).
-// - Each page gets a provenance banner (Starlight :::note aside) linking to the EXACT
-//   source ref (repo + tag + path), so it is unambiguous what was mirrored.
+// - Generated pages link to the exact source ref; the hand-authored version overview carries
+//   the single provenance notice for the mirror.
 //
 // The source is identified by three coordinates so the on-site pages point at an immutable
 // reference (never the moving `main` branch):
-//   --repo <owner/name>   default: cisco-open/mcptoolkit-contract
-//   --path <subpath>      default: spec            (sections live in <path>/sections)
-//   --tag  <git-tag>      default: mcpdesc-v<version>
+//   --repo <owner/name>   default: mcpdesc/mcpdesc-specification
+//   --path <subpath>      default: spec/draft      (sections live in <path>/sections)
+//   --tag  <git-tag>      default: v<version>
 //
 // Usage:
 //   node scripts/import-spec.mjs <version> [--repo o/n] [--path spec] [--tag mcpdesc-vX]
-//   node scripts/import-spec.mjs 0.7.0                        # tag defaults to mcpdesc-v0.7.0
-//   node scripts/import-spec.mjs 0.8.0 --tag mcpdesc-v0.8.0
+//   node scripts/import-spec.mjs 0.8.0-rc.4
+//   node scripts/import-spec.mjs 0.7.0 --repo cisco-open/mcptoolkit-contract --path spec --tag mcpdesc-v0.7.0
 //
 // The local clone is read from ref/<repo-name>/<path>/sections (ref/ is gitignored). Check
 // that clone out at <tag> so the mirrored content matches the reference the pages link to.
 //
-// Re-runnable: on a new upstream version, run with the new version number. Existing
-// version folders are immutable and are NOT touched (edit them by hand for annotations).
+// Re-runnable for a new upstream version or a verified editorial-only tag. Released version
+// folders must not be overwritten with normative changes; see the mirror strategy.
 
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, existsSync } from 'node:fs';
-import { join, dirname } from 'node:path';
+import { join, dirname, posix } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 
@@ -49,14 +49,15 @@ for (let i = 0; i < argv.length; i++) {
 }
 
 const VERSION = opts.version ?? positional[0] ?? '0.7.0';
-const REPO = opts.repo ?? 'cisco-open/mcptoolkit-contract';
-const SPEC_PATH = (opts.path ?? 'spec').replace(/^\/+|\/+$/g, '');
-const TAG = opts.tag ?? `mcpdesc-v${VERSION}`;
+const REPO = opts.repo ?? 'mcpdesc/mcpdesc-specification';
+const SPEC_PATH = (opts.path ?? 'spec/draft').replace(/^\/+|\/+$/g, '');
+const TAG = opts.tag ?? `v${VERSION}`;
 
 const REPO_NAME = REPO.split('/').filter(Boolean).pop();
 const SRC_DIR = join(ROOT, 'ref', REPO_NAME, SPEC_PATH, 'sections');
 const OUT_DIR = join(ROOT, 'src/content/docs/docs/specification', VERSION);
-const UPSTREAM_BASE = `https://github.com/${REPO}/blob/${TAG}/${SPEC_PATH}`;
+const UPSTREAM_REPO_BASE = `https://github.com/${REPO}/blob/${TAG}`;
+const UPSTREAM_BASE = `${UPSTREAM_REPO_BASE}/${SPEC_PATH}`;
 
 if (!existsSync(SRC_DIR)) {
   console.error(
@@ -107,7 +108,7 @@ console.log(`  path : ${SPEC_PATH}`);
 console.log(`  from : ${SRC_DIR}`);
 console.log(`  ref  : ${UPSTREAM_BASE}\n`);
 
-// Sections 01–15 become pages; 00 (front matter / abstract) is folded into the landing page.
+// Numbered normative sections and appendices become pages; 00 is represented by the landing page.
 const SECTION_FILES = readdirSync(SRC_DIR)
   .filter((f) => /^\d\d-.+\.md$/.test(f) && !f.startsWith('00-'))
   .sort();
@@ -147,7 +148,7 @@ const pageTitle = (raw) => {
   return h ? h.replace(/^##\s+/, '').trim() : 'Specification';
 };
 
-function rewriteLinks(body, currentSlug) {
+function rewriteLinks(body, currentSlug, sourceDir = 'sections') {
   return body.replace(/\]\(([^)]+)\)/g, (whole, target) => {
     // Pure in-page anchor: keep if it belongs to this page, else point at the owning page.
     if (target.startsWith('#')) {
@@ -160,23 +161,19 @@ function rewriteLinks(body, currentSlug) {
     }
     // External links: leave untouched.
     if (/^(https?:)?\/\//.test(target) || target.startsWith('mailto:')) return whole;
-    // Relative links into the upstream spec tree resolve to the canonical source on GitHub.
-    const clean = target.replace(/^\.\//, '').replace(/^\.\.\//, '');
-    return `](${UPSTREAM_BASE}/${clean})`;
+    // Resolve relative links from the source file's actual upstream directory.
+    const hashIndex = target.indexOf('#');
+    const pathPart = hashIndex === -1 ? target : target.slice(0, hashIndex);
+    const fragment = hashIndex === -1 ? '' : target.slice(hashIndex);
+    const resolved = posix.normalize(posix.join(SPEC_PATH, sourceDir, pathPart));
+    return `](${UPSTREAM_REPO_BASE}/${resolved}${fragment})`;
   });
 }
 
 mkdirSync(OUT_DIR, { recursive: true });
 
-for (const { file, num, slug, raw } of parsed) {
+for (const { num, slug, raw } of parsed) {
   const title = pageTitle(raw);
-  const banner =
-    `:::note[Mirrored specification]\n` +
-    `This page mirrors **${title}** of the MCP Description specification **v${VERSION}**. ` +
-    `The canonical source of truth is ` +
-    `[\`cisco-open/mcptoolkit-contract\`](${UPSTREAM_BASE}/sections/${file}). ` +
-    `Where this page differs from upstream, upstream wins.\n:::\n\n`;
-
   const body = rewriteLinks(raw.trimEnd(), slug);
 
   const frontmatter =
@@ -187,11 +184,60 @@ for (const { file, num, slug, raw } of parsed) {
     `sidebar:\n  order: ${num}\n` +
     `---\n\n`;
 
-  writeFileSync(join(OUT_DIR, `${slug}.md`), frontmatter + banner + body + '\n', 'utf8');
+  writeFileSync(join(OUT_DIR, `${slug}.md`), frontmatter + body + '\n', 'utf8');
   console.log(`  wrote ${slug}.md  (${title})`);
 }
 
 console.log(`\nImported ${parsed.length} sections for v${VERSION} into ${OUT_DIR}`);
+
+const migrationSource = join(ROOT, 'ref', REPO_NAME, SPEC_PATH, 'guides', 'migration-0.7-to-0.8.md');
+if (existsSync(migrationSource)) {
+  const frontmatter =
+    `---\n` +
+    `title: Migrate from 0.7 to 0.8\n` +
+    `description: ${JSON.stringify(`Migration guidance for MCP Description v${VERSION}.`)}\n` +
+    `slug: docs/specification/${VERSION}/migration-0.7-to-0.8\n` +
+    `sidebar:\n  order: 90\n` +
+    `---\n\n`;
+  const body = rewriteLinks(readFileSync(migrationSource, 'utf8').trimEnd(), '', 'guides');
+  writeFileSync(join(OUT_DIR, 'migration-0.7-to-0.8.md'), frontmatter + body + '\n', 'utf8');
+  console.log('  wrote migration-0.7-to-0.8.md');
+}
+
+const examplesDir = join(ROOT, 'ref', REPO_NAME, SPEC_PATH, 'examples');
+if (existsSync(examplesDir)) {
+  const files = readdirSync(examplesDir).filter((file) => /\.(?:json|ya?ml)$/.test(file)).sort();
+  const minimal = readFileSync(join(examplesDir, 'minimal.yaml'), 'utf8').trimEnd();
+  const links = files.map((file) => `- [\`${file}\`](${UPSTREAM_BASE}/examples/${file})`).join('\n');
+  const page =
+    `---\n` +
+    `title: Examples\n` +
+    `description: ${JSON.stringify(`Example MCP Description documents for specification v${VERSION}.`)}\n` +
+    `slug: docs/specification/${VERSION}/examples\n` +
+    `sidebar:\n  order: 91\n` +
+    `---\n\n` +
+    `These examples come from [the canonical specification repository](${UPSTREAM_BASE}/examples) ` +
+    `at [\`${TAG}\`](https://github.com/${REPO}/tree/${TAG}).\n\n` +
+    `## Minimal example\n\n\`\`\`yaml\n${minimal}\n\`\`\`\n\n` +
+    `## Complete example set\n\n${links}\n`;
+  writeFileSync(join(OUT_DIR, 'examples.md'), page, 'utf8');
+  console.log('  wrote examples.md');
+}
+
+const changelogSource = join(ROOT, 'ref', REPO_NAME, SPEC_PATH, 'CHANGELOG.md');
+if (existsSync(changelogSource)) {
+  const frontmatter =
+    `---\n` +
+    `title: Changelog\n` +
+    `description: MCP Description specification version history.\n` +
+    `slug: docs/specification/changelog\n` +
+    `sidebar:\n  order: 2\n` +
+    `---\n\n`;
+  const body = rewriteLinks(readFileSync(changelogSource, 'utf8').trimEnd(), '', '.');
+  writeFileSync(join(ROOT, 'src/content/docs/docs/specification/changelog.md'), frontmatter + body + '\n', 'utf8');
+  console.log('  wrote changelog.md');
+}
+
 if (!existsSync(join(OUT_DIR, 'index.md'))) {
-  console.log('Next: author the version landing page (index.md) and examples.md by hand.');
+  console.log('Next: author the version landing page (index.md).');
 }

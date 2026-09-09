@@ -1,21 +1,68 @@
 ---
 title: Changelog
-description: Version history of the MCP Description (mcpdesc) specification.
+description: MCP Description specification version history.
+slug: docs/specification/changelog
 sidebar:
   order: 2
 ---
 
-:::note[Mirrored specification]
-This changelog mirrors the canonical
-[`spec/CHANGELOG.md`](https://github.com/cisco-open/mcptoolkit-contract/blob/main/spec/CHANGELOG.md)
-of `cisco-open/mcptoolkit-contract`. It spans all versions; each released version's pages are
-frozen under `/docs/specification/<version>/`. Where this page differs from upstream, upstream
-wins.
-:::
+# Changelog
 
-All notable changes to the MCP Description Specification are documented here. The format is
-based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). The specification uses
-versioning aligned with its `mcpdesc` field.
+All notable changes to the MCP Description Specification will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+This project uses specification versioning aligned with its `mcpdesc` field.
+
+<!-- update with `markdown-toc -i CHANGELOG.md --maxdepth 2 -->
+<!-- toc -->
+
+- [[0.8.0] — 2026-09-09](#080--2026-09-09)
+- [[0.7.0] — 2026-03-23](#070--2026-03-23)
+- [[0.6.0] — 2026-03-20](#060--2026-03-20)
+- [[0.5.2] — 2026-03-18](#052--2026-03-18)
+- [[0.5.1] — 2026-03-17](#051--2026-03-17)
+- [[0.5.0] — 2026-03-17](#050--2026-03-17)
+- [[0.4.0] — 2026-03-16](#040--2026-03-16)
+- [[0.3.0] — 2026-01-15](#030--2026-01-15)
+- [[0.1.0] — 2025-11-01](#010--2025-11-01)
+
+<!-- tocstop -->
+
+## [0.8.0] — 2026-09-09
+
+Version 0.8 adds protocol-version-scoped declarations and deterministic views for each supported MCP protocol version.
+
+It also introduces reusable components, richer examples and interaction scenarios, client capability requirements, elicitation declarations, extension support, and stronger validation across JSON and YAML documents.
+
+The accepted proposals represented by this release are listed in the [0.8.0 proposal revision manifest](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0/spec/0.8.0/PROPOSALS.md).
+
+### Breaking
+
+- Removed `info.protocolVersion` and added required root `protocolVersions` using the closed set of MCP revisions whose semantics 0.8.0 validates (Proposal 0001).
+- Changed root `capabilities` from one object to an array of protocol-scoped Capabilities Objects (Proposal 0001).
+- Replaced inline security definitions with named root `securitySchemes` and Security Requirement Arrays (Proposal 0003).
+- Required every Tool to contain an object-rooted `inputSchema` (Proposal 0001).
+
+### Added
+
+- MCP `2026-07-28` support and protocol applicability across transports, capabilities, and primitive declarations (Proposal 0001).
+- Deterministic Effective Protocol Views with projection and conflict-detecting merge behavior (Proposal 0001).
+- Root `instructions`, formal MCP extension declarations, and primitive `clientRequirements` (Proposals 0001, 0012).
+- Named Tool, Resource, Resource Template, and Prompt examples, plus Tool interaction and completion examples (Proposals 0004, 0005, 0015, 0016, 0017).
+- Reusable typed `components` referenced through local `$componentRef` objects (Proposal 0009).
+- Operation-level elicitation declarations and object-level `x-*` specification extensions (Proposals 0007, 0011).
+- JSON and restricted YAML serializations, canonical versioned schema URIs, and expanded semantic validation (Proposals 0010, 0019).
+
+### Changed
+
+- Defined the root Info Object as document-wide metadata independent of MCP protocol revisions, preserving all Info properties during migration and projection and removing runtime `Implementation` availability gates (Proposal 0022).
+- Made `transports` optional and defined omission of an optional section as no declaration rather than evidence of runtime non-support (Proposal 0013).
+- Required ordinary declaration collections to be non-empty when present and projection or merge to omit collections that become empty (Proposal 0013).
+- Defined MCP 2025-06-18 as the floor for complete revision-specific semantic validation; older recognized revisions produce incomplete-validation diagnostics (Proposals 0001, 0002).
+- Aligned Tool, Resource, Resource Template, Prompt, annotation, `_meta`, and extension validation with their applicable MCP revisions (Proposals 0001, 0002).
+- Treated pre-standard or unrecognized MCP extension declarations and unresolved external Tool schema references as warning-and-preserve conditions (Proposals 0001, 0021).
+- Distinguished MCP 2025-11-25 core Tasks from MCP 2026-07-28 Tasks extensions (Proposal 0001).
+- Made active specification examples vendor-neutral and removed bundled vendor-specific extension metadata (editorial).
 
 ## [0.7.0] — 2026-03-23
 
@@ -53,7 +100,7 @@ versioning aligned with its `mcpdesc` field.
 ### Changed
 - **Documented MCP `Implementation` type provenance in the Info Object** — `name`, `title`, `description`, `version`, `icons`, and `websiteUrl` are now explicitly traced to the MCP `Implementation` type returned in the `initialize` response (`serverInfo`), with protocol version annotations:
   - `title` — MCP `BaseMetadata`, since 2025-06-18
-  - `description` — MCP `Implementation`, since 2025-06-18
+  - `description` — MCP `Implementation`, since 2025-11-25
   - `websiteUrl` — MCP `Implementation`, since 2025-11-25
   - `icons` — MCP `Implementation` (via `Icons` mixin), since 2025-11-25
 - **Updated Info Object example** to include `icons` and `websiteUrl` fields
@@ -69,7 +116,7 @@ versioning aligned with its `mcpdesc` field.
 ## [0.5.0] — 2026-03-17
 
 ### Changed
-- **Renamed `transport` field to `transports`** (plural) for consistency with `tools`, `resources`, `prompts` and OpenAPI's `servers` — see [DECISION-001](https://github.com/cisco-open/mcptoolkit-contract/blob/main/docs/maintainers/design/mcp-description/DECISION-001-transports-array.md)
+- **Renamed `transport` field to `transports`** (plural) for consistency with `tools`, `resources`, `prompts` and OpenAPI's `servers` — see [DECISION-001](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0/docs/maintainers/design/mcp-description/DECISION-001-transports-array.md)
 - **Added transport-scoped `security`** — each transport MAY include its own `security` array that overrides the root-level default (see Section 6.4)
 - Root-level `security` is now the default; transport-level `security` overrides it (OpenAPI-style inheritance)
 
@@ -78,7 +125,7 @@ versioning aligned with its `mcpdesc` field.
 ### Added
 - MCP 2025-11-25 support: icons, websiteUrl, task capabilities, tool execution properties
 - Tool `outputSchema` with explicit `$schema` dialect support (MCP 2025-06-18+)
-- Tool `execution.taskSupport` property for task-augmented execution (MCP 2025-11-25+)
+- Tool `execution.taskSupport` property for task-augmented execution (MCP 2025-11-25 only)
 - `icons` definition for server, tools, resources, resource templates, and prompts
 - `capabilities.tasks` for task-augmented request support
 - `capabilities.completions` and `capabilities.logging` declarations

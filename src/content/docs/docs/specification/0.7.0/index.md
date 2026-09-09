@@ -14,13 +14,6 @@ head:
       href: https://mcpdesc.org/specification/0.7.0/mcpdesc.md
 ---
 
-:::note[Mirrored specification]
-This is the landing page for the MCP Description specification **v0.7.0** (Status: **Draft**,
-2026-03-23). The canonical source of truth is
-[`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/mcp-description.md).
-Where these pages differ from upstream, upstream wins.
-:::
-
 **Version**: 0.7.0 · **Status**: Draft · **Date**: March 23, 2026
 
 ## Abstract
@@ -41,14 +34,20 @@ specification may change before reaching a stable release.
 
 ## Source & schema
 
-- **Canonical specification** — [`spec/mcp-description.md`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/mcp-description.md) ([raw](https://raw.githubusercontent.com/cisco-open/mcptoolkit-contract/mcpdesc-v0.7.0/spec/mcp-description.md))
+- **Historical release source** — [`spec/mcp-description.md`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/mcp-description.md) ([raw](https://raw.githubusercontent.com/cisco-open/mcptoolkit-contract/mcpdesc-v0.7.0/spec/mcp-description.md))
 - **JSON Schema (0.7.0)** — [`mcpdesc.org/schema/mcp-description/0.7.0.json`](https://mcpdesc.org/schema/mcp-description/0.7.0.json)
 - **Reference tooling** — [`mcpcontract`](https://github.com/cisco-open/mcptoolkit-contract)
+
+:::note[Mirrored specification]
+These pages mirror the MCP Description specification **v0.7.0** from
+[`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/mcp-description.md).
+Where these pages differ from that versioned source, the versioned source wins.
+:::
 
 ### For AI assistants and tools
 
 - **Complete spec, single file** — [`/specification/0.7.0/mcpdesc.md`](/specification/0.7.0/mcpdesc.md): every section concatenated into one Markdown document for one-request retrieval. The latest version is always at [`/specification/latest/mcpdesc.md`](/specification/latest/mcpdesc.md).
-- **Version index (JSON)** — [`/specification/index.json`](/specification/index.json): machine-readable list of all versions, the current latest, any work-in-progress draft, and each version's full-file, canonical-source, and schema URLs.
+- **Version index (JSON)** — [`/specification/index.json`](/specification/index.json): machine-readable list of all versions, the current latest, any work-in-progress draft, and each version's full-file, versioned-source, and schema URLs.
 
 ## Sections
 

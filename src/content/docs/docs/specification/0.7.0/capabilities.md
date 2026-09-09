@@ -6,10 +6,6 @@ sidebar:
   order: 8
 ---
 
-:::note[Mirrored specification]
-This page mirrors **8. Capabilities** of the MCP Description specification **v0.7.0**. The canonical source of truth is [`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/sections/08-capabilities.md). Where this page differs from upstream, upstream wins.
-:::
-
 ## 8. Capabilities
 
 The `capabilities` object declares the server's supported features as reported during MCP initialization. It is OPTIONAL.

@@ -1,7 +1,7 @@
 // Build first-party, single-file specification bundles and a machine-readable version
 // index, so AI assistants and build tools can retrieve the complete MCP Description
 // specification in ONE request (no cross-domain GitHub fetch, no link-following) and
-// discover which versions exist — including a work-in-progress draft.
+// discover which stable and candidate versions exist.
 //
 // Why a committed artifact (not an Astro integration): the canonical upstream source
 // (ref/mcptoolkit-contract/spec) is a local-only clone (gitignored) and is NOT present
@@ -12,15 +12,14 @@
 //
 // Outputs (all under public/specification/):
 //   <version>/mcpdesc.md   Complete spec for a version, one Markdown file (immutable).
-//   latest/mcpdesc.md      Copy of whichever version has channel "latest".
-//   index.json             Machine-readable index of ALL versions: latest, next (WIP),
+//   latest/mcpdesc.md      Copy of the stable version.
+//   index.json             Machine-readable index of ALL versions: stable, candidate,
+//                          latest/next compatibility aliases,
 //                          per-version full-file + canonical + schema URLs, and sha256.
 //
 // Usage:  node scripts/build-spec-bundle.mjs
 //
-// Adding a version / starting a draft: edit the VERSIONS registry below. A "wip" entry
-// (e.g. the upcoming 0.8.0) needs no on-site pages — it is advertised in index.json so
-// assistants learn a draft is underway and where it is tracked, before it is mirrored.
+// Adding a version / starting a draft: edit the VERSIONS registry below.
 
 import {
   readFileSync,
@@ -43,10 +42,10 @@ const OUT_ROOT = join(ROOT, 'public/specification');
 // ---------------------------------------------------------------------------------------
 // Version registry — the single editorial source of truth for the index.
 //
-//   channel   "latest"    the current published version (exactly one)
+//   channel   "stable"    the current stable version (exactly one)
 //             "previous"  a published, superseded version
-//             "next"      the upcoming work-in-progress draft (may not be on-site yet)
-//   maturity  "draft" | "stable" | "wip"  (the spec's own maturity)
+//             "candidate" the active prerelease candidate
+//   maturity  "draft" | "stable" | "release-candidate" | "wip"
 //
 // A version WITH on-site section pages (docsDir present under DOCS_ROOT) gets a full
 // mcpdesc.md generated. A "wip" entry without on-site pages is index-only.
@@ -54,24 +53,26 @@ const OUT_ROOT = join(ROOT, 'public/specification');
 const VERSIONS = [
   {
     version: '0.7.0',
-    channel: 'latest',
-    maturity: 'draft',
+    channel: 'previous',
+    maturity: 'stable',
     date: '2026-03-23',
+    normativeSectionCount: 15,
     canonicalRepo: 'cisco-open/mcptoolkit-contract',
     // Pinned to an immutable upstream release tag so canonical/raw/schema links are stable
     // (not the moving `main` branch). Bump this when a new tag mirrors a new version.
     canonicalRef: 'mcpdesc-v0.7.0',
   },
-  // When vNext begins, uncomment and adjust — no on-site pages required for a wip entry:
-  // {
-  //   version: '0.8.0-draft',
-  //   channel: 'next',
-  //   maturity: 'wip',
-  //   date: null,
-  //   canonicalRepo: 'cisco-open/mcptoolkit-contract',
-  //   canonicalRef: 'vnext',                 // the draft branch
-  //   tracking: 'https://github.com/mcpdesc/mcpdesc.org/issues', // where it is discussed
-  // },
+  {
+    version: '0.8.0',
+    channel: 'stable',
+    maturity: 'stable',
+    date: '2026-09-09',
+    normativeSectionCount: 17,
+    canonicalRepo: 'mcpdesc/mcpdesc-specification',
+    canonicalRef: 'v0.8.0',
+    canonicalPath: 'spec/0.8.0',
+    tracking: 'https://github.com/mcpdesc/mcpdesc-specification/issues',
+  },
 ];
 
 // ---------------------------------------------------------------------------------------
@@ -79,8 +80,9 @@ const VERSIONS = [
 // ---------------------------------------------------------------------------------------
 
 function canonicalUrls(v) {
-  const base = `https://github.com/${v.canonicalRepo}/blob/${v.canonicalRef}/spec`;
-  const raw = `https://raw.githubusercontent.com/${v.canonicalRepo}/${v.canonicalRef}/spec`;
+  const path = v.canonicalPath ?? 'spec';
+  const base = `https://github.com/${v.canonicalRepo}/blob/${v.canonicalRef}/${path}`;
+  const raw = `https://raw.githubusercontent.com/${v.canonicalRepo}/${v.canonicalRef}/${path}`;
   return {
     canonical: `${base}/mcp-description.md`,
     canonicalRaw: `${raw}/mcp-description.md`,
@@ -217,14 +219,14 @@ function buildFull(v) {
     `> Complete MCP Description specification (all sections) as a single Markdown file,`,
     `> for one-request retrieval by AI assistants and build tools.`,
     `>`,
-    `> Canonical source of truth: ${urls.canonical}`,
+    `> Versioned source: ${urls.canonical}`,
     `> Raw Markdown: ${urls.canonicalRaw}`,
     `> JSON Schema: ${urls.schema}`,
     `> Version index (machine-readable): ${SITE}/specification/index.json`,
     `>`,
     `> This first-party copy mirrors the versioned section pages at`,
-    `> ${SITE}/docs/specification/${v.version}/. Where it differs from the canonical`,
-    `> source above, the canonical source wins.`,
+    `> ${SITE}/docs/specification/${v.version}/. Where it differs from the versioned`,
+    `> source above, the versioned source wins.`,
     ``,
     `---`,
     ``,
@@ -238,7 +240,7 @@ function buildFull(v) {
   writeFileSync(join(outDir, 'mcpdesc.md'), full, 'utf8');
 
   const sections = parts
-    .filter((p) => p.order >= 1 && p.order <= 15)
+    .filter((p) => p.order >= 1 && p.order <= v.normativeSectionCount)
     .map((p) => ({
       title: p.title,
       url: `${SITE}/docs/specification/${v.version}/${p.slug}`,
@@ -259,8 +261,8 @@ function buildFull(v) {
 if (existsSync(OUT_ROOT)) rmSync(OUT_ROOT, { recursive: true, force: true });
 mkdirSync(OUT_ROOT, { recursive: true });
 
-const latest = VERSIONS.find((v) => v.channel === 'latest');
-const next = VERSIONS.find((v) => v.channel === 'next');
+const stable = VERSIONS.find((v) => v.channel === 'stable');
+const candidate = VERSIONS.find((v) => v.channel === 'candidate');
 
 const indexVersions = [];
 for (const v of VERSIONS) {
@@ -284,8 +286,8 @@ for (const v of VERSIONS) {
 }
 
 // Publish the "latest" alias file.
-if (latest) {
-  const src = join(OUT_ROOT, latest.version, 'mcpdesc.md');
+if (stable) {
+  const src = join(OUT_ROOT, stable.version, 'mcpdesc.md');
   if (existsSync(src)) {
     const latestDir = join(OUT_ROOT, 'latest');
     mkdirSync(latestDir, { recursive: true });
@@ -296,12 +298,14 @@ if (latest) {
 const index = {
   $comment:
     'Machine-readable index of MCP Description specification versions. Fetch this first ' +
-    'to discover available versions, the current latest, and any work-in-progress draft. ' +
+    'to discover the stable and candidate versions. ' +
     'Each version exposes a single-file `full` Markdown for one-request retrieval.',
   site: SITE,
-  latest: latest ? latest.version : null,
-  latestFull: latest ? `${SITE}/specification/latest/mcpdesc.md` : null,
-  next: next ? next.version : null,
+  stable: stable ? stable.version : null,
+  candidate: candidate ? candidate.version : null,
+  latest: stable ? stable.version : null,
+  latestFull: stable ? `${SITE}/specification/latest/mcpdesc.md` : null,
+  next: candidate ? candidate.version : null,
   versions: indexVersions,
 };
 
@@ -310,5 +314,6 @@ writeFileSync(join(OUT_ROOT, 'index.json'), JSON.stringify(index, null, 2) + '\n
 const built = indexVersions.filter((v) => v.full).map((v) => v.version);
 console.log(
   `Wrote public/specification/index.json (${VERSIONS.length} version(s); ` +
-    `full bundles: ${built.join(', ') || 'none'}; latest: ${index.latest ?? 'none'}).`,
+    `full bundles: ${built.join(', ') || 'none'}; stable: ${index.stable ?? 'none'}; ` +
+    `candidate: ${index.candidate ?? 'none'}).`,
 );

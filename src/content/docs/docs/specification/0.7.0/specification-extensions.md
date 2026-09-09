@@ -6,10 +6,6 @@ sidebar:
   order: 13
 ---
 
-:::note[Mirrored specification]
-This page mirrors **13. Specification Extensions** of the MCP Description specification **v0.7.0**. The canonical source of truth is [`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/sections/13-specification-extensions.md). Where this page differs from upstream, upstream wins.
-:::
-
 ## 13. Specification Extensions
 
 MCP Description documents support vendor-specific metadata through specification extensions.

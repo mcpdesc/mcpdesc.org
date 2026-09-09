@@ -7,11 +7,49 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-09-09
+
+### Changed
+
+- **MCP Description v0.8.0 stable release.** Promoted v0.8.0 to the latest stable
+  specification and refreshed the complete mirror and schema from the immutable `v0.8.0`
+  release tag. Published the final schema and documentation URLs, moved 0.7.0 to the
+  previous channel, removed the active candidate, and redirected the former RC.4
+  documentation URLs to v0.8.0.
+- **Release announcement.** Published the v0.8 article and updated the homepage banner to
+  link to it as the latest stable release.
+
+## [1.0.0-rc.1] - 2026-09-08
+
 ### Added
 
+- **MCP Description v0.8.0 RC.4 documentation.** Published the immutable RC.4 snapshot
+  from `mcpdesc/mcpdesc-specification`, including all 17
+  normative sections, Appendix A, examples, migration guide, condensed changelog, and a
+  first-party single-file bundle. The version index now exposes explicit `stable` and
+  `candidate` channels while retaining `latest` and `next` compatibility aliases. The
+  Format page and Live Editor page now advertise the active candidate.
+- **Mutable schema aliases.** Added temporary redirects from `latest.json` to stable 0.7.0
+  and from `draft.json` to 0.8.0-rc.4, with short-lived caching separate from immutable
+  versioned schema resources.
+- **0.8 compatibility-series badge.** Tools can declare 0.8-series support with
+  `/badge/0.8.json` and record the exact tested release or candidate in their own README.
 - **First-party MCP Description JSON Schemas.** Versioned schemas are available at
-  `/schema/mcp-description/<version>.json`, starting with `0.7.0` and `0.8.0-rc.1`. The
-  immutable static resources support cross-origin loading by IDEs and validation tools.
+  `/schema/mcp-description/<version>.json`, including `0.7.0` and `0.8.0-rc.4`. The
+  immutable static resources support cross-origin
+  loading by IDEs and validation tools.
+- **MCP Description v0.8 article.** Added a focused overview of MCP `2026-07-28` support,
+  multi-protocol descriptions, conformance tooling, and the path toward v1.0.
+- **Updated Live Editor preview.** Added a current editor screenshot and candidate-support
+  guidance.
+
+### Changed
+
+- **Specification provenance.** Each mirrored version now carries one provenance notice on
+  its overview after the source and schema links, instead of repeating the notice on every
+  section, example, and migration page. The importer enforces this layout for future mirrors.
+- **Candidate cleanup.** Removed the superseded RC.3 documentation, schema, bundle, and
+  discovery entries so RC.4 is the only published v0.8 candidate on the site.
 
 ## [0.9.2] - 2026-07-27
 

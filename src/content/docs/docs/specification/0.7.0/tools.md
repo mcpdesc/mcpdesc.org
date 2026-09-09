@@ -6,10 +6,6 @@ sidebar:
   order: 9
 ---
 
-:::note[Mirrored specification]
-This page mirrors **9. Tools** of the MCP Description specification **v0.7.0**. The canonical source of truth is [`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/sections/09-tools.md). Where this page differs from upstream, upstream wins.
-:::
-
 ## 9. Tools
 
 The `tools` array declares the tools exposed by the MCP server. Each tool represents a server-side function that clients can invoke.
