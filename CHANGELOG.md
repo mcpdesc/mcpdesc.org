@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-09-09
+
 ### Changed
 
 - **MCP Description v0.8.0 stable release.** Promoted v0.8.0 to the latest stable
