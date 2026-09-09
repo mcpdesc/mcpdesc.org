@@ -1,7 +1,7 @@
 ---
 title: "16. Conformance"
-description: "MCP Description specification v0.8.0-rc.4 — 16. Conformance."
-slug: docs/specification/0.8.0-rc.4/conformance
+description: "MCP Description specification v0.8.0 — 16. Conformance."
+slug: docs/specification/0.8.0/conformance
 sidebar:
   order: 16
 ---

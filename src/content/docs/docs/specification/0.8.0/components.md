@@ -1,7 +1,7 @@
 ---
 title: "17. Reusable Components and Local References"
-description: "MCP Description specification v0.8.0-rc.4 — 17. Reusable Components and Local References."
-slug: docs/specification/0.8.0-rc.4/components
+description: "MCP Description specification v0.8.0 — 17. Reusable Components and Local References."
+slug: docs/specification/0.8.0/components
 sidebar:
   order: 17
 ---
@@ -87,4 +87,4 @@ tools:
 			$componentRef: '#/components/schemas/SearchInput'
 ```
 
-See the [complete reusable-components example](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4+editorial.1/spec/draft/examples/reusable-components.yaml) for reusable schemas and a referenced Tool Example Object.
+See the [complete reusable-components example](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0/spec/0.8.0/examples/reusable-components.yaml) for reusable schemas and a referenced Tool Example Object.

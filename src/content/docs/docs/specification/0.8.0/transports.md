@@ -1,7 +1,7 @@
 ---
 title: "6. Transports"
-description: "MCP Description specification v0.8.0-rc.4 — 6. Transports."
-slug: docs/specification/0.8.0-rc.4/transports
+description: "MCP Description specification v0.8.0 — 6. Transports."
+slug: docs/specification/0.8.0/transports
 sidebar:
   order: 6
 ---

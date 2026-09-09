@@ -1,20 +1,20 @@
 {
   "$comment": "Machine-readable index of MCP Description specification versions. Fetch this first to discover the stable and candidate versions. Each version exposes a single-file `full` Markdown for one-request retrieval.",
   "site": "https://mcpdesc.org",
-  "stable": "0.7.0",
-  "candidate": "0.8.0-rc.4",
-  "latest": "0.7.0",
+  "stable": "0.8.0",
+  "candidate": null,
+  "latest": "0.8.0",
   "latestFull": "https://mcpdesc.org/specification/latest/mcpdesc.md",
-  "next": "0.8.0-rc.4",
+  "next": null,
   "versions": [
     {
       "version": "0.7.0",
-      "channel": "stable",
+      "channel": "previous",
       "maturity": "stable",
       "date": "2026-03-23",
       "html": "https://mcpdesc.org/docs/specification/0.7.0/",
       "full": "https://mcpdesc.org/specification/0.7.0/mcpdesc.md",
-      "sha256": "c181eb0d7a3e4faa1d7824470e1f43e882ed706bc47632bce885bb6c895528ae",
+      "sha256": "1a251d256f2ba804d5d759515f0aa9c185aa491417de17b5a82cc87380fadb25",
       "canonical": "https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/mcp-description.md",
       "canonicalRaw": "https://raw.githubusercontent.com/cisco-open/mcptoolkit-contract/mcpdesc-v0.7.0/spec/mcp-description.md",
       "schema": "https://mcpdesc.org/schema/mcp-description/0.7.0.json",
@@ -82,85 +82,85 @@
       ]
     },
     {
-      "version": "0.8.0-rc.4",
-      "channel": "candidate",
-      "maturity": "release-candidate",
-      "date": "2026-09-08",
-      "html": "https://mcpdesc.org/docs/specification/0.8.0-rc.4/",
-      "full": "https://mcpdesc.org/specification/0.8.0-rc.4/mcpdesc.md",
-      "sha256": "4d71957847848c61e410fb64c93bfd57eb65bb180d053ac43ad3e19059e0232b",
-      "canonical": "https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0-rc.4+editorial.1/spec/draft/mcp-description.md",
-      "canonicalRaw": "https://raw.githubusercontent.com/mcpdesc/mcpdesc-specification/v0.8.0-rc.4+editorial.1/spec/draft/mcp-description.md",
-      "schema": "https://mcpdesc.org/schema/mcp-description/0.8.0-rc.4.json",
+      "version": "0.8.0",
+      "channel": "stable",
+      "maturity": "stable",
+      "date": "2026-09-09",
+      "html": "https://mcpdesc.org/docs/specification/0.8.0/",
+      "full": "https://mcpdesc.org/specification/0.8.0/mcpdesc.md",
+      "sha256": "445ff06cc0e230f55455f4032aace6621bd1aaedb10a63e64448bd4d59f08fa3",
+      "canonical": "https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0/spec/0.8.0/mcp-description.md",
+      "canonicalRaw": "https://raw.githubusercontent.com/mcpdesc/mcpdesc-specification/v0.8.0/spec/0.8.0/mcp-description.md",
+      "schema": "https://mcpdesc.org/schema/mcp-description/0.8.0.json",
       "tracking": "https://github.com/mcpdesc/mcpdesc-specification/issues",
       "sections": [
         {
           "title": "1. Introduction",
-          "url": "https://mcpdesc.org/docs/specification/0.8.0-rc.4/introduction"
+          "url": "https://mcpdesc.org/docs/specification/0.8.0/introduction"
         },
         {
           "title": "2. Terminology",
-          "url": "https://mcpdesc.org/docs/specification/0.8.0-rc.4/terminology"
+          "url": "https://mcpdesc.org/docs/specification/0.8.0/terminology"
         },
         {
           "title": "3. Document Structure",
-          "url": "https://mcpdesc.org/docs/specification/0.8.0-rc.4/document-structure"
+          "url": "https://mcpdesc.org/docs/specification/0.8.0/document-structure"
         },
         {
           "title": "4. Versioning",
-          "url": "https://mcpdesc.org/docs/specification/0.8.0-rc.4/versioning"
+          "url": "https://mcpdesc.org/docs/specification/0.8.0/versioning"
         },
         {
           "title": "5. Info Object",
-          "url": "https://mcpdesc.org/docs/specification/0.8.0-rc.4/info-object"
+          "url": "https://mcpdesc.org/docs/specification/0.8.0/info-object"
         },
         {
           "title": "6. Transports",
-          "url": "https://mcpdesc.org/docs/specification/0.8.0-rc.4/transports"
+          "url": "https://mcpdesc.org/docs/specification/0.8.0/transports"
         },
         {
           "title": "7. Security",
-          "url": "https://mcpdesc.org/docs/specification/0.8.0-rc.4/security"
+          "url": "https://mcpdesc.org/docs/specification/0.8.0/security"
         },
         {
           "title": "8. Capabilities",
-          "url": "https://mcpdesc.org/docs/specification/0.8.0-rc.4/capabilities"
+          "url": "https://mcpdesc.org/docs/specification/0.8.0/capabilities"
         },
         {
           "title": "9. Tools",
-          "url": "https://mcpdesc.org/docs/specification/0.8.0-rc.4/tools"
+          "url": "https://mcpdesc.org/docs/specification/0.8.0/tools"
         },
         {
           "title": "10. Resources and Resource Templates",
-          "url": "https://mcpdesc.org/docs/specification/0.8.0-rc.4/resources"
+          "url": "https://mcpdesc.org/docs/specification/0.8.0/resources"
         },
         {
           "title": "11. Prompts",
-          "url": "https://mcpdesc.org/docs/specification/0.8.0-rc.4/prompts"
+          "url": "https://mcpdesc.org/docs/specification/0.8.0/prompts"
         },
         {
           "title": "12. Elicitation Declarations",
-          "url": "https://mcpdesc.org/docs/specification/0.8.0-rc.4/elicitation"
+          "url": "https://mcpdesc.org/docs/specification/0.8.0/elicitation"
         },
         {
           "title": "13. Tags",
-          "url": "https://mcpdesc.org/docs/specification/0.8.0-rc.4/tags"
+          "url": "https://mcpdesc.org/docs/specification/0.8.0/tags"
         },
         {
           "title": "14. Specification Extensions",
-          "url": "https://mcpdesc.org/docs/specification/0.8.0-rc.4/specification-extensions"
+          "url": "https://mcpdesc.org/docs/specification/0.8.0/specification-extensions"
         },
         {
           "title": "15. Serialization",
-          "url": "https://mcpdesc.org/docs/specification/0.8.0-rc.4/serialization"
+          "url": "https://mcpdesc.org/docs/specification/0.8.0/serialization"
         },
         {
           "title": "16. Conformance",
-          "url": "https://mcpdesc.org/docs/specification/0.8.0-rc.4/conformance"
+          "url": "https://mcpdesc.org/docs/specification/0.8.0/conformance"
         },
         {
           "title": "17. Reusable Components and Local References",
-          "url": "https://mcpdesc.org/docs/specification/0.8.0-rc.4/components"
+          "url": "https://mcpdesc.org/docs/specification/0.8.0/components"
         }
       ]
     }

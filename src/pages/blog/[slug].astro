@@ -23,7 +23,7 @@ const authorHref = authorLinks[post.data.author];
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description} pageType="blog_post">
-  <article class="prose prose-slate mx-auto max-w-3xl dark:prose-invert" data-external-links>
+  <article class="blog-post prose prose-slate mx-auto max-w-3xl dark:prose-invert" data-external-links>
     {
       showDrafts && post.data.draft && (
         <p class="mb-4">
@@ -80,3 +80,72 @@ const authorHref = authorLinks[post.data.author];
     });
   }
 </script>
+
+<style>
+  .blog-post :global(figure.frame) {
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    background-color: #fff;
+  }
+
+  .blog-post :global(figure.frame figcaption.header) {
+    min-height: 2.25rem;
+    border-bottom: 1px solid #e2e8f0;
+    background-color: #fff;
+  }
+
+  .blog-post :global(figure.frame figcaption.header .title) {
+    color: #64748b;
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+  }
+
+  .blog-post :global(figure.frame:has(pre[data-language='yaml']) figcaption.header .title::after) {
+    content: 'YAML';
+  }
+
+  .blog-post :global(figure.frame:has(pre[data-language='json']) figcaption.header .title::after) {
+    content: 'JSON';
+  }
+
+  .blog-post :global(figure.frame:has(pre[data-language='bash']) figcaption.header .title::after),
+  .blog-post :global(figure.frame:has(pre[data-language='sh']) figcaption.header .title::after),
+  .blog-post :global(figure.frame:has(pre[data-language='shell']) figcaption.header .title::after) {
+    content: 'BASH';
+  }
+
+  .blog-post :global(figure.frame pre) {
+    overflow-x: auto;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    background-color: #fff;
+    padding: 1rem;
+    color: #24292f;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .blog-post :global(figure.frame pre code) {
+    border: 0;
+    background: transparent;
+    padding: 0;
+    color: inherit;
+    font: inherit;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .blog-post :global(figure.frame) {
+      border-color: #334155;
+      background-color: #fff;
+    }
+
+    .blog-post :global(figure.frame figcaption.header) {
+      border-color: #e2e8f0;
+      background-color: #fff;
+    }
+  }
+</style>

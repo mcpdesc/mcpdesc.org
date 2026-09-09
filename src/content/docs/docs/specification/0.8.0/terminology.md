@@ -1,7 +1,7 @@
 ---
 title: "2. Terminology"
-description: "MCP Description specification v0.8.0-rc.4 — 2. Terminology."
-slug: docs/specification/0.8.0-rc.4/terminology
+description: "MCP Description specification v0.8.0 — 2. Terminology."
+slug: docs/specification/0.8.0/terminology
 sidebar:
   order: 2
 ---

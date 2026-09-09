@@ -1,7 +1,7 @@
 ---
 title: "7. Security"
-description: "MCP Description specification v0.8.0-rc.4 — 7. Security."
-slug: docs/specification/0.8.0-rc.4/security
+description: "MCP Description specification v0.8.0 — 7. Security."
+slug: docs/specification/0.8.0/security
 sidebar:
   order: 7
 ---

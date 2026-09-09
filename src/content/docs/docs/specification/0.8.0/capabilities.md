@@ -1,7 +1,7 @@
 ---
 title: "8. Capabilities"
-description: "MCP Description specification v0.8.0-rc.4 — 8. Capabilities."
-slug: docs/specification/0.8.0-rc.4/capabilities
+description: "MCP Description specification v0.8.0 — 8. Capabilities."
+slug: docs/specification/0.8.0/capabilities
 sidebar:
   order: 8
 ---

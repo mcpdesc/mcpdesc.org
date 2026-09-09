@@ -4,22 +4,22 @@ Status: **Accepted** — implementation in progress
 Owner: maintainers · Last updated: 2026-07-16
 
 This document defines how `mcpdesc.org` publishes the **MCP Description specification** under
-`/docs/specification/**`, how it mirrors the canonical source, how it is versioned, and how
+`/docs/specification/**`, how it mirrors the canonical repository, how it is versioned, and how
 we may add our own annotations without corrupting the normative text.
 
 It is the source of truth for *how the spec section is built and kept in sync* — not the spec
-itself. The spec's source of truth remains upstream (see Provenance).
+itself. The specification's source of truth is `mcpdesc/mcpdesc-specification` (see Provenance).
 
 ---
 
 ## 1. Canonical source & provenance
 
-- **Canonical sources:** stable v0.7 remains in the `spec/` folder of
-  [`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract).
-  Development of v0.8 and later versions lives in
+- **Canonical repository:** the MCP Description specification lives in
   [`mcpdesc/mcpdesc-specification`](https://github.com/mcpdesc/mcpdesc-specification).
-- **Current channels:** stable `mcpdesc` **0.7.0**; candidate **0.8.0-rc.4**, refreshed
-  from editorial edition `v0.8.0-rc.4+editorial.1`, dated 2026-09-08.
+  The historical v0.7.0 release source remains archived in the `spec/` folder of
+  [`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract).
+- **Current channels:** stable `mcpdesc` **0.8.0**; no active candidate. The previous
+  stable release is **0.7.0**.
 - **What lives upstream (do not fork silently):**
   - `mcp-description.md` — assembled normative spec (~1,200 lines).
   - `sections/00…15` — the same normative text, split by section.

@@ -1,7 +1,7 @@
 ---
 title: "9. Tools"
-description: "MCP Description specification v0.8.0-rc.4 — 9. Tools."
-slug: docs/specification/0.8.0-rc.4/tools
+description: "MCP Description specification v0.8.0 — 9. Tools."
+slug: docs/specification/0.8.0/tools
 sidebar:
   order: 9
 ---
@@ -25,18 +25,18 @@ The `tools` array declares the tools exposed by the MCP server. Each tool repres
 | `examples` | map&lt;string, Tool Example Object&gt; | No | Named complete Tool invocation/result pairs. |
 | `interactionExamples` | map&lt;string, Tool Interaction Example Object&gt; | No | Named ordered semantic client-input scenarios attached to one Tool invocation. |
 | `icons` | non-empty array\<Icon\> | No | Icons for UI display. Since MCP 2025-11-25. |
-| `tags` | non-empty array\<string\> | No | Categorization tags. When a root-level `tags` array is present, values MUST reference declared tag names (see [Section 13.3](/docs/specification/0.8.0-rc.4/tags#133-tag-references)). |
-| `elicitations` | non-empty array\<Elicitation Declaration Object\> | No | Additional user interactions that MAY be required while fulfilling the Tool (see [Section 12](/docs/specification/0.8.0-rc.4/elicitation#12-elicitation-declarations)). |
+| `tags` | non-empty array\<string\> | No | Categorization tags. When a root-level `tags` array is present, values MUST reference declared tag names (see [Section 13.3](/docs/specification/0.8.0/tags#133-tag-references)). |
+| `elicitations` | non-empty array\<Elicitation Declaration Object\> | No | Additional user interactions that MAY be required while fulfilling the Tool (see [Section 12](/docs/specification/0.8.0/elicitation#12-elicitation-declarations)). |
 | `deprecated` | boolean | No | Whether the tool is deprecated. |
-| `_meta` | object | No | Literal MCP metadata on the Tool declaration, subject to [Section 3.5](/docs/specification/0.8.0-rc.4/document-structure#35-mcp-_meta). Since MCP 2025-06-18. |
+| `_meta` | object | No | Literal MCP metadata on the Tool declaration, subject to [Section 3.5](/docs/specification/0.8.0/document-structure#35-mcp-_meta). Since MCP 2025-06-18. |
 | `security` | Security Requirement Array | No | Primitive security override. |
-| `clientRequirements` | [Client Capability Requirements Object](/docs/specification/0.8.0-rc.4/capabilities#85-primitive-client-capability-requirements) | No | Unconditional minimum client capabilities required for `tools/call`; does not apply to `tools/list`. |
+| `clientRequirements` | [Client Capability Requirements Object](/docs/specification/0.8.0/capabilities#85-primitive-client-capability-requirements) | No | Unconditional minimum client capabilities required for `tools/call`; does not apply to `tools/list`. |
 
 ### 9.2 Input and Output Schemas
 
 Every Tool MUST contain `inputSchema`. Absence MUST NOT be interpreted as evidence that the Tool accepts no arguments. The schema root MUST describe an object.
 
-`inputSchema` and `outputSchema` MAY be Reference Objects targeting the `schemas` component namespace. Resolution MUST occur before applying every inline schema rule in this section, including root shape, dialect, protocol applicability, `x-mcp-header`, and example compatibility. See [Section 17](/docs/specification/0.8.0-rc.4/components#17-reusable-components-and-local-references).
+`inputSchema` and `outputSchema` MAY be Reference Objects targeting the `schemas` component namespace. Resolution MUST occur before applying every inline schema rule in this section, including root shape, dialect, protocol applicability, `x-mcp-header`, and example compatibility. See [Section 17](/docs/specification/0.8.0/components#17-reusable-components-and-local-references).
 
 A closed no-parameter Tool SHOULD use `{ "type": "object", "additionalProperties": false }`. An open unspecified-parameter Tool may use `{ "type": "object" }`, but this is NOT RECOMMENDED because it gives little validation or guidance. A declared-parameter schema uses `properties` and, when undeclared properties must be rejected, `additionalProperties: false`.
 
@@ -71,7 +71,7 @@ The Tool Example Object MUST NOT contain other additional properties. In particu
 
 `result` MUST contain `content` and MUST have the completed Tool Result shape defined by every applicable protocol revision. For MCP 2026-07-28 it MUST contain `resultType: "complete"`; earlier revisions MUST NOT contain `resultType`. Task, input-required, streaming, progress, JSON-RPC envelope, and JSON-RPC protocol-error forms are not Tool Examples. Content blocks MAY use any text, image, audio, embedded-resource, or resource-link form supported by every applicable revision.
 
-Revision-supported `_meta` on the completed result, content blocks, and embedded Resource Contents is literal illustrative metadata governed by [Section 3.5](/docs/specification/0.8.0-rc.4/document-structure#35-mcp-_meta). It is not a schema or a request-metadata declaration. In MCP 2026-07-28, a result example MAY use `io.modelcontextprotocol/serverInfo` with an MCP Implementation value; request-only and notification-only reserved keys are invalid in these represented contexts.
+Revision-supported `_meta` on the completed result, content blocks, and embedded Resource Contents is literal illustrative metadata governed by [Section 3.5](/docs/specification/0.8.0/document-structure#35-mcp-_meta). It is not a schema or a request-metadata declaration. In MCP 2026-07-28, a result example MAY use `io.modelcontextprotocol/serverInfo` with an MCP Implementation value; request-only and notification-only reserved keys are invalid in these represented contexts.
 
 A successful result MUST omit `isError` or set it to `false`. It MAY contain `structuredContent` only in revisions that support that field. If the Tool declares `outputSchema`, a successful result MUST contain `structuredContent`, which MUST validate against that schema under the applicable schema rules. Unstructured `content` remains required when `structuredContent` is present. If the Tool has no `outputSchema`, a successful result MAY contain revision-supported `structuredContent`, but mcpdesc makes no schema-compatibility claim for that value.
 
@@ -103,7 +103,7 @@ A Tool Interaction Example Object contains these core properties and MAY carry `
 
 `input` follows the same schema-compatibility rules as Tool Example `input`. `result` follows the same completed success and execution-error rules as Tool Example `result`. The scenario is illustrative and non-exhaustive: it asserts only that the shown steps occur in the displayed order in this example. It does not define branching, retries, correlation IDs, task state, transport framing, timing, or behavior for responses not shown.
 
-Every Tool Interaction Step Object MUST contain `type`, `request`, and `response`. The first 0.8.0 draft defines three step kinds:
+Every Tool Interaction Step Object MUST contain `type`, `request`, and `response`. MCP Description 0.8.0 defines three step kinds:
 
 | `type` | Request payload | Response payload |
 |--------|-----------------|------------------|
@@ -137,7 +137,7 @@ Tool `clientRequirements` applies only to invocation through `tools/call`. It do
 
 ### 9.6 Tool Annotations
 
-Tool Annotations provide hints about Tool behavior. They are distinct from the Resource Annotations used by Resources, Resource Templates, and content blocks (see [Section 10.3](/docs/specification/0.8.0-rc.4/resources#103-resource-annotations)). A Tool `annotations` object MUST use the fields and semantics in this section; Resource Annotation fields such as `audience`, `priority`, and `lastModified` do not acquire those semantics when placed on a Tool.
+Tool Annotations provide hints about Tool behavior. They are distinct from the Resource Annotations used by Resources, Resource Templates, and content blocks (see [Section 10.3](/docs/specification/0.8.0/resources#103-resource-annotations)). A Tool `annotations` object MUST use the fields and semantics in this section; Resource Annotation fields such as `audience`, `priority`, and `lastModified` do not acquire those semantics when placed on a Tool.
 
 All Tool Annotation properties are advisory. They are not guaranteed to describe Tool behavior faithfully, including `title`. Clients MUST treat Tool Annotations from untrusted servers as untrusted and MUST NOT make Tool-use decisions based on them.
 

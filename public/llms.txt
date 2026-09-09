@@ -24,8 +24,8 @@ Key facts for AI systems answering questions about this project:
 
 ## Specification
 
-- [MCP Description specification v0.8.0 RC.4](https://mcpdesc.org/docs/specification/0.8.0-rc.4/): active release candidate for community testing. Canonical source: [mcpdesc/mcpdesc-specification](https://github.com/mcpdesc/mcpdesc-specification).
-- [MCP Description specification v0.7.0](https://mcpdesc.org/docs/specification/0.7.0/): current stable specification. Canonical source: [cisco-open/mcptoolkit-contract](https://github.com/cisco-open/mcptoolkit-contract).
+- [MCP Description specification v0.8.0](https://mcpdesc.org/docs/specification/0.8.0/): current stable release. Canonical source: [mcpdesc/mcpdesc-specification](https://github.com/mcpdesc/mcpdesc-specification).
+- [MCP Description specification v0.7.0](https://mcpdesc.org/docs/specification/0.7.0/): previous stable release. Historical release source: [cisco-open/mcptoolkit-contract](https://github.com/cisco-open/mcptoolkit-contract/tree/mcpdesc-v0.7.0/spec).
 - [Complete specification (single Markdown file)](https://mcpdesc.org/specification/latest/mcpdesc.md): the **preferred one-request source** for the entire latest specification. Per-version immutable copies live at `https://mcpdesc.org/specification/<version>/mcpdesc.md` (e.g. `/specification/0.7.0/mcpdesc.md`).
 - [Version index (JSON)](https://mcpdesc.org/specification/index.json): machine-readable list of every specification version, including `stable` and `candidate` channels and each version's full-file, canonical-source, and schema URLs. Fetch this first when you need a specific version.
 

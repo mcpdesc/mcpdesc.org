@@ -96,9 +96,9 @@ Avoid unless explicitly approved:
 
 - Canonical: `https://mcpdesc.org`.
 - Docs are served at `mcpdesc.org/docs` (path) for v1.
-- `spec.mcpdesc.org` (community-hosted specification) is **planned**. Stable v0.7 links to
-  `cisco-open/mcptoolkit-contract`; v0.8 development lives in
-  `mcpdesc/mcpdesc-specification`.
+- `spec.mcpdesc.org` (community-hosted specification) is **planned**. The canonical
+  specification repository is `mcpdesc/mcpdesc-specification`; the historical v0.7.0
+  release source is archived in `cisco-open/mcptoolkit-contract`.
 - `editor.mcpdesc.org` (hosted **Live Editor**) is **live**. The `/live-editor` page is a
   landing page whose "Open the Editor" CTA links out to the hosted editor.
 - Legacy `mcptoolkit.org` → `mcpdesc.org/tools`; secondary domains
@@ -108,16 +108,16 @@ Avoid unless explicitly approved:
 
 - The spec is **mirrored** from its canonical repository into
   `src/content/docs/docs/specification/<version>/**` (fully versioned, immutable folders).
-  Full procedure: `docs/specification-mirror-strategy.md`. Current stable: `mcpdesc` 0.7.0;
-  current candidate: 0.8.0-rc.4.
+  Full procedure: `docs/specification-mirror-strategy.md`. Current stable: `mcpdesc` 0.8.0;
+  previous stable: 0.7.0; there is no active candidate.
 - To add or bump a version: run `scripts/import-spec.mjs <version> --tag <release-tag>`
   (mirrors the section and companion pages from an **immutable upstream tag** — defaults
   target `mcpdesc/mcpdesc-specification`, `spec/draft`, and `v<version>`), then run
   `scripts/build-spec-bundle.mjs` (regenerates the single-file bundles + `index.json` under
   `public/specification/`). Commit both. Never rewrite an old version.
 - Schema aliases are temporary redirects in `public/_redirects`: `latest.json` targets the
-  stable schema and `draft.json` targets the active candidate schema. Keep their explicit
-  short-lived cache rules in `public/_headers`; versioned schemas remain immutable.
+  stable schema and `draft.json`, when present, targets the active candidate schema. Keep
+  their explicit short-lived cache rules in `public/_headers`; versioned schemas remain immutable.
 - The editorial source of truth for stable and candidate channels is the **`VERSIONS`
   registry** in `scripts/build-spec-bundle.mjs`. Public `latest` and `next` fields remain
   compatibility aliases for `stable` and `candidate`.

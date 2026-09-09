@@ -1,7 +1,7 @@
 ---
 title: "12. Elicitation Declarations"
-description: "MCP Description specification v0.8.0-rc.4 — 12. Elicitation Declarations."
-slug: docs/specification/0.8.0-rc.4/elicitation
+description: "MCP Description specification v0.8.0 — 12. Elicitation Declarations."
+slug: docs/specification/0.8.0/elicitation
 sidebar:
   order: 12
 ---

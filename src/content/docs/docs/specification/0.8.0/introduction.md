@@ -1,7 +1,7 @@
 ---
 title: "1. Introduction"
-description: "MCP Description specification v0.8.0-rc.4 — 1. Introduction."
-slug: docs/specification/0.8.0-rc.4/introduction
+description: "MCP Description specification v0.8.0 — 1. Introduction."
+slug: docs/specification/0.8.0/introduction
 sidebar:
   order: 1
 ---

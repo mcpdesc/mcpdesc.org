@@ -1,7 +1,7 @@
 ---
 title: "14. Specification Extensions"
-description: "MCP Description specification v0.8.0-rc.4 — 14. Specification Extensions."
-slug: docs/specification/0.8.0-rc.4/specification-extensions
+description: "MCP Description specification v0.8.0 — 14. Specification Extensions."
+slug: docs/specification/0.8.0/specification-extensions
 sidebar:
   order: 14
 ---

@@ -1,7 +1,7 @@
 ---
 title: "5. Info Object"
-description: "MCP Description specification v0.8.0-rc.4 — 5. Info Object."
-slug: docs/specification/0.8.0-rc.4/info-object
+description: "MCP Description specification v0.8.0 — 5. Info Object."
+slug: docs/specification/0.8.0/info-object
 sidebar:
   order: 5
 ---
@@ -25,7 +25,7 @@ A producer MAY obtain Info metadata from author input, configuration, package me
 | `title` | string | No | Human-readable display name for UI contexts. Falls back to `name` if not provided. Runtime mapping: `Implementation.title` (MCP `BaseMetadata`, available since 2025-06-18). |
 | `description` | string | No | Brief description of what the server does. Runtime mapping: `Implementation.description` (available since MCP 2025-11-25). |
 | `id` | string | No | Unique server identifier (URI, DID, or URN). |
-| `icons` | non-empty array\<[Icon](/docs/specification/0.8.0-rc.4/appendices#appendix-a-icon-object)\> | No | Icons for UI display. Runtime mapping: `Implementation.icons` (available since MCP 2025-11-25). |
+| `icons` | non-empty array\<[Icon](/docs/specification/0.8.0/appendices#appendix-a-icon-object)\> | No | Icons for UI display. Runtime mapping: `Implementation.icons` (available since MCP 2025-11-25). |
 | `websiteUrl` | string (URI) | No | URL of the server's website. Runtime mapping: `Implementation.websiteUrl` (available since MCP 2025-11-25). |
 | `contact` | [Contact Object](#52-contact-object) | No | Contact information (OpenAPI-style, not part of MCP `Implementation`). |
 | `license` | [License Object](#53-license-object) | No | License information (OpenAPI-style, not part of MCP `Implementation`). |

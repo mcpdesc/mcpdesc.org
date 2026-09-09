@@ -9,9 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **RC.4 documentation refresh.** Refreshed the mirrored MCP Description v0.8.0 RC.4
-  documentation from upstream editorial edition `v0.8.0-rc.4+editorial.1`; the normative
-  sections and JSON Schema are unchanged.
+- **MCP Description v0.8.0 stable release.** Promoted v0.8.0 to the latest stable
+  specification and refreshed the complete mirror and schema from the immutable `v0.8.0`
+  release tag. Published the final schema and documentation URLs, moved 0.7.0 to the
+  previous channel, removed the active candidate, and redirected the former RC.4
+  documentation URLs to v0.8.0.
+- **Release announcement.** Published the v0.8 article and updated the homepage banner to
+  link to it as the latest stable release.
 
 ## [1.0.0-rc.1] - 2026-09-08
 

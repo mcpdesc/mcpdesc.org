@@ -2,8 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { Code } from 'astro:components';
 
-const specVersion = '0.8.0 RC.4';
-const specStatus = 'Release candidate';
+const specVersion = '0.8.0';
+const specStatus = 'Stable';
 
 const comparison = [
   { protocol: 'Runtime communication', description: 'Static declaration' },
@@ -12,7 +12,7 @@ const comparison = [
   { protocol: 'Resource fetching', description: 'Resource definitions' },
 ];
 
-const exampleYaml = `$schema: https://mcpdesc.org/schema/mcp-description/0.8.0-rc.4.json
+const exampleYaml = `$schema: https://mcpdesc.org/schema/mcp-description/0.8.0.json
 mcpdesc: "0.8.0"
 info:
   name: chess-rating-server
@@ -22,7 +22,7 @@ protocolVersions:
   - "2026-07-28"`;
 
 const exampleJson = `{
-  "$schema": "https://mcpdesc.org/schema/mcp-description/0.8.0-rc.4.json",
+  "$schema": "https://mcpdesc.org/schema/mcp-description/0.8.0.json",
   "mcpdesc": "0.8.0",
   "info": {
     "name": "chess-rating-server",
@@ -48,7 +48,7 @@ const exampleJson = `{
 
     <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
       <a
-        href="/docs/specification/0.8.0-rc.4/"
+        href="/docs/specification/0.8.0/"
         data-analytics-cta="read_spec"
         class="inline-block rounded-md bg-[var(--color-brand)] px-6 py-3 text-lg font-medium text-white hover:bg-[var(--color-brand-dark)]"
       >
@@ -64,7 +64,7 @@ const exampleJson = `{
     </div>
     <p class="mx-auto mt-4 max-w-2xl text-sm text-slate-500">
       {specVersion} · {specStatus}.{' '}
-      <a class="underline" href="/docs/specification/0.7.0/">0.7.0 remains stable.</a>
+      <a class="underline" href="/docs/specification/0.7.0/">0.7.0 remains available.</a>
     </p>
   </section>
 

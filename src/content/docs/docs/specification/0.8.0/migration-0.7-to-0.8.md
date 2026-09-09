@@ -1,7 +1,7 @@
 ---
 title: Migrate from 0.7 to 0.8
-description: "Migration guidance for MCP Description v0.8.0-rc.4."
-slug: docs/specification/0.8.0-rc.4/migration-0.7-to-0.8
+description: "Migration guidance for MCP Description v0.8.0."
+slug: docs/specification/0.8.0/migration-0.7-to-0.8
 sidebar:
   order: 90
 ---
@@ -22,9 +22,9 @@ Before treating an existing YAML file as conforming, verify YAML 1.2.2 JSON-sche
 
 v0.8.0 introduces a new canonical MCP Description schema family under `https://mcpdesc.org/schema/mcp-description/`.
 
-When a migrated 0.8.0 draft document emits `$schema`, use `https://mcpdesc.org/schema/mcp-description/0.8.0-rc.4.json` and keep `mcpdesc: 0.8.0` unchanged.
+When a migrated 0.8.0 document emits `$schema`, use `https://mcpdesc.org/schema/mcp-description/0.8.0.json` and keep `mcpdesc: 0.8.0` unchanged.
 
-Do not rewrite frozen stable 0.7.0 or published Draft 1-3 documents merely to change their embedded schema identifiers. Stable 0.7.0 retains the historical Cisco root `$id`, and Draft 1-3 retain the historical short URI family. Exact historical validation of those snapshots should use the corresponding bundled validator selector rather than guessing from a rewritten URL.
+Do not rewrite a 0.7.0 document merely to change its embedded schema identifier. Version 0.7.0 retains its historical Cisco root `$id`; set the canonical 0.8.0 `$schema` URI as part of migration.
 
 Network retrieval remains optional. Offline validators may bundle known schema resources and resolve their canonical URIs locally.
 
@@ -205,7 +205,7 @@ Add root `instructions` when durable server guidance is authoritatively availabl
 
 1. Parse and validate the 0.7.0 source.
 2. Copy unchanged identity, transport, primitive, tag, and extension fields.
-3. Set `mcpdesc` to `0.8.0` and, when emitting it, set `$schema` to `https://mcpdesc.org/schema/mcp-description/0.8.0-rc.4.json`.
+3. Set `mcpdesc` to `0.8.0` and, when emitting it, set `$schema` to `https://mcpdesc.org/schema/mcp-description/0.8.0.json`.
 4. Move `info.protocolVersion` to root `protocolVersions`; require input if absent or unsupported.
 5. Wrap a present Capabilities Object in a one-item array.
 6. Resolve every missing Tool `inputSchema` through author review.

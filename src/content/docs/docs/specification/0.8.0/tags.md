@@ -1,7 +1,7 @@
 ---
 title: "13. Tags"
-description: "MCP Description specification v0.8.0-rc.4 — 13. Tags."
-slug: docs/specification/0.8.0-rc.4/tags
+description: "MCP Description specification v0.8.0 — 13. Tags."
+slug: docs/specification/0.8.0/tags
 sidebar:
   order: 13
 ---

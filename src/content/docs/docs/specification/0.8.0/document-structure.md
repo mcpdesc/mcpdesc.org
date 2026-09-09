@@ -1,7 +1,7 @@
 ---
 title: "3. Document Structure"
-description: "MCP Description specification v0.8.0-rc.4 — 3. Document Structure."
-slug: docs/specification/0.8.0-rc.4/document-structure
+description: "MCP Description specification v0.8.0 — 3. Document Structure."
+slug: docs/specification/0.8.0/document-structure
 sidebar:
   order: 3
 ---
@@ -24,19 +24,19 @@ The root of an MCP Description document is an object with the following structur
 |----------|------|----------|-------------|
 | `$schema` | string | No | JSON Schema reference for IDE validation |
 | `mcpdesc` | string | **Yes** | Specification version (`"0.8.0"`) |
-| `info` | [Info Object](/docs/specification/0.8.0-rc.4/info-object#5-info-object) | **Yes** | Server metadata |
+| `info` | [Info Object](/docs/specification/0.8.0/info-object#5-info-object) | **Yes** | Server metadata |
 | `protocolVersions` | array\<string\> | **Yes** | MCP protocol revisions described by the document |
 | `instructions` | string | No | Durable natural-language guidance for using the server |
-| `transports` | non-empty array\<[Transport Object](/docs/specification/0.8.0-rc.4/transports#6-transports)\> | No | Declared transports |
-| `securitySchemes` | non-empty map\<string, [Security Scheme Object](/docs/specification/0.8.0-rc.4/security#72-security-scheme-object)\> | No | Reusable named security schemes |
-| `security` | [Security Requirement Array](/docs/specification/0.8.0-rc.4/security#73-security-requirement-array) | No | Default security requirements |
-| `components` | [Components Object](/docs/specification/0.8.0-rc.4/components#171-components-object) | No | Reusable schemas and named primitive examples |
-| `capabilities` | non-empty array\<[Capabilities Object](/docs/specification/0.8.0-rc.4/capabilities#8-capabilities)\> | No | Protocol-scoped server capability declarations |
-| `tools` | non-empty array\<[Tool Object](/docs/specification/0.8.0-rc.4/tools#9-tools)\> | No | Tools declared by the document |
-| `resources` | non-empty array\<[Resource Object](/docs/specification/0.8.0-rc.4/resources#1011-resource-object)\> | No | Resources declared by the document |
-| `resourceTemplates` | non-empty array\<[Resource Template Object](/docs/specification/0.8.0-rc.4/resources#1021-resource-template-object)\> | No | Resource templates declared by the document |
-| `prompts` | non-empty array\<[Prompt Object](/docs/specification/0.8.0-rc.4/prompts#11-prompts)\> | No | Prompts declared by the document |
-| `tags` | non-empty array\<[Tag Object](/docs/specification/0.8.0-rc.4/tags#13-tags)\> | No | Document-wide flat tag catalogue for primitive categorization |
+| `transports` | non-empty array\<[Transport Object](/docs/specification/0.8.0/transports#6-transports)\> | No | Declared transports |
+| `securitySchemes` | non-empty map\<string, [Security Scheme Object](/docs/specification/0.8.0/security#72-security-scheme-object)\> | No | Reusable named security schemes |
+| `security` | [Security Requirement Array](/docs/specification/0.8.0/security#73-security-requirement-array) | No | Default security requirements |
+| `components` | [Components Object](/docs/specification/0.8.0/components#171-components-object) | No | Reusable schemas and named primitive examples |
+| `capabilities` | non-empty array\<[Capabilities Object](/docs/specification/0.8.0/capabilities#8-capabilities)\> | No | Protocol-scoped server capability declarations |
+| `tools` | non-empty array\<[Tool Object](/docs/specification/0.8.0/tools#9-tools)\> | No | Tools declared by the document |
+| `resources` | non-empty array\<[Resource Object](/docs/specification/0.8.0/resources#1011-resource-object)\> | No | Resources declared by the document |
+| `resourceTemplates` | non-empty array\<[Resource Template Object](/docs/specification/0.8.0/resources#1021-resource-template-object)\> | No | Resource templates declared by the document |
+| `prompts` | non-empty array\<[Prompt Object](/docs/specification/0.8.0/prompts#11-prompts)\> | No | Prompts declared by the document |
+| `tags` | non-empty array\<[Tag Object](/docs/specification/0.8.0/tags#13-tags)\> | No | Document-wide flat tag catalogue for primitive categorization |
 
 The optional `$schema` property selects a JSON Schema resource for structural validation and editor tooling. It does not replace the required `mcpdesc` format discriminator or the document's declared MCP protocol coverage.
 
@@ -77,7 +77,7 @@ Property ordering within objects is not significant. Implementations MUST NOT de
 
 ### 3.7 Specification Extensions
 
-Any property whose name matches the pattern `^x-` on the root or another eligible MCP Description-defined semantic object is a specification extension. See [Section 14: Specification Extensions](/docs/specification/0.8.0-rc.4/specification-extensions#14-specification-extensions) for eligibility and exclusion rules.
+Any property whose name matches the pattern `^x-` on the root or another eligible MCP Description-defined semantic object is a specification extension. See [Section 14: Specification Extensions](/docs/specification/0.8.0/specification-extensions#14-specification-extensions) for eligibility and exclusion rules.
 
 ### 3.8 Additional Properties
 
@@ -89,7 +89,7 @@ A minimal valid MCP Description document:
 
 ```json
 {
-  "$schema": "https://mcpdesc.org/schema/mcp-description/0.8.0-rc.4.json",
+  "$schema": "https://mcpdesc.org/schema/mcp-description/0.8.0.json",
   "mcpdesc": "0.8.0",
   "info": {
     "name": "chess-rating-server",

@@ -36,7 +36,7 @@ tools:
 
 ## More examples
 
-The canonical repository provides additional examples covering more transports and features:
+The historical v0.7.0 release source provides additional examples covering more transports and features:
 
 - [`minimal.yaml`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/examples/minimal.yaml)
 - [`stdio-server.yaml`](https://github.com/cisco-open/mcptoolkit-contract/blob/mcpdesc-v0.7.0/spec/examples/stdio-server.yaml)
