@@ -1,17 +1,36 @@
 ---
-title: 'MCP Description v0.8 adds support for MCP 2026-07-28'
-listTitle: MCP Description now supports MCP 2026-07-28
+title: 'mcpdesc v0.8 adds support for MCP 2026-07-28'
+listTitle: mcpdesc now supports MCP 2026-07-28
 description: MCP Description v0.8 adds support for MCP 2026-07-28, multi-protocol descriptions, richer examples, and reusable components on the path toward v1.0.
 date: 2026-09-09
 author: Stève Sfartz
 draft: false
 ---
 
-It has been a busy summer for the MCP protocol and the mcpdesc specification.
+It has been a busy summer for the [MCP protocol](https://blog.modelcontextprotocol.io/posts/2026-07-28/) ... and for the {mcpdesc} initiative.
 
-Launching today, version 0.8 of the MCP Description specification adds support for MCP 2026-07-28 and expands the mcpdesc format with multi-protocol descriptions and projection, richer examples, and reusable components.
+Launched in July, the mcpdesc format received positive feedback: [There is finally an OpenAPI for MCP servers](https://www.linkedin.com/posts/kinlane_there-is-finally-an-openapi-for-mcp-servers-activity-7495823397214384128-1dFm/), [Can MCP servers finally get their own OpenAPI](https://apichangelog.substack.com/p/can-mcp-servers-finally-get-their-own-openapi), [Applying API engineering practices to MCP servers](https://blogs.cisco.com/developer/beyond-the-protocol-applying-api-engineering-practices-to-mcp-servers).
+
+Today, we are announcing [version 0.8](https://mcpdesc.org/docs/specification/0.8.0/) of the MCP Description specification. v0.8 adds support for MCP 2026-07-28 and expands the format with multi-protocol descriptions, richer examples, reusable components, and more.
 
 > To quickly explore the mcpdesc v0.8 format, open an example in the [Live Editor](https://editor.mcpdesc.org?example=streamable-http).
+
+Before calling the specification v1.0, we are looking for practical feedback from MCP servers users and builders. Please share your feedback using the MCP Description specification [issue tracker](https://github.com/mcpdesc/mcpdesc-specification/issues).
+
+
+| Area                     | v0.8 change                                                    | Why it matters                                                                          |
+| ------------------------ | -------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| MCP 2026-07-28           | First-class support of modern MCP servers                                          | Including the new result shapes and newer schema rules                                  |
+| Protocol versions        | Root `protocolVersions`; protocol-scoped declarations          | Allows describing the surface of a server that serves multiple MCP protocol revisions                               |
+| Effective Protocol Views | Deterministic per-protocol-version projection/merge rules              | Tools can have different shapes in MCP 2025 vs MCP 2026                                         |
+| Client requirements      | Primitive-level `clientRequirements`                           | Lets a tool document “you need an elicitation-capable client to use me”                      |
+| Examples                 | Named examples + `interactionExamples`, `elicitations` declarations                         | Can now describe a tool invocation containing semantic elicitation/sampling steps |
+| Components               | Reusable typed `components`                  | Avoids repeating schemas/examples                                                       |
+| Security                 | Root `securitySchemes`                                | Replaces the earlier inline model                                                       |
+| Extensions               | MCP official extensions + `x-*` mcpdesc extensions               | Cleaner extension semantics                                                             |
+| Conformance               | Semantic validation | Goes beyond JSON Schema validation | 
+| Other changes            | `capabilities` is now an array; every Tool needs `inputSchema` as induced by MCP 2026-07-28 | Existing 0.7 documents require migration   |
+
 
 ## New features
 
@@ -88,10 +107,7 @@ mcpcontract dump \
 With version 0.8, the specification now has a dedicated
 home in [mcpdesc/mcpdesc-specification](https://github.com/mcpdesc/mcpdesc-specification), giving the mcpdesc format an independent, community-first place for issues, proposals, and contributions.
 
-The path to v1.0 will be developed in the open, led by
-the project maintainers and shaped by feedback from contributors, users, and tool builders.
-
-Before calling the MCP Description specification v1.0, we are looking for more practical feedback from MCP tool builders and users across these scenarios:
+Before calling the MCP Description specification v1.0, we are looking for practical feedback from MCP tool builders and users across these scenarios:
 
 - **Accurate documentation:** generate reliable documentation for tools, resources, prompts, transports, and security.
 - **Quality assurance and compliance:** lint, validate, and compare documents for completeness and consistency.
@@ -106,4 +122,4 @@ We encourage you to read the [MCP Description specification](/docs/specification
 - Is any part of the multi-protocol, extension, security, or client-requirement model ambiguous?
 - Does your existing MCP tooling encounter friction when consuming or producing mcpdesc documents?
 
-Please report issues through the [MCP Description specification issue tracker](https://github.com/mcpdesc/mcpdesc-specification/issues).
+Please share your feedback using the MCP Description specification [issue tracker](https://github.com/mcpdesc/mcpdesc-specification/issues).
