@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-10-19
+
+### Added
+
+- **Latest MCP Description guides.** Mirrored the companion guides from the immutable
+  `mcpdesc/mcpdesc-specification` tag `v0.8.0+editorial.1`, including the new comparison
+  with MCP primitive schemas and the updated FAQ. Added a top-level **Guides** documentation
+  section with reader-focused navigation, kept the guide documents pinned to the stable
+  v0.8.0 edition, and removed duplicated page-title headings from the imported content.
+
 ## [1.0.0] - 2026-09-09
 
 ### Changed

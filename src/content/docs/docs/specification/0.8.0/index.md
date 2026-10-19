@@ -29,16 +29,18 @@ interactions, reusable components, and stronger serialization and semantic confo
 
 ## Source and schema
 
-- **Canonical specification** - [`spec/0.8.0/mcp-description.md`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0/spec/0.8.0/mcp-description.md)
-- **Release source** - [`v0.8.0`](https://github.com/mcpdesc/mcpdesc-specification/tree/v0.8.0)
+- **Canonical specification** - [`spec/0.8.0/mcp-description.md`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0%2Beditorial.1/spec/0.8.0/mcp-description.md)
+- **Mirrored edition** - [`v0.8.0+editorial.1`](https://github.com/mcpdesc/mcpdesc-specification/tree/v0.8.0%2Beditorial.1)
+- **Editorial release notes** - [`v0.8.0+editorial.1`](https://github.com/mcpdesc/mcpdesc-specification/releases/tag/v0.8.0%2Beditorial.1)
 - **Release notes** - [`v0.8.0`](https://github.com/mcpdesc/mcpdesc-specification/releases/tag/v0.8.0)
 - **Immutable JSON Schema** - [`0.8.0.json`](https://mcpdesc.org/schema/mcp-description/0.8.0.json)
+- **Companion guides** - [Getting started and background](/docs/specification/0.8.0/guides/)
 - **Migration guide** - [Migrate from 0.7 to 0.8](/docs/specification/0.8.0/migration-0.7-to-0.8)
 - **Feedback** - [Report an interoperability issue](https://github.com/mcpdesc/mcpdesc-specification/issues)
 
 :::note[Mirrored specification]
 These pages mirror MCP Description **v0.8.0** from
-[`v0.8.0`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0/spec/0.8.0/mcp-description.md)
+[`v0.8.0+editorial.1`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0%2Beditorial.1/spec/0.8.0/mcp-description.md)
 in `mcpdesc/mcpdesc-specification`.
 Where these pages differ from upstream, upstream wins.
 :::
@@ -70,5 +72,6 @@ Where these pages differ from upstream, upstream wins.
 17. [Reusable Components and Local References](/docs/specification/0.8.0/components)
 
 See also the [appendices](/docs/specification/0.8.0/appendices),
+[companion guides](/docs/specification/0.8.0/guides/),
 [examples](/docs/specification/0.8.0/examples), and cross-version
 [changelog](/docs/specification/changelog).

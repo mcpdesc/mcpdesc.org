@@ -6,8 +6,6 @@ sidebar:
   order: 90
 ---
 
-# Migrating from MCP Description 0.7.0 to 0.8.0
-
 MCP Description 0.8.0 is intentionally breaking. Migration must preserve author intent and must not infer protocol revisions, Tool parameters, OAuth scopes, or hidden runtime surfaces from insufficient evidence.
 
 ## Serialization

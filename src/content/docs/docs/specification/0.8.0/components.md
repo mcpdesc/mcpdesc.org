@@ -87,4 +87,4 @@ tools:
 			$componentRef: '#/components/schemas/SearchInput'
 ```
 
-See the [complete reusable-components example](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0/spec/0.8.0/examples/reusable-components.yaml) for reusable schemas and a referenced Tool Example Object.
+See the [complete reusable-components example](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0+editorial.1/spec/0.8.0/examples/reusable-components.yaml) for reusable schemas and a referenced Tool Example Object.

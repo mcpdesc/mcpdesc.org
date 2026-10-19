@@ -16,6 +16,7 @@ This project uses specification versioning aligned with its `mcpdesc` field.
 <!-- update with `markdown-toc -i CHANGELOG.md --maxdepth 2 -->
 <!-- toc -->
 
+- [[0.8.0+editorial.1] — 2026-10-19](#080editorial1--2026-10-19)
 - [[0.8.0] — 2026-09-09](#080--2026-09-09)
 - [[0.7.0] — 2026-03-23](#070--2026-03-23)
 - [[0.6.0] — 2026-03-20](#060--2026-03-20)
@@ -28,13 +29,24 @@ This project uses specification versioning aligned with its `mcpdesc` field.
 
 <!-- tocstop -->
 
+## [0.8.0+editorial.1] — 2026-10-19
+
+### Documentation
+
+- Addressed feedback about why MCP Description does not directly inherit the MCP `Tool`, `Resource`, and `Prompt` schemas with a concise [FAQ answer](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0+editorial.1/spec/0.8.0/guides/faq.md#why-not-inherit-and-extend-tool-resource-and-prompt-definitions-from-the-mcp-schema).
+- Added a detailed [comparison with the MCP primitive schemas](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0+editorial.1/spec/0.8.0/guides/relationship-to-mcp-schemas.md), including shared fields, intentional differences, tradeoffs, and potential improvements for stronger machine-verifiable alignment.
+
+### Security
+
+- Updated the transitive development dependency `fast-uri` from 3.1.6 to 3.1.8, resolving the authority-bracket host-confusion vulnerability and all other advisories reported by `npm audit` for the dependency tree.
+
 ## [0.8.0] — 2026-09-09
 
 Version 0.8 adds protocol-version-scoped declarations and deterministic views for each supported MCP protocol version.
 
 It also introduces reusable components, richer examples and interaction scenarios, client capability requirements, elicitation declarations, extension support, and stronger validation across JSON and YAML documents.
 
-The accepted proposals represented by this release are listed in the [0.8.0 proposal revision manifest](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0/spec/0.8.0/PROPOSALS.md).
+The accepted proposals represented by this release are listed in the [0.8.0 proposal revision manifest](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0+editorial.1/spec/0.8.0/PROPOSALS.md).
 
 ### Breaking
 
@@ -116,7 +128,7 @@ The accepted proposals represented by this release are listed in the [0.8.0 prop
 ## [0.5.0] — 2026-03-17
 
 ### Changed
-- **Renamed `transport` field to `transports`** (plural) for consistency with `tools`, `resources`, `prompts` and OpenAPI's `servers` — see [DECISION-001](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0/docs/maintainers/design/mcp-description/DECISION-001-transports-array.md)
+- **Renamed `transport` field to `transports`** (plural) for consistency with `tools`, `resources`, `prompts` and OpenAPI's `servers` — see [DECISION-001](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0+editorial.1/docs/maintainers/design/mcp-description/DECISION-001-transports-array.md)
 - **Added transport-scoped `security`** — each transport MAY include its own `security` array that overrides the root-level default (see Section 6.4)
 - Root-level `security` is now the default; transport-level `security` overrides it (OpenAPI-style inheritance)
 

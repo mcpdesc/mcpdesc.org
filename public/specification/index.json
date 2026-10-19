@@ -88,9 +88,9 @@
       "date": "2026-09-09",
       "html": "https://mcpdesc.org/docs/specification/0.8.0/",
       "full": "https://mcpdesc.org/specification/0.8.0/mcpdesc.md",
-      "sha256": "445ff06cc0e230f55455f4032aace6621bd1aaedb10a63e64448bd4d59f08fa3",
-      "canonical": "https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0/spec/0.8.0/mcp-description.md",
-      "canonicalRaw": "https://raw.githubusercontent.com/mcpdesc/mcpdesc-specification/v0.8.0/spec/0.8.0/mcp-description.md",
+      "sha256": "855d5430c6989a9441387094e1910757c203235df966832188aa75244a8d5953",
+      "canonical": "https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0+editorial.1/spec/0.8.0/mcp-description.md",
+      "canonicalRaw": "https://raw.githubusercontent.com/mcpdesc/mcpdesc-specification/v0.8.0+editorial.1/spec/0.8.0/mcp-description.md",
       "schema": "https://mcpdesc.org/schema/mcp-description/0.8.0.json",
       "tracking": "https://github.com/mcpdesc/mcpdesc-specification/issues",
       "sections": [

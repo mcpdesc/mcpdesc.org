@@ -25,7 +25,7 @@ Clients MUST support `image/png` and `image/jpeg`. Clients SHOULD also support `
 
 ## Appendix B: Complete Example
 
-See [examples/full-featured.yaml](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0/spec/0.8.0/examples/full-featured.yaml) for a complete MCP Description document demonstrating a broad set of features from this specification.
+See [examples/full-featured.yaml](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0+editorial.1/spec/0.8.0/examples/full-featured.yaml) for a complete MCP Description document demonstrating a broad set of features from this specification.
 
 ---
 
@@ -33,7 +33,7 @@ See [examples/full-featured.yaml](https://github.com/mcpdesc/mcpdesc-specificati
 
 The normative JSON Schema for this specification version is available at:
 
-- [../../../schemas/mcp-description/0.8.0.json](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0/schemas/mcp-description/0.8.0.json)
+- [../../../schemas/mcp-description/0.8.0.json](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0+editorial.1/schemas/mcp-description/0.8.0.json)
 - `https://mcpdesc.org/schema/mcp-description/0.8.0.json` for the stable 0.8.0 canonical schema resource
 
 Archival retrieval locations may also exist for frozen historical bytes, including the legacy Draft 3 short URI `https://mcpdesc.org/schema/0.8.0.json` and the stable 0.7.0 mirror `https://mcpdesc.org/schema/mcp-description/0.7.0.json`. Those retrieval URLs do not change the historical embedded `$id` values of the frozen schemas they mirror.

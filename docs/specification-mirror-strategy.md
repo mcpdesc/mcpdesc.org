@@ -75,13 +75,14 @@ Each item lists the options, the **recommended** choice, and the rationale. Item
   spec risks changing meaning and creates a spec that disagrees with the canonical source.
   Revisit if/when the community controls the spec text at `spec.mcpdesc.org`.
 
-### D. Copy vs. link for non-normative material — ✅ DECIDED: mirror examples, link guides
+### D. Copy vs. link for non-normative material — ✅ DECIDED: mirror examples and guides
 
 - **Normative sections + changelog:** **mirror** (the core ask).
 - **Examples:** include a curated **Examples** page (minimal + one full example) and
   link to the full set upstream.
-- **Guides** (`comparison-with-openapi`, `design-principles`, `faq`, …): **link out**;
-  selectively adopt later if we want them rendered on-site.
+- **Guides** (`comparison-with-openapi`, `design-principles`, `faq`, …): **mirror** under
+  each version's `guides/` directory. Keep the migration guide at the version root for its
+  established URL.
 - **JSON Schema:** publish a versioned static copy at
   `/schema/mcp-description/<version>.json`, sourced from the corresponding upstream release
   or release-candidate artifact. These URLs are immutable and served with open CORS. The
@@ -127,12 +128,23 @@ Each item lists the options, the **recommended** choice, and the rationale. Item
     specification-extensions (13)
     serialization        (14)
     conformance          (15)
+    guides/
+      index              Companion guide overview
+      getting-started
+      relationship-to-mcp
+      relationship-to-mcp-schemas
+      comparison-with-openapi
+      design-principles
+      vendor-extensions-guide
+      faq
     examples             Curated examples + link to upstream set
   0.8.0/**             Added on the next release; 0.7.0 stays live, marked superseded
 ```
 
-Sidebar: a dedicated **Specification** group. Because versions are self-contained folders,
-the sidebar can surface the latest version's sections plus a link to the version index.
+Sidebar: dedicated top-level **Guides** and **Specifications** groups. Guides surface the
+latest stable version's companion material; Specifications contains the normative version
+pages and excludes those guides. Because versions are self-contained folders, the sidebar
+can preserve older specification snapshots without presenting old guides as current.
 
 Generation: normative section pages are produced by `scripts/import-spec.mjs` (§5), which
 reads the upstream `sections/*.md` for a given version and writes the versioned `.mdx`
@@ -154,9 +166,10 @@ frozen, editable source for that version (annotations added by hand afterwards).
 
 When upstream releases a new spec version (e.g. 0.7.1 or 0.8.0):
 
-1. **Import:** run `scripts/import-spec.mjs <version> --tag <release-tag>` to generate
+1. **Import:** run `scripts/import-spec.mjs <version> --path <release-source-path> --tag <release-tag>` to generate
    `/docs/specification/<version>/**` from the upstream `sections/` at an **immutable tag**
-  (defaults target `mcpdesc/mcpdesc-specification`, `spec/draft`, and `v<version>`;
+  (the path is `spec/<version>` for stable releases and `spec/draft` for an active candidate;
+  defaults target `mcpdesc/mcpdesc-specification`, `spec/draft`, and `v<version>`, while
   `--repo`/`--path`/`--tag` override them). Generated upstream links point at that exact tag,
   never the moving `main` branch. Check the vendored clone
    under `ref/<repo-name>/` out at the same tag (the script warns if it is not).

@@ -69,7 +69,7 @@ const VERSIONS = [
     date: '2026-09-09',
     normativeSectionCount: 17,
     canonicalRepo: 'mcpdesc/mcpdesc-specification',
-    canonicalRef: 'v0.8.0',
+    canonicalRef: 'v0.8.0+editorial.1',
     canonicalPath: 'spec/0.8.0',
     tracking: 'https://github.com/mcpdesc/mcpdesc-specification/issues',
   },

@@ -2,7 +2,7 @@
 // Starlight docs collection as versioned, per-section Markdown pages.
 //
 // Strategy: docs/specification-mirror-strategy.md (arbitrations A–D, signed off 2026-07-16).
-// - Multi-page: one page per numbered normative section and appendix.
+// - Multi-page: one page per numbered normative section, appendix, and companion guide.
 // - Fully versioned URLs: output under src/content/docs/docs/specification/<version>/.
 // - Verbatim normative text (kept faithful to upstream, incl. its own terminology).
 // - Generated pages link to the exact source ref; the hand-authored version overview carries
@@ -16,7 +16,7 @@
 //
 // Usage:
 //   node scripts/import-spec.mjs <version> [--repo o/n] [--path spec] [--tag mcpdesc-vX]
-//   node scripts/import-spec.mjs 0.8.0-rc.4
+//   node scripts/import-spec.mjs 0.8.0 --path spec/0.8.0 --tag v0.8.0
 //   node scripts/import-spec.mjs 0.7.0 --repo cisco-open/mcptoolkit-contract --path spec --tag mcpdesc-v0.7.0
 //
 // The local clone is read from ref/<repo-name>/<path>/sections (ref/ is gitignored). Check
@@ -55,6 +55,7 @@ const TAG = opts.tag ?? `v${VERSION}`;
 
 const REPO_NAME = REPO.split('/').filter(Boolean).pop();
 const SRC_DIR = join(ROOT, 'ref', REPO_NAME, SPEC_PATH, 'sections');
+const GUIDES_SRC_DIR = join(ROOT, 'ref', REPO_NAME, SPEC_PATH, 'guides');
 const OUT_DIR = join(ROOT, 'src/content/docs/docs/specification', VERSION);
 const UPSTREAM_REPO_BASE = `https://github.com/${REPO}/blob/${TAG}`;
 const UPSTREAM_BASE = `${UPSTREAM_REPO_BASE}/${SPEC_PATH}`;
@@ -148,7 +149,7 @@ const pageTitle = (raw) => {
   return h ? h.replace(/^##\s+/, '').trim() : 'Specification';
 };
 
-function rewriteLinks(body, currentSlug, sourceDir = 'sections') {
+function rewriteLinks(body, currentSlug, sourceDir = 'sections', localPages = new Map()) {
   return body.replace(/\]\(([^)]+)\)/g, (whole, target) => {
     // Pure in-page anchor: keep if it belongs to this page, else point at the owning page.
     if (target.startsWith('#')) {
@@ -165,9 +166,15 @@ function rewriteLinks(body, currentSlug, sourceDir = 'sections') {
     const hashIndex = target.indexOf('#');
     const pathPart = hashIndex === -1 ? target : target.slice(0, hashIndex);
     const fragment = hashIndex === -1 ? '' : target.slice(hashIndex);
+    const localPage = localPages.get(pathPart);
+    if (localPage) return `](${localPage}${fragment})`;
     const resolved = posix.normalize(posix.join(SPEC_PATH, sourceDir, pathPart));
     return `](${UPSTREAM_REPO_BASE}/${resolved}${fragment})`;
   });
+}
+
+function stripTitleHeading(body) {
+  return body.replace(/^#\s+.*\r?\n+/, '');
 }
 
 mkdirSync(OUT_DIR, { recursive: true });
@@ -190,7 +197,49 @@ for (const { num, slug, raw } of parsed) {
 
 console.log(`\nImported ${parsed.length} sections for v${VERSION} into ${OUT_DIR}`);
 
-const migrationSource = join(ROOT, 'ref', REPO_NAME, SPEC_PATH, 'guides', 'migration-0.7-to-0.8.md');
+const guideFiles = existsSync(GUIDES_SRC_DIR)
+  ? readdirSync(GUIDES_SRC_DIR).filter((file) => file.endsWith('.md')).sort()
+  : [];
+const guidePages = new Map(
+  guideFiles.map((file) => [
+    file,
+    file === 'migration-0.7-to-0.8.md'
+      ? `/docs/specification/${VERSION}/migration-0.7-to-0.8`
+      : `/docs/specification/${VERSION}/guides/${file === 'intro.md' ? '' : file.replace(/\.md$/, '')}`,
+  ]),
+);
+const guideOrder = [
+  'intro.md',
+  'design-principles.md',
+  'getting-started.md',
+  'relationship-to-mcp.md',
+  'relationship-to-mcp-schemas.md',
+  'comparison-with-openapi.md',
+  'vendor-extensions-guide.md',
+  'faq.md',
+];
+const guidesOutDir = join(OUT_DIR, 'guides');
+mkdirSync(guidesOutDir, { recursive: true });
+
+for (const file of guideFiles.filter((file) => file !== 'migration-0.7-to-0.8.md')) {
+  const raw = readFileSync(join(GUIDES_SRC_DIR, file), 'utf8');
+  const heading = raw.split('\n').find((line) => /^#\s+/.test(line));
+  const title = heading ? heading.replace(/^#\s+/, '').trim() : 'Guide';
+  const slug = file === 'intro.md' ? 'index' : file.replace(/\.md$/, '');
+  const order = guideOrder.indexOf(file);
+  const frontmatter =
+    `---\n` +
+    `title: ${JSON.stringify(title)}\n` +
+    `description: ${JSON.stringify(`Companion guide for MCP Description v${VERSION} - ${title}.`)}\n` +
+    `slug: docs/specification/${VERSION}/guides${slug === 'index' ? '' : `/${slug}`}\n` +
+    `sidebar:\n  ${slug === 'index' ? 'label: Overview\n  ' : ''}order: ${order === -1 ? 50 : order}\n` +
+    `---\n\n`;
+  const body = rewriteLinks(stripTitleHeading(raw).trimEnd(), '', 'guides', guidePages);
+  writeFileSync(join(guidesOutDir, `${slug}.md`), frontmatter + body + '\n', 'utf8');
+  console.log(`  wrote guides/${slug}.md`);
+}
+
+const migrationSource = join(GUIDES_SRC_DIR, 'migration-0.7-to-0.8.md');
 if (existsSync(migrationSource)) {
   const frontmatter =
     `---\n` +
@@ -199,7 +248,12 @@ if (existsSync(migrationSource)) {
     `slug: docs/specification/${VERSION}/migration-0.7-to-0.8\n` +
     `sidebar:\n  order: 90\n` +
     `---\n\n`;
-  const body = rewriteLinks(readFileSync(migrationSource, 'utf8').trimEnd(), '', 'guides');
+  const body = rewriteLinks(
+    stripTitleHeading(readFileSync(migrationSource, 'utf8')).trimEnd(),
+    '',
+    'guides',
+    guidePages,
+  );
   writeFileSync(join(OUT_DIR, 'migration-0.7-to-0.8.md'), frontmatter + body + '\n', 'utf8');
   console.log('  wrote migration-0.7-to-0.8.md');
 }

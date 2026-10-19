@@ -7,8 +7,8 @@
 > Complete MCP Description specification (all sections) as a single Markdown file,
 > for one-request retrieval by AI assistants and build tools.
 >
-> Versioned source: https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0/spec/0.8.0/mcp-description.md
-> Raw Markdown: https://raw.githubusercontent.com/mcpdesc/mcpdesc-specification/v0.8.0/spec/0.8.0/mcp-description.md
+> Versioned source: https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0+editorial.1/spec/0.8.0/mcp-description.md
+> Raw Markdown: https://raw.githubusercontent.com/mcpdesc/mcpdesc-specification/v0.8.0+editorial.1/spec/0.8.0/mcp-description.md
 > JSON Schema: https://mcpdesc.org/schema/mcp-description/0.8.0.json
 > Version index (machine-readable): https://mcpdesc.org/specification/index.json
 >
@@ -33,10 +33,11 @@ interactions, reusable components, and stronger serialization and semantic confo
 
 ## Source and schema
 
-- **Canonical specification** - [`spec/0.8.0/mcp-description.md`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0/spec/0.8.0/mcp-description.md)
-- **Release source** - [`v0.8.0`](https://github.com/mcpdesc/mcpdesc-specification/tree/v0.8.0)
+- **Canonical specification** - [`spec/0.8.0/mcp-description.md`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0%2Beditorial.1/spec/0.8.0/mcp-description.md)
+- **Mirrored edition** - [`v0.8.0+editorial.1`](https://github.com/mcpdesc/mcpdesc-specification/tree/v0.8.0%2Beditorial.1)
 - **Release notes** - [`v0.8.0`](https://github.com/mcpdesc/mcpdesc-specification/releases/tag/v0.8.0)
 - **Immutable JSON Schema** - [`0.8.0.json`](https://mcpdesc.org/schema/mcp-description/0.8.0.json)
+- **Companion guides** - [Getting started and background](https://mcpdesc.org/docs/specification/0.8.0/guides/)
 - **Migration guide** - [Migrate from 0.7 to 0.8](https://mcpdesc.org/docs/specification/0.8.0/migration-0.7-to-0.8)
 - **Feedback** - [Report an interoperability issue](https://github.com/mcpdesc/mcpdesc-specification/issues)
 
@@ -2049,7 +2050,7 @@ tools:
 			$componentRef: '#/components/schemas/SearchInput'
 ```
 
-See the [complete reusable-components example](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0/spec/0.8.0/examples/reusable-components.yaml) for reusable schemas and a referenced Tool Example Object.
+See the [complete reusable-components example](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0+editorial.1/spec/0.8.0/examples/reusable-components.yaml) for reusable schemas and a referenced Tool Example Object.
 
 ---
 
@@ -2267,7 +2268,7 @@ Preserve every syntactically valid `capabilities.extensions` identifier. A valid
 
 ---
 
-These examples come from [the canonical specification repository](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0/spec/0.8.0/examples) at [`v0.8.0`](https://github.com/mcpdesc/mcpdesc-specification/tree/v0.8.0).
+These examples come from [the canonical specification repository](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0+editorial.1/spec/0.8.0/examples) at [`v0.8.0+editorial.1`](https://github.com/mcpdesc/mcpdesc-specification/tree/v0.8.0+editorial.1).
 
 ## Minimal example
 
@@ -2300,14 +2301,14 @@ tools:
 
 ## Complete example set
 
-- [`client-requirements.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0/spec/0.8.0/examples/client-requirements.yaml)
-- [`full-featured.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0/spec/0.8.0/examples/full-featured.yaml)
-- [`http-server.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0/spec/0.8.0/examples/http-server.yaml)
-- [`minimal.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0/spec/0.8.0/examples/minimal.yaml)
-- [`multi-transport.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0/spec/0.8.0/examples/multi-transport.yaml)
-- [`multi-version.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0/spec/0.8.0/examples/multi-version.yaml)
-- [`reusable-components.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0/spec/0.8.0/examples/reusable-components.yaml)
-- [`stdio-server.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0/spec/0.8.0/examples/stdio-server.yaml)
+- [`client-requirements.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0+editorial.1/spec/0.8.0/examples/client-requirements.yaml)
+- [`full-featured.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0+editorial.1/spec/0.8.0/examples/full-featured.yaml)
+- [`http-server.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0+editorial.1/spec/0.8.0/examples/http-server.yaml)
+- [`minimal.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0+editorial.1/spec/0.8.0/examples/minimal.yaml)
+- [`multi-transport.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0+editorial.1/spec/0.8.0/examples/multi-transport.yaml)
+- [`multi-version.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0+editorial.1/spec/0.8.0/examples/multi-version.yaml)
+- [`reusable-components.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0+editorial.1/spec/0.8.0/examples/reusable-components.yaml)
+- [`stdio-server.yaml`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0+editorial.1/spec/0.8.0/examples/stdio-server.yaml)
 
 ---
 
@@ -2330,7 +2331,7 @@ Clients MUST support `image/png` and `image/jpeg`. Clients SHOULD also support `
 
 ## Appendix B: Complete Example
 
-See [examples/full-featured.yaml](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0/spec/0.8.0/examples/full-featured.yaml) for a complete MCP Description document demonstrating a broad set of features from this specification.
+See [examples/full-featured.yaml](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0+editorial.1/spec/0.8.0/examples/full-featured.yaml) for a complete MCP Description document demonstrating a broad set of features from this specification.
 
 ---
 
@@ -2338,7 +2339,7 @@ See [examples/full-featured.yaml](https://github.com/mcpdesc/mcpdesc-specificati
 
 The normative JSON Schema for this specification version is available at:
 
-- [../../../schemas/mcp-description/0.8.0.json](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0/schemas/mcp-description/0.8.0.json)
+- [../../../schemas/mcp-description/0.8.0.json](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0+editorial.1/schemas/mcp-description/0.8.0.json)
 - `https://mcpdesc.org/schema/mcp-description/0.8.0.json` for the stable 0.8.0 canonical schema resource
 
 Archival retrieval locations may also exist for frozen historical bytes, including the legacy Draft 3 short URI `https://mcpdesc.org/schema/0.8.0.json` and the stable 0.7.0 mirror `https://mcpdesc.org/schema/mcp-description/0.7.0.json`. Those retrieval URLs do not change the historical embedded `$id` values of the frozen schemas they mirror.
