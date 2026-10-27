@@ -21,8 +21,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 
 - Updated Astro and semver-compatible npm dependencies to resolve all critical and high
-  audit findings. Two moderate findings remain through `postcss-selector-parser`; the
-  suggested forced fix would downgrade `@tailwindcss/typography` and was not applied.
+  audit findings. Overrode the vulnerable `postcss-selector-parser` transitive dependency
+  to patched version `6.1.5`, clearing the remaining moderate findings without downgrading
+  `@tailwindcss/typography`.
 
 ## [1.1.0] - 2026-10-19
 
