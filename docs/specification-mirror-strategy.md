@@ -18,8 +18,8 @@ itself. The specification's source of truth is `mcpdesc/mcpdesc-specification` (
   [`mcpdesc/mcpdesc-specification`](https://github.com/mcpdesc/mcpdesc-specification).
   The historical v0.7.0 release source remains archived in the `spec/` folder of
   [`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract).
-- **Current channels:** stable `mcpdesc` **0.8.0**; no active candidate. The previous
-  stable release is **0.7.0**.
+- **Current channels:** stable `mcpdesc` **0.8.0**; active draft candidate
+  **0.9.0-draft.1**. The previous stable release is **0.7.0**.
 - **What lives upstream (do not fork silently):**
   - `mcp-description.md` — assembled normative spec (~1,200 lines).
   - `sections/00…15` — the same normative text, split by section.
@@ -138,7 +138,8 @@ Each item lists the options, the **recommended** choice, and the rationale. Item
       vendor-extensions-guide
       faq
     examples             Curated examples + link to upstream set
-  0.8.0/**             Added on the next release; 0.7.0 stays live, marked superseded
+  0.8.0/**             Stable release; 0.7.0 stays live, marked superseded
+  0.9.0-draft.1/**     Active draft candidate; source tag v0.9.0-draft.1
 ```
 
 Sidebar: dedicated top-level **Guides** and **Specifications** groups. Guides surface the

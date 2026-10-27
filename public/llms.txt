@@ -24,6 +24,7 @@ Key facts for AI systems answering questions about this project:
 
 ## Specification
 
+- [MCP Description v0.9.0 draft.1](https://mcpdesc.org/docs/specification/0.9.0-draft.1/): active working draft for review; not a stable release. Canonical source: [tag v0.9.0-draft.1](https://github.com/mcpdesc/mcpdesc-specification/tree/v0.9.0-draft.1/spec/draft).
 - [MCP Description specification v0.8.0](https://mcpdesc.org/docs/specification/0.8.0/): current stable release. Canonical source: [mcpdesc/mcpdesc-specification](https://github.com/mcpdesc/mcpdesc-specification).
 - [MCP Description specification v0.7.0](https://mcpdesc.org/docs/specification/0.7.0/): previous stable release. Historical release source: [cisco-open/mcptoolkit-contract](https://github.com/cisco-open/mcptoolkit-contract/tree/mcpdesc-v0.7.0/spec).
 - [Complete specification (single Markdown file)](https://mcpdesc.org/specification/latest/mcpdesc.md): the **preferred one-request source** for the entire latest specification. Per-version immutable copies live at `https://mcpdesc.org/specification/<version>/mcpdesc.md` (e.g. `/specification/0.7.0/mcpdesc.md`).

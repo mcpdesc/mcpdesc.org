@@ -73,6 +73,16 @@ const VERSIONS = [
     canonicalPath: 'spec/0.8.0',
     tracking: 'https://github.com/mcpdesc/mcpdesc-specification/issues',
   },
+  {
+    version: '0.9.0-draft.1',
+    channel: 'candidate',
+    maturity: 'draft',
+    normativeSectionCount: 17,
+    canonicalRepo: 'mcpdesc/mcpdesc-specification',
+    canonicalRef: 'v0.9.0-draft.1',
+    canonicalPath: 'spec/draft',
+    tracking: 'https://github.com/mcpdesc/mcpdesc-specification/issues',
+  },
 ];
 
 // ---------------------------------------------------------------------------------------

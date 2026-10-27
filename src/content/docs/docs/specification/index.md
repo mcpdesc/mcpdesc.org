@@ -22,6 +22,7 @@ linked versioned source, that source wins.
 
 | Version | Status | |
 |---|---|---|
+| [**0.9.0-draft.1**](/docs/specification/0.9.0-draft.1/) | Draft | Active working draft; not stable |
 | [**0.8.0**](/docs/specification/0.8.0/) | Stable | **Latest stable** |
 | [**0.7.0**](/docs/specification/0.7.0/) | Stable | Previous |
 

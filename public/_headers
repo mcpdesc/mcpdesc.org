@@ -86,3 +86,8 @@
   Content-Type: text/markdown; charset=utf-8
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+/specification/0.9.0-draft.1/*
+  Content-Type: text/markdown; charset=utf-8
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400

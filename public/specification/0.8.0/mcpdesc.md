@@ -35,6 +35,7 @@ interactions, reusable components, and stronger serialization and semantic confo
 
 - **Canonical specification** - [`spec/0.8.0/mcp-description.md`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0%2Beditorial.1/spec/0.8.0/mcp-description.md)
 - **Mirrored edition** - [`v0.8.0+editorial.1`](https://github.com/mcpdesc/mcpdesc-specification/tree/v0.8.0%2Beditorial.1)
+- **Editorial release notes** - [`v0.8.0+editorial.1`](https://github.com/mcpdesc/mcpdesc-specification/releases/tag/v0.8.0%2Beditorial.1)
 - **Release notes** - [`v0.8.0`](https://github.com/mcpdesc/mcpdesc-specification/releases/tag/v0.8.0)
 - **Immutable JSON Schema** - [`0.8.0.json`](https://mcpdesc.org/schema/mcp-description/0.8.0.json)
 - **Companion guides** - [Getting started and background](https://mcpdesc.org/docs/specification/0.8.0/guides/)
@@ -2053,8 +2054,6 @@ tools:
 See the [complete reusable-components example](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.8.0+editorial.1/spec/0.8.0/examples/reusable-components.yaml) for reusable schemas and a referenced Tool Example Object.
 
 ---
-
-# Migrating from MCP Description 0.7.0 to 0.8.0
 
 MCP Description 0.8.0 is intentionally breaking. Migration must preserve author intent and must not infer protocol revisions, Tool parameters, OAuth scopes, or hidden runtime surfaces from insufficient evidence.
 

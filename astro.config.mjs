@@ -99,6 +99,11 @@ export default defineConfig({
             { slug: 'docs/specification' },
             { slug: 'docs/specification/changelog' },
             {
+              label: '0.9.0-draft.1 (Draft)',
+              collapsed: true,
+              items: [{ autogenerate: { directory: 'docs/specification/0.9.0-draft.1' } }],
+            },
+            {
               label: '0.8.0',
               collapsed: true,
               items: [

@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **MCP Description v0.9.0 draft.1 documentation.** Mirrored the draft specification,
+  examples, guides, migration guidance, and schema from the immutable
+  `mcpdesc/mcpdesc-specification` tag `v0.9.0-draft.1`. Listed it as a draft candidate while
+  keeping 0.8.0 as the latest stable version. Published the draft JSON Schema at
+  [`mcpdesc.org/schema/mcp-description/0.9.0-draft.1.json`](https://mcpdesc.org/schema/mcp-description/0.9.0-draft.1.json).
+
 ## [1.1.0] - 2026-10-19
 
 ### Added
