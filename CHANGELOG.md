@@ -14,6 +14,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `mcpdesc/mcpdesc-specification` tag `v0.9.0-draft.1`. Listed it as a draft candidate while
   keeping 0.8.0 as the latest stable version. Published the draft JSON Schema at
   [`mcpdesc.org/schema/mcp-description/0.9.0-draft.1.json`](https://mcpdesc.org/schema/mcp-description/0.9.0-draft.1.json).
+- **Versioned validation rules.** Added the 0.9.0 draft rule registry, owner rulesets,
+  examples, protocol revision guide, source provenance, and cross-links from specification
+  requirements. Documented prerelease support in `@mcpdesc/validator` and `@mcpdesc/core`.
+
+### Security
+
+- Updated Astro and semver-compatible npm dependencies to resolve all critical and high
+  audit findings. Two moderate findings remain through `postcss-selector-parser`; the
+  suggested forced fix would downgrade `@tailwindcss/typography` and was not applied.
 
 ## [1.1.0] - 2026-10-19
 

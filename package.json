@@ -27,9 +27,11 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
+    "ajv": "^8.20.0",
     "node-html-markdown": "^2.0.0",
     "node-html-parser": "^9.0.0",
     "typescript": "^6.0.3",
-    "wrangler": "^4.108.0"
+    "wrangler": "^4.108.0",
+    "yaml": "^2.9.1"
   }
 }

@@ -115,6 +115,12 @@ Avoid unless explicitly approved:
   target `mcpdesc/mcpdesc-specification`, `spec/draft`, and `v<version>`), then run
   `scripts/build-spec-bundle.mjs` (regenerates the single-file bundles + `index.json` under
   `public/specification/`). Commit both. Never rewrite an old version.
+- Validation rules are also versioned by specification: run
+  `scripts/import-rules.mjs <version> --path <spec-path> --tag <release-tag>` from the same
+  immutable upstream checkout. It validates records, citations, fixtures, and requirement
+  anchors, then generates `/docs/rules/<version>/` and “Checked by” links on the corresponding
+  mirrored spec pages. Keep historical rule pages; update the `/docs/rules` redirect only when
+  a newer rules version is published.
 - Schema aliases are temporary redirects in `public/_redirects`: `latest.json` targets the
   stable schema and `draft.json`, when present, targets the active candidate schema. Keep
   their explicit short-lived cache rules in `public/_headers`; versioned schemas remain immutable.

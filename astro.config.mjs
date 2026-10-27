@@ -15,6 +15,8 @@ export default defineConfig({
     // The live editor landing page moved from /editor to /live-editor, to distinguish
     // the mcpdesc.org live experience from the mcpeditor open-source component.
     '/editor': '/live-editor',
+    // Keep /docs/rules as a convenience alias; versioned rule histories never move.
+    '/docs/rules': '/docs/rules/0.9.0-draft.1/',
   },
   vite: {
     plugins: [tailwindcss()],
@@ -130,6 +132,16 @@ export default defineConfig({
               ],
             },
             { label: '0.7.0', collapsed: true, items: [{ autogenerate: { directory: 'docs/specification/0.7.0' } }] },
+          ],
+        },
+        {
+          label: 'Validation Rules',
+          items: [
+            { slug: 'docs/rules/0.9.0-draft.1' },
+            { slug: 'docs/rules/0.9.0-draft.1/revisions' },
+            { label: 'MCP Rules', collapsed: true, items: [{ autogenerate: { directory: 'docs/rules/0.9.0-draft.1/mcp' } }] },
+            { label: 'MCP Description Rules', collapsed: true, items: [{ autogenerate: { directory: 'docs/rules/0.9.0-draft.1/mcpdesc' } }] },
+            { label: 'JSON Schema Rules', collapsed: true, items: [{ autogenerate: { directory: 'docs/rules/0.9.0-draft.1/json-schema' } }] },
           ],
         },
         {

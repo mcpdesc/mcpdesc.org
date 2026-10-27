@@ -27,7 +27,9 @@ linked versioned source, that source wins.
 | [**0.7.0**](/docs/specification/0.7.0/) | Stable | Previous |
 
 See the [changelog](/docs/specification/changelog) for the full version history, and the
-[format overview](/format) for a friendly introduction.
+[format overview](/format) for a friendly introduction. See the
+[validation rules](/docs/rules/) to understand how MCP Description requirements relate to
+the MCP protocol across revisions.
 
 :::tip[Retrieving the spec programmatically]
 For AI assistants and build tools, the whole specification is available as a single file and

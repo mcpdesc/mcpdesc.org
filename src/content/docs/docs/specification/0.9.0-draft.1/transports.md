@@ -27,7 +27,7 @@ Every Transport Object MAY contain `protocolVersions` and `security`. `protocolV
 | `type` | `"streamable-http"` | **Yes** | Transport type identifier |
 | `url` | string (URI) | **Yes** | MCP endpoint URL |
 
-The streamable HTTP transport connects to an MCP server over HTTP with streaming response support. <a id="req-transport-streamable-http-revisions"></a>It is defined for MCP 2025-03-26 and later and is the RECOMMENDED transport for remote MCP servers in those revisions.
+The streamable HTTP transport connects to an MCP server over HTTP with streaming response support. <a id="req-transport-streamable-http-revisions"></a> <span class="mcpdesc-rule-links" data-anchor="req-transport-streamable-http-revisions"><small>Checked by: <a href="/docs/rules/0.9.0-draft.1/mcp/transport-streamable-http-revision-availability">mcp.transport.streamable-http.revision-availability</a></small></span>       It is defined for MCP 2025-03-26 and later and is the RECOMMENDED transport for remote MCP servers in those revisions.
 
 ```json
 {
@@ -65,7 +65,7 @@ The stdio transport launches the MCP server as a subprocess and communicates ove
 | `type` | `"sse"` | **Yes** | Transport type identifier |
 | `url` | string (URI) | **Yes** | SSE endpoint URL |
 
-The Server-Sent Events transport is a legacy transport type retained for backward compatibility. It is the remote transport defined by MCP 2024-11-05. <a id="req-transport-legacy-sse-warning"></a>Validators SHOULD warn when it is associated with MCP 2025-03-26 or later, where Streamable HTTP is the standard remote transport. New implementations SHOULD use `streamable-http` instead.
+The Server-Sent Events transport is a legacy transport type retained for backward compatibility. It is the remote transport defined by MCP 2024-11-05. <a id="req-transport-legacy-sse-warning"></a> <span class="mcpdesc-rule-links" data-anchor="req-transport-legacy-sse-warning"><small>Checked by: <a href="/docs/rules/0.9.0-draft.1/mcp/transport-legacy-sse-deprecated">mcp.transport.legacy-sse.deprecated</a></small></span>       Validators SHOULD warn when it is associated with MCP 2025-03-26 or later, where Streamable HTTP is the standard remote transport. New implementations SHOULD use `streamable-http` instead.
 
 ```json
 {
@@ -124,7 +124,7 @@ The `bearer` name in this example MUST identify a root `securitySchemes` entry.
 
 ### 6.5 Protocol Coverage
 
-<a id="req-transport-coverage"></a>When `transports` is present, the union of all effective transport protocol scopes MUST equal root `protocolVersions`. Transport scopes MAY overlap because a server can expose multiple transports for one revision.
+<a id="req-transport-coverage"></a> <span class="mcpdesc-rule-links" data-anchor="req-transport-coverage"><small>Checked by: <a href="/docs/rules/0.9.0-draft.1/mcpdesc/transports-coverage">mcpdesc.transports.coverage</a></small></span>       When `transports` is present, the union of all effective transport protocol scopes MUST equal root `protocolVersions`. Transport scopes MAY overlap because a server can expose multiple transports for one revision.
 
 A document with `transports` is invalid when any root revision has no applicable transport or when a transport scope contains a revision outside root coverage. When `transports` is omitted, transport coverage validation does not apply: validators MUST NOT infer a transport or report uncovered root revisions.
 

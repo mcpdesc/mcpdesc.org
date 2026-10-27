@@ -2,6 +2,10 @@
 # again instead of treating an alias as an immutable schema identity.
 /schema/mcp-description/latest.json  /schema/mcp-description/0.8.0.json  302
 
+# Mutable rules alias. Versioned rules pages remain available as historical snapshots.
+/docs/rules   /docs/rules/0.9.0-draft.1/  302
+/docs/rules/  /docs/rules/0.9.0-draft.1/  302
+
 # Preserve links published while 0.8 was a release candidate.
 /docs/specification/0.8.0-rc.4/*  /docs/specification/0.8.0/:splat  301
 /specification/0.8.0-rc.4/*       /specification/0.8.0/:splat       301

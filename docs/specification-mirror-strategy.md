@@ -220,9 +220,20 @@ embedded timestamps); rerun after any import (§5) and commit. The endpoints are
 The **`VERSIONS` registry at the top of the script is the editorial source of truth** for
 the index (channels, maturity, dates, canonical ref, and canonical path).
 
+## 7. Versioned validation rules
+
+Rule documentation is versioned alongside the specification it describes, under
+`/docs/rules/<version>/`; historical rule sets remain available. `/docs/rules/` is a mutable
+alias to the latest published rule set. Import rules with
+[`scripts/import-rules.mjs`](../scripts/import-rules.mjs) from the same immutable upstream tag
+as the specification. The importer validates rule records, source locations, fixtures and
+JSON Pointers, and requirement anchors before writing static pages. It also adds “Checked by”
+links to the corresponding versioned specification pages. Never import from `main` or rewrite
+a published rules version without reviewing its source tag.
+
 ---
 
-## 7. Decisions log
+## 8. Decisions log
 
 Signed off 2026-07-16:
 
