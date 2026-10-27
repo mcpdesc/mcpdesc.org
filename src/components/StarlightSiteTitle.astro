@@ -2,16 +2,56 @@
 // Override of Starlight's default SiteTitle so the docs header logo matches the
 // marketing site's "{mcpdesc}" wordmark (see SiteHeader.astro) instead of the plain
 // text site title.
+import { getCollection } from 'astro:content';
+import { buildDocsNavigation, docsVersions, flattenDocsNavigation, latestDocsVersion, versionFromPath } from '../lib/docs-navigation';
+
 const { siteTitleHref } = Astro.locals.starlightRoute;
+const entries = await getCollection('docs');
+const current = versionFromPath(Astro.url.pathname);
+const selected = current ?? latestDocsVersion;
+const destinations = Object.fromEntries(docsVersions.map(({ version }) => {
+  const equivalent = current ? Astro.url.pathname.replace(`/${current}`, `/${version}`).replace(/\/$/, '') : '';
+  const exists = entries.some((entry) => `/${entry.id}` === equivalent);
+  return [version, exists ? `${equivalent}/` : `/docs/specification/${version}/`];
+}));
+const navigations = Object.fromEntries(docsVersions.map(({ version }) => [
+  version, flattenDocsNavigation(buildDocsNavigation(entries, version, Astro.url.pathname)),
+]));
 ---
 
+<div class="docs-brand">
 <a href={siteTitleHref} class="site-title sl-flex">
   <span class="text-[1.15rem] leading-none font-bold text-slate-900 dark:text-white">
     <span class="text-[var(--color-brand)]">{'{'}</span>mcpdesc<span class="text-[var(--color-brand)]">{'}'}</span>
   </span>
 </a>
+<select id="docs-version" aria-label="Documentation version" data-destinations={JSON.stringify(destinations)} data-navigation={JSON.stringify(navigations)} data-shared={!current}>
+  {docsVersions.map(({ version, label }) => <option value={version} selected={version === selected}>{label}</option>)}
+</select>
+</div>
 
 <style>
+  .docs-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 0;
+  }
+  select {
+    width: 11.5rem;
+    max-width: 100%;
+    min-width: 0;
+    padding: 0.35rem;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-white);
+    background: var(--sl-color-bg-nav);
+    border: 1px solid var(--sl-color-gray-4);
+    border-radius: 4px;
+  }
+  @media (max-width: 49.99rem) {
+    .docs-brand { gap: 0.375rem; }
+    select { width: 10rem; font-size: var(--sl-text-xs); }
+  }
   @layer starlight.core {
     .site-title {
       align-items: center;

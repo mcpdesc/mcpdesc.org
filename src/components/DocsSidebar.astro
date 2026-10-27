@@ -1,0 +1,74 @@
+---
+import DefaultSidebar from '@astrojs/starlight/components/Sidebar.astro';
+import SidebarSublist from '@astrojs/starlight/components/SidebarSublist.astro';
+import { getCollection } from 'astro:content';
+import { buildDocsNavigation, docsVersions, versionFromPath } from '../lib/docs-navigation';
+
+const entries = await getCollection('docs');
+const shared = !versionFromPath(Astro.url.pathname);
+---
+
+<div data-version-sidebar><DefaultSidebar /></div>
+{shared && docsVersions.map(({ version }) => (
+  <template data-version-template={version}>
+    <SidebarSublist sublist={buildDocsNavigation(entries, version, Astro.url.pathname)} />
+  </template>
+))}
+
+<script>
+  import { docsVersions, latestDocsVersion, versionFromPath } from '../lib/docs-navigation';
+
+  const picker = document.querySelector<HTMLSelectElement>('#docs-version');
+  if (picker) {
+    const url = new URL(location.href);
+    const fromPath = versionFromPath(url.pathname);
+    const requested = url.searchParams.get('version');
+    const selected = fromPath ?? (docsVersions.some(({ version }) => version === requested) ? requested : latestDocsVersion);
+    picker.value = selected ?? latestDocsVersion;
+    const shared = picker.dataset.shared === 'true';
+    if (shared) {
+      const template = document.querySelector<HTMLTemplateElement>(`template[data-version-template="${picker.value}"]`);
+      const sidebar = document.querySelector('[data-version-sidebar]');
+      if (template && sidebar) sidebar.replaceChildren(template.content.cloneNode(true));
+      const navigations: Record<string, { href: string; label: string; isCurrent: boolean }[]> = JSON.parse(picker.dataset.navigation ?? '{}');
+      const links = navigations[picker.value] ?? [];
+      const current = links.findIndex((link) => link.isCurrent);
+      for (const [direction, offset] of [['prev', -1], ['next', 1]] as const) {
+        const anchor = document.querySelector<HTMLAnchorElement>(`.pagination-links a[rel="${direction}"]`);
+        const target = current >= 0 ? links[current + offset] : undefined;
+        if (anchor && target) {
+          anchor.href = target.href;
+          const title = anchor.querySelector('.link-title');
+          if (title) title.textContent = target.label;
+        } else if (anchor) anchor.remove();
+      }
+    }
+    document.querySelectorAll<HTMLAnchorElement>('[data-version-sidebar] a, .pagination-links a').forEach((link) => {
+        const target = new URL(link.href);
+        if (target.origin === location.origin && target.pathname.startsWith('/docs/') && !versionFromPath(target.pathname)) {
+          if (picker.value !== latestDocsVersion) target.searchParams.set('version', picker.value);
+          link.href = target.href;
+        }
+    });
+    picker.addEventListener('change', async () => {
+      const destinations: Record<string, string> = JSON.parse(picker.dataset.destinations ?? '{}');
+      if (shared) {
+        url.searchParams.delete('version');
+        if (picker.value !== latestDocsVersion) url.searchParams.set('version', picker.value);
+        location.assign(url.href);
+      } else {
+        const target = new URL(destinations[picker.value], location.origin);
+        if (url.hash) {
+          try {
+            const response = await fetch(target);
+            const content = new DOMParser().parseFromString(await response.text(), 'text/html');
+            if (content.getElementById(decodeURIComponent(url.hash.slice(1)))) target.hash = url.hash;
+          } catch {
+            // Navigation still works when the optional anchor check is unavailable.
+          }
+        }
+        location.assign(target.href);
+      }
+    });
+  }
+</script>

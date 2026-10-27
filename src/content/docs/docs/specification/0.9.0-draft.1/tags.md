@@ -21,13 +21,13 @@ When present, `tags` declares all valid tags that MAY be referenced by tools, re
 
 ### 13.2 Tag Uniqueness
 
-<a id="req-tags-unique"></a> <span class="mcpdesc-rule-links" data-anchor="req-tags-unique"><small>Checked by: <a href="/docs/rules/0.9.0-draft.1/mcpdesc/tags-references">mcpdesc.tags.references</a></small></span>       Tag names MUST be unique across all tags in the array. Implementations MUST reject documents containing duplicate tag names.
+<a id="req-tags-unique"></a> <span class="mcpdesc-rule-links" data-anchor="req-tags-unique"><small>Checked by: <a href="/docs/rules/0.9.0-draft.1/mcpdesc/tags-references">mcpdesc.tags.references</a></small></span> Tag names MUST be unique across all tags in the array. Implementations MUST reject documents containing duplicate tag names.
 
 ### 13.3 Tag References
 
 Per-entity `tags` arrays (on tools, resources, resource templates, and prompts) MUST be non-empty when present and contain plain strings referencing tag names. When a root-level `tags` array is present:
 
-- <a id="req-tags-references"></a> <span class="mcpdesc-rule-links" data-anchor="req-tags-references"><small>Checked by: <a href="/docs/rules/0.9.0-draft.1/mcpdesc/tags-references">mcpdesc.tags.references</a></small></span>       Every tag referenced by an entity MUST be declared in the root `tags` array.
+- <a id="req-tags-references"></a> <span class="mcpdesc-rule-links" data-anchor="req-tags-references"><small>Checked by: <a href="/docs/rules/0.9.0-draft.1/mcpdesc/tags-references">mcpdesc.tags.references</a></small></span> Every tag referenced by an entity MUST be declared in the root `tags` array.
 - Implementations MUST treat a reference to an undeclared tag as a validation error.
 - Per-entity tag arrays MUST NOT contain duplicate values.
 

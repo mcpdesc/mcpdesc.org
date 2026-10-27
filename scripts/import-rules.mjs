@@ -442,7 +442,7 @@ function renderOverview(rules) {
 
   return [
     '---',
-    `title: Validation Rules ${VERSION}`,
+    'title: Validation Rules',
     `description: Validation rule registry and protocol revision guidance for MCP Description ${VERSION}.`,
     `slug: docs/rules/${VERSION}`,
     'sidebar:',
@@ -596,7 +596,7 @@ function buildRequirementMarkers(rules, specPages) {
 
   for (const [pagePath, anchors] of markersByPage) {
     let markdown = (specPages.get(pagePath) ?? readFileSync(pagePath, 'utf8'))
-      .replace(/<span class="mcpdesc-rule-links" data-anchor="[^"]+">[\s\S]*?<\/span>/g, '');
+      .replace(/(<a id="req-[^"]+"><\/a>)\s*<span class="mcpdesc-rule-links" data-anchor="[^"]+">[\s\S]*?<\/span>\s*/g, '$1 ');
     for (const [anchor, rulesForAnchor] of anchors) {
       const links = [...rulesForAnchor.values()].sort((left, right) => left.id.localeCompare(right.id))
         .map((rule) => `<a href="${ruleUrl(rule)}">${rule.id}</a>`).join(', ');

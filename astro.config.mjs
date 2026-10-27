@@ -55,8 +55,10 @@ export default defineConfig({
       // The marketing homepage (src/pages/index.astro) keeps ownership of "/".
       disable404Route: true,
       lastUpdated: true,
+      routeMiddleware: './src/docs-route-data.ts',
       customCss: ['./src/styles/global.css'],
       components: {
+        Sidebar: './src/components/DocsSidebar.astro',
         // Match the marketing site's "{mcpdesc}" wordmark instead of Starlight's
         // default plain-text site title (see SiteHeader.astro).
         SiteTitle: './src/components/StarlightSiteTitle.astro',
@@ -103,7 +105,20 @@ export default defineConfig({
             {
               label: '0.9.0-draft.1 (Draft)',
               collapsed: true,
-              items: [{ autogenerate: { directory: 'docs/specification/0.9.0-draft.1' } }],
+              items: [
+                { autogenerate: { directory: 'docs/specification/0.9.0-draft.1' } },
+                {
+                  label: 'Rules',
+                  collapsed: true,
+                  items: [
+                    { slug: 'docs/rules/0.9.0-draft.1' },
+                    { slug: 'docs/rules/0.9.0-draft.1/revisions' },
+                    { label: 'MCP', collapsed: true, items: [{ autogenerate: { directory: 'docs/rules/0.9.0-draft.1/mcp' } }] },
+                    { label: 'MCP Description', collapsed: true, items: [{ autogenerate: { directory: 'docs/rules/0.9.0-draft.1/mcpdesc' } }] },
+                    { label: 'JSON Schema', collapsed: true, items: [{ autogenerate: { directory: 'docs/rules/0.9.0-draft.1/json-schema' } }] },
+                  ],
+                },
+              ],
             },
             {
               label: '0.8.0',
@@ -132,16 +147,6 @@ export default defineConfig({
               ],
             },
             { label: '0.7.0', collapsed: true, items: [{ autogenerate: { directory: 'docs/specification/0.7.0' } }] },
-          ],
-        },
-        {
-          label: 'Validation Rules',
-          items: [
-            { slug: 'docs/rules/0.9.0-draft.1' },
-            { slug: 'docs/rules/0.9.0-draft.1/revisions' },
-            { label: 'MCP Rules', collapsed: true, items: [{ autogenerate: { directory: 'docs/rules/0.9.0-draft.1/mcp' } }] },
-            { label: 'MCP Description Rules', collapsed: true, items: [{ autogenerate: { directory: 'docs/rules/0.9.0-draft.1/mcpdesc' } }] },
-            { label: 'JSON Schema Rules', collapsed: true, items: [{ autogenerate: { directory: 'docs/rules/0.9.0-draft.1/json-schema' } }] },
           ],
         },
         {

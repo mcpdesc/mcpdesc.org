@@ -17,6 +17,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Versioned validation rules.** Added the 0.9.0 draft rule registry, owner rulesets,
   examples, protocol revision guide, source provenance, and cross-links from specification
   requirements. Documented prerelease support in `@mcpdesc/validator` and `@mcpdesc/core`.
+- **Documentation version selector.** Added a docs-only selector for Latest, Previous,
+  and Draft, with version-specific navigation for MCP Description, Guides, Specifications,
+  and Validation Rules. The selector sits beside the header logo and lists released versions
+  newest-first, followed by Draft only when a candidate exists. Unavailable sections are
+  omitted; historical URLs remain unchanged. Restored native sidebar collapse controls;
+  Guides and Validation Rules default to collapsed outside their active pages.
 
 ### Security
 

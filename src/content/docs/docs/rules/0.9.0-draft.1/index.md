@@ -1,5 +1,5 @@
 ---
-title: Validation Rules 0.9.0-draft.1
+title: Validation Rules
 description: Validation rule registry and protocol revision guidance for MCP Description 0.9.0-draft.1.
 slug: docs/rules/0.9.0-draft.1
 sidebar:
