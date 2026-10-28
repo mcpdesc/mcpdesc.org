@@ -1,8 +1,13 @@
 ---
-title: "Root tag names are unique, and primitives reference only declared tags."
+title: "mcpdesc.tags.references"
 description: "Root tag names are unique, and primitives reference only declared tags."
 slug: docs/rules/0.9.0-draft.1/mcpdesc/tags-references
+ruleSurface: "Tag"
+sidebar:
+  label: "mcpdesc.tags.references"
 ---
+
+Root tag names are unique, and primitives reference only declared tags.
 
 **Rule ID:** `mcpdesc.tags.references`<br>
 **Owner:** mcpdesc<br>

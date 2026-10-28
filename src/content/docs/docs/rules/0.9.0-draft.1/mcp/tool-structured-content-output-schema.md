@@ -1,8 +1,13 @@
 ---
-title: "When a Tool declares outputSchema, a successful result contains structuredContent."
+title: "mcp.tool.structured-content.output-schema"
 description: "When a Tool declares outputSchema, a successful result contains structuredContent."
 slug: docs/rules/0.9.0-draft.1/mcp/tool-structured-content-output-schema
+ruleSurface: "CallToolResult"
+sidebar:
+  label: "mcp.tool.structured-content.output-schema"
 ---
+
+When a Tool declares outputSchema, a successful result contains structuredContent.
 
 **Rule ID:** `mcp.tool.structured-content.output-schema`<br>
 **Owner:** mcp<br>

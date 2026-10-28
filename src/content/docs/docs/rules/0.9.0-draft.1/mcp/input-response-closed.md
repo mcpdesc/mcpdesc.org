@@ -1,8 +1,13 @@
 ---
-title: "In MCP 2026-07-28, sampling, elicitation, and roots responses are input responses, not results, and accept only the fields their types define."
+title: "mcp.input-response.closed"
 description: "In MCP 2026-07-28, sampling, elicitation, and roots responses are input responses, not results, and accept only the fields their types define."
 slug: docs/rules/0.9.0-draft.1/mcp/input-response-closed
+ruleSurface: "InputResponse"
+sidebar:
+  label: "mcp.input-response.closed"
 ---
+
+In MCP 2026-07-28, sampling, elicitation, and roots responses are input responses, not results, and accept only the fields their types define.
 
 **Rule ID:** `mcp.input-response.closed`<br>
 **Owner:** mcp<br>

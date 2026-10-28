@@ -1,8 +1,13 @@
 ---
-title: "Resource contents carry _meta only from MCP 2025-06-18, in Resource examples and in embedded resources."
+title: "mcp.resource-contents.meta.revision-availability"
 description: "Resource contents carry _meta only from MCP 2025-06-18, in Resource examples and in embedded resources."
 slug: docs/rules/0.9.0-draft.1/mcp/resource-contents-meta-revision-availability
+ruleSurface: "ResourceContents"
+sidebar:
+  label: "mcp.resource-contents.meta.revision-availability"
 ---
+
+Resource contents carry _meta only from MCP 2025-06-18, in Resource examples and in embedded resources.
 
 **Rule ID:** `mcp.resource-contents.meta.revision-availability`<br>
 **Owner:** mcp<br>

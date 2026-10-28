@@ -1,8 +1,13 @@
 ---
-title: "The completion object of a completion result contains only values, total, and hasMore."
+title: "mcp.completion.result-closed"
 description: "The completion object of a completion result contains only values, total, and hasMore."
 slug: docs/rules/0.9.0-draft.1/mcp/completion-result-closed
+ruleSurface: "CompleteResult"
+sidebar:
+  label: "mcp.completion.result-closed"
 ---
+
+The completion object of a completion result contains only values, total, and hasMore.
 
 **Rule ID:** `mcp.completion.result-closed`<br>
 **Owner:** mcp<br>

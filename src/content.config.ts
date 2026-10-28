@@ -89,7 +89,10 @@ const tools = defineCollection({
 });
 
 export const collections = {
-  docs: defineCollection({ loader: docsLoader(), schema: docsSchema() }),
+  docs: defineCollection({
+    loader: docsLoader(),
+    schema: docsSchema({ extend: z.object({ ruleSurface: z.string().optional() }) }),
+  }),
   blog,
   catalog,
   toolCategories,

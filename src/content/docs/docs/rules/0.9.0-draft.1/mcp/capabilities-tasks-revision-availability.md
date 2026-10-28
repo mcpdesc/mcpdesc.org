@@ -1,8 +1,13 @@
 ---
-title: "The core tasks server capability exists only in MCP 2025-11-25; MCP 2026-07-28 uses the tasks extension instead."
+title: "mcp.capabilities.tasks.revision-availability"
 description: "The core tasks server capability exists only in MCP 2025-11-25; MCP 2026-07-28 uses the tasks extension instead."
 slug: docs/rules/0.9.0-draft.1/mcp/capabilities-tasks-revision-availability
+ruleSurface: "ServerCapabilities"
+sidebar:
+  label: "mcp.capabilities.tasks.revision-availability"
 ---
+
+The core tasks server capability exists only in MCP 2025-11-25; MCP 2026-07-28 uses the tasks extension instead.
 
 **Rule ID:** `mcp.capabilities.tasks.revision-availability`<br>
 **Owner:** mcp<br>

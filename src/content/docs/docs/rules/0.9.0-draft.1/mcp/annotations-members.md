@@ -1,8 +1,13 @@
 ---
-title: "Resource Annotations on resources, resource templates, and content blocks contain only audience, priority, and lastModified."
+title: "mcp.annotations.members"
 description: "Resource Annotations on resources, resource templates, and content blocks contain only audience, priority, and lastModified."
 slug: docs/rules/0.9.0-draft.1/mcp/annotations-members
+ruleSurface: "Annotations"
+sidebar:
+  label: "mcp.annotations.members"
 ---
+
+Resource Annotations on resources, resource templates, and content blocks contain only audience, priority, and lastModified.
 
 **Rule ID:** `mcp.annotations.members`<br>
 **Owner:** mcp<br>

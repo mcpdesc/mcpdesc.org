@@ -1,8 +1,13 @@
 ---
-title: "A root URI in a roots response starts with file://."
+title: "mcp.root.uri.file-scheme"
 description: "A root URI in a roots response starts with file://."
 slug: docs/rules/0.9.0-draft.1/mcp/root-uri-file-scheme
+ruleSurface: "Root"
+sidebar:
+  label: "mcp.root.uri.file-scheme"
 ---
+
+A root URI in a roots response starts with file://.
 
 **Rule ID:** `mcp.root.uri.file-scheme`<br>
 **Owner:** mcp<br>

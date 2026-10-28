@@ -1,8 +1,13 @@
 ---
-title: "Completion examples are available in every revision that defines completion/complete and CompleteResult."
+title: "mcp.completion.revision-availability"
 description: "Completion examples are available in every revision that defines completion/complete and CompleteResult."
 slug: docs/rules/0.9.0-draft.1/mcp/completion-revision-availability
+ruleSurface: "CompleteResult"
+sidebar:
+  label: "mcp.completion.revision-availability"
 ---
+
+Completion examples are available in every revision that defines completion/complete and CompleteResult.
 
 **Rule ID:** `mcp.completion.revision-availability`<br>
 **Owner:** mcp<br>

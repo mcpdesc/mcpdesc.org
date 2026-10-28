@@ -242,6 +242,11 @@ JSON Pointers, and requirement anchors before writing static pages. It also adds
 links to the corresponding versioned specification pages. Never import from `main` or rewrite
 a published rules version without reviewing its source tag.
 
+Rule IDs are used as page titles and sidebar labels; summaries remain unmodified body
+content. The importer carries the source `surface` field into site-only `ruleSurface`
+frontmatter so the sidebar can group rules by surface within each owner. This is presentation
+metadata, not a change to the upstream registry schema or rule applicability.
+
 ---
 
 ## 8. Decisions log

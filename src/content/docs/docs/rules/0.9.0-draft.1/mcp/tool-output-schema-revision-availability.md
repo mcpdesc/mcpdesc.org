@@ -1,8 +1,13 @@
 ---
-title: "A Tool declares outputSchema only for MCP revisions whose Tool type defines it."
+title: "mcp.tool.output-schema.revision-availability"
 description: "A Tool declares outputSchema only for MCP revisions whose Tool type defines it."
 slug: docs/rules/0.9.0-draft.1/mcp/tool-output-schema-revision-availability
+ruleSurface: "Tool"
+sidebar:
+  label: "mcp.tool.output-schema.revision-availability"
 ---
+
+A Tool declares outputSchema only for MCP revisions whose Tool type defines it.
 
 **Rule ID:** `mcp.tool.output-schema.revision-availability`<br>
 **Owner:** mcp<br>

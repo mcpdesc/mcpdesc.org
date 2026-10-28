@@ -1,8 +1,13 @@
 ---
-title: "A Tool execution-error example result sets isError to true and does not contain structuredContent."
+title: "mcpdesc.tool.example.error-result"
 description: "A Tool execution-error example result sets isError to true and does not contain structuredContent."
 slug: docs/rules/0.9.0-draft.1/mcpdesc/tool-example-error-result
+ruleSurface: "Tool example"
+sidebar:
+  label: "mcpdesc.tool.example.error-result"
 ---
+
+A Tool execution-error example result sets isError to true and does not contain structuredContent.
 
 **Rule ID:** `mcpdesc.tool.example.error-result`<br>
 **Owner:** mcpdesc<br>

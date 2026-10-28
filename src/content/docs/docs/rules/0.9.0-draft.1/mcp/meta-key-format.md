@@ -1,8 +1,13 @@
 ---
-title: "A _meta key has an optional prefix of dot-separated labels followed by a slash, and a name that begins and ends with an alphanumeric character."
+title: "mcp.meta.key-format"
 description: "A _meta key has an optional prefix of dot-separated labels followed by a slash, and a name that begins and ends with an alphanumeric character."
 slug: docs/rules/0.9.0-draft.1/mcp/meta-key-format
+ruleSurface: "_meta"
+sidebar:
+  label: "mcp.meta.key-format"
 ---
+
+A _meta key has an optional prefix of dot-separated labels followed by a slash, and a name that begins and ends with an alphanumeric character.
 
 **Rule ID:** `mcp.meta.key-format`<br>
 **Owner:** mcp<br>

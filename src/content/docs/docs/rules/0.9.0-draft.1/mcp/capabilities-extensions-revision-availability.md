@@ -1,8 +1,13 @@
 ---
-title: "Server capabilities.extensions is defined from MCP 2026-07-28; for earlier revisions a pre-standard extensions map is preserved with a warning."
+title: "mcp.capabilities.extensions.revision-availability"
 description: "Server capabilities.extensions is defined from MCP 2026-07-28; for earlier revisions a pre-standard extensions map is preserved with a warning."
 slug: docs/rules/0.9.0-draft.1/mcp/capabilities-extensions-revision-availability
+ruleSurface: "ServerCapabilities"
+sidebar:
+  label: "mcp.capabilities.extensions.revision-availability"
 ---
+
+Server capabilities.extensions is defined from MCP 2026-07-28; for earlier revisions a pre-standard extensions map is preserved with a warning.
 
 **Rule ID:** `mcp.capabilities.extensions.revision-availability`<br>
 **Owner:** mcp<br>

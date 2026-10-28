@@ -1,8 +1,13 @@
 ---
-title: "An example result contains every field that each applicable MCP revision requires, and every field a revision defines has a valid value."
+title: "mcpdesc.example.result.revision-fidelity"
 description: "An example result contains every field that each applicable MCP revision requires, and every field a revision defines has a valid value."
 slug: docs/rules/0.9.0-draft.1/mcpdesc/example-result-revision-fidelity
+ruleSurface: "Example result"
+sidebar:
+  label: "mcpdesc.example.result.revision-fidelity"
 ---
+
+An example result contains every field that each applicable MCP revision requires, and every field a revision defines has a valid value.
 
 **Rule ID:** `mcpdesc.example.result.revision-fidelity`<br>
 **Owner:** mcpdesc<br>

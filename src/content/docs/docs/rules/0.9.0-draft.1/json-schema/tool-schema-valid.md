@@ -1,8 +1,13 @@
 ---
-title: "An embedded Tool inputSchema or outputSchema is valid under its declared or default JSON Schema dialect, and a declared dialect is JSON Schema 2020-12 or draft-07."
+title: "json-schema.tool-schema.valid"
 description: "An embedded Tool inputSchema or outputSchema is valid under its declared or default JSON Schema dialect, and a declared dialect is JSON Schema 2020-12 or draft-07."
 slug: docs/rules/0.9.0-draft.1/json-schema/tool-schema-valid
+ruleSurface: "Tool"
+sidebar:
+  label: "json-schema.tool-schema.valid"
 ---
+
+An embedded Tool inputSchema or outputSchema is valid under its declared or default JSON Schema dialect, and a declared dialect is JSON Schema 2020-12 or draft-07.
 
 **Rule ID:** `json-schema.tool-schema.valid`<br>
 **Owner:** json-schema<br>

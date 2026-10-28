@@ -1,8 +1,13 @@
 ---
-title: "The logging server capability is reported as deprecated in MCP 2026-07-28."
+title: "mcp.capabilities.logging.deprecated"
 description: "The logging server capability is reported as deprecated in MCP 2026-07-28."
 slug: docs/rules/0.9.0-draft.1/mcp/capabilities-logging-deprecated
+ruleSurface: "ServerCapabilities"
+sidebar:
+  label: "mcp.capabilities.logging.deprecated"
 ---
+
+The logging server capability is reported as deprecated in MCP 2026-07-28.
 
 **Rule ID:** `mcp.capabilities.logging.deprecated`<br>
 **Owner:** mcp<br>

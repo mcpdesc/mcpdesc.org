@@ -1,8 +1,13 @@
 ---
-title: "A sampling request uses tools and toolChoice only from MCP 2025-11-25."
+title: "mcp.sampling.tools.revision-availability"
 description: "A sampling request uses tools and toolChoice only from MCP 2025-11-25."
 slug: docs/rules/0.9.0-draft.1/mcp/sampling-tools-revision-availability
+ruleSurface: "CreateMessageRequest"
+sidebar:
+  label: "mcp.sampling.tools.revision-availability"
 ---
+
+A sampling request uses tools and toolChoice only from MCP 2025-11-25.
 
 **Rule ID:** `mcp.sampling.tools.revision-availability`<br>
 **Owner:** mcp<br>

@@ -1,8 +1,13 @@
 ---
-title: "A Prompt example supplies every required Prompt argument and no undeclared argument."
+title: "mcpdesc.prompt.example.arguments"
 description: "A Prompt example supplies every required Prompt argument and no undeclared argument."
 slug: docs/rules/0.9.0-draft.1/mcpdesc/prompt-example-arguments
+ruleSurface: "Prompt example"
+sidebar:
+  label: "mcpdesc.prompt.example.arguments"
 ---
+
+A Prompt example supplies every required Prompt argument and no undeclared argument.
 
 **Rule ID:** `mcpdesc.prompt.example.arguments`<br>
 **Owner:** mcpdesc<br>

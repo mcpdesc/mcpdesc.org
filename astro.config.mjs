@@ -58,6 +58,7 @@ export default defineConfig({
       routeMiddleware: './src/docs-route-data.ts',
       customCss: ['./src/styles/global.css'],
       components: {
+        PageTitle: './src/components/DocsPageTitle.astro',
         Sidebar: './src/components/DocsSidebar.astro',
         // Match the marketing site's "{mcpdesc}" wordmark instead of Starlight's
         // default plain-text site title (see SiteHeader.astro).

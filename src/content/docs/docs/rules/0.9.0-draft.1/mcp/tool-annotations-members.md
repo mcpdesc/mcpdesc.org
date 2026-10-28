@@ -1,8 +1,13 @@
 ---
-title: "A Tool annotations object contains only title, readOnlyHint, destructiveHint, idempotentHint, and openWorldHint."
+title: "mcp.tool-annotations.members"
 description: "A Tool annotations object contains only title, readOnlyHint, destructiveHint, idempotentHint, and openWorldHint."
 slug: docs/rules/0.9.0-draft.1/mcp/tool-annotations-members
+ruleSurface: "ToolAnnotations"
+sidebar:
+  label: "mcp.tool-annotations.members"
 ---
+
+A Tool annotations object contains only title, readOnlyHint, destructiveHint, idempotentHint, and openWorldHint.
 
 **Rule ID:** `mcp.tool-annotations.members`<br>
 **Owner:** mcp<br>

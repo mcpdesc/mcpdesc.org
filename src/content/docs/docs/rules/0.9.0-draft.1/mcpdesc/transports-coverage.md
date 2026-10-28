@@ -1,8 +1,13 @@
 ---
-title: "Every protocol version at the root is covered by at least one transport when transports are declared."
+title: "mcpdesc.transports.coverage"
 description: "Every protocol version at the root is covered by at least one transport when transports are declared."
 slug: docs/rules/0.9.0-draft.1/mcpdesc/transports-coverage
+ruleSurface: "Document"
+sidebar:
+  label: "mcpdesc.transports.coverage"
 ---
+
+Every protocol version at the root is covered by at least one transport when transports are declared.
 
 **Rule ID:** `mcpdesc.transports.coverage`<br>
 **Owner:** mcpdesc<br>

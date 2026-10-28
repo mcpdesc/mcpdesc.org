@@ -1,8 +1,13 @@
 ---
-title: "A document applying to MCP 2024-11-05 or 2025-03-26 is reported as receiving structural and selected checks only, not complete MCP semantic conformance."
+title: "mcpdesc.legacy-revisions.validation-scope"
 description: "A document applying to MCP 2024-11-05 or 2025-03-26 is reported as receiving structural and selected checks only, not complete MCP semantic conformance."
 slug: docs/rules/0.9.0-draft.1/mcpdesc/legacy-revisions-validation-scope
+ruleSurface: "Document"
+sidebar:
+  label: "mcpdesc.legacy-revisions.validation-scope"
 ---
+
+A document applying to MCP 2024-11-05 or 2025-03-26 is reported as receiving structural and selected checks only, not complete MCP semantic conformance.
 
 **Rule ID:** `mcpdesc.legacy-revisions.validation-scope`<br>
 **Owner:** mcpdesc<br>

@@ -1,8 +1,13 @@
 ---
-title: "A _meta key under an MCP-reserved prefix that the revision does not define is preserved with a warning."
+title: "mcp.meta.reserved-prefix"
 description: "A _meta key under an MCP-reserved prefix that the revision does not define is preserved with a warning."
 slug: docs/rules/0.9.0-draft.1/mcp/meta-reserved-prefix
+ruleSurface: "_meta"
+sidebar:
+  label: "mcp.meta.reserved-prefix"
 ---
+
+A _meta key under an MCP-reserved prefix that the revision does not define is preserved with a warning.
 
 **Rule ID:** `mcp.meta.reserved-prefix`<br>
 **Owner:** mcp<br>

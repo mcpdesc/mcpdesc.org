@@ -1,8 +1,13 @@
 ---
-title: "Tool inputSchema is a JSON Schema object whose root declares type \"object\", because tool arguments are always JSON objects."
+title: "mcp.tool.input-schema.object-root"
 description: "Tool inputSchema is a JSON Schema object whose root declares type \"object\", because tool arguments are always JSON objects."
 slug: docs/rules/0.9.0-draft.1/mcp/tool-input-schema-object-root
+ruleSurface: "Tool"
+sidebar:
+  label: "mcp.tool.input-schema.object-root"
 ---
+
+Tool inputSchema is a JSON Schema object whose root declares type "object", because tool arguments are always JSON objects.
 
 **Rule ID:** `mcp.tool.input-schema.object-root`<br>
 **Owner:** mcp<br>

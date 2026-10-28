@@ -1,8 +1,13 @@
 ---
-title: "Native projection starts from a document without validation errors and from a revision in its root protocolVersions."
+title: "mcpdesc.projection.source-valid"
 description: "Native projection starts from a document without validation errors and from a revision in its root protocolVersions."
 slug: docs/rules/0.9.0-draft.1/mcpdesc/projection-source-valid
+ruleSurface: "Native projection"
+sidebar:
+  label: "mcpdesc.projection.source-valid"
 ---
+
+Native projection starts from a document without validation errors and from a revision in its root protocolVersions.
 
 **Rule ID:** `mcpdesc.projection.source-valid`<br>
 **Owner:** mcpdesc<br>

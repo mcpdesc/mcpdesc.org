@@ -1,8 +1,13 @@
 ---
-title: "Streamable HTTP is used only from MCP 2025-03-26."
+title: "mcp.transport.streamable-http.revision-availability"
 description: "Streamable HTTP is used only from MCP 2025-03-26."
 slug: docs/rules/0.9.0-draft.1/mcp/transport-streamable-http-revision-availability
+ruleSurface: "Transport"
+sidebar:
+  label: "mcp.transport.streamable-http.revision-availability"
 ---
+
+Streamable HTTP is used only from MCP 2025-03-26.
 
 **Rule ID:** `mcp.transport.streamable-http.revision-availability`<br>
 **Owner:** mcp<br>

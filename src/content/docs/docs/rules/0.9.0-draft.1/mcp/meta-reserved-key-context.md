@@ -1,8 +1,13 @@
 ---
-title: "A reserved _meta key appears only in the message context, and with the value, that the revision defines for it."
+title: "mcp.meta.reserved-key-context"
 description: "A reserved _meta key appears only in the message context, and with the value, that the revision defines for it."
 slug: docs/rules/0.9.0-draft.1/mcp/meta-reserved-key-context
+ruleSurface: "_meta"
+sidebar:
+  label: "mcp.meta.reserved-key-context"
 ---
+
+A reserved _meta key appears only in the message context, and with the value, that the revision defines for it.
 
 **Rule ID:** `mcp.meta.reserved-key-context`<br>
 **Owner:** mcp<br>

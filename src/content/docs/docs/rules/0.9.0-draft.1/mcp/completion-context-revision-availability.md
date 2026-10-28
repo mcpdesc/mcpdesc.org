@@ -1,8 +1,13 @@
 ---
-title: "A completion example carries context only from MCP 2025-06-18, where CompleteRequest defines it."
+title: "mcp.completion.context.revision-availability"
 description: "A completion example carries context only from MCP 2025-06-18, where CompleteRequest defines it."
 slug: docs/rules/0.9.0-draft.1/mcp/completion-context-revision-availability
+ruleSurface: "CompleteRequest"
+sidebar:
+  label: "mcp.completion.context.revision-availability"
 ---
+
+A completion example carries context only from MCP 2025-06-18, where CompleteRequest defines it.
 
 **Rule ID:** `mcp.completion.context.revision-availability`<br>
 **Owner:** mcp<br>

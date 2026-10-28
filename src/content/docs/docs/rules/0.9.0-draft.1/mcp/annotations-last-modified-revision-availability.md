@@ -1,8 +1,13 @@
 ---
-title: "Resource Annotations carry lastModified only from MCP 2025-06-18, on declarations and on content blocks."
+title: "mcp.annotations.last-modified.revision-availability"
 description: "Resource Annotations carry lastModified only from MCP 2025-06-18, on declarations and on content blocks."
 slug: docs/rules/0.9.0-draft.1/mcp/annotations-last-modified-revision-availability
+ruleSurface: "Annotations"
+sidebar:
+  label: "mcp.annotations.last-modified.revision-availability"
 ---
+
+Resource Annotations carry lastModified only from MCP 2025-06-18, on declarations and on content blocks.
 
 **Rule ID:** `mcp.annotations.last-modified.revision-availability`<br>
 **Owner:** mcp<br>

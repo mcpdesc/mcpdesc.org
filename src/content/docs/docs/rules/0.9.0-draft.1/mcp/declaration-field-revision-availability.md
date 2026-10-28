@@ -1,8 +1,13 @@
 ---
-title: "A declaration field is used only in revisions whose MCP type defines it: title and _meta from 2025-06-18, Tool annotations from 2025-03-26, icons and Tool schema $schema from 2025-11-25, Tool execution only in 2025-11-25, and the completions capability from 2025-03-26."
+title: "mcp.declaration.field.revision-availability"
 description: "A declaration field is used only in revisions whose MCP type defines it: title and _meta from 2025-06-18, Tool annotations from 2025-03-26, icons and Tool schema $schema from 2025-"
 slug: docs/rules/0.9.0-draft.1/mcp/declaration-field-revision-availability
+ruleSurface: "Tool, Resource, ResourceTemplate, Prompt, PromptArgument, ServerCapabilities"
+sidebar:
+  label: "mcp.declaration.field.revision-availability"
 ---
+
+A declaration field is used only in revisions whose MCP type defines it: title and _meta from 2025-06-18, Tool annotations from 2025-03-26, icons and Tool schema $schema from 2025-11-25, Tool execution only in 2025-11-25, and the completions capability from 2025-03-26.
 
 **Rule ID:** `mcp.declaration.field.revision-availability`<br>
 **Owner:** mcp<br>

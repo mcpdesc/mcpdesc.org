@@ -1,8 +1,13 @@
 ---
-title: "Elicitation Declaration names are unique within their primitive."
+title: "mcpdesc.elicitation.name-unique"
 description: "Elicitation Declaration names are unique within their primitive."
 slug: docs/rules/0.9.0-draft.1/mcpdesc/elicitation-name-unique
+ruleSurface: "Elicitation Declaration"
+sidebar:
+  label: "mcpdesc.elicitation.name-unique"
 ---
+
+Elicitation Declaration names are unique within their primitive.
 
 **Rule ID:** `mcpdesc.elicitation.name-unique`<br>
 **Owner:** mcpdesc<br>

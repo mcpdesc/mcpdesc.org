@@ -1,8 +1,13 @@
 ---
-title: "An extension identifier under an MCP-reserved prefix that the pinned extension catalogue lists as experimental, or does not list, is preserved with a warning."
+title: "mcpdesc.extensions.catalogue-maturity"
 description: "An extension identifier under an MCP-reserved prefix that the pinned extension catalogue lists as experimental, or does not list, is preserved with a warning."
 slug: docs/rules/0.9.0-draft.1/mcpdesc/extensions-catalogue-maturity
+ruleSurface: "Extension identifier"
+sidebar:
+  label: "mcpdesc.extensions.catalogue-maturity"
 ---
+
+An extension identifier under an MCP-reserved prefix that the pinned extension catalogue lists as experimental, or does not list, is preserved with a warning.
 
 **Rule ID:** `mcpdesc.extensions.catalogue-maturity`<br>
 **Owner:** mcpdesc<br>

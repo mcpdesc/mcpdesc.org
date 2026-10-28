@@ -1,8 +1,13 @@
 ---
-title: "Legacy HTTP+SSE associated with MCP 2025-03-26 or later is reported, because Streamable HTTP replaces it."
+title: "mcp.transport.legacy-sse.deprecated"
 description: "Legacy HTTP+SSE associated with MCP 2025-03-26 or later is reported, because Streamable HTTP replaces it."
 slug: docs/rules/0.9.0-draft.1/mcp/transport-legacy-sse-deprecated
+ruleSurface: "Transport"
+sidebar:
+  label: "mcp.transport.legacy-sse.deprecated"
 ---
+
+Legacy HTTP+SSE associated with MCP 2025-03-26 or later is reported, because Streamable HTTP replaces it.
 
 **Rule ID:** `mcp.transport.legacy-sse.deprecated`<br>
 **Owner:** mcp<br>

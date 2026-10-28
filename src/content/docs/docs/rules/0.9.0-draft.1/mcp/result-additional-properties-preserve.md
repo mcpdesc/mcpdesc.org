@@ -1,8 +1,13 @@
 ---
-title: "A field that an open MCP result type allows but the revision does not define is accepted and preserved without meaning, with a warning attributed to that revision."
+title: "mcp.result.additional-properties.preserve"
 description: "A field that an open MCP result type allows but the revision does not define is accepted and preserved without meaning, with a warning attributed to that revision."
 slug: docs/rules/0.9.0-draft.1/mcp/result-additional-properties-preserve
+ruleSurface: "Result"
+sidebar:
+  label: "mcp.result.additional-properties.preserve"
 ---
+
+A field that an open MCP result type allows but the revision does not define is accepted and preserved without meaning, with a warning attributed to that revision.
 
 **Rule ID:** `mcp.result.additional-properties.preserve`<br>
 **Owner:** mcp<br>

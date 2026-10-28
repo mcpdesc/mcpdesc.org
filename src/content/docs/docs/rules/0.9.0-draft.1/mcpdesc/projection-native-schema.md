@@ -1,8 +1,13 @@
 ---
-title: "A native projection keeps exactly the declaration fields that the MCP type defines in the revision, unchanged after reference resolution, and the value validates against the pinned MCP schema of the revision."
+title: "mcpdesc.projection.native-schema"
 description: "A native projection keeps exactly the declaration fields that the MCP type defines in the revision, unchanged after reference resolution, and the value validates against the pinned"
 slug: docs/rules/0.9.0-draft.1/mcpdesc/projection-native-schema
+ruleSurface: "Tool, Resource, ResourceTemplate, Prompt"
+sidebar:
+  label: "mcpdesc.projection.native-schema"
 ---
+
+A native projection keeps exactly the declaration fields that the MCP type defines in the revision, unchanged after reference resolution, and the value validates against the pinned MCP schema of the revision.
 
 **Rule ID:** `mcpdesc.projection.native-schema`<br>
 **Owner:** mcpdesc<br>

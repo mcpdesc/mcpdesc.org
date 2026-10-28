@@ -1,8 +1,13 @@
 ---
-title: "Security requirements name declared schemes, list scopes only for OAuth 2.0 and OpenID Connect schemes, do not repeat scopes, and use catalogued scopes when the scheme declares a static catalogue."
+title: "mcpdesc.security.requirements"
 description: "Security requirements name declared schemes, list scopes only for OAuth 2.0 and OpenID Connect schemes, do not repeat scopes, and use catalogued scopes when the scheme declares a s"
 slug: docs/rules/0.9.0-draft.1/mcpdesc/security-requirements
+ruleSurface: "Security Requirement"
+sidebar:
+  label: "mcpdesc.security.requirements"
 ---
+
+Security requirements name declared schemes, list scopes only for OAuth 2.0 and OpenID Connect schemes, do not repeat scopes, and use catalogued scopes when the scheme declares a static catalogue.
 
 **Rule ID:** `mcpdesc.security.requirements`<br>
 **Owner:** mcpdesc<br>

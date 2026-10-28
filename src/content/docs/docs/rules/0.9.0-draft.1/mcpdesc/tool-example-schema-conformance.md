@@ -1,8 +1,13 @@
 ---
-title: "A Tool example input validates against inputSchema, and its structuredContent against outputSchema, for every applicable revision; incomplete validation is reported."
+title: "mcpdesc.tool.example.schema-conformance"
 description: "A Tool example input validates against inputSchema, and its structuredContent against outputSchema, for every applicable revision; incomplete validation is reported."
 slug: docs/rules/0.9.0-draft.1/mcpdesc/tool-example-schema-conformance
+ruleSurface: "Tool example"
+sidebar:
+  label: "mcpdesc.tool.example.schema-conformance"
 ---
+
+A Tool example input validates against inputSchema, and its structuredContent against outputSchema, for every applicable revision; incomplete validation is reported.
 
 **Rule ID:** `mcpdesc.tool.example.schema-conformance`<br>
 **Owner:** mcpdesc<br>

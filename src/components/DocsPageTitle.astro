@@ -1,0 +1,15 @@
+---
+import DefaultPageTitle from '@astrojs/starlight/components/PageTitle.astro';
+
+const { ruleSurface } = Astro.locals.starlightRoute.entry.data;
+---
+
+<div class:list={{ 'rule-title': Boolean(ruleSurface) }}><DefaultPageTitle /></div>
+
+<style>
+  .rule-title :global(h1) {
+    font-size: var(--sl-text-2xl);
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+</style>

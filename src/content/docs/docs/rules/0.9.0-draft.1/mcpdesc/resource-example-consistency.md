@@ -1,8 +1,13 @@
 ---
-title: "Resource example contents agree with their declaration: the requested URI is returned, MIME types match, and raw size matches a declared size."
+title: "mcpdesc.resource.example.consistency"
 description: "Resource example contents agree with their declaration: the requested URI is returned, MIME types match, and raw size matches a declared size."
 slug: docs/rules/0.9.0-draft.1/mcpdesc/resource-example-consistency
+ruleSurface: "Resource example"
+sidebar:
+  label: "mcpdesc.resource.example.consistency"
 ---
+
+Resource example contents agree with their declaration: the requested URI is returned, MIME types match, and raw size matches a declared size.
 
 **Rule ID:** `mcpdesc.resource.example.consistency`<br>
 **Owner:** mcpdesc<br>

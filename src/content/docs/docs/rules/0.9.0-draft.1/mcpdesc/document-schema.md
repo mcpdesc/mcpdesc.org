@@ -1,8 +1,13 @@
 ---
-title: "A document validates against the JSON Schema for its declared mcpdesc version. Used for structural failures not attributed to a more specific rule."
+title: "mcpdesc.document.schema"
 description: "A document validates against the JSON Schema for its declared mcpdesc version. Used for structural failures not attributed to a more specific rule."
 slug: docs/rules/0.9.0-draft.1/mcpdesc/document-schema
+ruleSurface: "Document"
+sidebar:
+  label: "mcpdesc.document.schema"
 ---
+
+A document validates against the JSON Schema for its declared mcpdesc version. Used for structural failures not attributed to a more specific rule.
 
 **Rule ID:** `mcpdesc.document.schema`<br>
 **Owner:** mcpdesc<br>

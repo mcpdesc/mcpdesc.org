@@ -1,8 +1,13 @@
 ---
-title: "Before MCP 2025-11-25, Tool schema properties is an object of objects and required is an array of strings; other keywords are preserved."
+title: "mcp.tool.schema.legacy-shape"
 description: "Before MCP 2025-11-25, Tool schema properties is an object of objects and required is an array of strings; other keywords are preserved."
 slug: docs/rules/0.9.0-draft.1/mcp/tool-schema-legacy-shape
+ruleSurface: "Tool"
+sidebar:
+  label: "mcp.tool.schema.legacy-shape"
 ---
+
+Before MCP 2025-11-25, Tool schema properties is an object of objects and required is an array of strings; other keywords are preserved.
 
 **Rule ID:** `mcp.tool.schema.legacy-shape`<br>
 **Owner:** mcp<br>

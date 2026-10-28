@@ -1,8 +1,13 @@
 ---
-title: "Tool inputSchema and outputSchema are JSON Schema objects; keywords beyond those MCP lists are permitted and preserved, and acquire MCP semantics only where a revision defines them."
+title: "mcp.tool.schema-keywords.preserve"
 description: "Tool inputSchema and outputSchema are JSON Schema objects; keywords beyond those MCP lists are permitted and preserved, and acquire MCP semantics only where a revision defines them"
 slug: docs/rules/0.9.0-draft.1/mcp/tool-schema-keywords-preserve
+ruleSurface: "Tool"
+sidebar:
+  label: "mcp.tool.schema-keywords.preserve"
 ---
+
+Tool inputSchema and outputSchema are JSON Schema objects; keywords beyond those MCP lists are permitted and preserved, and acquire MCP semantics only where a revision defines them.
 
 **Rule ID:** `mcp.tool.schema-keywords.preserve`<br>
 **Owner:** mcp<br>

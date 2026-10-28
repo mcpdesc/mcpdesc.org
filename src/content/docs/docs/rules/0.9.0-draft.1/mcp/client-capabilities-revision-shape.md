@@ -1,8 +1,13 @@
 ---
-title: "Each client capability requirement and nested member exists in every applicable revision's ClientCapabilities type, with object values and a boolean listChanged."
+title: "mcp.client-capabilities.revision-shape"
 description: "Each client capability requirement and nested member exists in every applicable revision's ClientCapabilities type, with object values and a boolean listChanged."
 slug: docs/rules/0.9.0-draft.1/mcp/client-capabilities-revision-shape
+ruleSurface: "ClientCapabilities"
+sidebar:
+  label: "mcp.client-capabilities.revision-shape"
 ---
+
+Each client capability requirement and nested member exists in every applicable revision's ClientCapabilities type, with object values and a boolean listChanged.
 
 **Rule ID:** `mcp.client-capabilities.revision-shape`<br>
 **Owner:** mcp<br>

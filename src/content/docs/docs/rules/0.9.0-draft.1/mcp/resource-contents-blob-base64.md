@@ -1,8 +1,13 @@
 ---
-title: "A blob in Resource Contents is canonical base64."
+title: "mcp.resource-contents.blob.base64"
 description: "A blob in Resource Contents is canonical base64."
 slug: docs/rules/0.9.0-draft.1/mcp/resource-contents-blob-base64
+ruleSurface: "BlobResourceContents"
+sidebar:
+  label: "mcp.resource-contents.blob.base64"
 ---
+
+A blob in Resource Contents is canonical base64.
 
 **Rule ID:** `mcp.resource-contents.blob.base64`<br>
 **Owner:** mcp<br>

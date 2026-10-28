@@ -332,8 +332,8 @@ function fixtureExample(rule, fixture) {
 }
 
 function renderRule(rule, sourceFile, manifest) {
-  const title = rule.summary.replace(/\s+/g, ' ').trim();
-  const description = title.slice(0, 180);
+  const title = rule.id;
+  const description = rule.summary.replace(/\s+/g, ' ').trim().slice(0, 180);
   const sourcePath = posix.join(SPEC_PATH, 'validation', 'rules', sourceFile);
   const applicability = formatRevisionTable(rule.applicability);
   const fixtures = rule.fixtures.map((fixture) => fixtureExample(rule, fixture)).join('\n');
@@ -350,7 +350,12 @@ function renderRule(rule, sourceFile, manifest) {
     `title: ${JSON.stringify(title)}`,
     `description: ${JSON.stringify(description)}`,
     `slug: docs/rules/${VERSION}/${rule.owner}/${ruleSlug(rule)}`,
+    `ruleSurface: ${JSON.stringify(rule.surface)}`,
+    'sidebar:',
+    `  label: ${JSON.stringify(rule.id)}`,
     '---',
+    '',
+    rule.summary,
     '',
     `**Rule ID:** \`${rule.id}\`<br>`,
     `**Owner:** ${rule.owner}<br>`,

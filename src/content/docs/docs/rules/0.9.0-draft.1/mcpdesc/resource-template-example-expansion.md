@@ -1,8 +1,13 @@
 ---
-title: "A Resource Template example uri is a valid RFC 6570 expansion of the template."
+title: "mcpdesc.resource-template.example.expansion"
 description: "A Resource Template example uri is a valid RFC 6570 expansion of the template."
 slug: docs/rules/0.9.0-draft.1/mcpdesc/resource-template-example-expansion
+ruleSurface: "Resource Template example"
+sidebar:
+  label: "mcpdesc.resource-template.example.expansion"
 ---
+
+A Resource Template example uri is a valid RFC 6570 expansion of the template.
 
 **Rule ID:** `mcpdesc.resource-template.example.expansion`<br>
 **Owner:** mcpdesc<br>

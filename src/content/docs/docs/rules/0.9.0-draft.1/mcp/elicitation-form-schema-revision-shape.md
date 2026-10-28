@@ -1,8 +1,13 @@
 ---
-title: "In MCP 2025-06-18, a form requestedSchema has no $schema, no array or titled enum properties, and default only on boolean properties."
+title: "mcp.elicitation.form-schema.revision-shape"
 description: "In MCP 2025-06-18, a form requestedSchema has no $schema, no array or titled enum properties, and default only on boolean properties."
 slug: docs/rules/0.9.0-draft.1/mcp/elicitation-form-schema-revision-shape
+ruleSurface: "ElicitRequest"
+sidebar:
+  label: "mcp.elicitation.form-schema.revision-shape"
 ---
+
+In MCP 2025-06-18, a form requestedSchema has no $schema, no array or titled enum properties, and default only on boolean properties.
 
 **Rule ID:** `mcp.elicitation.form-schema.revision-shape`<br>
 **Owner:** mcp<br>

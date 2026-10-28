@@ -1,8 +1,13 @@
 ---
-title: "Elicitation is used only from MCP 2025-06-18, and URL mode only from MCP 2025-11-25, in declarations and in Tool interaction steps."
+title: "mcp.elicitation.revision-availability"
 description: "Elicitation is used only from MCP 2025-06-18, and URL mode only from MCP 2025-11-25, in declarations and in Tool interaction steps."
 slug: docs/rules/0.9.0-draft.1/mcp/elicitation-revision-availability
+ruleSurface: "ElicitRequest"
+sidebar:
+  label: "mcp.elicitation.revision-availability"
 ---
+
+Elicitation is used only from MCP 2025-06-18, and URL mode only from MCP 2025-11-25, in declarations and in Tool interaction steps.
 
 **Rule ID:** `mcp.elicitation.revision-availability`<br>
 **Owner:** mcp<br>

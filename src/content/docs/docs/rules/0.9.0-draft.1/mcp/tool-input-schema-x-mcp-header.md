@@ -1,8 +1,13 @@
 ---
-title: "An x-mcp-header annotation is a non-empty HTTP field-name token on a boolean, integer, or string property reachable from the input schema root through properties only, and is unique case-insensitively within the Tool."
+title: "mcp.tool.input-schema.x-mcp-header"
 description: "An x-mcp-header annotation is a non-empty HTTP field-name token on a boolean, integer, or string property reachable from the input schema root through properties only, and is uniqu"
 slug: docs/rules/0.9.0-draft.1/mcp/tool-input-schema-x-mcp-header
+ruleSurface: "Tool"
+sidebar:
+  label: "mcp.tool.input-schema.x-mcp-header"
 ---
+
+An x-mcp-header annotation is a non-empty HTTP field-name token on a boolean, integer, or string property reachable from the input schema root through properties only, and is unique case-insensitively within the Tool.
 
 **Rule ID:** `mcp.tool.input-schema.x-mcp-header`<br>
 **Owner:** mcp<br>

@@ -1,8 +1,13 @@
 ---
-title: "A Tool outputSchema has an object-typed root."
+title: "mcp.tool.output-schema.object-root"
 description: "A Tool outputSchema has an object-typed root."
 slug: docs/rules/0.9.0-draft.1/mcp/tool-output-schema-object-root
+ruleSurface: "Tool"
+sidebar:
+  label: "mcp.tool.output-schema.object-root"
 ---
+
+A Tool outputSchema has an object-typed root.
 
 **Rule ID:** `mcp.tool.output-schema.object-root`<br>
 **Owner:** mcp<br>

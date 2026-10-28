@@ -52,11 +52,22 @@ export function buildDocsNavigation(entries: CollectionEntry<'docs'>[], version:
   const rulesPrefix = `docs/rules/${version}`;
   const rules = entries.filter((entry) => entry.id === rulesPrefix || entry.id.startsWith(`${rulesPrefix}/`));
   if (rules.length) {
-    const owners: DocsSidebar = ['mcp', 'mcpdesc', 'json-schema'].map((owner) => ({
-      type: 'group', label: owner === 'mcp' ? 'MCP' : owner === 'mcpdesc' ? 'MCP Description' : 'JSON Schema',
-      entries: ordered(rules.filter((entry) => entry.id.startsWith(`${rulesPrefix}/${owner}/`) || entry.id === `${rulesPrefix}/${owner}`)).map(link),
-      collapsed: true, badge: undefined,
-    }));
+    const owners: DocsSidebar = ['mcp', 'mcpdesc', 'json-schema'].map((owner) => {
+      const ownerPrefix = `${rulesPrefix}/${owner}`;
+      const ownerRules = rules.filter((entry) => entry.id.startsWith(`${ownerPrefix}/`));
+      const surfaces = [...new Set(ownerRules.map((entry) => entry.data.ruleSurface ?? 'Other'))].sort();
+      return {
+        type: 'group', label: owner === 'mcp' ? 'MCP' : owner === 'mcpdesc' ? 'MCP Description' : 'JSON Schema',
+        entries: [
+          ...rules.filter((entry) => entry.id === ownerPrefix).map(link),
+          ...surfaces.map((surface) => ({
+            ...group(surface, ordered(ownerRules.filter((entry) => (entry.data.ruleSurface ?? 'Other') === surface))),
+            collapsed: true,
+          })),
+        ],
+        collapsed: true, badge: undefined,
+      };
+    });
     sidebar.push({
       type: 'group', label: 'Validation Rules', collapsed: true, badge: undefined,
       entries: [...ordered(rules.filter((entry) => entry.id === rulesPrefix || entry.id === `${rulesPrefix}/revisions`)).map(link), ...owners],

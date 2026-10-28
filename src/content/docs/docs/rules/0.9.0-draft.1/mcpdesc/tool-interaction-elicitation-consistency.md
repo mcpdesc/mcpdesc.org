@@ -1,8 +1,13 @@
 ---
-title: "An elicitation step matches the Tool's named Elicitation Declaration, and its response content is present exactly when an accepted form response requires it and validates against the requested schema."
+title: "mcpdesc.tool.interaction.elicitation-consistency"
 description: "An elicitation step matches the Tool's named Elicitation Declaration, and its response content is present exactly when an accepted form response requires it and validates against t"
 slug: docs/rules/0.9.0-draft.1/mcpdesc/tool-interaction-elicitation-consistency
+ruleSurface: "Tool interaction example"
+sidebar:
+  label: "mcpdesc.tool.interaction.elicitation-consistency"
 ---
+
+An elicitation step matches the Tool's named Elicitation Declaration, and its response content is present exactly when an accepted form response requires it and validates against the requested schema.
 
 **Rule ID:** `mcpdesc.tool.interaction.elicitation-consistency`<br>
 **Owner:** mcpdesc<br>

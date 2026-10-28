@@ -1,8 +1,13 @@
 ---
-title: "A completion example completes a declared Prompt argument or URI template variable, and its context names other declared arguments or variables only."
+title: "mcpdesc.completion-example.target"
 description: "A completion example completes a declared Prompt argument or URI template variable, and its context names other declared arguments or variables only."
 slug: docs/rules/0.9.0-draft.1/mcpdesc/completion-example-target
+ruleSurface: "Completion example"
+sidebar:
+  label: "mcpdesc.completion-example.target"
 ---
+
+A completion example completes a declared Prompt argument or URI template variable, and its context names other declared arguments or variables only.
 
 **Rule ID:** `mcpdesc.completion-example.target`<br>
 **Owner:** mcpdesc<br>

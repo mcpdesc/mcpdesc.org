@@ -1,8 +1,13 @@
 ---
-title: "A server Capabilities Object contains only the capabilities the applicable MCP revision defines; custom capabilities go in experimental and, from MCP 2026-07-28, in extensions."
+title: "mcp.server-capabilities.members"
 description: "A server Capabilities Object contains only the capabilities the applicable MCP revision defines; custom capabilities go in experimental and, from MCP 2026-07-28, in extensions."
 slug: docs/rules/0.9.0-draft.1/mcp/server-capabilities-members
+ruleSurface: "ServerCapabilities"
+sidebar:
+  label: "mcp.server-capabilities.members"
 ---
+
+A server Capabilities Object contains only the capabilities the applicable MCP revision defines; custom capabilities go in experimental and, from MCP 2026-07-28, in extensions.
 
 **Rule ID:** `mcp.server-capabilities.members`<br>
 **Owner:** mcp<br>

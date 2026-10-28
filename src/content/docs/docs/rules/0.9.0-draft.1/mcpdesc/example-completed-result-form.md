@@ -1,8 +1,13 @@
 ---
-title: "An example result is a completed result payload: it contains no JSON-RPC envelope field and no non-completed workflow field."
+title: "mcpdesc.example.completed-result-form"
 description: "An example result is a completed result payload: it contains no JSON-RPC envelope field and no non-completed workflow field."
 slug: docs/rules/0.9.0-draft.1/mcpdesc/example-completed-result-form
+ruleSurface: "Example result"
+sidebar:
+  label: "mcpdesc.example.completed-result-form"
 ---
+
+An example result is a completed result payload: it contains no JSON-RPC envelope field and no non-completed workflow field.
 
 **Rule ID:** `mcpdesc.example.completed-result-form`<br>
 **Owner:** mcpdesc<br>

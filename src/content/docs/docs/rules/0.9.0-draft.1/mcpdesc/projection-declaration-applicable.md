@@ -1,8 +1,13 @@
 ---
-title: "Native projection selects one declaration of the requested kind and identifier in the Effective Protocol View of the revision."
+title: "mcpdesc.projection.declaration-applicable"
 description: "Native projection selects one declaration of the requested kind and identifier in the Effective Protocol View of the revision."
 slug: docs/rules/0.9.0-draft.1/mcpdesc/projection-declaration-applicable
+ruleSurface: "Native projection"
+sidebar:
+  label: "mcpdesc.projection.declaration-applicable"
 ---
+
+Native projection selects one declaration of the requested kind and identifier in the Effective Protocol View of the revision.
 
 **Rule ID:** `mcpdesc.projection.declaration-applicable`<br>
 **Owner:** mcpdesc<br>

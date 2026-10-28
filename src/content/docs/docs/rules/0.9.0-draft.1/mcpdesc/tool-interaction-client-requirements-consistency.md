@@ -1,8 +1,13 @@
 ---
-title: "Interaction steps do not contradict the Tool's explicit client capability requirements."
+title: "mcpdesc.tool.interaction.client-requirements-consistency"
 description: "Interaction steps do not contradict the Tool's explicit client capability requirements."
 slug: docs/rules/0.9.0-draft.1/mcpdesc/tool-interaction-client-requirements-consistency
+ruleSurface: "Tool interaction example"
+sidebar:
+  label: "mcpdesc.tool.interaction.client-requirements-consistency"
 ---
+
+Interaction steps do not contradict the Tool's explicit client capability requirements.
 
 **Rule ID:** `mcpdesc.tool.interaction.client-requirements-consistency`<br>
 **Owner:** mcpdesc<br>

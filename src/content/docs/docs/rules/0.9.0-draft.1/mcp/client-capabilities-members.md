@@ -1,8 +1,13 @@
 ---
-title: "A Client Capability Requirements Object names only client capabilities the applicable MCP revision defines; custom requirements go in experimental and, from MCP 2026-07-28, in extensions."
+title: "mcp.client-capabilities.members"
 description: "A Client Capability Requirements Object names only client capabilities the applicable MCP revision defines; custom requirements go in experimental and, from MCP 2026-07-28, in exte"
 slug: docs/rules/0.9.0-draft.1/mcp/client-capabilities-members
+ruleSurface: "ClientCapabilities"
+sidebar:
+  label: "mcp.client-capabilities.members"
 ---
+
+A Client Capability Requirements Object names only client capabilities the applicable MCP revision defines; custom requirements go in experimental and, from MCP 2026-07-28, in extensions.
 
 **Rule ID:** `mcp.client-capabilities.members`<br>
 **Owner:** mcp<br>

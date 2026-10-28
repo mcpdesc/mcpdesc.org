@@ -1,8 +1,13 @@
 ---
-title: "A Resource Template uriTemplate is a valid RFC 6570 URI template."
+title: "mcp.resource-template.uri-template"
 description: "A Resource Template uriTemplate is a valid RFC 6570 URI template."
 slug: docs/rules/0.9.0-draft.1/mcp/resource-template-uri-template
+ruleSurface: "ResourceTemplate"
+sidebar:
+  label: "mcp.resource-template.uri-template"
 ---
+
+A Resource Template uriTemplate is a valid RFC 6570 URI template.
 
 **Rule ID:** `mcp.resource-template.uri-template`<br>
 **Owner:** mcp<br>

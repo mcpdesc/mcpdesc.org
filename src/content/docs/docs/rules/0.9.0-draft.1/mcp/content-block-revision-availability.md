@@ -1,8 +1,13 @@
 ---
-title: "Content blocks in example results use only content types and fields the applicable revision defines: audio from MCP 2025-03-26, resource links and block _meta from 2025-06-18, and resource-link icons from 2025-11-25."
+title: "mcp.content-block.revision-availability"
 description: "Content blocks in example results use only content types and fields the applicable revision defines: audio from MCP 2025-03-26, resource links and block _meta from 2025-06-18, and "
 slug: docs/rules/0.9.0-draft.1/mcp/content-block-revision-availability
+ruleSurface: "ContentBlock"
+sidebar:
+  label: "mcp.content-block.revision-availability"
 ---
+
+Content blocks in example results use only content types and fields the applicable revision defines: audio from MCP 2025-03-26, resource links and block _meta from 2025-06-18, and resource-link icons from 2025-11-25.
 
 **Rule ID:** `mcp.content-block.revision-availability`<br>
 **Owner:** mcp<br>

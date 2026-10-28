@@ -1,8 +1,13 @@
 ---
-title: "A root in a roots response may carry _meta from MCP 2025-06-18."
+title: "mcp.root.meta.revision-availability"
 description: "A root in a roots response may carry _meta from MCP 2025-06-18."
 slug: docs/rules/0.9.0-draft.1/mcp/root-meta-revision-availability
+ruleSurface: "Root"
+sidebar:
+  label: "mcp.root.meta.revision-availability"
 ---
+
+A root in a roots response may carry _meta from MCP 2025-06-18.
 
 **Rule ID:** `mcp.root.meta.revision-availability`<br>
 **Owner:** mcp<br>

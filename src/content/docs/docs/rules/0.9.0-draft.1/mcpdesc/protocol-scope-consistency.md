@@ -1,8 +1,13 @@
 ---
-title: "Nested protocol scopes stay within their parent scope, and same-named primitives and capability objects do not overlap in protocol scope."
+title: "mcpdesc.protocol-scope.consistency"
 description: "Nested protocol scopes stay within their parent scope, and same-named primitives and capability objects do not overlap in protocol scope."
 slug: docs/rules/0.9.0-draft.1/mcpdesc/protocol-scope-consistency
+ruleSurface: "Document"
+sidebar:
+  label: "mcpdesc.protocol-scope.consistency"
 ---
+
+Nested protocol scopes stay within their parent scope, and same-named primitives and capability objects do not overlap in protocol scope.
 
 **Rule ID:** `mcpdesc.protocol-scope.consistency`<br>
 **Owner:** mcpdesc<br>

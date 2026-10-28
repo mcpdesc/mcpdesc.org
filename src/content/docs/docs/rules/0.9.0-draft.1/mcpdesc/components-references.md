@@ -1,8 +1,13 @@
 ---
-title: "A Reference Object targets an existing component in the namespace its use site requires, without cycles."
+title: "mcpdesc.components.references"
 description: "A Reference Object targets an existing component in the namespace its use site requires, without cycles."
 slug: docs/rules/0.9.0-draft.1/mcpdesc/components-references
+ruleSurface: "Reference Object"
+sidebar:
+  label: "mcpdesc.components.references"
 ---
+
+A Reference Object targets an existing component in the namespace its use site requires, without cycles.
 
 **Rule ID:** `mcpdesc.components.references`<br>
 **Owner:** mcpdesc<br>

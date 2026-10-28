@@ -1,8 +1,13 @@
 ---
-title: "A form requestedSchema is internally consistent: required names declared properties, enumNames match enum values, defaults lie within enums, and minimum bounds do not exceed maximum bounds."
+title: "mcpdesc.elicitation.form-schema.consistency"
 description: "A form requestedSchema is internally consistent: required names declared properties, enumNames match enum values, defaults lie within enums, and minimum bounds do not exceed maximu"
 slug: docs/rules/0.9.0-draft.1/mcpdesc/elicitation-form-schema-consistency
+ruleSurface: "Elicitation Declaration"
+sidebar:
+  label: "mcpdesc.elicitation.form-schema.consistency"
 ---
+
+A form requestedSchema is internally consistent: required names declared properties, enumNames match enum values, defaults lie within enums, and minimum bounds do not exceed maximum bounds.
 
 **Rule ID:** `mcpdesc.elicitation.form-schema.consistency`<br>
 **Owner:** mcpdesc<br>

@@ -1,8 +1,13 @@
 ---
-title: "A client capability requirement that the applicable revision deprecates is reported."
+title: "mcp.client-capabilities.deprecated"
 description: "A client capability requirement that the applicable revision deprecates is reported."
 slug: docs/rules/0.9.0-draft.1/mcp/client-capabilities-deprecated
+ruleSurface: "ClientCapabilities"
+sidebar:
+  label: "mcp.client-capabilities.deprecated"
 ---
+
+A client capability requirement that the applicable revision deprecates is reported.
 
 **Rule ID:** `mcp.client-capabilities.deprecated`<br>
 **Owner:** mcp<br>
