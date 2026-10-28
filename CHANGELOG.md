@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **MCP Description 0.9.0 draft.2 JSON Schema.** Added the schema at
+  [`mcpdesc.org/schema/mcp-description/0.9.0-draft.2.json`](https://mcpdesc.org/schema/mcp-description/0.9.0-draft.2.json)
+  with cross-origin access and immutable caching. The latest stable schema remains 0.8.0.
+
 ## [1.1.0] - 2026-10-19
 
 ### Added
