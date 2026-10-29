@@ -60,6 +60,11 @@
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=31536000, immutable
 
+/schema/validation-rule/1.1.0.json
+  Content-Type: application/schema+json; charset=utf-8
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=31536000, immutable
+
 /schema/mcp-description/latest.json
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=300

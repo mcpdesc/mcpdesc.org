@@ -11,15 +11,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **MCP Description v0.9.0 draft.3 documentation.** Imported the immutable
   `v0.9.0-draft.3` specification, guides (including how MCP protocol versions are managed),
-  examples, and 63 validation rules in the rule-format 1.0.0 shape. Draft.3 is the active
+  examples, and 63 validation rules in the rule-format 1.1.0 shape. Draft.3 is the active
   candidate; drafts 1 and 2 remain available as archived snapshots, and `/docs/rules` now
   resolves to the draft.3 rules.
-- **Validation rule catalog files.** Added the immutable `0.9.0-draft.3` catalog manifest and
-  rules under `/validation/catalogs/` with cache headers.
+- **Validation rule catalog for draft.3.** Published the immutable `0.9.0-draft.3` catalog
+  manifest and `rules.json` under `/validation/catalogs/`, plus the discovery index
+  `/validation/catalogs/index.json` (short cache, published after the catalog is live).
 - **MCP Description v0.9.0 draft.2 documentation.** Imported the immutable
   `v0.9.0-draft.2` specification, guides, examples, and 63 validation rules. The rules
   overview now mirrors the canonical reader-focused excerpt. Draft.2 is the active candidate;
   draft.1 remains available as an archived snapshot and 0.8.0 remains latest stable.
+- **Validation rule schema 1.1.0.** Added the rule-format schema at
+  [`mcpdesc.org/schema/validation-rule/1.1.0.json`](https://mcpdesc.org/schema/validation-rule/1.1.0.json)
+  with cross-origin access and immutable caching. Fixtures now declare a required `outcome`
+  and rule records no longer carry `diagnostics`; 1.0.0 remains published unchanged.
 - **MCP Description 0.9.0 draft.3 JSON Schema.** Added the schema at
   [`mcpdesc.org/schema/mcp-description/0.9.0-draft.3.json`](https://mcpdesc.org/schema/mcp-description/0.9.0-draft.3.json).
 - **Validation rule schema 1.0.0.** Added the rule-format schema at
