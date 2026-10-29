@@ -2,10 +2,10 @@
   "$comment": "Machine-readable index of MCP Description specification versions. Fetch this first to discover the stable and candidate versions. Each version exposes a single-file `full` Markdown for one-request retrieval.",
   "site": "https://mcpdesc.org",
   "stable": "0.8.0",
-  "candidate": "0.9.0-draft.2",
+  "candidate": "0.9.0-draft.3",
   "latest": "0.8.0",
   "latestFull": "https://mcpdesc.org/specification/latest/mcpdesc.md",
-  "next": "0.9.0-draft.2",
+  "next": "0.9.0-draft.3",
   "versions": [
     {
       "version": "0.7.0",
@@ -249,7 +249,7 @@
     },
     {
       "version": "0.9.0-draft.2",
-      "channel": "candidate",
+      "channel": "previous",
       "maturity": "draft",
       "date": "2026-10-28",
       "html": "https://mcpdesc.org/docs/specification/0.9.0-draft.2/",
@@ -327,6 +327,89 @@
         {
           "title": "17. Reusable Components and Local References",
           "url": "https://mcpdesc.org/docs/specification/0.9.0-draft.2/components"
+        }
+      ]
+    },
+    {
+      "version": "0.9.0-draft.3",
+      "channel": "candidate",
+      "maturity": "draft",
+      "date": "2026-10-29",
+      "html": "https://mcpdesc.org/docs/specification/0.9.0-draft.3/",
+      "full": "https://mcpdesc.org/specification/0.9.0-draft.3/mcpdesc.md",
+      "sha256": "b103712e2d547a038fff5e248545ae30fc695463a203540440ded79276ff638f",
+      "canonical": "https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0-draft.3/spec/draft/mcp-description.md",
+      "canonicalRaw": "https://raw.githubusercontent.com/mcpdesc/mcpdesc-specification/v0.9.0-draft.3/spec/draft/mcp-description.md",
+      "schema": "https://mcpdesc.org/schema/mcp-description/0.9.0-draft.3.json",
+      "tracking": "https://github.com/mcpdesc/mcpdesc-specification/issues",
+      "sections": [
+        {
+          "title": "1. Introduction",
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-draft.3/introduction"
+        },
+        {
+          "title": "2. Terminology",
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-draft.3/terminology"
+        },
+        {
+          "title": "3. Document Structure",
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-draft.3/document-structure"
+        },
+        {
+          "title": "4. Versioning",
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-draft.3/versioning"
+        },
+        {
+          "title": "5. Info Object",
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-draft.3/info-object"
+        },
+        {
+          "title": "6. Transports",
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-draft.3/transports"
+        },
+        {
+          "title": "7. Security",
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-draft.3/security"
+        },
+        {
+          "title": "8. Capabilities",
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-draft.3/capabilities"
+        },
+        {
+          "title": "9. Tools",
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-draft.3/tools"
+        },
+        {
+          "title": "10. Resources and Resource Templates",
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-draft.3/resources"
+        },
+        {
+          "title": "11. Prompts",
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-draft.3/prompts"
+        },
+        {
+          "title": "12. Elicitation Declarations",
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-draft.3/elicitation"
+        },
+        {
+          "title": "13. Tags",
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-draft.3/tags"
+        },
+        {
+          "title": "14. Specification Extensions",
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-draft.3/specification-extensions"
+        },
+        {
+          "title": "15. Serialization",
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-draft.3/serialization"
+        },
+        {
+          "title": "16. Conformance",
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-draft.3/conformance"
+        },
+        {
+          "title": "17. Reusable Components and Local References",
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-draft.3/components"
         }
       ]
     }

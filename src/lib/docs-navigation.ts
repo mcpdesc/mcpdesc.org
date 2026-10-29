@@ -59,7 +59,7 @@ export function buildDocsNavigation(entries: CollectionEntry<'docs'>[], version:
   if (rules.length) {
     const owners = ([['mcp', 'MCP'], ['json-schema', 'JSON Schema'], ['mcpdesc', 'mcpdesc']] as const).flatMap(([owner, label]) => {
       const ownerRules = rules.filter((entry) => entry.id.startsWith(`${rulesPrefix}/${owner}/`))
-        .sort((left, right) => left.data.title.localeCompare(right.data.title));
+        .sort((left, right) => (left.data.sidebar?.label ?? left.data.title).localeCompare(right.data.sidebar?.label ?? right.data.title));
       return ownerRules.length ? [{
         type: 'group' as const, label: `${label} (${ownerRules.length})`,
         entries: ownerRules.map(link), collapsed: true, badge: undefined,

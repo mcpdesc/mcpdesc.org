@@ -212,6 +212,10 @@ function markdownLocation(location, manifest) {
   return `[${location}](${sourceUrl(upstreamPath, fragment ? `#${fragment}` : '')})`;
 }
 
+function headingSlug(text) {
+  return text.trim().toLowerCase().replace(/`/g, '').replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+}
+
 function ruleSlug(rule) {
   return rule.id.slice(rule.owner.length + 1).replaceAll('.', '-');
 }
@@ -220,11 +224,11 @@ function ruleUrl(rule) {
   return `/docs/rules/${VERSION}/${rule.owner}/${ruleSlug(rule)}`;
 }
 
-function formatRevisionTable(applicability = {}) {
+function formatRevisionTable(applicability) {
   return [
     `| ${REVISION_ORDER.map((revision) => `\`${revision}\``).join(' | ')} |`,
     `| ${REVISION_ORDER.map(() => '---').join(' | ')} |`,
-    `| ${REVISION_ORDER.map((revision) => applicability[revision] ?? 'Not recorded per revision').join(' | ')} |`,
+    `| ${REVISION_ORDER.map((revision) => applicability[revision]).join(' | ')} |`,
   ].join('\n');
 }
 
@@ -323,17 +327,38 @@ function fixtureExample(rule, fixture) {
 }
 
 function renderRule(rule, sourceFile, manifest) {
-  const title = rule.id;
-  const description = rule.summary.replace(/\s+/g, ' ').trim().slice(0, 180);
+  if (!rule.title || !rule.description) {
+    fail(`${rule.id}: record lacks title/description; this importer supports rule-format 1.0.0 (draft.3 onward).`);
+  }
+  const description = rule.description.replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/\s+/g, ' ').trim().slice(0, 180);
   const sourcePath = posix.join(SPEC_PATH, 'validation', 'rules', sourceFile);
-  const showApplicability = rule.applicability &&
-    (rule.owner !== 'mcpdesc' || Object.values(rule.applicability).some((value) => value !== 'applies'));
-  const applicability = showApplicability
-    ? `## Revision applicability\n\n${formatRevisionTable(rule.applicability)}\n\n` : '';
-  const fixtures = rule.fixtures.map((fixture) => fixtureExample(rule, fixture)).join('\n');
+  const protocolVersions = rule.applicability?.protocolVersions;
+  const applicability = protocolVersions && protocolVersions !== 'independent'
+    ? `## Protocol version applicability\n\n${formatRevisionTable(protocolVersions)}\n\n` : '';
+  const details = [
+    `**Rule ID:** \`${rule.id}\``,
+    `**Owner:** ${rule.owner}`,
+    `**Surface:** ${rule.surface}${rule.path ? ` · **Path:** \`${rule.path}\`` : ''}`,
+    `**Kind:** ${rule.kind}`,
+    `**Requirement level:** ${rule.requirement ?? 'Not specified in the rule record'}`,
+    ...(protocolVersions === 'independent' ? ['**Protocol versions:** independent of the MCP protocol version'] : []),
+    ...(rule.applicability?.schemaDialects?.length
+      ? [`**JSON Schema dialects:** ${rule.applicability.schemaDialects.map((dialect) => `\`${dialect}\``).join(', ')}`] : []),
+    `**Status:** ${rule.status} · **Enforcement:** ${rule.enforcement}`,
+  ].join('<br>\n');
+  const retired = rule.status === 'retired'
+    ? ':::caution[Retired rule]\nThis record is retired in this catalog and is excluded from active checks.\n:::\n\n' : '';
+  const fixtureOrder = ['expected-valid/', 'expected-warning/', 'expected-invalid/'];
+  const fixtureRank = (fixture) => {
+    const rank = fixtureOrder.findIndex((prefix) => fixture.path.startsWith(prefix));
+    return rank === -1 ? fixtureOrder.length : rank;
+  };
+  const fixtures = [...rule.fixtures]
+    .sort((left, right) => fixtureRank(left) - fixtureRank(right))
+    .map((fixture) => fixtureExample(rule, fixture)).join('\n');
   const notes = rule.notes ? `## Notes\n\n${rule.notes}\n\n` : '';
   const sourceBlock = [
-    '## Source record',
+    '## Rule Source Code',
     '',
     `[` + sourceFile + `](${sourceUrl(sourcePath)}) at immutable tag [\`${TAG}\`](${sourceUrl(SPEC_PATH)}).`,
     '',
@@ -341,25 +366,25 @@ function renderRule(rule, sourceFile, manifest) {
 
   return [
     '---',
-    `title: ${JSON.stringify(title)}`,
+    `title: ${JSON.stringify(rule.title)}`,
     `description: ${JSON.stringify(description)}`,
     `slug: docs/rules/${VERSION}/${rule.owner}/${ruleSlug(rule)}`,
-    `ruleSurface: ${JSON.stringify(rule.surface)}`,
     'sidebar:',
     `  label: ${JSON.stringify(rule.id)}`,
     '---',
     '',
+    rewriteGuideLinks(rule.description.trim(), posix.join(SPEC_PATH, 'rule-description.md')),
+    '',
+    retired.trimEnd(),
+    '## Requirement',
+    '',
     rule.summary,
     '',
-    `**Rule ID:** \`${rule.id}\`<br>`,
-    `**Owner:** ${rule.owner}<br>`,
-    `**Surface:** ${rule.surface}${rule.path ? ` · **Path:** \`${rule.path}\`` : ''}<br>`,
-    `**Kind:** ${rule.kind}<br>`,
-    `**Requirement:** ${rule.requirement ?? 'Not specified in the rule record'}<br>`,
-    `**Status:** ${rule.status} · **Enforcement:** ${rule.enforcement}`,
+    '## Details',
+    '',
+    details,
     '',
     applicability.trimEnd(),
-    '',
     '## Diagnostics',
     '',
     rule.diagnostics?.length
@@ -396,6 +421,15 @@ function renderOverview(rules) {
     }
     const excerpt = parts[1].split(endMarker)[0].trim();
     if (!excerpt) fail('The marked validation overview is empty.');
+    const readmeUrl = sourceUrl(sourcePath);
+    const headingSlugs = new Set([...excerpt.matchAll(/^#{1,6}\s+(.*)$/gm)].map((heading) => headingSlug(heading[1])));
+    const resolved = rewriteGuideLinks(excerpt, sourcePath).replace(/\]\(#([^)]+)\)/g,
+      (whole, anchor) => (headingSlugs.has(anchor) ? whole : `](${readmeUrl}#${anchor})`));
+    const protocolGuide = 'understanding-mcp-protocol-versions';
+    const guidance = existsSync(join(VALIDATION_DIR, 'mcp-revisions.md'))
+      ? `- [MCP revision guide](/docs/rules/${VERSION}/revisions)`
+      : existsSync(join(SPEC_DOCS_DIR, 'guides', `${protocolGuide}.md`))
+        ? `- [How MCP protocol versions are managed](/docs/specification/${VERSION}/guides/${protocolGuide})` : '';
     return [
       '---',
       'title: Validation Rules',
@@ -406,16 +440,13 @@ function renderOverview(rules) {
       '  order: 0',
       '---',
       '',
-      rewriteGuideLinks(excerpt, sourcePath),
+      resolved,
       '',
       '## Browse by owner',
       '',
       ownerLinks,
       '',
-      '## Revision and version guidance',
-      '',
-      `- [MCP revision guide](/docs/rules/${VERSION}/revisions)`,
-      '',
+      ...(guidance ? ['## Revision and version guidance', '', guidance, ''] : []),
       ':::note[Mirrored overview]',
       `This overview mirrors the marked excerpt in [the source README](${sourceUrl(sourcePath)})`,
       `at immutable tag [\`${TAG}\`](${sourceUrl(SPEC_PATH)}). Upstream wins if this copy differs.`,
@@ -510,6 +541,13 @@ function rewriteGuideLinks(markdown, sourcePath) {
     ]);
     const local = localGuides.get(normalized);
     if (local) return `](${local}${fragment})`;
+    const guidePrefix = `${SPEC_PATH}/guides/`;
+    if (normalized.startsWith(guidePrefix) && normalized.endsWith('.md')) {
+      const guide = normalized.slice(guidePrefix.length, -3);
+      if (existsSync(join(SPEC_DOCS_DIR, 'guides', `${guide}.md`))) {
+        return `](/docs/specification/${VERSION}/guides/${guide === 'intro' ? '' : guide}${fragment})`;
+      }
+    }
     return `](${sourceUrl(normalized, fragment)})`;
   });
 }
@@ -621,7 +659,9 @@ function buildRequirementMarkers(rules, specPages) {
 function createGeneratedPages(rules, fileById, manifest) {
   const pages = new Map();
   pages.set(join(VERSION_DOCS_DIR, 'index.md'), renderOverview(rules));
-  pages.set(join(VERSION_DOCS_DIR, 'revisions.md'), renderRevisionGuide());
+  if (existsSync(join(VALIDATION_DIR, 'mcp-revisions.md'))) {
+    pages.set(join(VERSION_DOCS_DIR, 'revisions.md'), renderRevisionGuide());
+  }
 
   for (const [owner] of Object.entries(RULE_OWNERS)) {
     const ownerRules = rules.filter((rule) => rule.owner === owner);
@@ -654,7 +694,7 @@ try {
   }
 
   const schema = JSON.parse(readFileSync(join(VALIDATION_DIR, 'rule.schema.json'), 'utf8'));
-  const ajv = new Ajv2020({ allErrors: true, strict: false });
+  const ajv = new Ajv2020({ allErrors: true, strict: false, validateFormats: false });
   const validateRegistry = ajv.compile(schema);
   const { rules, fileById } = collectRules(validateRegistry, manifest);
   const pages = createGeneratedPages(rules, fileById, manifest);

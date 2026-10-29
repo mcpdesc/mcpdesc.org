@@ -1,0 +1,3981 @@
+{
+  "rules": [
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "not-applicable",
+          "2025-03-26": "not-applicable",
+          "2025-06-18": "not-applicable",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        },
+        "schemaDialects": [
+          "https://json-schema.org/draft/2020-12/schema",
+          "http://json-schema.org/draft-07/schema#"
+        ]
+      },
+      "description": "Tool input and output schemas must be valid under their applicable JSON Schema dialect. Unsupported declared dialects are errors; unresolved external references warn when complete offline checking is unavailable. External schemas are not fetched automatically, and a partial check is not reported as complete.",
+      "diagnostics": [
+        {
+          "code": "invalid-tool-schema",
+          "severity": "error"
+        },
+        {
+          "code": "unsupported-tool-schema-dialect",
+          "severity": "error"
+        },
+        {
+          "code": "unresolved-external-tool-schema-reference",
+          "severity": "warning"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/malformed-tool-schema.json",
+          "pointer": "/tools/0"
+        },
+        {
+          "path": "expected-invalid/unresolved-local-tool-ref.json",
+          "pointer": "/tools/0"
+        },
+        {
+          "path": "expected-invalid/unsupported-tool-schema-dialect.json",
+          "pointer": "/tools/0/inputSchema"
+        },
+        {
+          "path": "expected-warning/unresolved-external-tool-ref.json",
+          "pointer": "/tools/0"
+        },
+        {
+          "path": "expected-warning/unresolved-external-tool-example-ref.json",
+          "pointer": "/tools/0"
+        }
+      ],
+      "id": "json-schema.tool-schema.valid",
+      "kind": "embedded-standard",
+      "notes": "The declared dialect set is fixed by the specification, not by the validator: an unsupported dialect is an error, not a warning, because MCP guarantees only 2020-12 support and peers return an error for other dialects, and because Tool examples cannot be checked against a schema in an unknown dialect (maintainer decision on issue #72, 2026-10-26). Unresolved external references differ: offline validation forbids retrieving them, so they only warn. Earlier revisions define no embedded dialect; mcp.tool.schema.legacy-shape applies there instead.",
+      "owner": "json-schema",
+      "path": "inputSchema, outputSchema",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "https://github.com/modelcontextprotocol/modelcontextprotocol/blob/dae694f61a31f7a3ec2af3aff709e11f70f61e48/docs/specification/2025-11-25/basic/index.mdx#L140-L186",
+            "https://github.com/modelcontextprotocol/modelcontextprotocol/blob/dae694f61a31f7a3ec2af3aff709e11f70f61e48/docs/specification/2026-07-28/basic/index.mdx#L251-L297"
+          ],
+          "reference": "MCP 2025-11-25 and 2026-07-28 specification, Basic, JSON Schema usage, Schema Dialect (implementations must support 2020-12 and must return an error for unsupported dialects)",
+          "tier": 1
+        },
+        {
+          "locations": [
+            "validation/mcp-schemas/2025-11-25/schema.ts#L1257-L1265",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L1981-L1997",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L1272-L1284",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L1999-L2005"
+          ],
+          "reference": "MCP 2025-11-25 and 2026-07-28 schema.ts, interface Tool, inputSchema and outputSchema doc comments (default JSON Schema 2020-12 when $schema is absent)",
+          "tier": 1
+        },
+        {
+          "locations": [
+            "https://json-schema.org/draft/2020-12/json-schema-core",
+            "https://json-schema.org/draft/2020-12/json-schema-validation",
+            "https://json-schema.org/draft-07/json-schema-core",
+            "https://json-schema.org/draft-07/json-schema-validation"
+          ],
+          "reference": "JSON Schema 2020-12 Core and Validation, and draft-07, for the declared dialect",
+          "tier": 2
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/09-tools.md#req-tool-output-schema-valid",
+            "sections/09-tools.md#req-tool-schema-dialect-valid",
+            "sections/09-tools.md#req-tool-schema-dialect-set",
+            "sections/09-tools.md#req-tool-schema-external-ref"
+          ],
+          "reference": "MCP Description 0.9.0, Section 9.2 (declared dialects limited to 2020-12 and draft-07; never fetch external $ref targets; warn when validation is incomplete)"
+        }
+      ],
+      "status": "internal",
+      "summary": "An embedded Tool inputSchema or outputSchema is valid under its declared or default JSON Schema dialect, and a declared dialect is JSON Schema 2020-12 or draft-07.",
+      "surface": "Tool",
+      "title": "Validate embedded Tool schemas in their dialect"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "applies",
+          "2025-03-26": "applies",
+          "2025-06-18": "applies",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        }
+      },
+      "description": "Resource annotations exist in early MCP protocol versions, but lastModified was added in 2025-06-18. If a declaration covers an earlier version, omit lastModified or describe separate variants with disjoint scopes.",
+      "diagnostics": [
+        {
+          "code": "resource-annotation-not-supported-by-version",
+          "severity": "error"
+        },
+        {
+          "code": "tool-example-content-version-mismatch",
+          "severity": "error"
+        },
+        {
+          "code": "prompt-example-content-version-mismatch",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/annotations-last-modified-before-2025-06-18.json",
+          "pointer": "/resources/0/annotations"
+        }
+      ],
+      "id": "mcp.annotations.last-modified.revision-availability",
+      "kind": "structural",
+      "owner": "mcp",
+      "path": "lastModified",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2024-11-05/schema.ts#L815-L840",
+            "validation/mcp-schemas/2025-03-26/schema.ts#L921-L944",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L1093-L1128",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L1700-L1735",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L2265-L2300"
+          ],
+          "reference": "MCP 2024-11-05 and 2025-03-26 schema.ts, annotations (audience, priority); MCP 2025-06-18 to 2026-07-28 schema.ts, interface Annotations (adds lastModified)",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/10-resources.md#req-resource-annotations-last-modified"
+          ],
+          "reference": "MCP Description 0.9.0, Section 10.3"
+        }
+      ],
+      "status": "internal",
+      "summary": "Resource Annotations carry lastModified only from MCP 2025-06-18, on declarations and on content blocks.",
+      "surface": "Annotations",
+      "title": "Use lastModified only where MCP defines it"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "applies",
+          "2025-03-26": "applies",
+          "2025-06-18": "applies",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        }
+      },
+      "description": "Resource annotations describe audience, priority, and modification time, not Tool behavior. Unknown properties are invalid even when their names start with x-. Remove those properties and keep Tool-specific hints on Tool annotations instead.",
+      "diagnostics": [
+        {
+          "code": "schema-validation",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/resource-annotations-unknown-property.json",
+          "pointer": "/resources/0/annotations"
+        },
+        {
+          "path": "expected-invalid/content-annotations-unknown-property.json",
+          "pointer": "/tools/0/examples/basic/result/content/0/annotations"
+        },
+        {
+          "path": "expected-valid/distinct-tool-and-resource-annotations.json",
+          "pointer": "/resources/0/annotations"
+        }
+      ],
+      "id": "mcp.annotations.members",
+      "kind": "structural",
+      "notes": "lastModified is defined from MCP 2025-06-18; that boundary is checked separately.",
+      "owner": "mcp",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2024-11-05/schema.ts#L815-L840",
+            "validation/mcp-schemas/2025-03-26/schema.ts#L921-L944",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L1093-L1128",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L1700-L1735",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L2265-L2300"
+          ],
+          "reference": "MCP 2024-11-05 schema.ts, inline annotations on Resource, ResourceTemplate, and content types; MCP 2025-03-26 to 2026-07-28 schema.ts, interface Annotations (no index signature)",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/10-resources.md#req-resource-annotations-closed"
+          ],
+          "reference": "MCP Description 0.9.0, Section 10.3"
+        }
+      ],
+      "status": "internal",
+      "summary": "Resource Annotations on resources, resource templates, and content blocks contain only audience, priority, and lastModified.",
+      "surface": "Annotations",
+      "title": "Resource annotations contain only MCP hints"
+    },
+    {
+      "applicability": {
+        "protocolVersions": "independent"
+      },
+      "arbitrations": [
+        {
+          "authority": "MCP's schema generation configuration (--defaultNumberType integer), under which an unannotated number denotes an integer.",
+          "behavior": "Reject a non-integer or negative ttlMs with schema-validation.",
+          "conflict": "schema.ts declares ttlMs as number, which TypeScript cannot restrict to integers; the generated schema.json types it as integer.",
+          "rationale": "A millisecond duration is an integer in MCP's generated schema; accepting fractions would let examples disagree with MCP's types.",
+          "reviewTrigger": "MCP changes its generator configuration or annotates ttlMs with @TJS-type number.",
+          "revisions": [
+            "2026-07-28"
+          ],
+          "status": "active"
+        }
+      ],
+      "description": "Resource example ttlMs values are non-negative integer milliseconds. This value constraint also applies when an older protocol version permits the field without defining it. Replace fractions or negative values with the intended duration rather than relying on automatic rounding.",
+      "diagnostics": [
+        {
+          "code": "schema-validation",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/fractional-ttl-ms.json",
+          "pointer": "/resources/0/examples/cached/result/ttlMs"
+        },
+        {
+          "path": "expected-invalid/resource-example-cache-fields.json",
+          "pointer": "/resources/1/examples/invalid/result/ttlMs"
+        },
+        {
+          "path": "expected-valid/named-resource-examples.json",
+          "pointer": "/resources/0"
+        }
+      ],
+      "id": "mcp.cacheable-result.ttl-ms",
+      "kind": "structural",
+      "notes": "MCP defines ttlMs from 2026-07-28 only. In earlier revisions it is a field not defined by the revision (mcp.result.additional-properties.preserve), and Section 3.6 keeps the same value constraint so that one example can serve several revisions.",
+      "owner": "mcp",
+      "path": "ttlMs",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2026-07-28/schema.ts#L1081-L1094"
+          ],
+          "reference": "MCP 2026-07-28 schema.ts, interface CacheableResult, ttlMs (unannotated number, @minimum 0)",
+          "tier": 1
+        },
+        {
+          "locations": [
+            "validation/mcp-schemas/2026-07-28/schema.json#L2625-L2629"
+          ],
+          "reference": "MCP 2026-07-28 generated schema.json, ReadResourceResult.ttlMs typed integer",
+          "tier": 3
+        },
+        {
+          "locations": [
+            "https://github.com/modelcontextprotocol/modelcontextprotocol/blob/dae694f61a31f7a3ec2af3aff709e11f70f61e48/scripts/generate-schemas.ts#L95"
+          ],
+          "reference": "MCP scripts/generate-schemas.ts: typescript-json-schema --defaultNumberType integer",
+          "tier": 3
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/03-document-structure.md#req-mcp-integer-numbers",
+            "sections/10-resources.md#req-resource-example-result-shape"
+          ],
+          "reference": "MCP Description 0.9.0, Sections 3.6 and 10.4.4"
+        },
+        {
+          "locations": [
+            "proposal-snapshots/0029-integer-mcp-numbers.md"
+          ],
+          "reference": "Proposal 0029, Integer MCP Numbers"
+        }
+      ],
+      "status": "arbitrated",
+      "summary": "ttlMs in a Resource example result is a non-negative integer when present.",
+      "surface": "CacheableResult",
+      "title": "Express cache lifetimes as non-negative integers"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "applies",
+          "2025-03-26": "applies",
+          "2025-06-18": "applies",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        }
+      },
+      "arbitrations": [
+        {
+          "authority": "MCP Description decision (Proposal 0021)",
+          "behavior": "Accept and preserve a server extensions map for earlier revisions with a warning; client requirements stay revision-strict.",
+          "conflict": "ServerCapabilities is closed and has no extensions member before MCP 2026-07-28, so mcp.server-capabilities.members would reject it, but deployed servers advertise extensions with a pre-standard convention.",
+          "rationale": "Rejecting it would make descriptions of deployed servers inaccurate. The warning keeps the departure from the type visible.",
+          "reviewTrigger": "Retirement of the pre-standard convention, or a decision to drop support for it.",
+          "revisions": [
+            "2024-11-05",
+            "2025-03-26",
+            "2025-06-18",
+            "2025-11-25"
+          ],
+          "status": "active"
+        }
+      ],
+      "description": "MCP Description accepts server extension advertisements before their standardization, with a warning for the affected protocol versions. The values are preserved rather than rewritten. This exception does not make primitive clientRequirements.extensions available in those earlier versions.",
+      "diagnostics": [
+        {
+          "code": "extensions-not-supported-by-version",
+          "severity": "warning"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-warning/pre-standard-extension-capabilities.json",
+          "pointer": "/capabilities/0"
+        }
+      ],
+      "id": "mcp.capabilities.extensions.revision-availability",
+      "kind": "structural",
+      "owner": "mcp",
+      "path": "extensions",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2024-11-05/schema.ts#L205-L248",
+            "validation/mcp-schemas/2025-03-26/schema.ts#L225-L272",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L253-L302",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L381-L457",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L871-L882"
+          ],
+          "reference": "MCP 2024-11-05 to 2025-11-25 schema.ts, interface ServerCapabilities (no extensions); MCP 2026-07-28 schema.ts, ServerCapabilities extensions",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/08-capabilities.md#req-capabilities-extensions-pre-standard",
+            "../../proposals/0021-pre-standard-extension-capabilities.md"
+          ],
+          "reference": "MCP Description 0.9.0, Section 8.4; Proposal 0021 (pre-standard extension capabilities)"
+        }
+      ],
+      "status": "arbitrated",
+      "summary": "Server capabilities.extensions is defined from MCP 2026-07-28; for earlier revisions a pre-standard extensions map is preserved with a warning.",
+      "surface": "ServerCapabilities",
+      "title": "Recognize pre-standard extension advertisements"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "not-applicable",
+          "2025-03-26": "not-applicable",
+          "2025-06-18": "not-applicable",
+          "2025-11-25": "not-applicable",
+          "2026-07-28": "applies"
+        }
+      },
+      "description": "MCP 2026-07-28 uses per-request log-level selection rather than logging/setLevel. MCP Description warns about the logging server capability for that version. Review the advertisement; the warning alone does not make the description invalid.",
+      "diagnostics": [
+        {
+          "code": "logging-deprecated-in-2026",
+          "severity": "warning"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-warning/logging-deprecated-2026.json",
+          "pointer": "/capabilities/0"
+        }
+      ],
+      "id": "mcp.capabilities.logging.deprecated",
+      "kind": "semantic",
+      "owner": "mcp",
+      "path": "logging",
+      "requirement": "should",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2026-07-28/schema.ts#L798-L808",
+            "https://github.com/modelcontextprotocol/modelcontextprotocol/blob/dae694f61a31f7a3ec2af3aff709e11f70f61e48/docs/specification/2026-07-28/server/utilities/logging.mdx#L8-L18"
+          ],
+          "reference": "MCP 2026-07-28 schema.ts, ServerCapabilities logging (@deprecated, SEP-2577); specification, Server Features, Utilities, Logging (deprecated)",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/08-capabilities.md#req-capabilities-logging-deprecated"
+          ],
+          "reference": "MCP Description 0.9.0, Section 8.2"
+        }
+      ],
+      "status": "internal",
+      "summary": "The logging server capability is reported as deprecated in MCP 2026-07-28.",
+      "surface": "ServerCapabilities",
+      "title": "Review the deprecated logging capability"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "applies",
+          "2025-03-26": "applies",
+          "2025-06-18": "applies",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        }
+      },
+      "description": "Task capabilities from MCP 2025-11-25 and extension advertisements in MCP 2026-07-28 are not interchangeable fields. Limit each capability declaration to the versions that define it. The validator does not automatically translate a tasks object into an extension advertisement.",
+      "diagnostics": [
+        {
+          "code": "field-not-supported-by-version",
+          "severity": "error"
+        },
+        {
+          "code": "tasks-core-not-valid-in-2026",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/tasks-capability-2026.json",
+          "pointer": "/capabilities/0"
+        }
+      ],
+      "id": "mcp.capabilities.tasks.revision-availability",
+      "kind": "structural",
+      "owner": "mcp",
+      "path": "tasks",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2025-11-25/schema.ts#L430-L456",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L253-L302",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L788-L883"
+          ],
+          "reference": "MCP 2025-11-25 schema.ts, ServerCapabilities tasks; MCP 2025-06-18 and 2026-07-28 schema.ts, ServerCapabilities (no tasks)",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/08-capabilities.md#req-capabilities-tasks-distinct",
+            "sections/04-versioning.md#req-field-revision-availability"
+          ],
+          "reference": "MCP Description 0.9.0, Section 8.3"
+        }
+      ],
+      "status": "internal",
+      "summary": "The core tasks server capability exists only in MCP 2025-11-25; MCP 2026-07-28 uses the tasks extension instead.",
+      "surface": "ServerCapabilities",
+      "title": "Keep task capabilities in their protocol version"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "not-applicable",
+          "2025-03-26": "not-applicable",
+          "2025-06-18": "not-applicable",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        }
+      },
+      "description": "Some client capability forms remain recognized but are deprecated in later MCP protocol versions. The warning does not invalidate the document. Review the requirement against the selected protocol version rather than assuming an older advertisement model still applies.",
+      "diagnostics": [
+        {
+          "code": "deprecated-client-requirement",
+          "severity": "warning"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-warning/deprecated-client-capability-requirements.json",
+          "pointer": "/prompts/0/clientRequirements"
+        }
+      ],
+      "id": "mcp.client-capabilities.deprecated",
+      "kind": "semantic",
+      "owner": "mcp",
+      "path": "clientRequirements",
+      "requirement": "should",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2025-11-25/schema.ts#L1588-L1595"
+          ],
+          "reference": "MCP 2025-11-25 schema.ts, CreateMessageRequest includeContext (\"thisServer\" and \"allServers\" are soft-deprecated; tied to ClientCapabilities.sampling.context)",
+          "tier": 1
+        },
+        {
+          "locations": [
+            "validation/mcp-schemas/2026-07-28/schema.ts#L732-L732",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L733-L759"
+          ],
+          "reference": "MCP 2026-07-28 schema.ts, ClientCapabilities roots and sampling (@deprecated, SEP-2577)",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/08-capabilities.md#req-client-requirements-deprecated"
+          ],
+          "reference": "MCP Description 0.9.0, Section 8.5"
+        }
+      ],
+      "status": "internal",
+      "summary": "A client capability requirement that the applicable revision deprecates is reported.",
+      "surface": "ClientCapabilities",
+      "title": "Review deprecated client requirements"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "applies",
+          "2025-03-26": "applies",
+          "2025-06-18": "applies",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        }
+      },
+      "arbitrations": [
+        {
+          "authority": "MCP schema.ts type, the source of truth for message structures",
+          "behavior": "Reject unknown top-level requirements, as for server capabilities. Custom requirements belong in experimental and, from MCP 2026-07-28, in extensions.",
+          "conflict": "The TypeScript type declares a fixed set of members and no index signature, while its doc comment says the set is not closed and any client can define additional capabilities.",
+          "rationale": "Same reading as mcp.server-capabilities.members, so one document does not treat the two capability types differently. Closing is the reversible choice.",
+          "reviewTrigger": "Resolution of MCP issue 1898, an upstream clarification of the doc comment, or a later MCP revision adding an index signature.",
+          "revisions": [
+            "2024-11-05",
+            "2025-03-26",
+            "2025-06-18",
+            "2025-11-25",
+            "2026-07-28"
+          ],
+          "status": "active",
+          "upstream": "https://github.com/modelcontextprotocol/modelcontextprotocol/issues/1898"
+        }
+      ],
+      "description": "A primitive's clientRequirements lists minimum client capabilities, not custom top-level names. Put custom requirements in experimental or in extensions where defined, after reviewing their meaning. Server capability advertisement and client requirements are different declarations.",
+      "diagnostics": [
+        {
+          "code": "schema-validation",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/unknown-client-capability-requirement.json",
+          "pointer": "/tools/0/clientRequirements"
+        },
+        {
+          "path": "expected-valid/client-capability-requirements.json",
+          "pointer": "/prompts/0/clientRequirements"
+        }
+      ],
+      "id": "mcp.client-capabilities.members",
+      "kind": "structural",
+      "owner": "mcp",
+      "path": "clientRequirements",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2024-11-05/schema.ts#L182-L203",
+            "validation/mcp-schemas/2025-03-26/schema.ts#L202-L223",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L224-L251",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L305-L379",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L711-L786"
+          ],
+          "reference": "MCP 2024-11-05 to 2026-07-28 schema.ts, interface ClientCapabilities (no index signature)",
+          "tier": 1
+        },
+        {
+          "locations": [
+            "validation/mcp-schemas/2024-11-05/schema.ts#L182-L184",
+            "validation/mcp-schemas/2025-03-26/schema.ts#L202-L204",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L224-L228",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L305-L309",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L711-L715"
+          ],
+          "reference": "MCP 2024-11-05 to 2026-07-28 schema.ts, ClientCapabilities doc comment (\"this is not a closed set: any client can define its own, additional capabilities\")",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/08-capabilities.md#req-client-requirements-closed"
+          ],
+          "reference": "MCP Description 0.9.0, Section 8.5"
+        }
+      ],
+      "status": "arbitrated",
+      "summary": "A Client Capability Requirements Object names only client capabilities the applicable MCP revision defines; custom requirements go in experimental and, from MCP 2026-07-28, in extensions.",
+      "surface": "ClientCapabilities",
+      "title": "Use recognized client capability requirements"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "applies",
+          "2025-03-26": "applies",
+          "2025-06-18": "applies",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        }
+      },
+      "description": "Client capabilities and their settings change across MCP protocol versions. Check each declared requirement against every version in the primitive's effective scope. Split variants when a requirement cannot be represented consistently across that scope.",
+      "diagnostics": [
+        {
+          "code": "client-requirement-version-mismatch",
+          "severity": "error"
+        },
+        {
+          "code": "invalid-client-requirement-value",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/revision-incompatible-client-capability-requirements.json",
+          "pointer": "/tools/0/clientRequirements"
+        },
+        {
+          "path": "expected-invalid/invalid-client-requirement-value.json",
+          "pointer": "/tools/0/clientRequirements/roots"
+        },
+        {
+          "path": "expected-valid/client-capability-requirements.json",
+          "pointer": "/tools/0/clientRequirements"
+        }
+      ],
+      "id": "mcp.client-capabilities.revision-shape",
+      "kind": "structural",
+      "owner": "mcp",
+      "path": "clientRequirements",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2024-11-05/schema.ts#L182-L203",
+            "validation/mcp-schemas/2025-03-26/schema.ts#L202-L223",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L224-L251",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L305-L379",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L711-L786"
+          ],
+          "reference": "MCP 2024-11-05 to 2026-07-28 schema.ts, interface ClientCapabilities (members and nested members per revision)",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/08-capabilities.md#req-client-requirements-revision-valid",
+            "sections/08-capabilities.md#req-client-requirements-values"
+          ],
+          "reference": "MCP Description 0.9.0, Section 8.5"
+        }
+      ],
+      "status": "internal",
+      "summary": "Each client capability requirement and nested member exists in every applicable revision's ClientCapabilities type, with object values and a boolean listChanged.",
+      "surface": "ClientCapabilities",
+      "title": "Match client requirements to the protocol version"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "not-applicable",
+          "2025-03-26": "applies",
+          "2025-06-18": "applies",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        }
+      },
+      "description": "Completion context was added in MCP 2025-06-18. A completion example spanning an earlier supported version cannot carry that context unchanged. Split the declaration's scopes when context is needed for only the newer versions.",
+      "diagnostics": [
+        {
+          "code": "completion-example-context-version-mismatch",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/invalid-completion-example-semantics.json",
+          "pointer": "/prompts/1/completionExamples/context-too-early"
+        }
+      ],
+      "id": "mcp.completion.context.revision-availability",
+      "kind": "structural",
+      "notes": "MCP Description does not support completion examples for MCP 2024-11-05 (mcp.completion.revision-availability).",
+      "owner": "mcp",
+      "path": "context",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2025-03-26/schema.ts#L1092-L1113",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L1307-L1340",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L1995-L2025",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L2582-L2618"
+          ],
+          "reference": "MCP 2025-03-26 schema.ts, interface CompleteRequest (no context); MCP 2025-06-18 to 2026-07-28 schema.ts, CompleteRequest params context",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/10-resources.md#req-template-completion-context-revision",
+            "sections/11-prompts.md#req-prompt-completion-context-revision"
+          ],
+          "reference": "MCP Description 0.9.0, Sections 10.4.6 and 11.4"
+        }
+      ],
+      "status": "internal",
+      "summary": "A completion example carries context only from MCP 2025-06-18, where CompleteRequest defines it.",
+      "surface": "CompleteRequest",
+      "title": "Use completion context only where supported"
+    },
+    {
+      "applicability": {
+        "protocolVersions": "independent"
+      },
+      "description": "The nested completion object is closed even when its surrounding result is open. It accepts values, total, and hasMore, not arbitrary pagination or vendor fields. Remove additional members or explicitly review a different metadata destination.",
+      "diagnostics": [
+        {
+          "code": "schema-validation",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/completion-result-extra-field.json",
+          "pointer": "/resourceTemplates/0/completionExamples/issue-prefix/result/completion"
+        },
+        {
+          "path": "expected-valid/named-completion-examples.json",
+          "pointer": "/resourceTemplates/0/completionExamples"
+        }
+      ],
+      "id": "mcp.completion.result-closed",
+      "kind": "structural",
+      "owner": "mcp",
+      "path": "completion",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2024-11-05/schema.ts#L974-L992",
+            "validation/mcp-schemas/2025-03-26/schema.ts#L1115-L1133",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L1342-L1362",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L2037-L2057",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L2633-L2661"
+          ],
+          "reference": "MCP 2024-11-05 to 2026-07-28 schema.ts, interface CompleteResult, completion (no index signature)",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/03-document-structure.md#req-carried-nested-closed",
+            "sections/03-document-structure.md#req-carried-closed-reject"
+          ],
+          "reference": "MCP Description 0.9.0, Sections 10.4.6 and 11.4"
+        }
+      ],
+      "status": "internal",
+      "summary": "The completion object of a completion result contains only values, total, and hasMore.",
+      "surface": "CompleteResult",
+      "title": "Keep completion result members within MCP fields"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "applies",
+          "2025-03-26": "applies",
+          "2025-06-18": "applies",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        }
+      },
+      "description": "MCP Description does not support completion examples for MCP 2024-11-05, despite the underlying protocol defining completion. The registry records that deliberate historical limitation. Scope completion examples to supported versions instead of treating this as a missing capability advertisement.",
+      "diagnostics": [
+        {
+          "code": "completion-example-version-mismatch",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/invalid-completion-example-semantics.json",
+          "pointer": "/prompts/0/completionExamples"
+        },
+        {
+          "path": "expected-warning/legacy-completion-examples.json",
+          "pointer": "/resourceTemplates/0/completionExamples/issue-prefix"
+        }
+      ],
+      "gaps": [
+        {
+          "behavior": "Completion examples are rejected with completion-example-version-mismatch, although MCP 2024-11-05 defines completion/complete. MCP Description does not support completion examples for this revision: it is old and the use case is narrow.",
+          "reference": "Maintainer decision on issue #72, 2026-10-25",
+          "resolution": "not-fixed",
+          "revisions": [
+            "2024-11-05"
+          ]
+        }
+      ],
+      "id": "mcp.completion.revision-availability",
+      "kind": "structural",
+      "owner": "mcp",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2024-11-05/schema.ts#L951-L972",
+            "validation/mcp-schemas/2024-11-05/schema.ts#L974-L992",
+            "validation/mcp-schemas/2025-03-26/schema.ts#L237-L240"
+          ],
+          "reference": "MCP 2024-11-05 schema.ts, interfaces CompleteRequest (method completion/complete) and CompleteResult; the ServerCapabilities.completions capability is added in MCP 2025-03-26",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/10-resources.md#req-template-completion-revisions",
+            "sections/11-prompts.md#req-prompt-completion-revisions"
+          ],
+          "reference": "MCP Description 0.9.0, Sections 10.4.6 and 11.4 (no completion examples for MCP 2024-11-05)"
+        }
+      ],
+      "status": "internal",
+      "summary": "Completion examples are available in every revision that defines completion/complete and CompleteResult.",
+      "surface": "CompleteResult",
+      "title": "Check completion example protocol support"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "applies",
+          "2025-03-26": "applies",
+          "2025-06-18": "applies",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        }
+      },
+      "description": "Tool and Prompt examples carry native MCP content, whose types and fields vary by protocol version. Check each block against the containing declaration's full effective scope. A block valid in a newer version is not automatically valid in an older one.",
+      "diagnostics": [
+        {
+          "code": "tool-example-content-version-mismatch",
+          "severity": "error"
+        },
+        {
+          "code": "prompt-example-content-version-mismatch",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/revision-incompatible-tool-example.json",
+          "pointer": "/tools/0/examples/future-result/result/content/0"
+        },
+        {
+          "path": "expected-invalid/invalid-prompt-example-semantics.json",
+          "pointer": "/prompts/4/examples/resource-link-too-new/result/messages/0/content"
+        }
+      ],
+      "id": "mcp.content-block.revision-availability",
+      "kind": "structural",
+      "notes": "The same diagnostic codes also report embedded resource _meta (mcp.resource-contents.meta.revision-availability) and annotations.lastModified (mcp.annotations.last-modified.revision-availability); the rule property identifies which.",
+      "owner": "mcp",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2024-11-05/schema.ts#L842-L851",
+            "validation/mcp-schemas/2024-11-05/schema.ts#L853-L868",
+            "validation/mcp-schemas/2024-11-05/schema.ts#L610-L619"
+          ],
+          "reference": "MCP 2024-11-05 schema.ts, TextContent, ImageContent, and EmbeddedResource (no AudioContent, no ResourceLink, no content _meta)",
+          "tier": 1
+        },
+        {
+          "locations": [
+            "validation/mcp-schemas/2025-03-26/schema.ts#L987-L1009"
+          ],
+          "reference": "MCP 2025-03-26 schema.ts, AudioContent",
+          "tier": 1
+        },
+        {
+          "locations": [
+            "validation/mcp-schemas/2025-06-18/schema.ts#L753-L762",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L1130-L1134"
+          ],
+          "reference": "MCP 2025-06-18 schema.ts, ResourceLink and ContentBlock, _meta on content types",
+          "tier": 1
+        },
+        {
+          "locations": [
+            "validation/mcp-schemas/2025-11-25/schema.ts#L797-L838"
+          ],
+          "reference": "MCP 2025-11-25 schema.ts, Resource extends Icons (inherited by ResourceLink)",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/09-tools.md#req-tool-example-content-revision",
+            "sections/11-prompts.md#req-prompt-example-content-revision"
+          ],
+          "reference": "MCP Description 0.9.0, Sections 9.3 and 11.3"
+        }
+      ],
+      "status": "internal",
+      "summary": "Content blocks in example results use only content types and fields the applicable revision defines: audio from MCP 2025-03-26, resource links and block _meta from 2025-06-18, and resource-link icons from 2025-11-25.",
+      "surface": "ContentBlock",
+      "title": "Use content blocks supported by each protocol version"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "applies",
+          "2025-03-26": "applies",
+          "2025-06-18": "applies",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        }
+      },
+      "description": "A declaration must be valid in every protocol version in its effective scope. A field introduced later cannot be shared with earlier versions merely because the document also declares the later version. Omit the field or describe disjoint scoped variants.",
+      "diagnostics": [
+        {
+          "code": "field-not-supported-by-version",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/revision-inapplicable-execution.json",
+          "pointer": "/tools/0"
+        },
+        {
+          "path": "expected-invalid/revision-inapplicable-tool-schema-dialect.json",
+          "pointer": "/tools/0/inputSchema"
+        }
+      ],
+      "id": "mcp.declaration.field.revision-availability",
+      "kind": "structural",
+      "notes": "outputSchema, the outputSchema root, and the tasks capability have their own rules; the rule property identifies which applies.",
+      "owner": "mcp",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2024-11-05/schema.ts#L684-L704",
+            "validation/mcp-schemas/2025-03-26/schema.ts#L781-L810",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L925-L968",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L1244-L1297",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L1956-L2015",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L304-L324",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L523-L543",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L949-L969",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L503-L521",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L929-L947",
+            "validation/mcp-schemas/2024-11-05/schema.ts#L414-L450",
+            "validation/mcp-schemas/2025-03-26/schema.ts#L442-L483",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L521-L562",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L797-L838",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L1433-L1474",
+            "validation/mcp-schemas/2024-11-05/schema.ts#L452-L481",
+            "validation/mcp-schemas/2025-03-26/schema.ts#L485-L519",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L564-L598",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L840-L874",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L1476-L1507",
+            "validation/mcp-schemas/2024-11-05/schema.ts#L558-L574",
+            "validation/mcp-schemas/2025-03-26/schema.ts#L596-L612",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L696-L715",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L979-L999",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L1654-L1671",
+            "validation/mcp-schemas/2024-11-05/schema.ts#L576-L592",
+            "validation/mcp-schemas/2025-03-26/schema.ts#L614-L630",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L717-L731",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L1001-L1015",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L1673-L1687",
+            "validation/mcp-schemas/2024-11-05/schema.ts#L205-L248",
+            "validation/mcp-schemas/2025-03-26/schema.ts#L225-L272",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L253-L302",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L381-L457",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L788-L883"
+          ],
+          "reference": "MCP 2024-11-05 to 2026-07-28 schema.ts, interfaces BaseMetadata, Icons, Tool, Resource, ResourceTemplate, Prompt, PromptArgument, and ServerCapabilities",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/04-versioning.md#req-field-revision-availability",
+            "sections/09-tools.md#req-tool-schema-dialect-keyword"
+          ],
+          "reference": "MCP Description 0.9.0, Sections 8.2, 9.1, 9.2, 10.1, 10.2, and 11.1"
+        }
+      ],
+      "status": "internal",
+      "summary": "A declaration field is used only in revisions whose MCP type defines it: title and _meta from 2025-06-18, Tool annotations from 2025-03-26, icons and Tool schema $schema from 2025-11-25, Tool execution only in 2025-11-25, and the completions capability from 2025-03-26.",
+      "surface": "Tool, Resource, ResourceTemplate, Prompt, PromptArgument, ServerCapabilities",
+      "title": "Keep fields within their supported protocol scope"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "not-applicable",
+          "2025-03-26": "not-applicable",
+          "2025-06-18": "applies",
+          "2025-11-25": "not-applicable",
+          "2026-07-28": "not-applicable"
+        }
+      },
+      "description": "The allowed form-schema vocabulary depends on the MCP protocol version. Check the fields of requestedSchema against that vocabulary rather than assuming a general Tool JSON Schema can be copied into an elicitation form unchanged.",
+      "diagnostics": [
+        {
+          "code": "elicitation-form-schema-version-mismatch",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/elicitation-form-schema-2025-06-18.json",
+          "pointer": "/prompts/0/elicitations/0/requestedSchema"
+        }
+      ],
+      "id": "mcp.elicitation.form-schema.revision-shape",
+      "kind": "structural",
+      "owner": "mcp",
+      "path": "requestedSchema",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2025-06-18/schema.ts#L1453-L1477",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L1479-L1486",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L1517-L1525",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L1527-L1536"
+          ],
+          "reference": "MCP 2025-06-18 schema.ts, ElicitRequest requestedSchema and PrimitiveSchemaDefinition (default only on BooleanSchema; EnumSchema with enum and enumNames)",
+          "tier": 1
+        },
+        {
+          "locations": [
+            "validation/mcp-schemas/2025-11-25/schema.ts#L2150-L2178",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L2228-L2235",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L2463-L2464"
+          ],
+          "reference": "MCP 2025-11-25 schema.ts, requestedSchema $schema, default on all primitive schemas, titled and multi-select enum schemas",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/12-elicitation.md#req-elicitation-form-vocabulary"
+          ],
+          "reference": "MCP Description 0.9.0, Section 12.3"
+        }
+      ],
+      "status": "internal",
+      "summary": "In MCP 2025-06-18, a form requestedSchema has no $schema, no array or titled enum properties, and default only on boolean properties.",
+      "surface": "ElicitRequest",
+      "title": "Use the applicable elicitation form vocabulary"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "applies",
+          "2025-03-26": "applies",
+          "2025-06-18": "applies",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        }
+      },
+      "description": "Elicitation forms and URL flows are not available in every MCP protocol version. Scope declarations and interaction examples to the versions that define the chosen mode. Describing an interaction does not make that interaction available in an older protocol version.",
+      "diagnostics": [
+        {
+          "code": "elicitation-mode-not-supported-by-version",
+          "severity": "error"
+        },
+        {
+          "code": "interaction-example-version-mismatch",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/elicitation-version-mismatch.json",
+          "pointer": "/tools/0/elicitations/0"
+        },
+        {
+          "path": "expected-invalid/invalid-tool-interaction-example-semantics.json",
+          "pointer": "/tools/0/interactionExamples/broken/steps/0/request"
+        }
+      ],
+      "id": "mcp.elicitation.revision-availability",
+      "kind": "structural",
+      "notes": "Elicitation Declarations scoped before MCP 2025-06-18 are outside the complete semantic checks (Section 16.2).",
+      "owner": "mcp",
+      "path": "mode",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2025-03-26/schema.ts#L202-L223",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L1453-L1477",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L2180-L2208",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L2813-L2838"
+          ],
+          "reference": "MCP 2025-03-26 schema.ts (no elicitation/create); MCP 2025-06-18 schema.ts, ElicitRequest (form only); MCP 2025-11-25 and 2026-07-28 schema.ts, ElicitRequestURLParams (mode \"url\")",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/12-elicitation.md#req-elicitation-revisions",
+            "sections/09-tools.md#req-interaction-revision-valid"
+          ],
+          "reference": "MCP Description 0.9.0, Sections 9.4 and 12.5"
+        }
+      ],
+      "status": "internal",
+      "summary": "Elicitation is used only from MCP 2025-06-18, and URL mode only from MCP 2025-11-25, in declarations and in Tool interaction steps.",
+      "surface": "ElicitRequest",
+      "title": "Use elicitation only where the version supports it"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "not-applicable",
+          "2025-03-26": "not-applicable",
+          "2025-06-18": "not-applicable",
+          "2025-11-25": "not-applicable",
+          "2026-07-28": "applies"
+        }
+      },
+      "description": "In MCP 2026-07-28, sampling, elicitation, and roots responses are closed input responses rather than open results. Remove undefined fields; _meta is defined only for the sampling response. Earlier versions' open-result behavior does not carry forward to these types.",
+      "diagnostics": [
+        {
+          "code": "interaction-example-version-mismatch",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/closed-step-responses-2026.json",
+          "pointer": "/tools/0/interactionExamples/approved/steps/0/response"
+        }
+      ],
+      "id": "mcp.input-response.closed",
+      "kind": "structural",
+      "owner": "mcp",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2026-07-28/schema.ts#L541-L542",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L2190-L2228",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L3120-L3149",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L2725-L2744"
+          ],
+          "reference": "MCP 2026-07-28 schema.ts, type InputResponse (CreateMessageResult, ListRootsResult, ElicitResult); none extends Result; only CreateMessageResult defines _meta, through SamplingMessage",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/03-document-structure.md#req-carried-closed-reject",
+            "sections/09-tools.md#req-interaction-revision-valid"
+          ],
+          "reference": "MCP Description 0.9.0, Sections 3.6 and 9.4"
+        }
+      ],
+      "status": "internal",
+      "summary": "In MCP 2026-07-28, sampling, elicitation, and roots responses are input responses, not results, and accept only the fields their types define.",
+      "surface": "InputResponse",
+      "title": "Keep newer client input responses closed"
+    },
+    {
+      "applicability": {
+        "protocolVersions": "independent"
+      },
+      "description": "MCP metadata keys follow a grammar for an optional dotted prefix and a local name. Check separators and permitted characters when a key is rejected. Reserved-name context and value checks are separate from this key-format check.",
+      "diagnostics": [
+        {
+          "code": "schema-validation",
+          "severity": "error"
+        },
+        {
+          "code": "meta-key-invalid",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/meta-key-invalid.json",
+          "pointer": "/tools/0"
+        }
+      ],
+      "id": "mcp.meta.key-format",
+      "kind": "structural",
+      "notes": "The document schema rejects malformed keys first; meta-key-invalid applies to callers of the semantic validator alone.",
+      "owner": "mcp",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "https://github.com/modelcontextprotocol/modelcontextprotocol/blob/dae694f61a31f7a3ec2af3aff709e11f70f61e48/docs/specification/2025-06-18/basic/index.mdx#L134-L147",
+            "https://github.com/modelcontextprotocol/modelcontextprotocol/blob/dae694f61a31f7a3ec2af3aff709e11f70f61e48/docs/specification/2025-11-25/basic/index.mdx#L201-L215",
+            "https://github.com/modelcontextprotocol/modelcontextprotocol/blob/dae694f61a31f7a3ec2af3aff709e11f70f61e48/docs/specification/2026-07-28/basic/index.mdx#L330-L446"
+          ],
+          "reference": "MCP 2025-06-18 to 2026-07-28 specification, Basic, General fields, _meta key name format",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/03-document-structure.md#req-meta-keys"
+          ],
+          "reference": "MCP Description 0.9.0, Section 3.5 (the same grammar applies in every revision)"
+        }
+      ],
+      "status": "internal",
+      "summary": "A _meta key has an optional prefix of dot-separated labels followed by a slash, and a name that begins and ends with an alphanumeric character.",
+      "surface": "_meta",
+      "title": "Use valid metadata key names"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "not-applicable",
+          "2025-03-26": "not-applicable",
+          "2025-06-18": "applies",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        }
+      },
+      "description": "A recognized reserved metadata key has a specific context and value shape. A key valid on one message or object may be invalid on another. Check the containing object and protocol version rather than moving the same key unchanged into every _meta object.",
+      "diagnostics": [
+        {
+          "code": "meta-reserved-key-context",
+          "severity": "error"
+        },
+        {
+          "code": "meta-reserved-key-value",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/meta-reserved-key-misuse.json",
+          "pointer": "/tools/0/_meta"
+        },
+        {
+          "path": "expected-invalid/meta-reserved-keys-in-carried-values.json",
+          "pointer": "/prompts/0/completionExamples/request-key-in-result/result/_meta"
+        }
+      ],
+      "id": "mcp.meta.reserved-key-context",
+      "kind": "semantic",
+      "notes": "Checked on declarations and on every carried value: example results, their content, interaction step responses, and roots. MCP 2024-11-05 and 2025-03-26 do not define reserved keys; Section 16.2 limits validation for those revisions.",
+      "owner": "mcp",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "https://github.com/modelcontextprotocol/modelcontextprotocol/blob/dae694f61a31f7a3ec2af3aff709e11f70f61e48/docs/specification/2025-06-18/basic/index.mdx#L123-L147",
+            "https://github.com/modelcontextprotocol/modelcontextprotocol/blob/dae694f61a31f7a3ec2af3aff709e11f70f61e48/docs/specification/2025-11-25/basic/index.mdx#L190-L215",
+            "https://github.com/modelcontextprotocol/modelcontextprotocol/blob/dae694f61a31f7a3ec2af3aff709e11f70f61e48/docs/specification/2026-07-28/basic/index.mdx#L322-L446"
+          ],
+          "reference": "MCP 2025-06-18 to 2026-07-28 specification, Basic, General fields, _meta (reserved keys and where they apply)",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/03-document-structure.md#req-meta-keys"
+          ],
+          "reference": "MCP Description 0.9.0, Section 3.5"
+        }
+      ],
+      "status": "internal",
+      "summary": "A reserved _meta key appears only in the message context, and with the value, that the revision defines for it.",
+      "surface": "_meta",
+      "title": "Place reserved metadata in its defined context"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "not-applicable",
+          "2025-03-26": "not-applicable",
+          "2025-06-18": "applies",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        }
+      },
+      "description": "An unrecognized key in an MCP-reserved namespace may belong to a newer protocol definition. It is retained with a warning rather than assigned invented semantics. Verify the key and protocol version before treating it as a recognized MCP feature.",
+      "diagnostics": [
+        {
+          "code": "meta-unknown-reserved-key",
+          "severity": "warning"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-warning/unknown-reserved-meta-key.json",
+          "pointer": "/prompts/0/_meta"
+        }
+      ],
+      "id": "mcp.meta.reserved-prefix",
+      "kind": "semantic",
+      "notes": "A later MCP revision may define the key, so it is preserved rather than rejected.",
+      "owner": "mcp",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "https://github.com/modelcontextprotocol/modelcontextprotocol/blob/dae694f61a31f7a3ec2af3aff709e11f70f61e48/docs/specification/2025-06-18/basic/index.mdx#L140-L142",
+            "https://github.com/modelcontextprotocol/modelcontextprotocol/blob/dae694f61a31f7a3ec2af3aff709e11f70f61e48/docs/specification/2025-11-25/basic/index.mdx#L208-L210",
+            "https://github.com/modelcontextprotocol/modelcontextprotocol/blob/dae694f61a31f7a3ec2af3aff709e11f70f61e48/docs/specification/2026-07-28/basic/index.mdx#L337-L339"
+          ],
+          "reference": "MCP 2025-06-18 to 2026-07-28 specification, Basic, General fields, _meta (a prefix whose second label is modelcontextprotocol or mcp is reserved for MCP use)",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/03-document-structure.md#req-meta-reserved-prefix"
+          ],
+          "reference": "MCP Description 0.9.0, Section 3.5"
+        }
+      ],
+      "status": "internal",
+      "summary": "A _meta key under an MCP-reserved prefix that the revision does not define is preserved with a warning.",
+      "surface": "_meta",
+      "title": "Preserve unknown reserved metadata with a warning"
+    },
+    {
+      "applicability": {
+        "protocolVersions": "independent"
+      },
+      "description": "A Resource example's blob must be valid base64. Check the encoding rather than placing raw binary or a URL in the field. Encoded content remains untrusted, and a valid encoding does not establish that the resource exists or is safe to open.",
+      "diagnostics": [
+        {
+          "code": "invalid-resource-example-base64",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/resource-example-result-semantics.json",
+          "pointer": "/resources/0/examples/invalid-result/result/contents/0"
+        }
+      ],
+      "id": "mcp.resource-contents.blob.base64",
+      "kind": "structural",
+      "owner": "mcp",
+      "path": "blob",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2024-11-05/schema.ts#L507-L512",
+            "validation/mcp-schemas/2025-03-26/schema.ts#L545-L550",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L637-L642",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L913-L918",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L1549-L1554"
+          ],
+          "reference": "MCP 2024-11-05 to 2026-07-28 schema.ts, interface BlobResourceContents, blob (@format byte)",
+          "tier": 1
+        },
+        {
+          "locations": [
+            "https://www.rfc-editor.org/rfc/rfc4648#section-4"
+          ],
+          "reference": "RFC 4648, Section 4",
+          "tier": 2
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/10-resources.md#req-resource-example-blob-base64"
+          ],
+          "reference": "MCP Description 0.9.0, Section 10.4.4"
+        }
+      ],
+      "status": "internal",
+      "summary": "A blob in Resource Contents is canonical base64.",
+      "surface": "BlobResourceContents",
+      "title": "Encode binary Resource Contents as base64"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "applies",
+          "2025-03-26": "applies",
+          "2025-06-18": "applies",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        }
+      },
+      "description": "Resource Contents entries acquire _meta from MCP 2025-06-18. This is separate from result-level _meta, which is available in every supported version. Move or remove a misplaced value only after deciding which object it describes.",
+      "diagnostics": [
+        {
+          "code": "resource-example-content-version-mismatch",
+          "severity": "error"
+        },
+        {
+          "code": "tool-example-content-version-mismatch",
+          "severity": "error"
+        },
+        {
+          "code": "prompt-example-content-version-mismatch",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/resource-example-result-semantics.json",
+          "pointer": "/resources/1/examples/unsupported-metadata/result/contents/0"
+        }
+      ],
+      "id": "mcp.resource-contents.meta.revision-availability",
+      "kind": "structural",
+      "owner": "mcp",
+      "path": "_meta",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2024-11-05/schema.ts#L483-L497",
+            "validation/mcp-schemas/2025-03-26/schema.ts#L521-L535",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L600-L621",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L876-L897",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L1509-L1527"
+          ],
+          "reference": "MCP 2024-11-05 and 2025-03-26 schema.ts, interface ResourceContents (uri, mimeType); MCP 2025-06-18 to 2026-07-28 schema.ts, interface ResourceContents (adds _meta)",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/10-resources.md#req-resource-contents-meta"
+          ],
+          "reference": "MCP Description 0.9.0, Section 10.4.4"
+        }
+      ],
+      "status": "internal",
+      "summary": "Resource contents carry _meta only from MCP 2025-06-18, in Resource examples and in embedded resources.",
+      "surface": "ResourceContents",
+      "title": "Use Resource Contents metadata where supported"
+    },
+    {
+      "applicability": {
+        "protocolVersions": "independent"
+      },
+      "description": "Every Resource Template must contain a valid RFC 6570 URI template, even if it has no examples. Correct malformed braces, operators, or variable syntax before checking concrete expansions. The validator does not retrieve the resulting URI.",
+      "diagnostics": [
+        {
+          "code": "invalid-resource-template-uri-template",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/malformed-uri-template-without-examples.json",
+          "pointer": "/resourceTemplates/0"
+        },
+        {
+          "path": "expected-invalid/malformed-resource-template-example.json",
+          "pointer": "/resourceTemplates/0"
+        },
+        {
+          "path": "expected-invalid/invalid-completion-example-semantics.json",
+          "pointer": "/resourceTemplates/0"
+        }
+      ],
+      "id": "mcp.resource-template.uri-template",
+      "kind": "embedded-standard",
+      "notes": "Reported once per Resource Template, whether or not it has examples; example checks that need the parsed template are skipped.",
+      "owner": "mcp",
+      "path": "uriTemplate",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2024-11-05/schema.ts#L456-L461",
+            "validation/mcp-schemas/2025-03-26/schema.ts#L489-L494",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L570-L575",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L846-L851",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L1482-L1487"
+          ],
+          "reference": "MCP 2024-11-05 to 2026-07-28 schema.ts, interface ResourceTemplate, uriTemplate (\"A URI template (according to RFC 6570)\")",
+          "tier": 1
+        },
+        {
+          "locations": [
+            "https://www.rfc-editor.org/rfc/rfc6570#section-3"
+          ],
+          "reference": "RFC 6570, URI Template",
+          "tier": 2
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/10-resources.md#req-resource-template-uri-template"
+          ],
+          "reference": "MCP Description 0.9.0, Section 10.2.1"
+        }
+      ],
+      "status": "internal",
+      "summary": "A Resource Template uriTemplate is a valid RFC 6570 URI template.",
+      "surface": "ResourceTemplate",
+      "title": "Use a valid Resource Template expression"
+    },
+    {
+      "applicability": {
+        "protocolVersions": "independent"
+      },
+      "arbitrations": [
+        {
+          "authority": "MCP's schema generation configuration (--defaultNumberType integer), under which an unannotated number denotes an integer and fields that accept fractions carry @TJS-type number, such as Annotations.priority.",
+          "behavior": "Reject a non-integer size with schema-validation. No minimum is applied, as MCP defines none.",
+          "conflict": "schema.ts declares size as number, which TypeScript cannot restrict to integers; the generated schema.json types it as integer.",
+          "rationale": "The integer output is MCP's deliberate convention, not a generator defect. Following it keeps native projection valid against the generated schema and matches what MCP tooling validates.",
+          "reviewTrigger": "MCP changes its generator configuration or annotates size with @TJS-type number.",
+          "revisions": [
+            "2024-11-05",
+            "2025-03-26",
+            "2025-06-18",
+            "2025-11-25",
+            "2026-07-28"
+          ],
+          "status": "active"
+        }
+      ],
+      "description": "Resource declarations and resource-link content express raw size as an integer, following MCP's numeric schema convention. Replace a fractional value with the intended integer; the validator must not round it. No minimum is added beyond MCP's definition.",
+      "diagnostics": [
+        {
+          "code": "schema-validation",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/fractional-resource-size.json",
+          "pointer": "/resources/0/size"
+        },
+        {
+          "path": "expected-invalid/fractional-resource-link-size.json",
+          "pointer": "/tools/0/examples/listing/result/content/0/size"
+        },
+        {
+          "path": "expected-valid/named-resource-examples.json",
+          "pointer": "/resources/0"
+        }
+      ],
+      "id": "mcp.resource.size",
+      "kind": "structural",
+      "owner": "mcp",
+      "path": "size",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2024-11-05/schema.ts#L449",
+            "validation/mcp-schemas/2025-03-26/schema.ts#L482",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L556",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L832",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L1471",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L1719-L1721"
+          ],
+          "reference": "MCP 2024-11-05 to 2026-07-28 schema.ts, interface Resource, size (unannotated number); ResourceLink extends Resource from 2025-06-18",
+          "tier": 1
+        },
+        {
+          "locations": [
+            "validation/mcp-schemas/2024-11-05/schema.json#L1508-L1511",
+            "validation/mcp-schemas/2026-07-28/schema.json#L2760-L2763",
+            "validation/mcp-schemas/2026-07-28/schema.json#L2830-L2833"
+          ],
+          "reference": "MCP generated schema.json, Resource and ResourceLink size typed integer",
+          "tier": 3
+        },
+        {
+          "locations": [
+            "https://github.com/modelcontextprotocol/modelcontextprotocol/blob/dae694f61a31f7a3ec2af3aff709e11f70f61e48/scripts/generate-schemas.ts#L95"
+          ],
+          "reference": "MCP scripts/generate-schemas.ts: typescript-json-schema --defaultNumberType integer",
+          "tier": 3
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/10-resources.md#req-resource-size-integer",
+            "sections/03-document-structure.md#req-mcp-integer-numbers"
+          ],
+          "reference": "MCP Description 0.9.0, Sections 3.6 and 10.1.1"
+        },
+        {
+          "locations": [
+            "proposal-snapshots/0029-integer-mcp-numbers.md"
+          ],
+          "reference": "Proposal 0029, Integer MCP Numbers"
+        }
+      ],
+      "status": "arbitrated",
+      "summary": "Resource size, in a declaration and in resource link content, is an integer when present.",
+      "surface": "Resource",
+      "title": "Express resource sizes as integers"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "applies",
+          "2025-03-26": "applies",
+          "2025-06-18": "applies",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        }
+      },
+      "description": "An open MCP result can carry fields that its protocol version does not define. Those values are preserved without assigning them later-version meaning, and a warning identifies the affected version. Review the field or split protocol variants if the warning is not intended.",
+      "diagnostics": [
+        {
+          "code": "result-field-not-defined-by-version",
+          "severity": "warning"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-warning/open-result-unknown-properties.json",
+          "pointer": "/tools/0/examples/traced/result"
+        },
+        {
+          "path": "expected-warning/open-results-shared-across-revisions.json",
+          "pointer": "/prompts/0/examples/default/result"
+        },
+        {
+          "path": "expected-warning/open-step-responses-before-2026.json",
+          "pointer": "/tools/0/interactionExamples/approved/steps/0/response"
+        },
+        {
+          "path": "expected-warning/component-protocol-scope.json",
+          "pointer": "/components/resourceExamples/current/result"
+        }
+      ],
+      "id": "mcp.result.additional-properties.preserve",
+      "kind": "preservation",
+      "notes": "The warnings of this rule for a document equal the union of its warnings for each per-revision Effective Protocol View (scripts/test-views.mjs).",
+      "owner": "mcp",
+      "requirement": "may",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2024-11-05/schema.ts#L42-L48",
+            "validation/mcp-schemas/2025-03-26/schema.ts#L61-L67",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L60-L69",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L88-L97",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L218-L236"
+          ],
+          "reference": "MCP 2024-11-05 to 2026-07-28 schema.ts, interface Result (index signature [key: string]: unknown, inherited by every result type)",
+          "tier": 1
+        },
+        {
+          "locations": [
+            "validation/mcp-schemas/2024-11-05/schema.ts#L793-L805",
+            "validation/mcp-schemas/2025-03-26/schema.ts#L899-L911",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L1067-L1081",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L1649-L1674",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L1538-L1557",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L2466-L2486",
+            "validation/mcp-schemas/2024-11-05/schema.ts#L1032-L1039",
+            "validation/mcp-schemas/2025-03-26/schema.ts#L1173-L1180",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L1404-L1413",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L2100-L2109"
+          ],
+          "reference": "MCP 2024-11-05 to 2025-11-25 schema.ts, CreateMessageResult, ElicitResult, and ListRootsResult extend Result",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/03-document-structure.md#req-carried-open-preserve"
+          ],
+          "reference": "MCP Description 0.9.0, Section 3.6 (Carried MCP Values)"
+        }
+      ],
+      "status": "internal",
+      "summary": "A field that an open MCP result type allows but the revision does not define is accepted and preserved without meaning, with a warning attributed to that revision.",
+      "surface": "Result",
+      "title": "Preserve fields on open results with a warning"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "applies",
+          "2025-03-26": "applies",
+          "2025-06-18": "applies",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        }
+      },
+      "description": "Root entries acquire _meta from MCP 2025-06-18. This is different from metadata on the surrounding roots result. Remove misplaced metadata or scope the containing example to protocol versions that define it.",
+      "diagnostics": [
+        {
+          "code": "interaction-example-version-mismatch",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/root-meta-before-2025-06-18.json",
+          "pointer": "/tools/0/interactionExamples/with-root-meta/steps/0/response/roots/0"
+        },
+        {
+          "path": "expected-warning/open-step-responses-before-2026.json",
+          "pointer": "/tools/0/interactionExamples/approved/steps/0/response/roots/0"
+        }
+      ],
+      "id": "mcp.root.meta.revision-availability",
+      "kind": "structural",
+      "owner": "mcp",
+      "path": "_meta",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2024-11-05/schema.ts#L1041-L1059",
+            "validation/mcp-schemas/2025-03-26/schema.ts#L1182-L1200",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L1415-L1440",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L2111-L2136",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L2746-L2775"
+          ],
+          "reference": "MCP 2024-11-05 and 2025-03-26 schema.ts, interface Root (uri, name); MCP 2025-06-18 to 2026-07-28 schema.ts, interface Root (adds _meta)",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/03-document-structure.md#req-meta-revision-availability",
+            "sections/09-tools.md#req-interaction-revision-valid"
+          ],
+          "reference": "MCP Description 0.9.0, Sections 3.5, 3.6, and 9.4"
+        }
+      ],
+      "status": "internal",
+      "summary": "A root in a roots response may carry _meta from MCP 2025-06-18.",
+      "surface": "Root",
+      "title": "Use root metadata only where supported"
+    },
+    {
+      "applicability": {
+        "protocolVersions": "independent"
+      },
+      "description": "Root entries in interaction responses use file:// URIs. An arbitrary resource URI is not a valid root merely because the resource is accessible to the server. Correct the root URI without fetching or probing the referenced filesystem location.",
+      "diagnostics": [
+        {
+          "code": "interaction-example-roots-uri",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/invalid-tool-interaction-example-semantics.json",
+          "pointer": "/tools/0/interactionExamples/broken/steps/3/response/roots/0"
+        }
+      ],
+      "id": "mcp.root.uri.file-scheme",
+      "kind": "semantic",
+      "owner": "mcp",
+      "path": "uri",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2024-11-05/schema.ts#L1045-L1052",
+            "validation/mcp-schemas/2025-03-26/schema.ts#L1186-L1193",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L1421-L1428",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L2117-L2124",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L2759-L2766"
+          ],
+          "reference": "MCP 2024-11-05 to 2026-07-28 schema.ts, interface Root, uri (\"This *must* start with file:// for now\")",
+          "tier": 1
+        },
+        {
+          "locations": [
+            "https://github.com/modelcontextprotocol/modelcontextprotocol/blob/dae694f61a31f7a3ec2af3aff709e11f70f61e48/docs/specification/2026-07-28/client/roots.mdx#L100-L102"
+          ],
+          "reference": "MCP 2026-07-28 specification, Client Features, Roots, Data Types (uri MUST be a file:// URI)",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/09-tools.md#req-interaction-revision-valid"
+          ],
+          "reference": "MCP Description 0.9.0, Section 9.4"
+        }
+      ],
+      "status": "internal",
+      "summary": "A root URI in a roots response starts with file://.",
+      "surface": "Root",
+      "title": "Use file URIs for roots"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "applies",
+          "2025-03-26": "applies",
+          "2025-06-18": "applies",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        }
+      },
+      "description": "Sampling tools and toolChoice are available from MCP 2025-11-25. Earlier-version interaction examples cannot use those fields. Remove them or narrow the containing Tool's protocol scope to versions that support them.",
+      "diagnostics": [
+        {
+          "code": "interaction-example-version-mismatch",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/invalid-tool-interaction-example-semantics.json",
+          "pointer": "/tools/0/interactionExamples/broken/steps/2/request"
+        }
+      ],
+      "id": "mcp.sampling.tools.revision-availability",
+      "kind": "structural",
+      "owner": "mcp",
+      "path": "tools, toolChoice",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2025-06-18/schema.ts#L1028-L1065",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L1573-L1622",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L2086-L2152"
+          ],
+          "reference": "MCP 2025-06-18 schema.ts, CreateMessageRequest (no tools); MCP 2025-11-25 and 2026-07-28 schema.ts, CreateMessageRequestParams tools and toolChoice",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/09-tools.md#req-interaction-sampling-revision"
+          ],
+          "reference": "MCP Description 0.9.0, Section 9.4"
+        }
+      ],
+      "status": "internal",
+      "summary": "A sampling request uses tools and toolChoice only from MCP 2025-11-25.",
+      "surface": "CreateMessageRequest",
+      "title": "Use sampling tools only where supported"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "applies",
+          "2025-03-26": "applies",
+          "2025-06-18": "applies",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        }
+      },
+      "arbitrations": [
+        {
+          "authority": "MCP schema.ts type, the source of truth for message structures",
+          "behavior": "Reject unknown top-level members. Custom capabilities belong in experimental and, from MCP 2026-07-28, in extensions.",
+          "conflict": "The TypeScript type declares a fixed set of members and no index signature, while its doc comment says the set is not closed and any server can define additional capabilities. The comment does not say where such capabilities go; experimental is the defined container.",
+          "rationale": "Capabilities are sent on the wire during initialization, so the structural source of truth governs. Closing is also the reversible choice: opening the object later invalidates no document, while closing it later would.",
+          "reviewTrigger": "Resolution of MCP issue 1898, an upstream clarification of the doc comment, or a later MCP revision adding an index signature.",
+          "revisions": [
+            "2024-11-05",
+            "2025-03-26",
+            "2025-06-18",
+            "2025-11-25",
+            "2026-07-28"
+          ],
+          "status": "active",
+          "upstream": "https://github.com/modelcontextprotocol/modelcontextprotocol/issues/1898"
+        }
+      ],
+      "description": "Server capabilities have defined members rather than arbitrary top-level names. Remove unknown members or use the experimental or extensions maps where the applicable protocol version allows them. MCP Description specification extensions follow their own x- rules.",
+      "diagnostics": [
+        {
+          "code": "schema-validation",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/unknown-server-capability.json",
+          "pointer": "/capabilities/0"
+        },
+        {
+          "path": "expected-valid/client-capability-requirements.json",
+          "pointer": "/capabilities/0"
+        }
+      ],
+      "id": "mcp.server-capabilities.members",
+      "kind": "structural",
+      "notes": "x-* properties are MCP Description specification extensions, not capabilities; native projection removes them.",
+      "owner": "mcp",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2024-11-05/schema.ts#L205-L248",
+            "validation/mcp-schemas/2025-03-26/schema.ts#L225-L272",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L253-L302",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L381-L457",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L788-L883"
+          ],
+          "reference": "MCP 2024-11-05 to 2026-07-28 schema.ts, interface ServerCapabilities (no index signature)",
+          "tier": 1
+        },
+        {
+          "locations": [
+            "validation/mcp-schemas/2024-11-05/schema.ts#L205-L207",
+            "validation/mcp-schemas/2025-03-26/schema.ts#L225-L227",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L253-L257",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L381-L385",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L788-L792"
+          ],
+          "reference": "MCP 2024-11-05 to 2026-07-28 schema.ts, ServerCapabilities doc comment (\"this is not a closed set: any server can define its own, additional capabilities\")",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/08-capabilities.md#req-capabilities-closed"
+          ],
+          "reference": "MCP Description 0.9.0, Sections 8.2 and 8.4"
+        }
+      ],
+      "status": "arbitrated",
+      "summary": "A server Capabilities Object contains only the capabilities the applicable MCP revision defines; custom capabilities go in experimental and, from MCP 2026-07-28, in extensions.",
+      "surface": "ServerCapabilities",
+      "title": "Advertise only recognized server capabilities"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "not-applicable",
+          "2025-03-26": "applies",
+          "2025-06-18": "applies",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        }
+      },
+      "description": "Tool annotations are a closed set of behavior hints. Resource annotation fields such as audience and priority do not belong here, and custom keys are not allowed. Remove those properties; author-reviewed server metadata can instead use the Tool's _meta where the protocol version defines it.",
+      "diagnostics": [
+        {
+          "code": "schema-validation",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/tool-annotations-unknown-property.json",
+          "pointer": "/tools/0/annotations"
+        },
+        {
+          "path": "expected-valid/distinct-tool-and-resource-annotations.json",
+          "pointer": "/tools/0/annotations"
+        }
+      ],
+      "id": "mcp.tool-annotations.members",
+      "kind": "structural",
+      "notes": "Tool annotations are not available in MCP 2024-11-05; that boundary is checked separately.",
+      "owner": "mcp",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2025-03-26/schema.ts#L727-L779",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L869-L923",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L1168-L1222",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L1900-L1954"
+          ],
+          "reference": "MCP 2025-03-26 to 2026-07-28 schema.ts, interface ToolAnnotations (no index signature)",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/09-tools.md#req-tool-annotations-closed"
+          ],
+          "reference": "MCP Description 0.9.0, Section 9.6"
+        }
+      ],
+      "status": "internal",
+      "summary": "A Tool annotations object contains only title, readOnlyHint, destructiveHint, idempotentHint, and openWorldHint.",
+      "surface": "ToolAnnotations",
+      "title": "Tool annotations contain only MCP hints"
+    },
+    {
+      "applicability": {
+        "protocolVersions": "independent"
+      },
+      "arbitrations": [
+        {
+          "authority": "MCP schema.ts, the source of truth for message structures",
+          "behavior": "Require a literal type \"object\" at the inputSchema root in every revision.",
+          "conflict": "The specification lets embedded schemas declare another dialect with $schema, while schema.ts requires the JSON Schema keyword and value type \"object\" at the root. A schema rooted in $ref or allOf, or written in a dialect without that keyword, can describe an object but does not match the TypeScript type.",
+          "rationale": "The structural source of truth is explicit and SEP-2106 retained the requirement on purpose; clients commonly pass inputSchema to model APIs that expect an object root.",
+          "reviewTrigger": "Resolution of MCP issue 3238 or a later MCP revision that changes the inputSchema type.",
+          "revisions": [
+            "2025-11-25",
+            "2026-07-28"
+          ],
+          "status": "active",
+          "upstream": "https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3238"
+        }
+      ],
+      "description": "A Tool inputSchema must declare the literal type object after component resolution. An array schema or a schema that only implies an object through composition does not satisfy this root requirement. Keep object arguments under properties and validate their values separately.",
+      "diagnostics": [
+        {
+          "code": "schema-validation",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/non-object-input-schema.json",
+          "pointer": "/tools/0/inputSchema"
+        },
+        {
+          "path": "expected-valid/custom-tool-schema-keywords.json",
+          "pointer": "/tools/0/inputSchema"
+        }
+      ],
+      "id": "mcp.tool.input-schema.object-root",
+      "kind": "structural",
+      "owner": "mcp",
+      "path": "inputSchema",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2024-11-05/schema.ts#L696-L703",
+            "validation/mcp-schemas/2025-03-26/schema.ts#L797-L804",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L938-L945",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L1257-L1265",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L1981-L1997"
+          ],
+          "reference": "MCP 2024-11-05 to 2026-07-28 schema.ts, interface Tool, inputSchema type: \"object\"",
+          "tier": 1
+        },
+        {
+          "locations": [
+            "https://github.com/modelcontextprotocol/modelcontextprotocol/blob/dae694f61a31f7a3ec2af3aff709e11f70f61e48/docs/specification/2026-07-28/server/tools.mdx#L293-L293"
+          ],
+          "reference": "MCP 2026-07-28 specification, Server Features, Tools, Data Types, Tool (inputSchema MUST be a valid JSON Schema object, not null)",
+          "tier": 1
+        },
+        {
+          "locations": [
+            "https://github.com/modelcontextprotocol/modelcontextprotocol/blob/dae694f61a31f7a3ec2af3aff709e11f70f61e48/seps/2106-json-schema-2020-12.md"
+          ],
+          "reference": "MCP SEP-2106 (Final), which keeps type \"object\" deliberately",
+          "tier": 4
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/09-tools.md#req-tool-input-schema-object-root"
+          ],
+          "reference": "MCP Description 0.9.0, Section 9.2"
+        }
+      ],
+      "status": "arbitrated",
+      "summary": "Tool inputSchema is a JSON Schema object whose root declares type \"object\", because tool arguments are always JSON objects.",
+      "surface": "Tool",
+      "title": "Give Tool input schemas an object root"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "opaque",
+          "2025-03-26": "opaque",
+          "2025-06-18": "opaque",
+          "2025-11-25": "opaque",
+          "2026-07-28": "applies"
+        }
+      },
+      "description": "MCP 2026-07-28 gives x-mcp-header meaning on string, integer, or boolean input properties reachable through properties chains. Check header tokens, placement, and case-insensitive uniqueness. Earlier protocol versions preserve the keyword without applying those MCP header semantics.",
+      "diagnostics": [
+        {
+          "code": "invalid-x-mcp-header",
+          "severity": "error"
+        },
+        {
+          "code": "duplicate-x-mcp-header",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-valid/revision-inapplicable-mcp-header.json",
+          "pointer": "/tools/0/inputSchema"
+        },
+        {
+          "path": "expected-valid/custom-tool-schema-keywords.json",
+          "pointer": "/tools/0/inputSchema/properties/region"
+        },
+        {
+          "path": "expected-invalid/invalid-mcp-header-value.json",
+          "pointer": "/tools/0/inputSchema/properties/region"
+        },
+        {
+          "path": "expected-invalid/invalid-mcp-header-placement.json",
+          "pointer": "/tools/0/inputSchema/allOf/0/properties/region"
+        },
+        {
+          "path": "expected-invalid/duplicate-mcp-header.json",
+          "pointer": "/tools/0/inputSchema/properties/fallbackRegion"
+        }
+      ],
+      "id": "mcp.tool.input-schema.x-mcp-header",
+      "kind": "semantic",
+      "owner": "mcp",
+      "path": "inputSchema properties x-mcp-header",
+      "sources": [
+        {
+          "locations": [
+            "https://github.com/modelcontextprotocol/modelcontextprotocol/blob/dae694f61a31f7a3ec2af3aff709e11f70f61e48/docs/specification/2026-07-28/server/tools.mdx#L334-L402"
+          ],
+          "reference": "MCP 2026-07-28 specification, Streamable HTTP transport, x-mcp-header validity and extraction rules",
+          "tier": 1
+        },
+        {
+          "locations": [
+            "validation/mcp-schemas/2026-07-28/schema.ts#L1981-L1997"
+          ],
+          "reference": "MCP 2026-07-28 schema.ts, interface Tool, inputSchema doc comment",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/09-tools.md#req-tool-x-mcp-header"
+          ],
+          "reference": "MCP Description 0.9.0, Section 9.2"
+        }
+      ],
+      "status": "internal",
+      "summary": "An x-mcp-header annotation is a non-empty HTTP field-name token on a boolean, integer, or string property reachable from the input schema root through properties only, and is unique case-insensitively within the Tool.",
+      "surface": "Tool",
+      "title": "Use valid HTTP header mappings in Tool input"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "not-applicable",
+          "2025-03-26": "not-applicable",
+          "2025-06-18": "applies",
+          "2025-11-25": "applies",
+          "2026-07-28": "not-applicable"
+        }
+      },
+      "description": "MCP 2025-06-18 and 2025-11-25 require an object-rooted outputSchema. MCP 2026-07-28 permits other roots. An array schema therefore needs a scope that excludes the object-only versions; projection must not wrap it in an object as a repair.",
+      "diagnostics": [
+        {
+          "code": "field-not-supported-by-version",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/non-object-output-schema-before-2026.json",
+          "pointer": "/tools/0/outputSchema"
+        },
+        {
+          "path": "expected-valid/protocol-coverage-and-tool-schemas.json",
+          "pointer": "/tools/3/outputSchema"
+        }
+      ],
+      "gaps": [
+        {
+          "behavior": "The object-root check also runs where outputSchema is not defined, so a non-object outputSchema reports this error in addition to the revision-availability error.",
+          "resolution": "not-fixed",
+          "revisions": [
+            "2024-11-05",
+            "2025-03-26"
+          ]
+        }
+      ],
+      "id": "mcp.tool.output-schema.object-root",
+      "kind": "structural",
+      "owner": "mcp",
+      "path": "outputSchema",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2025-06-18/schema.ts#L947-L955",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L1272-L1284"
+          ],
+          "reference": "MCP 2025-06-18 and 2025-11-25 schema.ts, interface Tool, outputSchema (type \"object\")",
+          "tier": 1
+        },
+        {
+          "locations": [
+            "validation/mcp-schemas/2026-07-28/schema.ts#L1999-L2005"
+          ],
+          "reference": "MCP 2026-07-28 schema.ts, interface Tool, outputSchema (no root type)",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/09-tools.md#req-tool-output-schema-object-root"
+          ],
+          "reference": "MCP Description 0.9.0, Section 9.2"
+        }
+      ],
+      "status": "internal",
+      "summary": "A Tool outputSchema has an object-typed root.",
+      "surface": "Tool",
+      "title": "Use object output schemas before MCP 2026"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "applies",
+          "2025-03-26": "applies",
+          "2025-06-18": "not-applicable",
+          "2025-11-25": "not-applicable",
+          "2026-07-28": "not-applicable"
+        }
+      },
+      "description": "Tool outputSchema is available from MCP 2025-06-18. A Tool whose effective scope includes an earlier protocol version cannot carry it unchanged. Omit it for the earlier version or provide disjoint variants.",
+      "diagnostics": [
+        {
+          "code": "field-not-supported-by-version",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/output-schema-before-2025-06-18.json",
+          "pointer": "/tools/0"
+        }
+      ],
+      "id": "mcp.tool.output-schema.revision-availability",
+      "kind": "structural",
+      "owner": "mcp",
+      "path": "outputSchema",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2025-03-26/schema.ts#L781-L810"
+          ],
+          "reference": "MCP 2025-03-26 schema.ts, interface Tool (closed; no outputSchema)",
+          "tier": 1
+        },
+        {
+          "locations": [
+            "validation/mcp-schemas/2025-06-18/schema.ts#L947-L955"
+          ],
+          "reference": "MCP 2025-06-18 schema.ts, interface Tool, outputSchema",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/04-versioning.md#req-field-revision-availability"
+          ],
+          "reference": "MCP Description 0.9.0, Section 9.1 (Tool Object field table)"
+        }
+      ],
+      "status": "internal",
+      "summary": "A Tool declares outputSchema only for MCP revisions whose Tool type defines it.",
+      "surface": "Tool",
+      "title": "Declare output schemas only where MCP defines them"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "applies",
+          "2025-03-26": "applies",
+          "2025-06-18": "applies",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        }
+      },
+      "arbitrations": [
+        {
+          "authority": "MCP schema.ts doc comment, consistent with MCP 2026-07-28",
+          "behavior": "Accept and preserve any JSON Schema keyword in these revisions.",
+          "conflict": "The TypeScript type of inputSchema (and outputSchema from 2025-06-18) lists only type, properties, required, and from 2025-11-25 $schema, with no index signature, while its doc comment defines the value as a JSON Schema object.",
+          "rationale": "A JSON Schema object admits any keyword. MCP 2026-07-28 makes this explicit with an index signature, and rejecting keywords such as $defs or $ref would reject Tools that MCP clients accept.",
+          "reviewTrigger": "An upstream clarification or erratum for the earlier revisions.",
+          "revisions": [
+            "2024-11-05",
+            "2025-03-26",
+            "2025-06-18",
+            "2025-11-25"
+          ],
+          "status": "active"
+        }
+      ],
+      "description": "Embedded Tool schemas can contain keywords beyond the fields MCP lists. A tool must preserve them through the operations covered by the specification instead of discarding unrecognized keywords. This is a tooling guarantee, so a valid custom keyword does not itself produce a document diagnostic.",
+      "diagnostics": [],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-valid/custom-tool-schema-keywords.json",
+          "pointer": "/tools/0/inputSchema"
+        },
+        {
+          "path": "expected-valid/revision-inapplicable-mcp-header.json",
+          "pointer": "/tools/0/inputSchema"
+        }
+      ],
+      "id": "mcp.tool.schema-keywords.preserve",
+      "kind": "preservation",
+      "owner": "mcp",
+      "path": "inputSchema, outputSchema",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2024-11-05/schema.ts#L696-L703",
+            "validation/mcp-schemas/2025-03-26/schema.ts#L797-L804",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L938-L945",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L1257-L1265",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L947-L955",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L1272-L1284"
+          ],
+          "reference": "MCP 2024-11-05 to 2025-11-25 schema.ts, interface Tool, inputSchema and outputSchema doc comments (\"A JSON Schema object\")",
+          "tier": 1
+        },
+        {
+          "locations": [
+            "validation/mcp-schemas/2026-07-28/schema.ts#L1981-L1997",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L1999-L2005"
+          ],
+          "reference": "MCP 2026-07-28 schema.ts, interface Tool, inputSchema and outputSchema (index signature [key: string]: unknown)",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/09-tools.md#req-tool-schema-vocabulary",
+            "sections/09-tools.md#req-tool-schema-keywords-preserved"
+          ],
+          "reference": "MCP Description 0.9.0, Section 9.2"
+        }
+      ],
+      "status": "arbitrated",
+      "summary": "Tool inputSchema and outputSchema are JSON Schema objects; keywords beyond those MCP lists are permitted and preserved, and acquire MCP semantics only where a revision defines them.",
+      "surface": "Tool",
+      "title": "Retain embedded JSON Schema keywords"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "applies",
+          "2025-03-26": "applies",
+          "2025-06-18": "applies",
+          "2025-11-25": "not-applicable",
+          "2026-07-28": "not-applicable"
+        }
+      },
+      "description": "Early MCP protocol versions define a limited Tool-schema shape without a default embedded dialect. Check the known properties and required-name list without rejecting other keywords using an inferred meta-schema. Incomplete example validation is reported separately.",
+      "diagnostics": [
+        {
+          "code": "invalid-legacy-tool-schema-shape",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/malformed-pre-dialect-tool-schema-shape.json",
+          "pointer": "/tools/0/inputSchema"
+        }
+      ],
+      "id": "mcp.tool.schema.legacy-shape",
+      "kind": "structural",
+      "notes": "From MCP 2025-11-25 the embedded dialect governs these keywords (json-schema.tool-schema.valid).",
+      "owner": "mcp",
+      "path": "inputSchema, outputSchema",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2024-11-05/schema.ts#L696-L703",
+            "validation/mcp-schemas/2025-03-26/schema.ts#L797-L804",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L938-L945",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L947-L955"
+          ],
+          "reference": "MCP 2024-11-05 to 2025-06-18 schema.ts, interface Tool, inputSchema (and outputSchema from 2025-06-18): properties?: { [key: string]: object }, required?: string[]",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/09-tools.md#req-tool-schema-legacy-shape"
+          ],
+          "reference": "MCP Description 0.9.0, Section 9.2"
+        }
+      ],
+      "status": "internal",
+      "summary": "Before MCP 2025-11-25, Tool schema properties is an object of objects and required is an array of strings; other keywords are preserved.",
+      "surface": "Tool",
+      "title": "Check early Tool schemas without inferring a dialect"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "not-applicable",
+          "2025-03-26": "not-applicable",
+          "2025-06-18": "applies",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        }
+      },
+      "description": "A successful Tool example for a Tool with outputSchema must carry the required structuredContent. The schema describes that structured value, not the unstructured content array. Check success and error examples separately before deciding which payload is missing.",
+      "diagnostics": [
+        {
+          "code": "missing-tool-example-structured-content",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/invalid-tool-example-result-semantics.json",
+          "pointer": "/tools/0/examples/missing/result"
+        },
+        {
+          "path": "expected-invalid/invalid-tool-interaction-example-semantics.json",
+          "pointer": "/tools/0/interactionExamples/broken/result"
+        }
+      ],
+      "id": "mcp.tool.structured-content.output-schema",
+      "kind": "semantic",
+      "notes": "Conformance of structuredContent to outputSchema is checked by mcpdesc.tool.example.schema-conformance. Error results are governed by mcpdesc.tool.example.error-result.",
+      "owner": "mcp",
+      "path": "structuredContent",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "https://github.com/modelcontextprotocol/modelcontextprotocol/blob/dae694f61a31f7a3ec2af3aff709e11f70f61e48/docs/specification/2025-06-18/server/tools.mdx#L309-L382",
+            "https://github.com/modelcontextprotocol/modelcontextprotocol/blob/dae694f61a31f7a3ec2af3aff709e11f70f61e48/docs/specification/2025-11-25/server/tools.mdx#L335-L408",
+            "https://github.com/modelcontextprotocol/modelcontextprotocol/blob/dae694f61a31f7a3ec2af3aff709e11f70f61e48/docs/specification/2026-07-28/server/tools.mdx#L509-L631"
+          ],
+          "reference": "MCP 2025-06-18 to 2026-07-28 specification, Server Features, Tools, Output Schema (\"Servers MUST provide structured results that conform to this schema\")",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/09-tools.md#req-tool-example-structured-content"
+          ],
+          "reference": "MCP Description 0.9.0, Section 9.3"
+        }
+      ],
+      "status": "internal",
+      "summary": "When a Tool declares outputSchema, a successful result contains structuredContent.",
+      "surface": "CallToolResult",
+      "title": "Supply structured content when an output schema needs it"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "not-applicable",
+          "2025-03-26": "applies",
+          "2025-06-18": "applies",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        }
+      },
+      "description": "Legacy HTTP plus SSE remains representable but is deprecated for later MCP protocol versions. The warning does not by itself invalidate the document. Review whether the server still offers that transport or whether the description should advertise Streamable HTTP instead.",
+      "diagnostics": [
+        {
+          "code": "legacy-sse-for-modern-version",
+          "severity": "warning"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-warning/legacy-sse-modern-revision.json",
+          "pointer": "/transports/0"
+        }
+      ],
+      "id": "mcp.transport.legacy-sse.deprecated",
+      "kind": "semantic",
+      "owner": "mcp",
+      "requirement": "should",
+      "sources": [
+        {
+          "locations": [
+            "https://github.com/modelcontextprotocol/modelcontextprotocol/blob/dae694f61a31f7a3ec2af3aff709e11f70f61e48/docs/specification/2025-03-26/basic/transports.mdx#L250-L277"
+          ],
+          "reference": "MCP 2025-03-26 specification, Basic, Transports, Backwards Compatibility (deprecated HTTP+SSE transport)",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/06-transports.md#req-transport-legacy-sse-warning"
+          ],
+          "reference": "MCP Description 0.9.0, Section 6.2"
+        }
+      ],
+      "status": "internal",
+      "summary": "Legacy HTTP+SSE associated with MCP 2025-03-26 or later is reported, because Streamable HTTP replaces it.",
+      "surface": "Transport",
+      "title": "Review deprecated legacy SSE transports"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "applies",
+          "2025-03-26": "applies",
+          "2025-06-18": "applies",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        }
+      },
+      "description": "Streamable HTTP is not defined by the earliest supported MCP protocol version. Scope the transport to versions that define it and keep root protocol coverage consistent. A URL alone does not make a transport applicable to every protocol version.",
+      "diagnostics": [
+        {
+          "code": "transport-not-supported-by-version",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/revision-inapplicable-streamable-http.json",
+          "pointer": "/transports/0"
+        }
+      ],
+      "id": "mcp.transport.streamable-http.revision-availability",
+      "kind": "structural",
+      "owner": "mcp",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "https://github.com/modelcontextprotocol/modelcontextprotocol/blob/dae694f61a31f7a3ec2af3aff709e11f70f61e48/docs/specification/2025-03-26/basic/transports.mdx#L50-L277"
+          ],
+          "reference": "MCP 2025-03-26 specification, Basic, Transports, Streamable HTTP (replaces HTTP+SSE from 2024-11-05)",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/06-transports.md#req-transport-streamable-http-revisions"
+          ],
+          "reference": "MCP Description 0.9.0, Section 6.2"
+        }
+      ],
+      "status": "internal",
+      "summary": "Streamable HTTP is used only from MCP 2025-03-26.",
+      "surface": "Transport",
+      "title": "Use Streamable HTTP only where supported"
+    },
+    {
+      "applicability": {
+        "protocolVersions": "independent"
+      },
+      "description": "A completion example must target a Prompt argument or Resource Template variable that exists. Context entries must name other declared targets, not repeat the argument being completed. Correct the example names or the declaration they describe.",
+      "diagnostics": [
+        {
+          "code": "prompt-completion-example-unknown-argument",
+          "severity": "error"
+        },
+        {
+          "code": "prompt-completion-example-context-unknown-argument",
+          "severity": "error"
+        },
+        {
+          "code": "resource-template-completion-example-unknown-variable",
+          "severity": "error"
+        },
+        {
+          "code": "resource-template-completion-example-context-unknown-variable",
+          "severity": "error"
+        },
+        {
+          "code": "completion-example-duplicate-target-context",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/invalid-completion-example-semantics.json",
+          "pointer": "/prompts/2/completionExamples/bad-membership/argument"
+        },
+        {
+          "path": "expected-valid/named-completion-examples.json",
+          "pointer": "/prompts/0/completionExamples"
+        }
+      ],
+      "id": "mcpdesc.completion-example.target",
+      "kind": "mcpdesc-semantic",
+      "owner": "mcpdesc",
+      "path": "argument, context",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2025-06-18/schema.ts#L1307-L1340",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L1995-L2025",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L2582-L2618"
+          ],
+          "reference": "MCP 2025-06-18 to 2026-07-28 schema.ts, CompleteRequest context.arguments (previously-resolved variables in a URI template or prompt)",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/10-resources.md#req-template-completion-target",
+            "sections/11-prompts.md#req-prompt-completion-target"
+          ],
+          "reference": "MCP Description 0.9.0, Sections 10.4.6 and 11.4"
+        }
+      ],
+      "status": "internal",
+      "summary": "A completion example completes a declared Prompt argument or URI template variable, and its context names other declared arguments or variables only.",
+      "surface": "Completion example",
+      "title": "Complete a declared argument or template variable"
+    },
+    {
+      "applicability": {
+        "protocolVersions": "independent"
+      },
+      "description": "A component reference must identify an existing value in the namespace required by its use site, without a reference cycle. Check both the target name and the namespace. Reuse does not exempt the resolved value from validation in its containing declaration.",
+      "diagnostics": [
+        {
+          "code": "missing-component-reference-target",
+          "severity": "error"
+        },
+        {
+          "code": "wrong-component-reference-namespace",
+          "severity": "error"
+        },
+        {
+          "code": "component-reference-cycle",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/component-reference-resolution.json",
+          "pointer": "/components/schemas"
+        }
+      ],
+      "id": "mcpdesc.components.references",
+      "kind": "mcpdesc-semantic",
+      "owner": "mcpdesc",
+      "path": "$componentRef",
+      "requirement": "must",
+      "specification": [
+        {
+          "locations": [
+            "sections/17-components.md#req-component-reference-form",
+            "sections/17-components.md#req-component-reference-resolution",
+            "sections/09-tools.md#req-tool-schema-references-resolved"
+          ],
+          "reference": "MCP Description 0.9.0, Sections 17.2 to 17.4"
+        }
+      ],
+      "status": "internal",
+      "summary": "A Reference Object targets an existing component in the namespace its use site requires, without cycles.",
+      "surface": "Reference Object",
+      "title": "Resolve component references in the right namespace"
+    },
+    {
+      "applicability": {
+        "protocolVersions": "independent"
+      },
+      "description": "The structural schema checks required fields, types, allowed members, and collection shapes. Use the diagnostic path to locate the invalid value. Passing this check is necessary but does not replace semantic checks such as reference resolution or protocol scoping.",
+      "diagnostics": [
+        {
+          "code": "schema-validation",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/missing-tool-input-schema.json",
+          "pointer": "/tools/0"
+        },
+        {
+          "path": "expected-invalid/object-level-unknown-property.json",
+          "pointer": "/tools/0"
+        }
+      ],
+      "id": "mcpdesc.document.schema",
+      "kind": "structural",
+      "owner": "mcpdesc",
+      "specification": [
+        {
+          "locations": [
+            "sections/16-conformance.md#req-document-schema",
+            "sections/03-document-structure.md#req-closed-objects",
+            "sections/09-tools.md#req-tool-input-schema-required"
+          ],
+          "reference": "MCP Description 0.9.0, Section 16.1, item 7"
+        }
+      ],
+      "status": "internal",
+      "summary": "A document validates against the JSON Schema for its declared mcpdesc version. Used for structural failures not attributed to a more specific rule.",
+      "surface": "Document",
+      "title": "Match the MCP Description document schema"
+    },
+    {
+      "applicability": {
+        "protocolVersions": "independent"
+      },
+      "description": "Form properties, required names, enum labels, defaults, and bounds must agree with one another. Correct references to absent properties and contradictory constraints. Passing JSON Schema's outer shape checks does not prove that the declared form is internally consistent.",
+      "diagnostics": [
+        {
+          "code": "elicitation-form-required-property-unknown",
+          "severity": "error"
+        },
+        {
+          "code": "elicitation-form-enum-names-mismatch",
+          "severity": "error"
+        },
+        {
+          "code": "elicitation-form-default-outside-enum",
+          "severity": "error"
+        },
+        {
+          "code": "elicitation-form-invalid-range",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/elicitation-form-semantics.json",
+          "pointer": "/prompts/0/elicitations/0/requestedSchema/required"
+        },
+        {
+          "path": "expected-invalid/elicitation-form-invalid-range.json",
+          "pointer": "/prompts/0/elicitations/0/requestedSchema/properties/count"
+        },
+        {
+          "path": "expected-valid/elicitation-declarations.json",
+          "pointer": "/tools/0/elicitations"
+        }
+      ],
+      "id": "mcpdesc.elicitation.form-schema.consistency",
+      "kind": "mcpdesc-semantic",
+      "owner": "mcpdesc",
+      "path": "requestedSchema",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2025-06-18/schema.ts#L1479-L1486",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L2228-L2235",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L2861-L2868",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L1527-L1536",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L2463-L2464",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L3117-L3118"
+          ],
+          "reference": "MCP 2025-06-18 to 2026-07-28 schema.ts, PrimitiveSchemaDefinition and EnumSchema (enumNames are display names for enum values)",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/12-elicitation.md#req-elicitation-form-required",
+            "sections/12-elicitation.md#req-elicitation-form-enum-names",
+            "sections/12-elicitation.md#req-elicitation-form-defaults",
+            "sections/12-elicitation.md#req-elicitation-form-ranges"
+          ],
+          "reference": "MCP Description 0.9.0, Section 12.3"
+        }
+      ],
+      "status": "internal",
+      "summary": "A form requestedSchema is internally consistent: required names declared properties, enumNames match enum values, defaults lie within enums, and minimum bounds do not exceed maximum bounds.",
+      "surface": "Elicitation Declaration",
+      "title": "Keep elicitation form constraints consistent"
+    },
+    {
+      "applicability": {
+        "protocolVersions": "independent"
+      },
+      "description": "Elicitation declaration names identify interactions within their primitive. Duplicate names make a Tool interaction's declaration reference ambiguous. Rename one declaration and update the references that are intended to select it.",
+      "diagnostics": [
+        {
+          "code": "duplicate-elicitation-name",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/elicitation-form-semantics.json",
+          "pointer": "/prompts/0/elicitations/1"
+        }
+      ],
+      "id": "mcpdesc.elicitation.name-unique",
+      "kind": "mcpdesc-semantic",
+      "owner": "mcpdesc",
+      "path": "name",
+      "requirement": "must",
+      "specification": [
+        {
+          "locations": [
+            "sections/12-elicitation.md#req-elicitation-name-unique"
+          ],
+          "reference": "MCP Description 0.9.0, Section 12.2"
+        }
+      ],
+      "status": "internal",
+      "summary": "Elicitation Declaration names are unique within their primitive.",
+      "surface": "Elicitation Declaration",
+      "title": "Give each elicitation declaration a unique name"
+    },
+    {
+      "applicability": {
+        "protocolVersions": "independent"
+      },
+      "description": "An example result is the completed payload, not a JSON-RPC response or a pending workflow. Remove envelope fields such as jsonrpc and id and do not include task or input-required state. Multi-step interactions belong in the explicit interaction example structure.",
+      "diagnostics": [
+        {
+          "code": "tool-example-json-rpc-envelope",
+          "severity": "error"
+        },
+        {
+          "code": "prompt-example-json-rpc-envelope",
+          "severity": "error"
+        },
+        {
+          "code": "resource-example-json-rpc-envelope",
+          "severity": "error"
+        },
+        {
+          "code": "completion-example-json-rpc-envelope",
+          "severity": "error"
+        },
+        {
+          "code": "incomplete-tool-example-result",
+          "severity": "error"
+        },
+        {
+          "code": "incomplete-prompt-example-result",
+          "severity": "error"
+        },
+        {
+          "code": "incomplete-resource-example-result",
+          "severity": "error"
+        },
+        {
+          "code": "incomplete-completion-example-result",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/invalid-tool-example-result-semantics.json",
+          "pointer": "/tools/3/examples/task-result/result"
+        },
+        {
+          "path": "expected-invalid/invalid-prompt-example-semantics.json",
+          "pointer": "/prompts/3/examples/task-state/result"
+        },
+        {
+          "path": "expected-invalid/resource-example-result-semantics.json",
+          "pointer": "/resources/0/examples/invalid-result/result"
+        },
+        {
+          "path": "expected-invalid/invalid-completion-example-semantics.json",
+          "pointer": "/prompts/2/completionExamples/bad-membership/result"
+        }
+      ],
+      "id": "mcpdesc.example.completed-result-form",
+      "kind": "mcpdesc-semantic",
+      "notes": "Envelope fields are jsonrpc, id, and error. Non-completed workflow fields are task, inputRequests, and requestState. They are excluded from the field classification of mcp.result.additional-properties.preserve.",
+      "owner": "mcpdesc",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2026-07-28/schema.ts#L571-L595",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L218-L236"
+          ],
+          "reference": "MCP 2026-07-28 schema.ts, InputRequiredResult (inputRequests, requestState) and Result.resultType",
+          "tier": 1
+        },
+        {
+          "locations": [
+            "validation/mcp-schemas/2025-11-25/schema.ts#L1386-L1393"
+          ],
+          "reference": "MCP 2025-11-25 schema.ts, CreateTaskResult (task)",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/09-tools.md#req-tool-example-completed-form",
+            "sections/10-resources.md#req-resource-example-completed-form",
+            "sections/11-prompts.md#req-prompt-example-completed-form"
+          ],
+          "reference": "MCP Description 0.9.0, Sections 3.6, 9.3, 10.4.4, 10.4.6, 11.3, and 11.4"
+        }
+      ],
+      "status": "internal",
+      "summary": "An example result is a completed result payload: it contains no JSON-RPC envelope field and no non-completed workflow field.",
+      "surface": "Example result",
+      "title": "Show completed results without message envelopes"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "applies",
+          "2025-03-26": "applies",
+          "2025-06-18": "applies",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        }
+      },
+      "description": "A completed example result must contain the fields each applicable MCP protocol version requires, with valid values. Check the result's full effective scope, not only the newest version. Fields permitted but undefined on open result types are handled separately as warnings.",
+      "diagnostics": [
+        {
+          "code": "tool-example-result-version-mismatch",
+          "severity": "error"
+        },
+        {
+          "code": "resource-example-result-version-mismatch",
+          "severity": "error"
+        },
+        {
+          "code": "resource-example-cache-fields-version-mismatch",
+          "severity": "error"
+        },
+        {
+          "code": "prompt-example-result-version-mismatch",
+          "severity": "error"
+        },
+        {
+          "code": "completion-example-result-version-mismatch",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/invalid-prompt-example-semantics.json",
+          "pointer": "/prompts/0/examples/unknown-and-missing/result"
+        },
+        {
+          "path": "expected-invalid/invalid-completion-example-semantics.json",
+          "pointer": "/prompts/3/completionExamples/missing-result-type/result"
+        },
+        {
+          "path": "expected-valid/named-tool-examples.json",
+          "pointer": "/tools/0/examples"
+        },
+        {
+          "path": "expected-valid/named-resource-examples.json",
+          "pointer": "/resources/0/examples"
+        },
+        {
+          "path": "expected-warning/legacy-result-meta.json",
+          "pointer": "/resources/0/examples/with-result-meta/result"
+        },
+        {
+          "path": "expected-warning/open-results-shared-across-revisions.json",
+          "pointer": "/tools/0/examples/paris/result"
+        }
+      ],
+      "id": "mcpdesc.example.result.revision-fidelity",
+      "kind": "mcpdesc-semantic",
+      "notes": "Fields a revision does not define are governed by mcp.result.additional-properties.preserve (accepted with a warning). When present, resultType must be \"complete\", ttlMs non-negative, and cacheScope \"public\" or \"private\" in every revision (document schema).",
+      "owner": "mcpdesc",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2026-07-28/schema.ts#L218-L236",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L1076-L1110"
+          ],
+          "reference": "MCP 2026-07-28 schema.ts, interface Result (resultType required) and interface CacheableResult (ttlMs, cacheScope required)",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/03-document-structure.md#req-carried-defined-fields",
+            "sections/09-tools.md#req-tool-example-result-shape",
+            "sections/10-resources.md#req-resource-example-result-shape",
+            "sections/11-prompts.md#req-prompt-example-result-shape"
+          ],
+          "reference": "MCP Description 0.9.0, Sections 9.3, 10.4.4, 10.4.6, 11.3, and 11.4"
+        },
+        {
+          "locations": [
+            "validation/README.md#examples-fail-fast"
+          ],
+          "reference": "Examples fail fast decision (validation README, 2026-10-25, issue #72)"
+        }
+      ],
+      "status": "internal",
+      "summary": "An example result contains every field that each applicable MCP revision requires, and every field a revision defines has a valid value.",
+      "surface": "Example result",
+      "title": "Match example results to every applicable version"
+    },
+    {
+      "applicability": {
+        "protocolVersions": "independent"
+      },
+      "description": "Extension identifiers in an MCP-reserved namespace are checked against the pinned catalogue. Unknown or experimental identifiers are preserved with a warning. Verify the identifier and its maturity; an unrecognized identifier is not silently assigned known extension semantics.",
+      "diagnostics": [
+        {
+          "code": "unknown-reserved-extension-identifier",
+          "severity": "warning"
+        },
+        {
+          "code": "experimental-reserved-extension-identifier",
+          "severity": "warning"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-warning/unknown-reserved-extension-identifier.json",
+          "pointer": "/capabilities/0/extensions"
+        },
+        {
+          "path": "expected-warning/deprecated-client-capability-requirements.json",
+          "pointer": "/prompts/0/clientRequirements/extensions"
+        }
+      ],
+      "id": "mcpdesc.extensions.catalogue-maturity",
+      "kind": "mcpdesc-semantic",
+      "notes": "The pinned catalogue lists no experimental identifiers, so no document currently produces experimental-reserved-extension-identifier.",
+      "owner": "mcpdesc",
+      "path": "capabilities.extensions, clientRequirements.extensions",
+      "requirement": "should",
+      "sources": [
+        {
+          "locations": [
+            "https://github.com/modelcontextprotocol/modelcontextprotocol/blob/dae694f61a31f7a3ec2af3aff709e11f70f61e48/docs/specification/2026-07-28/basic/index.mdx#L337-L339"
+          ],
+          "reference": "MCP 2026-07-28 specification, Basic, General fields, _meta key name format (second label modelcontextprotocol or mcp is reserved)",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/08-capabilities.md#req-extensions-reserved-identifiers",
+            "sections/08-capabilities.md#req-extensions-catalogue-maturity"
+          ],
+          "reference": "MCP Description 0.9.0, Sections 8.4 and 8.5; validator extension catalogue (effective 2026-09-04)"
+        }
+      ],
+      "status": "internal",
+      "summary": "An extension identifier under an MCP-reserved prefix that the pinned extension catalogue lists as experimental, or does not list, is preserved with a warning.",
+      "surface": "Extension identifier",
+      "title": "Review reserved extension identifiers"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "applies",
+          "2025-03-26": "applies",
+          "2025-06-18": "not-applicable",
+          "2025-11-25": "not-applicable",
+          "2026-07-28": "not-applicable"
+        }
+      },
+      "description": "MCP 2024-11-05 and 2025-03-26 receive structural and selected checks, not a claim of complete MCP semantic conformance. The warning describes a validation limitation rather than an invalid document. Adding a later protocol version does not make checks for the earlier versions complete.",
+      "diagnostics": [
+        {
+          "code": "legacy-protocol-validation-incomplete",
+          "severity": "warning"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-warning/legacy-result-meta.json",
+          "pointer": "/protocolVersions"
+        }
+      ],
+      "id": "mcpdesc.legacy-revisions.validation-scope",
+      "kind": "mcpdesc-semantic",
+      "owner": "mcpdesc",
+      "path": "protocolVersions",
+      "requirement": "must",
+      "specification": [
+        {
+          "locations": [
+            "sections/16-conformance.md#req-legacy-validation-scope",
+            "proposal-snapshots/0024-validation-rule-identity-and-provenance.md"
+          ],
+          "reference": "MCP Description 0.9.0, Sections 3.5 and 16.2; Proposal 0024, Section 4.1 (revision tiers)"
+        }
+      ],
+      "status": "internal",
+      "summary": "A document applying to MCP 2024-11-05 or 2025-03-26 is reported as receiving structural and selected checks only, not complete MCP semantic conformance.",
+      "surface": "Document",
+      "title": "Limited validation for early MCP protocol versions"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "applies",
+          "2025-03-26": "applies",
+          "2025-06-18": "applies",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        }
+      },
+      "description": "Native projection selects a Tool, Resource, Resource Template, or Prompt by its identifier in one protocol view. A declaration outside that view cannot be projected for that version. Check the identifier and the declaration's inherited or explicit scope.",
+      "diagnostics": [
+        {
+          "code": "projection-declaration-not-applicable",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "external",
+      "fixtures": [
+        {
+          "path": "projection-fixtures/tool-not-applicable-2024-11-05.json",
+          "pointer": "/expectedError"
+        },
+        {
+          "path": "projection-fixtures/resource-template-not-applicable-2025-03-26.json",
+          "pointer": "/expectedError"
+        }
+      ],
+      "id": "mcpdesc.projection.declaration-applicable",
+      "kind": "mcpdesc-semantic",
+      "notes": "Implemented by @mcpdesc/core; this repository checks the fixtures with scripts/test-projection-fixtures.mjs.",
+      "owner": "mcpdesc",
+      "requirement": "must",
+      "specification": [
+        {
+          "locations": [
+            "sections/04-versioning.md#req-native-projection-declaration-applicable"
+          ],
+          "reference": "MCP Description 0.9.0, Section 4.14, step 3"
+        }
+      ],
+      "status": "delegated",
+      "summary": "Native projection selects one declaration of the requested kind and identifier in the Effective Protocol View of the revision.",
+      "surface": "Native projection",
+      "title": "Select an applicable declaration for projection"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "applies",
+          "2025-03-26": "applies",
+          "2025-06-18": "applies",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        }
+      },
+      "description": "Native projection resolves Tool schema components, removes description-only fields, and checks the value against the selected MCP schema. It does not repair values or invent defaults. A postcondition failure is an implementation or specification defect and returns no projected value.",
+      "diagnostics": [
+        {
+          "code": "projection-postcondition-failed",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "external",
+      "fixtures": [
+        {
+          "path": "projection-fixtures/tool-icons-execution-component-2025-11-25.json",
+          "pointer": "/expected"
+        },
+        {
+          "path": "projection-fixtures/tool-component-input-array-output-2026-07-28.json",
+          "pointer": "/expected"
+        },
+        {
+          "path": "projection-fixtures/prompt-arguments-2024-11-05.json",
+          "pointer": "/expected/arguments"
+        },
+        {
+          "path": "projection-fixtures/tools-list-2025-11-25.json",
+          "pointer": "/expected"
+        }
+      ],
+      "id": "mcpdesc.projection.native-schema",
+      "kind": "mcpdesc-semantic",
+      "notes": "No fixture expects projection-postcondition-failed: it can only result from a defect in this specification, its validator, or an implementation. Every expected value is checked against the pinned MCP schema of its revision instead.",
+      "owner": "mcpdesc",
+      "requirement": "must",
+      "specification": [
+        {
+          "locations": [
+            "sections/04-versioning.md#req-native-projection-references-resolved",
+            "sections/04-versioning.md#req-native-projection-fields",
+            "sections/04-versioning.md#req-native-projection-postcondition",
+            "sections/04-versioning.md#req-native-projection-no-synthesis",
+            "sections/04-versioning.md#req-native-projection-lists"
+          ],
+          "reference": "MCP Description 0.9.0, Section 4.14, steps 4 to 6, no synthesis, and lists"
+        }
+      ],
+      "status": "delegated",
+      "summary": "A native projection keeps exactly the declaration fields that the MCP type defines in the revision, unchanged after reference resolution, and the value validates against the pinned MCP schema of the revision.",
+      "surface": "Tool, Resource, ResourceTemplate, Prompt",
+      "title": "Preserve MCP values when projecting declarations"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "applies",
+          "2025-03-26": "applies",
+          "2025-06-18": "applies",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        }
+      },
+      "description": "Native projection first validates the source and checks that the requested MCP protocol version appears at the root. Fix source errors or select a declared version. These failures come from the projection operation, not a new document-validation phase.",
+      "diagnostics": [
+        {
+          "code": "projection-source-invalid",
+          "severity": "error"
+        },
+        {
+          "code": "projection-revision-not-declared",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "external",
+      "fixtures": [
+        {
+          "path": "projection-fixtures/tool-source-invalid.json",
+          "pointer": "/expectedError"
+        },
+        {
+          "path": "projection-fixtures/tool-revision-not-declared.json",
+          "pointer": "/expectedError"
+        },
+        {
+          "path": "projection-fixtures/prompt-revision-not-declared.json",
+          "pointer": "/expectedError"
+        }
+      ],
+      "id": "mcpdesc.projection.source-valid",
+      "kind": "mcpdesc-semantic",
+      "notes": "Implemented by @mcpdesc/core; this repository checks the fixtures with scripts/test-projection-fixtures.mjs.",
+      "owner": "mcpdesc",
+      "requirement": "must",
+      "specification": [
+        {
+          "locations": [
+            "sections/04-versioning.md#req-native-projection-source-valid",
+            "sections/04-versioning.md#req-native-projection-revision-declared"
+          ],
+          "reference": "MCP Description 0.9.0, Section 4.14, steps 1 and 2"
+        }
+      ],
+      "status": "delegated",
+      "summary": "Native projection starts from a document without validation errors and from a revision in its root protocolVersions.",
+      "surface": "Native projection",
+      "title": "Project a valid source and declared protocol version"
+    },
+    {
+      "applicability": {
+        "protocolVersions": "independent"
+      },
+      "description": "A Prompt example supplies every required argument and no undeclared argument. Check names against the containing Prompt, including when the example comes from a reusable component. Omitted optional arguments do not need placeholder values.",
+      "diagnostics": [
+        {
+          "code": "prompt-example-missing-required-argument",
+          "severity": "error"
+        },
+        {
+          "code": "prompt-example-unknown-argument",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/invalid-prompt-example-semantics.json",
+          "pointer": "/prompts/0/examples/unknown-and-missing/arguments"
+        },
+        {
+          "path": "expected-invalid/component-contextual-examples.json",
+          "pointer": "/components/promptExamples/bad-arguments"
+        },
+        {
+          "path": "expected-valid/named-prompt-examples.json",
+          "pointer": "/prompts/2"
+        }
+      ],
+      "id": "mcpdesc.prompt.example.arguments",
+      "kind": "mcpdesc-semantic",
+      "owner": "mcpdesc",
+      "path": "arguments",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2024-11-05/schema.ts#L588-L591",
+            "validation/mcp-schemas/2025-03-26/schema.ts#L626-L629",
+            "validation/mcp-schemas/2025-06-18/schema.ts#L727-L730",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L1011-L1014",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L1683-L1686"
+          ],
+          "reference": "MCP 2024-11-05 to 2026-07-28 schema.ts, interface PromptArgument, required (\"Whether this argument must be provided\")",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/11-prompts.md#req-prompt-example-arguments"
+          ],
+          "reference": "MCP Description 0.9.0, Section 11.3"
+        }
+      ],
+      "status": "internal",
+      "summary": "A Prompt example supplies every required Prompt argument and no undeclared argument.",
+      "surface": "Prompt example",
+      "title": "Supply the Prompt arguments the example requires"
+    },
+    {
+      "applicability": {
+        "protocolVersions": "independent"
+      },
+      "description": "An omitted scope inherits its parent's full scope; an explicit child scope must stay within it. Declarations with the same identity cannot overlap where the specification requires uniqueness. Narrow the scopes rather than expecting the validator to choose one variant.",
+      "diagnostics": [
+        {
+          "code": "protocol-scope-outside-parent",
+          "severity": "error"
+        },
+        {
+          "code": "primitive-scope-overlap",
+          "severity": "error"
+        },
+        {
+          "code": "capability-scope-overlap",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/elicitation-scope-outside-parent.json",
+          "pointer": "/resourceTemplates/0/elicitations/0"
+        },
+        {
+          "path": "expected-invalid/scoped-version-not-in-root.json",
+          "pointer": "/transports/0"
+        },
+        {
+          "path": "expected-invalid/overlapping-tool-scope.json",
+          "pointer": "/tools/1"
+        },
+        {
+          "path": "expected-invalid/overlapping-capabilities.json",
+          "pointer": "/capabilities/0"
+        }
+      ],
+      "id": "mcpdesc.protocol-scope.consistency",
+      "kind": "mcpdesc-semantic",
+      "owner": "mcpdesc",
+      "path": "protocolVersions",
+      "requirement": "must",
+      "specification": [
+        {
+          "locations": [
+            "sections/04-versioning.md#req-scope-subset",
+            "sections/08-capabilities.md#req-capability-scopes-disjoint",
+            "sections/09-tools.md#req-tool-names-disjoint",
+            "sections/12-elicitation.md#req-elicitation-scope"
+          ],
+          "reference": "MCP Description 0.9.0, Sections 4.10 and 8.6"
+        }
+      ],
+      "status": "internal",
+      "summary": "Nested protocol scopes stay within their parent scope, and same-named primitives and capability objects do not overlap in protocol scope.",
+      "surface": "Document",
+      "title": "Keep protocol scopes consistent and disjoint"
+    },
+    {
+      "applicability": {
+        "protocolVersions": "independent"
+      },
+      "description": "A Resource Template example records the concrete requested URI, which must be an RFC 6570 expansion of the containing template. Check the template and URI together, including examples reached through components. Matching a URI does not require network retrieval.",
+      "diagnostics": [
+        {
+          "code": "resource-template-example-invalid-expansion",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/resource-example-result-semantics.json",
+          "pointer": "/resourceTemplates/0/examples/not-an-expansion"
+        },
+        {
+          "path": "expected-invalid/component-contextual-examples.json",
+          "pointer": "/components/resourceTemplateExamples/bad-uri"
+        },
+        {
+          "path": "expected-valid/named-resource-examples.json",
+          "pointer": "/resourceTemplates/0"
+        }
+      ],
+      "id": "mcpdesc.resource-template.example.expansion",
+      "kind": "mcpdesc-semantic",
+      "owner": "mcpdesc",
+      "path": "uri",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "https://www.rfc-editor.org/rfc/rfc6570#section-3"
+          ],
+          "reference": "RFC 6570, URI Template",
+          "tier": 2
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/10-resources.md#req-resource-template-example-expansion"
+          ],
+          "reference": "MCP Description 0.9.0, Section 10.4.3"
+        }
+      ],
+      "status": "internal",
+      "summary": "A Resource Template example uri is a valid RFC 6570 expansion of the template.",
+      "surface": "Resource Template example",
+      "title": "Use a concrete URI that expands the template"
+    },
+    {
+      "applicability": {
+        "protocolVersions": "independent"
+      },
+      "description": "Resource example contents are compared with the declaration's requested URI, MIME type, and declared raw size. A mutable resource can differ between observations, so size differences are warnings. Review the example and declaration together rather than inferring live content.",
+      "diagnostics": [
+        {
+          "code": "resource-example-requested-uri-not-returned",
+          "severity": "warning"
+        },
+        {
+          "code": "resource-example-mime-type-mismatch",
+          "severity": "warning"
+        },
+        {
+          "code": "resource-example-size-mismatch",
+          "severity": "warning"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-warning/resource-example-consistency.json",
+          "pointer": "/resources/0/examples/collection-snapshot/result"
+        }
+      ],
+      "id": "mcpdesc.resource.example.consistency",
+      "kind": "mcpdesc-semantic",
+      "notes": "Collections and indirect reads may legitimately differ, so these are warnings.",
+      "owner": "mcpdesc",
+      "path": "result.contents",
+      "requirement": "should",
+      "specification": [
+        {
+          "locations": [
+            "sections/10-resources.md#req-resource-example-requested-uri",
+            "sections/10-resources.md#req-resource-example-mime-type",
+            "sections/10-resources.md#req-resource-example-size"
+          ],
+          "reference": "MCP Description 0.9.0, Section 10.4.4"
+        }
+      ],
+      "status": "internal",
+      "summary": "Resource example contents agree with their declaration: the requested URI is returned, MIME types match, and raw size matches a declared size.",
+      "surface": "Resource example",
+      "title": "Keep Resource examples consistent with declarations"
+    },
+    {
+      "applicability": {
+        "protocolVersions": "independent"
+      },
+      "description": "Security requirements refer to named schemes, and scopes have meaning only for OAuth 2.0 or OpenID Connect schemes. Correct missing references or repeated scopes. An uncatalogued scope can produce a warning where the scheme declares a static scope catalogue.",
+      "diagnostics": [
+        {
+          "code": "unknown-security-scheme",
+          "severity": "error"
+        },
+        {
+          "code": "non-oauth-scope-misuse",
+          "severity": "error"
+        },
+        {
+          "code": "duplicate-security-scope",
+          "severity": "error"
+        },
+        {
+          "code": "schema-validation",
+          "severity": "error"
+        },
+        {
+          "code": "uncatalogued-oauth-scope",
+          "severity": "warning"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/unknown-security-reference.json",
+          "pointer": "/security/0"
+        },
+        {
+          "path": "expected-invalid/non-oauth-scopes.json",
+          "pointer": "/security/0"
+        },
+        {
+          "path": "expected-invalid/duplicate-security-scope.json",
+          "pointer": "/security/0"
+        },
+        {
+          "path": "expected-warning/uncatalogued-oauth-scope.json",
+          "pointer": "/tools/0/security/0/oauth"
+        },
+        {
+          "path": "expected-warning/uncatalogued-openid-scope.json",
+          "pointer": "/security/0/oidc"
+        }
+      ],
+      "id": "mcpdesc.security.requirements",
+      "kind": "mcpdesc-semantic",
+      "notes": "The document schema rejects duplicate scopes first (schema-validation); duplicate-security-scope applies to callers of the semantic validator alone.",
+      "owner": "mcpdesc",
+      "requirement": "must",
+      "specification": [
+        {
+          "locations": [
+            "sections/07-security.md#req-security-scheme-references",
+            "sections/07-security.md#req-security-scopes-unique",
+            "sections/07-security.md#req-security-scopes-oauth-only",
+            "sections/07-security.md#req-security-uncatalogued-scope"
+          ],
+          "reference": "MCP Description 0.9.0, Sections 7.1 to 7.3"
+        }
+      ],
+      "status": "internal",
+      "summary": "Security requirements name declared schemes, list scopes only for OAuth 2.0 and OpenID Connect schemes, do not repeat scopes, and use catalogued scopes when the scheme declares a static catalogue.",
+      "surface": "Security Requirement",
+      "title": "Reference security schemes and scopes correctly"
+    },
+    {
+      "applicability": {
+        "protocolVersions": "independent"
+      },
+      "description": "When the document declares a tag catalogue, primitive tag references must name entries in it. Root tag names and repeated primitive references are checked for duplicates. Fix the name or catalogue entry instead of relying on an undeclared alias.",
+      "diagnostics": [
+        {
+          "code": "duplicate-root-tag",
+          "severity": "error"
+        },
+        {
+          "code": "unknown-tag-reference",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/duplicate-root-tag.json",
+          "pointer": "/tags/1"
+        },
+        {
+          "path": "expected-invalid/duplicate-tag-reference.json",
+          "pointer": "/tools/0/tags"
+        }
+      ],
+      "id": "mcpdesc.tags.references",
+      "kind": "mcpdesc-semantic",
+      "owner": "mcpdesc",
+      "requirement": "must",
+      "specification": [
+        {
+          "locations": [
+            "sections/13-tags.md#req-tags-unique",
+            "sections/13-tags.md#req-tags-references"
+          ],
+          "reference": "MCP Description 0.9.0, Sections 13.2 and 13.3"
+        }
+      ],
+      "status": "internal",
+      "summary": "Root tag names are unique, and primitives reference only declared tags.",
+      "surface": "Tag",
+      "title": "Reference unique declared tags"
+    },
+    {
+      "applicability": {
+        "protocolVersions": "independent"
+      },
+      "description": "Tool execution errors are completed MCP Tool results with isError true, not a separate description-only error catalogue. Check the error result's content and avoid presenting successful structured output as the error payload.",
+      "diagnostics": [
+        {
+          "code": "structured-tool-error-example",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/invalid-tool-example-result-semantics.json",
+          "pointer": "/tools/1/examples/business-error/result"
+        }
+      ],
+      "id": "mcpdesc.tool.example.error-result",
+      "kind": "mcpdesc-semantic",
+      "notes": "MCP does not forbid structuredContent on error results; MCP Description requires its absence so that example structuredContent always conforms to outputSchema.",
+      "owner": "mcpdesc",
+      "path": "result",
+      "requirement": "must",
+      "specification": [
+        {
+          "locations": [
+            "sections/09-tools.md#req-tool-example-error-result"
+          ],
+          "reference": "MCP Description 0.9.0, Section 9.3 (an execution-error result MUST NOT contain structuredContent; outputSchema does not validate error content)"
+        }
+      ],
+      "status": "internal",
+      "summary": "A Tool execution-error example result sets isError to true and does not contain structuredContent.",
+      "surface": "Tool example",
+      "title": "Represent Tool execution errors as error results"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "applies",
+          "2025-03-26": "applies",
+          "2025-06-18": "applies",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        }
+      },
+      "description": "Example input must satisfy the resolved inputSchema, and successful structured output must satisfy outputSchema when supplied. Correct the example or the declaration's schema. Where resolution or dialect support prevents complete checking, the diagnostic must make that limitation visible.",
+      "diagnostics": [
+        {
+          "code": "tool-example-schema-mismatch",
+          "severity": "error"
+        },
+        {
+          "code": "incomplete-tool-example-validation",
+          "severity": "warning"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/tool-example-schema-mismatches.json",
+          "pointer": "/tools/0/examples/wrong-types"
+        },
+        {
+          "path": "expected-invalid/component-contextual-examples.json",
+          "pointer": "/components/toolExamples/bad-input"
+        },
+        {
+          "path": "expected-warning/pre-dialect-tool-example.json",
+          "pointer": "/tools/0/examples/friendly"
+        },
+        {
+          "path": "expected-warning/unresolved-external-tool-example-ref.json",
+          "pointer": "/tools/0/examples/external-identifier"
+        }
+      ],
+      "id": "mcpdesc.tool.example.schema-conformance",
+      "kind": "mcpdesc-semantic",
+      "notes": "Before MCP 2025-11-25 no embedded dialect is defined, so only the legacy shape is checked and the warning reports the gap.",
+      "owner": "mcpdesc",
+      "path": "examples, interactionExamples",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "https://github.com/modelcontextprotocol/modelcontextprotocol/blob/dae694f61a31f7a3ec2af3aff709e11f70f61e48/docs/specification/2025-06-18/server/tools.mdx#L309-L382",
+            "https://github.com/modelcontextprotocol/modelcontextprotocol/blob/dae694f61a31f7a3ec2af3aff709e11f70f61e48/docs/specification/2025-11-25/server/tools.mdx#L335-L408",
+            "https://github.com/modelcontextprotocol/modelcontextprotocol/blob/dae694f61a31f7a3ec2af3aff709e11f70f61e48/docs/specification/2026-07-28/server/tools.mdx#L509-L631"
+          ],
+          "reference": "MCP 2025-06-18 to 2026-07-28 specification, Server Features, Tools, Output Schema (structured results conform to outputSchema)",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/09-tools.md#req-tool-example-input-valid",
+            "sections/09-tools.md#req-tool-example-incomplete-validation"
+          ],
+          "reference": "MCP Description 0.9.0, Sections 9.2, 9.3, and 9.4"
+        }
+      ],
+      "status": "internal",
+      "summary": "A Tool example input validates against inputSchema, and its structuredContent against outputSchema, for every applicable revision; incomplete validation is reported.",
+      "surface": "Tool example",
+      "title": "Check Tool examples against their schemas"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "applies",
+          "2025-03-26": "applies",
+          "2025-06-18": "applies",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        }
+      },
+      "description": "A Tool interaction example can contradict its explicit minimum client requirements. Review the warning against the scenario and the declared requirements. The example does not automatically create or strengthen a client requirement.",
+      "diagnostics": [
+        {
+          "code": "interaction-example-client-requirements-contradiction",
+          "severity": "warning"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-warning/tool-interaction-client-requirements-contradictions.json",
+          "pointer": "/tools/0/interactionExamples/contradictory/steps/0"
+        }
+      ],
+      "id": "mcpdesc.tool.interaction.client-requirements-consistency",
+      "kind": "mcpdesc-semantic",
+      "notes": "Steps never create requirements; the warning reports a contradiction only.",
+      "owner": "mcpdesc",
+      "path": "steps",
+      "requirement": "should",
+      "specification": [
+        {
+          "locations": [
+            "sections/09-tools.md#req-interaction-client-requirements-warning"
+          ],
+          "reference": "MCP Description 0.9.0, Sections 8.5 and 9.4"
+        }
+      ],
+      "status": "internal",
+      "summary": "Interaction steps do not contradict the Tool's explicit client capability requirements.",
+      "surface": "Tool interaction example",
+      "title": "Keep interactions consistent with client requirements"
+    },
+    {
+      "applicability": {
+        "protocolVersions": {
+          "2024-11-05": "applies",
+          "2025-03-26": "applies",
+          "2025-06-18": "applies",
+          "2025-11-25": "applies",
+          "2026-07-28": "applies"
+        }
+      },
+      "description": "A Tool's elicitation step must agree with the named elicitation declaration and its requested form. Accepted form content must satisfy that schema, while declined or cancelled responses have different content rules. Check the reference, request, and response together.",
+      "diagnostics": [
+        {
+          "code": "unknown-elicitation-declaration",
+          "severity": "error"
+        },
+        {
+          "code": "interaction-example-elicitation-declaration-mismatch",
+          "severity": "error"
+        },
+        {
+          "code": "interaction-example-elicitation-response-mismatch",
+          "severity": "error"
+        },
+        {
+          "code": "interaction-example-elicitation-content-schema-mismatch",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/invalid-tool-interaction-example-semantics.json",
+          "pointer": "/tools/0/interactionExamples/broken/steps/0"
+        },
+        {
+          "path": "expected-valid/named-tool-interaction-examples.json",
+          "pointer": "/tools/0/interactionExamples"
+        }
+      ],
+      "id": "mcpdesc.tool.interaction.elicitation-consistency",
+      "kind": "mcpdesc-semantic",
+      "owner": "mcpdesc",
+      "path": "steps",
+      "requirement": "must",
+      "sources": [
+        {
+          "locations": [
+            "validation/mcp-schemas/2025-06-18/schema.ts#L1538-L1557",
+            "validation/mcp-schemas/2025-11-25/schema.ts#L2466-L2486",
+            "validation/mcp-schemas/2026-07-28/schema.ts#L3120-L3149"
+          ],
+          "reference": "MCP 2025-06-18 to 2026-07-28 schema.ts, interface ElicitResult, content (present for accepted form responses)",
+          "tier": 1
+        }
+      ],
+      "specification": [
+        {
+          "locations": [
+            "sections/09-tools.md#req-interaction-elicitation-declaration",
+            "sections/09-tools.md#req-interaction-elicitation-response"
+          ],
+          "reference": "MCP Description 0.9.0, Section 9.4"
+        }
+      ],
+      "status": "internal",
+      "summary": "An elicitation step matches the Tool's named Elicitation Declaration, and its response content is present exactly when an accepted form response requires it and validates against the requested schema.",
+      "surface": "Tool interaction example",
+      "title": "Match elicitation steps to their declaration"
+    },
+    {
+      "applicability": {
+        "protocolVersions": "independent"
+      },
+      "description": "When transports are declared, every root protocol version must be covered by at least one transport's effective scope. An omitted transport scope inherits all root versions. Add appropriate coverage or narrow the documented protocol versions rather than leaving an unreachable view. Descriptions may omit transports entirely.",
+      "diagnostics": [
+        {
+          "code": "transport-coverage-gap",
+          "severity": "error"
+        }
+      ],
+      "enforcement": "internal",
+      "fixtures": [
+        {
+          "path": "expected-invalid/root-version-without-transport.json",
+          "pointer": "/protocolVersions"
+        },
+        {
+          "path": "expected-invalid/scoped-version-not-in-root.json",
+          "pointer": "/protocolVersions"
+        }
+      ],
+      "id": "mcpdesc.transports.coverage",
+      "kind": "mcpdesc-semantic",
+      "owner": "mcpdesc",
+      "path": "transports",
+      "requirement": "must",
+      "specification": [
+        {
+          "locations": [
+            "sections/06-transports.md#req-transport-coverage"
+          ],
+          "reference": "MCP Description 0.9.0, Section 6.5"
+        }
+      ],
+      "status": "internal",
+      "summary": "Every protocol version at the root is covered by at least one transport when transports are declared.",
+      "surface": "Document",
+      "title": "Cover each declared protocol version with a transport"
+    }
+  ]
+}

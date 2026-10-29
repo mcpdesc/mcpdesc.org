@@ -213,6 +213,7 @@ const guideOrder = [
   'design-principles.md',
   'getting-started.md',
   'relationship-to-mcp.md',
+  'understanding-mcp-protocol-versions.md',
   'relationship-to-mcp-schemas.md',
   'comparison-with-openapi.md',
   'vendor-extensions-guide.md',

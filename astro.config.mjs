@@ -16,7 +16,7 @@ export default defineConfig({
     // the mcpdesc.org live experience from the mcpeditor open-source component.
     '/editor': '/live-editor',
     // Keep /docs/rules as a convenience alias; versioned rule histories never move.
-    '/docs/rules': '/docs/rules/0.9.0-draft.2/',
+    '/docs/rules': '/docs/rules/0.9.0-draft.3/',
   },
   vite: {
     plugins: [tailwindcss()],

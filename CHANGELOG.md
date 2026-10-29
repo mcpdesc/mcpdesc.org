@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **MCP Description v0.9.0 draft.3 documentation.** Imported the immutable
+  `v0.9.0-draft.3` specification, guides (including how MCP protocol versions are managed),
+  examples, and 63 validation rules in the rule-format 1.0.0 shape. Draft.3 is the active
+  candidate; drafts 1 and 2 remain available as archived snapshots, and `/docs/rules` now
+  resolves to the draft.3 rules.
+- **Validation rule catalog files.** Added the immutable `0.9.0-draft.3` catalog manifest and
+  rules under `/validation/catalogs/` with cache headers.
 - **MCP Description v0.9.0 draft.2 documentation.** Imported the immutable
   `v0.9.0-draft.2` specification, guides, examples, and 63 validation rules. The rules
   overview now mirrors the canonical reader-focused excerpt. Draft.2 is the active candidate;

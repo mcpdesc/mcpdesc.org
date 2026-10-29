@@ -15,7 +15,14 @@
   --color-brand-dark: oklch(0.45 0.17 265);
 }
 
-/* Nested sidebar group labels (rule owners) render in normal weight. */
+/* Nested sidebar group labels (rule owners) use the same size as their sibling links. */
 .sidebar ul ul .group-label .large {
-  font-weight: 400;
+  font-size: inherit;
+  font-weight: 600;
+}
+
+@media (min-width: 50rem) {
+  .sidebar ul ul .group-label .large {
+    font-size: var(--sl-text-sm);
+  }
 }
