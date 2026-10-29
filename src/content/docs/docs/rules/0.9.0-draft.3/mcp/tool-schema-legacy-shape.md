@@ -27,12 +27,6 @@ Before MCP 2025-11-25, Tool schema properties is an object of objects and requir
 | `2024-11-05` | `2025-03-26` | `2025-06-18` | `2025-11-25` | `2026-07-28` |
 | --- | --- | --- | --- | --- |
 | applies | applies | applies | not-applicable | not-applicable |
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `invalid-legacy-tool-schema-shape` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Section 9.2**

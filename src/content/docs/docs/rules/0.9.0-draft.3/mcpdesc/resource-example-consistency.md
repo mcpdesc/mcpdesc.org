@@ -24,14 +24,6 @@ Resource example contents agree with their declaration: the requested URI is ret
 **Status:** internal · **Enforcement:** internal
 
 
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `resource-example-requested-uri-not-returned` | **warning** |
-| `resource-example-mime-type-mismatch` | **warning** |
-| `resource-example-size-mismatch` | **warning** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Section 10.4.4**

@@ -27,12 +27,6 @@ A document applying to MCP 2024-11-05 or 2025-03-26 is reported as receiving str
 | `2024-11-05` | `2025-03-26` | `2025-06-18` | `2025-11-25` | `2026-07-28` |
 | --- | --- | --- | --- | --- |
 | applies | applies | not-applicable | not-applicable | not-applicable |
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `legacy-protocol-validation-incomplete` | **warning** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Sections 3.5 and 16.2; Proposal 0024, Section 4.1 (revision tiers)**

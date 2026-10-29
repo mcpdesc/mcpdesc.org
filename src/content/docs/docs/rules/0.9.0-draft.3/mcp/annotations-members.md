@@ -27,12 +27,6 @@ Resource Annotations on resources, resource templates, and content blocks contai
 | `2024-11-05` | `2025-03-26` | `2025-06-18` | `2025-11-25` | `2026-07-28` |
 | --- | --- | --- | --- | --- |
 | applies | applies | applies | applies | applies |
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `schema-validation` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Section 10.3**

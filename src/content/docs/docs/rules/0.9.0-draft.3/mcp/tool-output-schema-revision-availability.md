@@ -27,12 +27,6 @@ A Tool declares outputSchema only for MCP revisions whose Tool type defines it.
 | `2024-11-05` | `2025-03-26` | `2025-06-18` | `2025-11-25` | `2026-07-28` |
 | --- | --- | --- | --- | --- |
 | applies | applies | not-applicable | not-applicable | not-applicable |
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `field-not-supported-by-version` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Section 9.1 (Tool Object field table)**

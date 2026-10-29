@@ -27,12 +27,6 @@ Server capabilities.extensions is defined from MCP 2026-07-28; for earlier revis
 | `2024-11-05` | `2025-03-26` | `2025-06-18` | `2025-11-25` | `2026-07-28` |
 | --- | --- | --- | --- | --- |
 | applies | applies | applies | applies | applies |
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `extensions-not-supported-by-version` | **warning** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Section 8.4; Proposal 0021 (pre-standard extension capabilities)**

@@ -24,13 +24,6 @@ A Prompt example supplies every required Prompt argument and no undeclared argum
 **Status:** internal · **Enforcement:** internal
 
 
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `prompt-example-missing-required-argument` | **error** |
-| `prompt-example-unknown-argument` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Section 11.3**

@@ -24,15 +24,6 @@ A form requestedSchema is internally consistent: required names declared propert
 **Status:** internal · **Enforcement:** internal
 
 
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `elicitation-form-required-property-unknown` | **error** |
-| `elicitation-form-enum-names-mismatch` | **error** |
-| `elicitation-form-default-outside-enum` | **error** |
-| `elicitation-form-invalid-range` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Section 12.3**

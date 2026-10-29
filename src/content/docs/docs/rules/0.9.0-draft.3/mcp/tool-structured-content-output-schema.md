@@ -27,12 +27,6 @@ When a Tool declares outputSchema, a successful result contains structuredConten
 | `2024-11-05` | `2025-03-26` | `2025-06-18` | `2025-11-25` | `2026-07-28` |
 | --- | --- | --- | --- | --- |
 | not-applicable | not-applicable | applies | applies | applies |
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `missing-tool-example-structured-content` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Section 9.3**

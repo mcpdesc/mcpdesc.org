@@ -27,12 +27,6 @@ A root in a roots response may carry _meta from MCP 2025-06-18.
 | `2024-11-05` | `2025-03-26` | `2025-06-18` | `2025-11-25` | `2026-07-28` |
 | --- | --- | --- | --- | --- |
 | applies | applies | applies | applies | applies |
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `interaction-example-version-mismatch` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Sections 3.5, 3.6, and 9.4**
@@ -52,7 +46,7 @@ A root in a roots response may carry _meta from MCP 2025-06-18.
 
 ## Examples
 
-### Accepted with a warning
+### Valid example
 
 Source: [expected-warning/open-step-responses-before-2026.json](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0-draft.3/spec/draft/fixtures/expected-warning/open-step-responses-before-2026.json) · Selected: `/tools/0/interactionExamples/approved/steps/0/response/roots/0`
 

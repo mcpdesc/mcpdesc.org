@@ -27,12 +27,6 @@ Legacy HTTP+SSE associated with MCP 2025-03-26 or later is reported, because Str
 | `2024-11-05` | `2025-03-26` | `2025-06-18` | `2025-11-25` | `2026-07-28` |
 | --- | --- | --- | --- | --- |
 | not-applicable | applies | applies | applies | applies |
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `legacy-sse-for-modern-version` | **warning** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Section 6.2**

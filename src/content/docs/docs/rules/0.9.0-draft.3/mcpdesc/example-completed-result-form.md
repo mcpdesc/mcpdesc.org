@@ -24,19 +24,6 @@ An example result is a completed result payload: it contains no JSON-RPC envelop
 **Status:** internal · **Enforcement:** internal
 
 
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `tool-example-json-rpc-envelope` | **error** |
-| `prompt-example-json-rpc-envelope` | **error** |
-| `resource-example-json-rpc-envelope` | **error** |
-| `completion-example-json-rpc-envelope` | **error** |
-| `incomplete-tool-example-result` | **error** |
-| `incomplete-prompt-example-result` | **error** |
-| `incomplete-resource-example-result` | **error** |
-| `incomplete-completion-example-result` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Sections 3.6, 9.3, 10.4.4, 10.4.6, 11.3, and 11.4**

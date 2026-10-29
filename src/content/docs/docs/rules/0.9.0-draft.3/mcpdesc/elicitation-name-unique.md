@@ -24,12 +24,6 @@ Elicitation Declaration names are unique within their primitive.
 **Status:** internal · **Enforcement:** internal
 
 
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `duplicate-elicitation-name` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Section 12.2**

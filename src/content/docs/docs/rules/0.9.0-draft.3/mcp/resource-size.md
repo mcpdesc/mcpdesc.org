@@ -24,12 +24,6 @@ Resource size, in a declaration and in resource link content, is an integer when
 **Status:** arbitrated · **Enforcement:** internal
 
 
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `schema-validation` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Sections 3.6 and 10.1.1**

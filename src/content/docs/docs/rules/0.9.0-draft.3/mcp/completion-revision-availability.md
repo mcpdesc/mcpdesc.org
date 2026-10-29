@@ -27,12 +27,6 @@ Completion examples are available in every revision that defines completion/comp
 | `2024-11-05` | `2025-03-26` | `2025-06-18` | `2025-11-25` | `2026-07-28` |
 | --- | --- | --- | --- | --- |
 | applies | applies | applies | applies | applies |
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `completion-example-version-mismatch` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Sections 10.4.6 and 11.4 (no completion examples for MCP 2024-11-05)**
@@ -58,7 +52,7 @@ Resolution: **not-fixed** (Maintainer decision on issue #72, 2026-10-25).
 
 ## Examples
 
-### Accepted with a warning
+### Valid example
 
 Source: [expected-warning/legacy-completion-examples.json](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0-draft.3/spec/draft/fixtures/expected-warning/legacy-completion-examples.json) · Selected: `/resourceTemplates/0/completionExamples/issue-prefix`
 

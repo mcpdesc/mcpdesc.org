@@ -24,13 +24,6 @@ An extension identifier under an MCP-reserved prefix that the pinned extension c
 **Status:** internal · **Enforcement:** internal
 
 
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `unknown-reserved-extension-identifier` | **warning** |
-| `experimental-reserved-extension-identifier` | **warning** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Sections 8.4 and 8.5; validator extension catalogue (effective 2026-09-04)**
@@ -45,7 +38,7 @@ An extension identifier under an MCP-reserved prefix that the pinned extension c
 
 ## Notes
 
-The pinned catalogue lists no experimental identifiers, so no document currently produces experimental-reserved-extension-identifier.
+The pinned catalogue lists no experimental identifiers, so no document currently produces the experimental-identifier warning.
 
 
 ## Examples

@@ -24,16 +24,6 @@ Security requirements name declared schemes, list scopes only for OAuth 2.0 and 
 **Status:** internal · **Enforcement:** internal
 
 
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `unknown-security-scheme` | **error** |
-| `non-oauth-scope-misuse` | **error** |
-| `duplicate-security-scope` | **error** |
-| `schema-validation` | **error** |
-| `uncatalogued-oauth-scope` | **warning** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Sections 7.1 to 7.3**
@@ -46,7 +36,7 @@ Security requirements name declared schemes, list scopes only for OAuth 2.0 and 
 
 ## Notes
 
-The document schema rejects duplicate scopes first (schema-validation); duplicate-security-scope applies to callers of the semantic validator alone.
+The document schema rejects duplicate scopes first; the semantic duplicate-scope check applies only to direct callers of the semantic validator.
 
 
 ## Examples

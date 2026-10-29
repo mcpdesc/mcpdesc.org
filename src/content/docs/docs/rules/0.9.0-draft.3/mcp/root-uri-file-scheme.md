@@ -24,12 +24,6 @@ A root URI in a roots response starts with file://.
 **Status:** internal · **Enforcement:** internal
 
 
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `interaction-example-roots-uri` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Section 9.4**

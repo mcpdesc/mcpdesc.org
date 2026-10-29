@@ -27,12 +27,6 @@ A declaration field is used only in revisions whose MCP type defines it: title a
 | `2024-11-05` | `2025-03-26` | `2025-06-18` | `2025-11-25` | `2026-07-28` |
 | --- | --- | --- | --- | --- |
 | applies | applies | applies | applies | applies |
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `field-not-supported-by-version` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Sections 8.2, 9.1, 9.2, 10.1, 10.2, and 11.1**

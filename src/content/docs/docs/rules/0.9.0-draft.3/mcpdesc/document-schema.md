@@ -24,12 +24,6 @@ A document validates against the JSON Schema for its declared mcpdesc version. U
 **Status:** internal · **Enforcement:** internal
 
 
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `schema-validation` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Section 16.1, item 7**

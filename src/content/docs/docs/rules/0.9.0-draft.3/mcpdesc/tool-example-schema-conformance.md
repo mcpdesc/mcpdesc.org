@@ -27,13 +27,6 @@ A Tool example input validates against inputSchema, and its structuredContent ag
 | `2024-11-05` | `2025-03-26` | `2025-06-18` | `2025-11-25` | `2026-07-28` |
 | --- | --- | --- | --- | --- |
 | applies | applies | applies | applies | applies |
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `tool-example-schema-mismatch` | **error** |
-| `incomplete-tool-example-validation` | **warning** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Sections 9.2, 9.3, and 9.4**

@@ -24,13 +24,6 @@ Root tag names are unique, and primitives reference only declared tags.
 **Status:** internal · **Enforcement:** internal
 
 
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `duplicate-root-tag` | **error** |
-| `unknown-tag-reference` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Sections 13.2 and 13.3**

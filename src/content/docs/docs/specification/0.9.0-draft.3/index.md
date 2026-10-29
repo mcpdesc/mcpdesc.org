@@ -34,7 +34,7 @@ reference.
 - **Canonical draft** - [`spec/draft/mcp-description.md`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0-draft.3/spec/draft/mcp-description.md)
 - **Immutable source tag** - [`v0.9.0-draft.3`](https://github.com/mcpdesc/mcpdesc-specification/tree/v0.9.0-draft.3/spec/draft)
 - **Draft JSON Schema** - [`0.9.0-draft.3.json`](/schema/mcp-description/0.9.0-draft.3.json)
-- **Validation rule schema** - [`validation-rule/1.0.0.json`](/schema/validation-rule/1.0.0.json)
+- **Validation rule schema** - [`validation-rule/1.1.0.json`](/schema/validation-rule/1.1.0.json)
 - **Companion guides** - [Draft guides](/docs/specification/0.9.0-draft.3/guides/)
 - **Migration guidance** - [Migrate from 0.8.0 to 0.9.0](/docs/specification/0.9.0-draft.3/guides/migration-0.8-to-0.9)
 - **MCP protocol versions** - [How MCP protocol versions are managed](/docs/specification/0.9.0-draft.3/guides/understanding-mcp-protocol-versions)

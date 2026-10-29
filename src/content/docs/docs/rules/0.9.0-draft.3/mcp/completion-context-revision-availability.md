@@ -27,12 +27,6 @@ A completion example carries context only from MCP 2025-06-18, where CompleteReq
 | `2024-11-05` | `2025-03-26` | `2025-06-18` | `2025-11-25` | `2026-07-28` |
 | --- | --- | --- | --- | --- |
 | not-applicable | applies | applies | applies | applies |
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `completion-example-context-version-mismatch` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Sections 10.4.6 and 11.4**

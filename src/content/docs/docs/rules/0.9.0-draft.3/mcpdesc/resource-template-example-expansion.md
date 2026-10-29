@@ -24,12 +24,6 @@ A Resource Template example uri is a valid RFC 6570 expansion of the template.
 **Status:** internal · **Enforcement:** internal
 
 
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `resource-template-example-invalid-expansion` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Section 10.4.3**

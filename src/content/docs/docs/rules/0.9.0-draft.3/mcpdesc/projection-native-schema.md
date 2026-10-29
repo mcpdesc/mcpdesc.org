@@ -27,12 +27,6 @@ A native projection keeps exactly the declaration fields that the MCP type defin
 | `2024-11-05` | `2025-03-26` | `2025-06-18` | `2025-11-25` | `2026-07-28` |
 | --- | --- | --- | --- | --- |
 | applies | applies | applies | applies | applies |
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `projection-postcondition-failed` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Section 4.14, steps 4 to 6, no synthesis, and lists**
@@ -43,15 +37,23 @@ A native projection keeps exactly the declaration fields that the MCP type defin
   - [/docs/specification/0.9.0-draft.3/versioning#req-native-projection-lists](/docs/specification/0.9.0-draft.3/versioning#req-native-projection-lists)
 
 
+## Gaps and arbitrations
+
+:::note[Known gap: `2025-11-25`]
+A valid document can give a Tool schema property a boolean subschema, which JSON Schema 2020-12 allows, while the pinned MCP 2025-11-25 schema.json requires an object there. Projecting that Tool for MCP 2025-11-25 fails the postcondition; MCP 2026-07-28 accepts it.
+
+Resolution: **planned** (https://github.com/mcpdesc/mcpdesc-specification/issues/95).
+:::
+
 
 ## Notes
 
-No fixture expects projection-postcondition-failed: it can only result from a defect in this specification, its validator, or an implementation. Every expected value is checked against the pinned MCP schema of its revision instead.
+The postcondition cases come from the recorded gap, not from an injected fault: the source is valid, yet the native value fails the pinned MCP 2025-11-25 schema. A list fails as a whole. scripts/test-projection-fixtures.mjs checks that each failure case's value really fails that schema and that every expected value passes it.
 
 
 ## Examples
 
-### Native projection fixture
+### Projection succeeds
 
 Source: [projection-fixtures/tool-icons-execution-component-2025-11-25.json](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0-draft.3/spec/draft/projection-fixtures/tool-icons-execution-component-2025-11-25.json) · Selected: `/expected`
 
@@ -92,7 +94,7 @@ Source: [projection-fixtures/tool-icons-execution-component-2025-11-25.json](htt
 }
 ```
 
-### Native projection fixture
+### Projection succeeds
 
 Source: [projection-fixtures/tool-component-input-array-output-2026-07-28.json](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0-draft.3/spec/draft/projection-fixtures/tool-component-input-array-output-2026-07-28.json) · Selected: `/expected`
 
@@ -128,7 +130,7 @@ Source: [projection-fixtures/tool-component-input-array-output-2026-07-28.json](
 }
 ```
 
-### Native projection fixture
+### Projection succeeds
 
 Source: [projection-fixtures/prompt-arguments-2024-11-05.json](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0-draft.3/spec/draft/projection-fixtures/prompt-arguments-2024-11-05.json) · Selected: `/expected/arguments`
 
@@ -145,7 +147,7 @@ Source: [projection-fixtures/prompt-arguments-2024-11-05.json](https://github.co
 ]
 ```
 
-### Native projection fixture
+### Projection succeeds
 
 Source: [projection-fixtures/tools-list-2025-11-25.json](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0-draft.3/spec/draft/projection-fixtures/tools-list-2025-11-25.json) · Selected: `/expected`
 
@@ -201,6 +203,32 @@ Source: [projection-fixtures/tools-list-2025-11-25.json](https://github.com/mcpd
     }
   }
 ]
+```
+
+### Projection succeeds
+
+Source: [projection-fixtures/tool-boolean-property-schema-2026-07-28.json](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0-draft.3/spec/draft/projection-fixtures/tool-boolean-property-schema-2026-07-28.json) · Selected: `/expected/inputSchema/properties`
+
+```json
+{
+  "enabled": true
+}
+```
+
+### Projection fails
+
+Source: [projection-fixtures/tool-postcondition-failed-2025-11-25.json](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0-draft.3/spec/draft/projection-fixtures/tool-postcondition-failed-2025-11-25.json) · Selected: `/expectedError`
+
+```json
+"projection-postcondition-failed"
+```
+
+### Projection fails
+
+Source: [projection-fixtures/tools-list-postcondition-failed-2025-11-25.json](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0-draft.3/spec/draft/projection-fixtures/tools-list-postcondition-failed-2025-11-25.json) · Selected: `/expectedError`
+
+```json
+"projection-postcondition-failed"
 ```
 
 ## Rule Source Code

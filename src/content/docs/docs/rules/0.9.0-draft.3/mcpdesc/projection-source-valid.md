@@ -27,13 +27,6 @@ Native projection starts from a document without validation errors and from a re
 | `2024-11-05` | `2025-03-26` | `2025-06-18` | `2025-11-25` | `2026-07-28` |
 | --- | --- | --- | --- | --- |
 | applies | applies | applies | applies | applies |
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `projection-source-invalid` | **error** |
-| `projection-revision-not-declared` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Section 4.14, steps 1 and 2**
@@ -49,7 +42,7 @@ Implemented by @mcpdesc/core; this repository checks the fixtures with scripts/t
 
 ## Examples
 
-### Native projection fixture
+### Projection fails
 
 Source: [projection-fixtures/tool-source-invalid.json](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0-draft.3/spec/draft/projection-fixtures/tool-source-invalid.json) · Selected: `/expectedError`
 
@@ -57,7 +50,7 @@ Source: [projection-fixtures/tool-source-invalid.json](https://github.com/mcpdes
 "projection-source-invalid"
 ```
 
-### Native projection fixture
+### Projection fails
 
 Source: [projection-fixtures/tool-revision-not-declared.json](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0-draft.3/spec/draft/projection-fixtures/tool-revision-not-declared.json) · Selected: `/expectedError`
 
@@ -65,7 +58,7 @@ Source: [projection-fixtures/tool-revision-not-declared.json](https://github.com
 "projection-revision-not-declared"
 ```
 
-### Native projection fixture
+### Projection fails
 
 Source: [projection-fixtures/prompt-revision-not-declared.json](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0-draft.3/spec/draft/projection-fixtures/prompt-revision-not-declared.json) · Selected: `/expectedError`
 

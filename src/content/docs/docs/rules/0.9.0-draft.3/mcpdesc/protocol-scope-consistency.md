@@ -24,14 +24,6 @@ Nested protocol scopes stay within their parent scope, and same-named primitives
 **Status:** internal · **Enforcement:** internal
 
 
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `protocol-scope-outside-parent` | **error** |
-| `primitive-scope-overlap` | **error** |
-| `capability-scope-overlap` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Sections 4.10 and 8.6**

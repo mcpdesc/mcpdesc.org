@@ -28,14 +28,6 @@ An embedded Tool inputSchema or outputSchema is valid under its declared or defa
 | `2024-11-05` | `2025-03-26` | `2025-06-18` | `2025-11-25` | `2026-07-28` |
 | --- | --- | --- | --- | --- |
 | not-applicable | not-applicable | not-applicable | applies | applies |
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `invalid-tool-schema` | **error** |
-| `unsupported-tool-schema-dialect` | **error** |
-| `unresolved-external-tool-schema-reference` | **warning** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Section 9.2 (declared dialects limited to 2020-12 and draft-07; never fetch external $ref targets; warn when validation is incomplete)**

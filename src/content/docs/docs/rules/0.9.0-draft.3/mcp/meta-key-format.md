@@ -24,13 +24,6 @@ A _meta key has an optional prefix of dot-separated labels followed by a slash, 
 **Status:** internal · **Enforcement:** internal
 
 
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `schema-validation` | **error** |
-| `meta-key-invalid` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Section 3.5 (the same grammar applies in every revision)**
@@ -46,7 +39,7 @@ A _meta key has an optional prefix of dot-separated labels followed by a slash, 
 
 ## Notes
 
-The document schema rejects malformed keys first; meta-key-invalid applies to callers of the semantic validator alone.
+The document schema rejects malformed keys first; the semantic key check applies only to direct callers of the semantic validator.
 
 
 ## Examples

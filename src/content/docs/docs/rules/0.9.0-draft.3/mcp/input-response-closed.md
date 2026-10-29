@@ -27,12 +27,6 @@ In MCP 2026-07-28, sampling, elicitation, and roots responses are input response
 | `2024-11-05` | `2025-03-26` | `2025-06-18` | `2025-11-25` | `2026-07-28` |
 | --- | --- | --- | --- | --- |
 | not-applicable | not-applicable | not-applicable | not-applicable | applies |
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `interaction-example-version-mismatch` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Sections 3.6 and 9.4**

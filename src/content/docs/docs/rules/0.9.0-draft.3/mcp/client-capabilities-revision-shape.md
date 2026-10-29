@@ -27,13 +27,6 @@ Each client capability requirement and nested member exists in every applicable 
 | `2024-11-05` | `2025-03-26` | `2025-06-18` | `2025-11-25` | `2026-07-28` |
 | --- | --- | --- | --- | --- |
 | applies | applies | applies | applies | applies |
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `client-requirement-version-mismatch` | **error** |
-| `invalid-client-requirement-value` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Section 8.5**

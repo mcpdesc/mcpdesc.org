@@ -27,12 +27,6 @@ A field that an open MCP result type allows but the revision does not define is 
 | `2024-11-05` | `2025-03-26` | `2025-06-18` | `2025-11-25` | `2026-07-28` |
 | --- | --- | --- | --- | --- |
 | applies | applies | applies | applies | applies |
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `result-field-not-defined-by-version` | **warning** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Section 3.6 (Carried MCP Values)**

@@ -24,12 +24,6 @@ ttlMs in a Resource example result is a non-negative integer when present.
 **Status:** arbitrated · **Enforcement:** internal
 
 
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `schema-validation` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Sections 3.6 and 10.4.4**

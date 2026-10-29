@@ -24,12 +24,6 @@ The completion object of a completion result contains only values, total, and ha
 **Status:** internal · **Enforcement:** internal
 
 
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `schema-validation` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Sections 10.4.6 and 11.4**

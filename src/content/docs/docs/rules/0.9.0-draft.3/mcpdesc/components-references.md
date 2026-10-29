@@ -24,14 +24,6 @@ A Reference Object targets an existing component in the namespace its use site r
 **Status:** internal · **Enforcement:** internal
 
 
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `missing-component-reference-target` | **error** |
-| `wrong-component-reference-namespace` | **error** |
-| `component-reference-cycle` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Sections 17.2 to 17.4**

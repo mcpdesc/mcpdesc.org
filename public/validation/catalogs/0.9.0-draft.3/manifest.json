@@ -1,19 +1,19 @@
 {
-  "$schema": "https://mcpdesc.org/schema/validation-rule/1.0.0.json#/$defs/catalog-manifest",
+  "$schema": "https://mcpdesc.org/schema/validation-rule/1.1.0.json#/$defs/catalog-manifest",
   "catalog": {
-    "sha256": "5fa04ebb941a594a87cf84a69b8b8c2c42f77598e93738163e3e0593c1781a4d",
+    "sha256": "938f7a167c71edce89217285de4ca6bde7671eb8e881fae37656dec0758aecb8",
     "url": "https://mcpdesc.org/validation/catalogs/0.9.0-draft.3/rules.json"
   },
   "mcpdescVersion": "0.9.0",
   "ruleCount": 63,
-  "ruleFormatVersion": "1.0.0",
+  "ruleFormatVersion": "1.1.0",
   "ruleSchema": {
-    "sha256": "c790a0137e5bd35fee7b8f874e7dedc7340505d6d46616eddd79d1b1975096b7",
-    "url": "https://mcpdesc.org/schema/validation-rule/1.0.0.json"
+    "sha256": "8a3c3374fdee1635e7487e8c2aefadde0e6f8b507591a14869400113878f3a30",
+    "url": "https://mcpdesc.org/schema/validation-rule/1.1.0.json"
   },
   "snapshot": "0.9.0-draft.3",
   "source": {
-    "commit": "1092c5988939bbd15936429680bd6d55f8de6bb4",
+    "commit": "b8ce65f501583ee0637c684fb91e9311c4fc5614",
     "repository": "https://github.com/mcpdesc/mcpdesc-specification",
     "specificationPath": "spec/draft",
     "tag": "v0.9.0-draft.3"

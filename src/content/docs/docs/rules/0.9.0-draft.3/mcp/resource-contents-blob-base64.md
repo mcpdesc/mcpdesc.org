@@ -24,12 +24,6 @@ A blob in Resource Contents is canonical base64.
 **Status:** internal · **Enforcement:** internal
 
 
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `invalid-resource-example-base64` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Section 10.4.4**

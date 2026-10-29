@@ -27,16 +27,6 @@ An example result contains every field that each applicable MCP revision require
 | `2024-11-05` | `2025-03-26` | `2025-06-18` | `2025-11-25` | `2026-07-28` |
 | --- | --- | --- | --- | --- |
 | applies | applies | applies | applies | applies |
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `tool-example-result-version-mismatch` | **error** |
-| `resource-example-result-version-mismatch` | **error** |
-| `resource-example-cache-fields-version-mismatch` | **error** |
-| `prompt-example-result-version-mismatch` | **error** |
-| `completion-example-result-version-mismatch` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Sections 9.3, 10.4.4, 10.4.6, 11.3, and 11.4**
@@ -148,7 +138,7 @@ Source: [expected-valid/named-resource-examples.json](https://github.com/mcpdesc
 }
 ```
 
-### Accepted with a warning
+### Valid example
 
 Source: [expected-warning/legacy-result-meta.json](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0-draft.3/spec/draft/fixtures/expected-warning/legacy-result-meta.json) · Selected: `/resources/0/examples/with-result-meta/result`
 
@@ -166,7 +156,7 @@ Source: [expected-warning/legacy-result-meta.json](https://github.com/mcpdesc/mc
 }
 ```
 
-### Accepted with a warning
+### Valid example
 
 Source: [expected-warning/open-results-shared-across-revisions.json](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0-draft.3/spec/draft/fixtures/expected-warning/open-results-shared-across-revisions.json) · Selected: `/tools/0/examples/paris/result`
 

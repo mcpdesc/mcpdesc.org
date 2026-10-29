@@ -24,12 +24,6 @@ A Resource Template uriTemplate is a valid RFC 6570 URI template.
 **Status:** internal · **Enforcement:** internal
 
 
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `invalid-resource-template-uri-template` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Section 10.2.1**

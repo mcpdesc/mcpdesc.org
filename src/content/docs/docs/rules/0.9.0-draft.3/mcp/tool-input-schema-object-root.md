@@ -24,12 +24,6 @@ Tool inputSchema is a JSON Schema object whose root declares type "object", beca
 **Status:** arbitrated · **Enforcement:** internal
 
 
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `schema-validation` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Section 9.2**

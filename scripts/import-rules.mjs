@@ -305,13 +305,13 @@ function fixtureExample(rule, fixture) {
   const serialized = extension === 'json'
     ? JSON.stringify(selected, null, 2)
     : YAML.stringify(selected).trimEnd();
-  const type = fixture.path.startsWith('expected-valid/')
-    ? 'Valid example'
-    : fixture.path.startsWith('expected-warning/')
-      ? 'Accepted with a warning'
-      : fixture.path.startsWith('expected-invalid/')
-        ? 'Invalid example'
-        : 'Native projection fixture';
+  const projection = fixture.path.startsWith('projection-fixtures/');
+  const type = {
+    passes: projection ? 'Projection succeeds' : 'Valid example',
+    warning: 'Accepted with a warning',
+    error: projection ? 'Projection fails' : 'Invalid example',
+  }[fixture.outcome];
+  if (!type) fail(`${rule.id}, ${fixture.path}: unsupported fixture outcome '${fixture.outcome}'.`);
   const pointer = fixture.pointer === '' ? 'whole document' : `\`${fixture.pointer}\``;
   const fixtureSourcePath = fixture.path.startsWith('projection-fixtures/')
     ? posix.join(SPEC_PATH, fixture.path)
@@ -348,13 +348,9 @@ function renderRule(rule, sourceFile, manifest) {
   ].join('<br>\n');
   const retired = rule.status === 'retired'
     ? ':::caution[Retired rule]\nThis record is retired in this catalog and is excluded from active checks.\n:::\n\n' : '';
-  const fixtureOrder = ['expected-valid/', 'expected-warning/', 'expected-invalid/'];
-  const fixtureRank = (fixture) => {
-    const rank = fixtureOrder.findIndex((prefix) => fixture.path.startsWith(prefix));
-    return rank === -1 ? fixtureOrder.length : rank;
-  };
+  const outcomeOrder = ['passes', 'warning', 'error'];
   const fixtures = [...rule.fixtures]
-    .sort((left, right) => fixtureRank(left) - fixtureRank(right))
+    .sort((left, right) => outcomeOrder.indexOf(left.outcome) - outcomeOrder.indexOf(right.outcome))
     .map((fixture) => fixtureExample(rule, fixture)).join('\n');
   const notes = rule.notes ? `## Notes\n\n${rule.notes}\n\n` : '';
   const sourceBlock = [
@@ -385,12 +381,12 @@ function renderRule(rule, sourceFile, manifest) {
     details,
     '',
     applicability.trimEnd(),
-    '## Diagnostics',
-    '',
-    rule.diagnostics?.length
-      ? ['| Code | Severity |', '| --- | --- |', ...rule.diagnostics.map(({ code, severity }) => `| \`${code}\` | **${severity}** |`)].join('\n')
-      : 'This rule record declares no diagnostic codes.',
-    '',
+    ...(rule.diagnostics?.length ? [
+      '## Diagnostics',
+      '',
+      ['| Code | Severity |', '| --- | --- |', ...rule.diagnostics.map(({ code, severity }) => `| \`${code}\` | **${severity}** |`)].join('\n'),
+      '',
+    ] : []),
     '## Required by',
     '',
     formatSpecification(rule, manifest),

@@ -15,39 +15,30 @@
         ]
       },
       "description": "Tool input and output schemas must be valid under their applicable JSON Schema dialect. Unsupported declared dialects are errors; unresolved external references warn when complete offline checking is unavailable. External schemas are not fetched automatically, and a partial check is not reported as complete.",
-      "diagnostics": [
-        {
-          "code": "invalid-tool-schema",
-          "severity": "error"
-        },
-        {
-          "code": "unsupported-tool-schema-dialect",
-          "severity": "error"
-        },
-        {
-          "code": "unresolved-external-tool-schema-reference",
-          "severity": "warning"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/malformed-tool-schema.json",
           "pointer": "/tools/0"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/unresolved-local-tool-ref.json",
           "pointer": "/tools/0"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/unsupported-tool-schema-dialect.json",
           "pointer": "/tools/0/inputSchema"
         },
         {
+          "outcome": "warning",
           "path": "expected-warning/unresolved-external-tool-ref.json",
           "pointer": "/tools/0"
         },
         {
+          "outcome": "warning",
           "path": "expected-warning/unresolved-external-tool-example-ref.json",
           "pointer": "/tools/0"
         }
@@ -115,23 +106,10 @@
         }
       },
       "description": "Resource annotations exist in early MCP protocol versions, but lastModified was added in 2025-06-18. If a declaration covers an earlier version, omit lastModified or describe separate variants with disjoint scopes.",
-      "diagnostics": [
-        {
-          "code": "resource-annotation-not-supported-by-version",
-          "severity": "error"
-        },
-        {
-          "code": "tool-example-content-version-mismatch",
-          "severity": "error"
-        },
-        {
-          "code": "prompt-example-content-version-mismatch",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/annotations-last-modified-before-2025-06-18.json",
           "pointer": "/resources/0/annotations"
         }
@@ -178,23 +156,20 @@
         }
       },
       "description": "Resource annotations describe audience, priority, and modification time, not Tool behavior. Unknown properties are invalid even when their names start with x-. Remove those properties and keep Tool-specific hints on Tool annotations instead.",
-      "diagnostics": [
-        {
-          "code": "schema-validation",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/resource-annotations-unknown-property.json",
           "pointer": "/resources/0/annotations"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/content-annotations-unknown-property.json",
           "pointer": "/tools/0/examples/basic/result/content/0/annotations"
         },
         {
+          "outcome": "passes",
           "path": "expected-valid/distinct-tool-and-resource-annotations.json",
           "pointer": "/resources/0/annotations"
         }
@@ -248,23 +223,20 @@
         }
       ],
       "description": "Resource example ttlMs values are non-negative integer milliseconds. This value constraint also applies when an older protocol version permits the field without defining it. Replace fractions or negative values with the intended duration rather than relying on automatic rounding.",
-      "diagnostics": [
-        {
-          "code": "schema-validation",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/fractional-ttl-ms.json",
           "pointer": "/resources/0/examples/cached/result/ttlMs"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/resource-example-cache-fields.json",
           "pointer": "/resources/1/examples/invalid/result/ttlMs"
         },
         {
+          "outcome": "passes",
           "path": "expected-valid/named-resource-examples.json",
           "pointer": "/resources/0"
         }
@@ -345,15 +317,10 @@
         }
       ],
       "description": "MCP Description accepts server extension advertisements before their standardization, with a warning for the affected protocol versions. The values are preserved rather than rewritten. This exception does not make primitive clientRequirements.extensions available in those earlier versions.",
-      "diagnostics": [
-        {
-          "code": "extensions-not-supported-by-version",
-          "severity": "warning"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "warning",
           "path": "expected-warning/pre-standard-extension-capabilities.json",
           "pointer": "/capabilities/0"
         }
@@ -400,15 +367,10 @@
         }
       },
       "description": "MCP 2026-07-28 uses per-request log-level selection rather than logging/setLevel. MCP Description warns about the logging server capability for that version. Review the advertisement; the warning alone does not make the description invalid.",
-      "diagnostics": [
-        {
-          "code": "logging-deprecated-in-2026",
-          "severity": "warning"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "warning",
           "path": "expected-warning/logging-deprecated-2026.json",
           "pointer": "/capabilities/0"
         }
@@ -452,19 +414,10 @@
         }
       },
       "description": "Task capabilities from MCP 2025-11-25 and extension advertisements in MCP 2026-07-28 are not interchangeable fields. Limit each capability declaration to the versions that define it. The validator does not automatically translate a tasks object into an extension advertisement.",
-      "diagnostics": [
-        {
-          "code": "field-not-supported-by-version",
-          "severity": "error"
-        },
-        {
-          "code": "tasks-core-not-valid-in-2026",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/tasks-capability-2026.json",
           "pointer": "/capabilities/0"
         }
@@ -510,15 +463,10 @@
         }
       },
       "description": "Some client capability forms remain recognized but are deprecated in later MCP protocol versions. The warning does not invalidate the document. Review the requirement against the selected protocol version rather than assuming an older advertisement model still applies.",
-      "diagnostics": [
-        {
-          "code": "deprecated-client-requirement",
-          "severity": "warning"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "warning",
           "path": "expected-warning/deprecated-client-capability-requirements.json",
           "pointer": "/prompts/0/clientRequirements"
         }
@@ -587,19 +535,15 @@
         }
       ],
       "description": "A primitive's clientRequirements lists minimum client capabilities, not custom top-level names. Put custom requirements in experimental or in extensions where defined, after reviewing their meaning. Server capability advertisement and client requirements are different declarations.",
-      "diagnostics": [
-        {
-          "code": "schema-validation",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/unknown-client-capability-requirement.json",
           "pointer": "/tools/0/clientRequirements"
         },
         {
+          "outcome": "passes",
           "path": "expected-valid/client-capability-requirements.json",
           "pointer": "/prompts/0/clientRequirements"
         }
@@ -657,27 +601,20 @@
         }
       },
       "description": "Client capabilities and their settings change across MCP protocol versions. Check each declared requirement against every version in the primitive's effective scope. Split variants when a requirement cannot be represented consistently across that scope.",
-      "diagnostics": [
-        {
-          "code": "client-requirement-version-mismatch",
-          "severity": "error"
-        },
-        {
-          "code": "invalid-client-requirement-value",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/revision-incompatible-client-capability-requirements.json",
           "pointer": "/tools/0/clientRequirements"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/invalid-client-requirement-value.json",
           "pointer": "/tools/0/clientRequirements/roots"
         },
         {
+          "outcome": "passes",
           "path": "expected-valid/client-capability-requirements.json",
           "pointer": "/tools/0/clientRequirements"
         }
@@ -725,15 +662,10 @@
         }
       },
       "description": "Completion context was added in MCP 2025-06-18. A completion example spanning an earlier supported version cannot carry that context unchanged. Split the declaration's scopes when context is needed for only the newer versions.",
-      "diagnostics": [
-        {
-          "code": "completion-example-context-version-mismatch",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/invalid-completion-example-semantics.json",
           "pointer": "/prompts/1/completionExamples/context-too-early"
         }
@@ -775,19 +707,15 @@
         "protocolVersions": "independent"
       },
       "description": "The nested completion object is closed even when its surrounding result is open. It accepts values, total, and hasMore, not arbitrary pagination or vendor fields. Remove additional members or explicitly review a different metadata destination.",
-      "diagnostics": [
-        {
-          "code": "schema-validation",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/completion-result-extra-field.json",
           "pointer": "/resourceTemplates/0/completionExamples/issue-prefix/result/completion"
         },
         {
+          "outcome": "passes",
           "path": "expected-valid/named-completion-examples.json",
           "pointer": "/resourceTemplates/0/completionExamples"
         }
@@ -835,19 +763,15 @@
         }
       },
       "description": "MCP Description does not support completion examples for MCP 2024-11-05, despite the underlying protocol defining completion. The registry records that deliberate historical limitation. Scope completion examples to supported versions instead of treating this as a missing capability advertisement.",
-      "diagnostics": [
-        {
-          "code": "completion-example-version-mismatch",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/invalid-completion-example-semantics.json",
           "pointer": "/prompts/0/completionExamples"
         },
         {
+          "outcome": "passes",
           "path": "expected-warning/legacy-completion-examples.json",
           "pointer": "/resourceTemplates/0/completionExamples/issue-prefix"
         }
@@ -901,23 +825,15 @@
         }
       },
       "description": "Tool and Prompt examples carry native MCP content, whose types and fields vary by protocol version. Check each block against the containing declaration's full effective scope. A block valid in a newer version is not automatically valid in an older one.",
-      "diagnostics": [
-        {
-          "code": "tool-example-content-version-mismatch",
-          "severity": "error"
-        },
-        {
-          "code": "prompt-example-content-version-mismatch",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/revision-incompatible-tool-example.json",
           "pointer": "/tools/0/examples/future-result/result/content/0"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/invalid-prompt-example-semantics.json",
           "pointer": "/prompts/4/examples/resource-link-too-new/result/messages/0/content"
         }
@@ -985,19 +901,15 @@
         }
       },
       "description": "A declaration must be valid in every protocol version in its effective scope. A field introduced later cannot be shared with earlier versions merely because the document also declares the later version. Omit the field or describe disjoint scoped variants.",
-      "diagnostics": [
-        {
-          "code": "field-not-supported-by-version",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/revision-inapplicable-execution.json",
           "pointer": "/tools/0"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/revision-inapplicable-tool-schema-dialect.json",
           "pointer": "/tools/0/inputSchema"
         }
@@ -1075,15 +987,10 @@
         }
       },
       "description": "The allowed form-schema vocabulary depends on the MCP protocol version. Check the fields of requestedSchema against that vocabulary rather than assuming a general Tool JSON Schema can be copied into an elicitation form unchanged.",
-      "diagnostics": [
-        {
-          "code": "elicitation-form-schema-version-mismatch",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/elicitation-form-schema-2025-06-18.json",
           "pointer": "/prompts/0/elicitations/0/requestedSchema"
         }
@@ -1138,23 +1045,15 @@
         }
       },
       "description": "Elicitation forms and URL flows are not available in every MCP protocol version. Scope declarations and interaction examples to the versions that define the chosen mode. Describing an interaction does not make that interaction available in an older protocol version.",
-      "diagnostics": [
-        {
-          "code": "elicitation-mode-not-supported-by-version",
-          "severity": "error"
-        },
-        {
-          "code": "interaction-example-version-mismatch",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/elicitation-version-mismatch.json",
           "pointer": "/tools/0/elicitations/0"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/invalid-tool-interaction-example-semantics.json",
           "pointer": "/tools/0/interactionExamples/broken/steps/0/request"
         }
@@ -1202,15 +1101,10 @@
         }
       },
       "description": "In MCP 2026-07-28, sampling, elicitation, and roots responses are closed input responses rather than open results. Remove undefined fields; _meta is defined only for the sampling response. Earlier versions' open-result behavior does not carry forward to these types.",
-      "diagnostics": [
-        {
-          "code": "interaction-example-version-mismatch",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/closed-step-responses-2026.json",
           "pointer": "/tools/0/interactionExamples/approved/steps/0/response"
         }
@@ -1250,26 +1144,17 @@
         "protocolVersions": "independent"
       },
       "description": "MCP metadata keys follow a grammar for an optional dotted prefix and a local name. Check separators and permitted characters when a key is rejected. Reserved-name context and value checks are separate from this key-format check.",
-      "diagnostics": [
-        {
-          "code": "schema-validation",
-          "severity": "error"
-        },
-        {
-          "code": "meta-key-invalid",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/meta-key-invalid.json",
           "pointer": "/tools/0"
         }
       ],
       "id": "mcp.meta.key-format",
       "kind": "structural",
-      "notes": "The document schema rejects malformed keys first; meta-key-invalid applies to callers of the semantic validator alone.",
+      "notes": "The document schema rejects malformed keys first; the semantic key check applies only to direct callers of the semantic validator.",
       "owner": "mcp",
       "requirement": "must",
       "sources": [
@@ -1307,23 +1192,15 @@
         }
       },
       "description": "A recognized reserved metadata key has a specific context and value shape. A key valid on one message or object may be invalid on another. Check the containing object and protocol version rather than moving the same key unchanged into every _meta object.",
-      "diagnostics": [
-        {
-          "code": "meta-reserved-key-context",
-          "severity": "error"
-        },
-        {
-          "code": "meta-reserved-key-value",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/meta-reserved-key-misuse.json",
           "pointer": "/tools/0/_meta"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/meta-reserved-keys-in-carried-values.json",
           "pointer": "/prompts/0/completionExamples/request-key-in-result/result/_meta"
         }
@@ -1368,15 +1245,10 @@
         }
       },
       "description": "An unrecognized key in an MCP-reserved namespace may belong to a newer protocol definition. It is retained with a warning rather than assigned invented semantics. Verify the key and protocol version before treating it as a recognized MCP feature.",
-      "diagnostics": [
-        {
-          "code": "meta-unknown-reserved-key",
-          "severity": "warning"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "warning",
           "path": "expected-warning/unknown-reserved-meta-key.json",
           "pointer": "/prompts/0/_meta"
         }
@@ -1415,15 +1287,10 @@
         "protocolVersions": "independent"
       },
       "description": "A Resource example's blob must be valid base64. Check the encoding rather than placing raw binary or a URL in the field. Encoded content remains untrusted, and a valid encoding does not establish that the resource exists or is safe to open.",
-      "diagnostics": [
-        {
-          "code": "invalid-resource-example-base64",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/resource-example-result-semantics.json",
           "pointer": "/resources/0/examples/invalid-result/result/contents/0"
         }
@@ -1477,23 +1344,10 @@
         }
       },
       "description": "Resource Contents entries acquire _meta from MCP 2025-06-18. This is separate from result-level _meta, which is available in every supported version. Move or remove a misplaced value only after deciding which object it describes.",
-      "diagnostics": [
-        {
-          "code": "resource-example-content-version-mismatch",
-          "severity": "error"
-        },
-        {
-          "code": "tool-example-content-version-mismatch",
-          "severity": "error"
-        },
-        {
-          "code": "prompt-example-content-version-mismatch",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/resource-example-result-semantics.json",
           "pointer": "/resources/1/examples/unsupported-metadata/result/contents/0"
         }
@@ -1534,23 +1388,20 @@
         "protocolVersions": "independent"
       },
       "description": "Every Resource Template must contain a valid RFC 6570 URI template, even if it has no examples. Correct malformed braces, operators, or variable syntax before checking concrete expansions. The validator does not retrieve the resulting URI.",
-      "diagnostics": [
-        {
-          "code": "invalid-resource-template-uri-template",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/malformed-uri-template-without-examples.json",
           "pointer": "/resourceTemplates/0"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/malformed-resource-template-example.json",
           "pointer": "/resourceTemplates/0"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/invalid-completion-example-semantics.json",
           "pointer": "/resourceTemplates/0"
         }
@@ -1616,23 +1467,20 @@
         }
       ],
       "description": "Resource declarations and resource-link content express raw size as an integer, following MCP's numeric schema convention. Replace a fractional value with the intended integer; the validator must not round it. No minimum is added beyond MCP's definition.",
-      "diagnostics": [
-        {
-          "code": "schema-validation",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/fractional-resource-size.json",
           "pointer": "/resources/0/size"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/fractional-resource-link-size.json",
           "pointer": "/tools/0/examples/listing/result/content/0/size"
         },
         {
+          "outcome": "passes",
           "path": "expected-valid/named-resource-examples.json",
           "pointer": "/resources/0"
         }
@@ -1703,27 +1551,25 @@
         }
       },
       "description": "An open MCP result can carry fields that its protocol version does not define. Those values are preserved without assigning them later-version meaning, and a warning identifies the affected version. Review the field or split protocol variants if the warning is not intended.",
-      "diagnostics": [
-        {
-          "code": "result-field-not-defined-by-version",
-          "severity": "warning"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "warning",
           "path": "expected-warning/open-result-unknown-properties.json",
           "pointer": "/tools/0/examples/traced/result"
         },
         {
+          "outcome": "warning",
           "path": "expected-warning/open-results-shared-across-revisions.json",
           "pointer": "/prompts/0/examples/default/result"
         },
         {
+          "outcome": "warning",
           "path": "expected-warning/open-step-responses-before-2026.json",
           "pointer": "/tools/0/interactionExamples/approved/steps/0/response"
         },
         {
+          "outcome": "warning",
           "path": "expected-warning/component-protocol-scope.json",
           "pointer": "/components/resourceExamples/current/result"
         }
@@ -1786,19 +1632,15 @@
         }
       },
       "description": "Root entries acquire _meta from MCP 2025-06-18. This is different from metadata on the surrounding roots result. Remove misplaced metadata or scope the containing example to protocol versions that define it.",
-      "diagnostics": [
-        {
-          "code": "interaction-example-version-mismatch",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/root-meta-before-2025-06-18.json",
           "pointer": "/tools/0/interactionExamples/with-root-meta/steps/0/response/roots/0"
         },
         {
+          "outcome": "passes",
           "path": "expected-warning/open-step-responses-before-2026.json",
           "pointer": "/tools/0/interactionExamples/approved/steps/0/response/roots/0"
         }
@@ -1840,15 +1682,10 @@
         "protocolVersions": "independent"
       },
       "description": "Root entries in interaction responses use file:// URIs. An arbitrary resource URI is not a valid root merely because the resource is accessible to the server. Correct the root URI without fetching or probing the referenced filesystem location.",
-      "diagnostics": [
-        {
-          "code": "interaction-example-roots-uri",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/invalid-tool-interaction-example-semantics.json",
           "pointer": "/tools/0/interactionExamples/broken/steps/3/response/roots/0"
         }
@@ -1902,15 +1739,10 @@
         }
       },
       "description": "Sampling tools and toolChoice are available from MCP 2025-11-25. Earlier-version interaction examples cannot use those fields. Remove them or narrow the containing Tool's protocol scope to versions that support them.",
-      "diagnostics": [
-        {
-          "code": "interaction-example-version-mismatch",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/invalid-tool-interaction-example-semantics.json",
           "pointer": "/tools/0/interactionExamples/broken/steps/2/request"
         }
@@ -1973,19 +1805,15 @@
         }
       ],
       "description": "Server capabilities have defined members rather than arbitrary top-level names. Remove unknown members or use the experimental or extensions maps where the applicable protocol version allows them. MCP Description specification extensions follow their own x- rules.",
-      "diagnostics": [
-        {
-          "code": "schema-validation",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/unknown-server-capability.json",
           "pointer": "/capabilities/0"
         },
         {
+          "outcome": "passes",
           "path": "expected-valid/client-capability-requirements.json",
           "pointer": "/capabilities/0"
         }
@@ -2043,19 +1871,15 @@
         }
       },
       "description": "Tool annotations are a closed set of behavior hints. Resource annotation fields such as audience and priority do not belong here, and custom keys are not allowed. Remove those properties; author-reviewed server metadata can instead use the Tool's _meta where the protocol version defines it.",
-      "diagnostics": [
-        {
-          "code": "schema-validation",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/tool-annotations-unknown-property.json",
           "pointer": "/tools/0/annotations"
         },
         {
+          "outcome": "passes",
           "path": "expected-valid/distinct-tool-and-resource-annotations.json",
           "pointer": "/tools/0/annotations"
         }
@@ -2110,19 +1934,15 @@
         }
       ],
       "description": "A Tool inputSchema must declare the literal type object after component resolution. An array schema or a schema that only implies an object through composition does not satisfy this root requirement. Keep object arguments under properties and validate their values separately.",
-      "diagnostics": [
-        {
-          "code": "schema-validation",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/non-object-input-schema.json",
           "pointer": "/tools/0/inputSchema"
         },
         {
+          "outcome": "passes",
           "path": "expected-valid/custom-tool-schema-keywords.json",
           "pointer": "/tools/0/inputSchema"
         }
@@ -2183,35 +2003,30 @@
         }
       },
       "description": "MCP 2026-07-28 gives x-mcp-header meaning on string, integer, or boolean input properties reachable through properties chains. Check header tokens, placement, and case-insensitive uniqueness. Earlier protocol versions preserve the keyword without applying those MCP header semantics.",
-      "diagnostics": [
-        {
-          "code": "invalid-x-mcp-header",
-          "severity": "error"
-        },
-        {
-          "code": "duplicate-x-mcp-header",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "passes",
           "path": "expected-valid/revision-inapplicable-mcp-header.json",
           "pointer": "/tools/0/inputSchema"
         },
         {
+          "outcome": "passes",
           "path": "expected-valid/custom-tool-schema-keywords.json",
           "pointer": "/tools/0/inputSchema/properties/region"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/invalid-mcp-header-value.json",
           "pointer": "/tools/0/inputSchema/properties/region"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/invalid-mcp-header-placement.json",
           "pointer": "/tools/0/inputSchema/allOf/0/properties/region"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/duplicate-mcp-header.json",
           "pointer": "/tools/0/inputSchema/properties/fallbackRegion"
         }
@@ -2260,19 +2075,15 @@
         }
       },
       "description": "MCP 2025-06-18 and 2025-11-25 require an object-rooted outputSchema. MCP 2026-07-28 permits other roots. An array schema therefore needs a scope that excludes the object-only versions; projection must not wrap it in an object as a repair.",
-      "diagnostics": [
-        {
-          "code": "field-not-supported-by-version",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/non-object-output-schema-before-2026.json",
           "pointer": "/tools/0/outputSchema"
         },
         {
+          "outcome": "passes",
           "path": "expected-valid/protocol-coverage-and-tool-schemas.json",
           "pointer": "/tools/3/outputSchema"
         }
@@ -2332,15 +2143,10 @@
         }
       },
       "description": "Tool outputSchema is available from MCP 2025-06-18. A Tool whose effective scope includes an earlier protocol version cannot carry it unchanged. Omit it for the earlier version or provide disjoint variants.",
-      "diagnostics": [
-        {
-          "code": "field-not-supported-by-version",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/output-schema-before-2025-06-18.json",
           "pointer": "/tools/0"
         }
@@ -2405,14 +2211,15 @@
         }
       ],
       "description": "Embedded Tool schemas can contain keywords beyond the fields MCP lists. A tool must preserve them through the operations covered by the specification instead of discarding unrecognized keywords. This is a tooling guarantee, so a valid custom keyword does not itself produce a document diagnostic.",
-      "diagnostics": [],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "passes",
           "path": "expected-valid/custom-tool-schema-keywords.json",
           "pointer": "/tools/0/inputSchema"
         },
         {
+          "outcome": "passes",
           "path": "expected-valid/revision-inapplicable-mcp-header.json",
           "pointer": "/tools/0/inputSchema"
         }
@@ -2468,15 +2275,10 @@
         }
       },
       "description": "Early MCP protocol versions define a limited Tool-schema shape without a default embedded dialect. Check the known properties and required-name list without rejecting other keywords using an inferred meta-schema. Incomplete example validation is reported separately.",
-      "diagnostics": [
-        {
-          "code": "invalid-legacy-tool-schema-shape",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/malformed-pre-dialect-tool-schema-shape.json",
           "pointer": "/tools/0/inputSchema"
         }
@@ -2523,19 +2325,15 @@
         }
       },
       "description": "A successful Tool example for a Tool with outputSchema must carry the required structuredContent. The schema describes that structured value, not the unstructured content array. Check success and error examples separately before deciding which payload is missing.",
-      "diagnostics": [
-        {
-          "code": "missing-tool-example-structured-content",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/invalid-tool-example-result-semantics.json",
           "pointer": "/tools/0/examples/missing/result"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/invalid-tool-interaction-example-semantics.json",
           "pointer": "/tools/0/interactionExamples/broken/result"
         }
@@ -2581,15 +2379,10 @@
         }
       },
       "description": "Legacy HTTP plus SSE remains representable but is deprecated for later MCP protocol versions. The warning does not by itself invalidate the document. Review whether the server still offers that transport or whether the description should advertise Streamable HTTP instead.",
-      "diagnostics": [
-        {
-          "code": "legacy-sse-for-modern-version",
-          "severity": "warning"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "warning",
           "path": "expected-warning/legacy-sse-modern-revision.json",
           "pointer": "/transports/0"
         }
@@ -2631,15 +2424,10 @@
         }
       },
       "description": "Streamable HTTP is not defined by the earliest supported MCP protocol version. Scope the transport to versions that define it and keep root protocol coverage consistent. A URL alone does not make a transport applicable to every protocol version.",
-      "diagnostics": [
-        {
-          "code": "transport-not-supported-by-version",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/revision-inapplicable-streamable-http.json",
           "pointer": "/transports/0"
         }
@@ -2675,35 +2463,15 @@
         "protocolVersions": "independent"
       },
       "description": "A completion example must target a Prompt argument or Resource Template variable that exists. Context entries must name other declared targets, not repeat the argument being completed. Correct the example names or the declaration they describe.",
-      "diagnostics": [
-        {
-          "code": "prompt-completion-example-unknown-argument",
-          "severity": "error"
-        },
-        {
-          "code": "prompt-completion-example-context-unknown-argument",
-          "severity": "error"
-        },
-        {
-          "code": "resource-template-completion-example-unknown-variable",
-          "severity": "error"
-        },
-        {
-          "code": "resource-template-completion-example-context-unknown-variable",
-          "severity": "error"
-        },
-        {
-          "code": "completion-example-duplicate-target-context",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/invalid-completion-example-semantics.json",
           "pointer": "/prompts/2/completionExamples/bad-membership/argument"
         },
         {
+          "outcome": "passes",
           "path": "expected-valid/named-completion-examples.json",
           "pointer": "/prompts/0/completionExamples"
         }
@@ -2743,23 +2511,10 @@
         "protocolVersions": "independent"
       },
       "description": "A component reference must identify an existing value in the namespace required by its use site, without a reference cycle. Check both the target name and the namespace. Reuse does not exempt the resolved value from validation in its containing declaration.",
-      "diagnostics": [
-        {
-          "code": "missing-component-reference-target",
-          "severity": "error"
-        },
-        {
-          "code": "wrong-component-reference-namespace",
-          "severity": "error"
-        },
-        {
-          "code": "component-reference-cycle",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/component-reference-resolution.json",
           "pointer": "/components/schemas"
         }
@@ -2789,19 +2544,15 @@
         "protocolVersions": "independent"
       },
       "description": "The structural schema checks required fields, types, allowed members, and collection shapes. Use the diagnostic path to locate the invalid value. Passing this check is necessary but does not replace semantic checks such as reference resolution or protocol scoping.",
-      "diagnostics": [
-        {
-          "code": "schema-validation",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/missing-tool-input-schema.json",
           "pointer": "/tools/0"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/object-level-unknown-property.json",
           "pointer": "/tools/0"
         }
@@ -2829,35 +2580,20 @@
         "protocolVersions": "independent"
       },
       "description": "Form properties, required names, enum labels, defaults, and bounds must agree with one another. Correct references to absent properties and contradictory constraints. Passing JSON Schema's outer shape checks does not prove that the declared form is internally consistent.",
-      "diagnostics": [
-        {
-          "code": "elicitation-form-required-property-unknown",
-          "severity": "error"
-        },
-        {
-          "code": "elicitation-form-enum-names-mismatch",
-          "severity": "error"
-        },
-        {
-          "code": "elicitation-form-default-outside-enum",
-          "severity": "error"
-        },
-        {
-          "code": "elicitation-form-invalid-range",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/elicitation-form-semantics.json",
           "pointer": "/prompts/0/elicitations/0/requestedSchema/required"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/elicitation-form-invalid-range.json",
           "pointer": "/prompts/0/elicitations/0/requestedSchema/properties/count"
         },
         {
+          "outcome": "passes",
           "path": "expected-valid/elicitation-declarations.json",
           "pointer": "/tools/0/elicitations"
         }
@@ -2902,15 +2638,10 @@
         "protocolVersions": "independent"
       },
       "description": "Elicitation declaration names identify interactions within their primitive. Duplicate names make a Tool interaction's declaration reference ambiguous. Rename one declaration and update the references that are intended to select it.",
-      "diagnostics": [
-        {
-          "code": "duplicate-elicitation-name",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/elicitation-form-semantics.json",
           "pointer": "/prompts/0/elicitations/1"
         }
@@ -2938,55 +2669,25 @@
         "protocolVersions": "independent"
       },
       "description": "An example result is the completed payload, not a JSON-RPC response or a pending workflow. Remove envelope fields such as jsonrpc and id and do not include task or input-required state. Multi-step interactions belong in the explicit interaction example structure.",
-      "diagnostics": [
-        {
-          "code": "tool-example-json-rpc-envelope",
-          "severity": "error"
-        },
-        {
-          "code": "prompt-example-json-rpc-envelope",
-          "severity": "error"
-        },
-        {
-          "code": "resource-example-json-rpc-envelope",
-          "severity": "error"
-        },
-        {
-          "code": "completion-example-json-rpc-envelope",
-          "severity": "error"
-        },
-        {
-          "code": "incomplete-tool-example-result",
-          "severity": "error"
-        },
-        {
-          "code": "incomplete-prompt-example-result",
-          "severity": "error"
-        },
-        {
-          "code": "incomplete-resource-example-result",
-          "severity": "error"
-        },
-        {
-          "code": "incomplete-completion-example-result",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/invalid-tool-example-result-semantics.json",
           "pointer": "/tools/3/examples/task-result/result"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/invalid-prompt-example-semantics.json",
           "pointer": "/prompts/3/examples/task-state/result"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/resource-example-result-semantics.json",
           "pointer": "/resources/0/examples/invalid-result/result"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/invalid-completion-example-semantics.json",
           "pointer": "/prompts/2/completionExamples/bad-membership/result"
         }
@@ -3039,51 +2740,35 @@
         }
       },
       "description": "A completed example result must contain the fields each applicable MCP protocol version requires, with valid values. Check the result's full effective scope, not only the newest version. Fields permitted but undefined on open result types are handled separately as warnings.",
-      "diagnostics": [
-        {
-          "code": "tool-example-result-version-mismatch",
-          "severity": "error"
-        },
-        {
-          "code": "resource-example-result-version-mismatch",
-          "severity": "error"
-        },
-        {
-          "code": "resource-example-cache-fields-version-mismatch",
-          "severity": "error"
-        },
-        {
-          "code": "prompt-example-result-version-mismatch",
-          "severity": "error"
-        },
-        {
-          "code": "completion-example-result-version-mismatch",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/invalid-prompt-example-semantics.json",
           "pointer": "/prompts/0/examples/unknown-and-missing/result"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/invalid-completion-example-semantics.json",
           "pointer": "/prompts/3/completionExamples/missing-result-type/result"
         },
         {
+          "outcome": "passes",
           "path": "expected-valid/named-tool-examples.json",
           "pointer": "/tools/0/examples"
         },
         {
+          "outcome": "passes",
           "path": "expected-valid/named-resource-examples.json",
           "pointer": "/resources/0/examples"
         },
         {
+          "outcome": "passes",
           "path": "expected-warning/legacy-result-meta.json",
           "pointer": "/resources/0/examples/with-result-meta/result"
         },
         {
+          "outcome": "passes",
           "path": "expected-warning/open-results-shared-across-revisions.json",
           "pointer": "/tools/0/examples/paris/result"
         }
@@ -3129,30 +2814,22 @@
         "protocolVersions": "independent"
       },
       "description": "Extension identifiers in an MCP-reserved namespace are checked against the pinned catalogue. Unknown or experimental identifiers are preserved with a warning. Verify the identifier and its maturity; an unrecognized identifier is not silently assigned known extension semantics.",
-      "diagnostics": [
-        {
-          "code": "unknown-reserved-extension-identifier",
-          "severity": "warning"
-        },
-        {
-          "code": "experimental-reserved-extension-identifier",
-          "severity": "warning"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "warning",
           "path": "expected-warning/unknown-reserved-extension-identifier.json",
           "pointer": "/capabilities/0/extensions"
         },
         {
+          "outcome": "warning",
           "path": "expected-warning/deprecated-client-capability-requirements.json",
           "pointer": "/prompts/0/clientRequirements/extensions"
         }
       ],
       "id": "mcpdesc.extensions.catalogue-maturity",
       "kind": "mcpdesc-semantic",
-      "notes": "The pinned catalogue lists no experimental identifiers, so no document currently produces experimental-reserved-extension-identifier.",
+      "notes": "The pinned catalogue lists no experimental identifiers, so no document currently produces the experimental-identifier warning.",
       "owner": "mcpdesc",
       "path": "capabilities.extensions, clientRequirements.extensions",
       "requirement": "should",
@@ -3190,15 +2867,10 @@
         }
       },
       "description": "MCP 2024-11-05 and 2025-03-26 receive structural and selected checks, not a claim of complete MCP semantic conformance. The warning describes a validation limitation rather than an invalid document. Adding a later protocol version does not make checks for the earlier versions complete.",
-      "diagnostics": [
-        {
-          "code": "legacy-protocol-validation-incomplete",
-          "severity": "warning"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "warning",
           "path": "expected-warning/legacy-result-meta.json",
           "pointer": "/protocolVersions"
         }
@@ -3233,19 +2905,15 @@
         }
       },
       "description": "Native projection selects a Tool, Resource, Resource Template, or Prompt by its identifier in one protocol view. A declaration outside that view cannot be projected for that version. Check the identifier and the declaration's inherited or explicit scope.",
-      "diagnostics": [
-        {
-          "code": "projection-declaration-not-applicable",
-          "severity": "error"
-        }
-      ],
       "enforcement": "external",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "projection-fixtures/tool-not-applicable-2024-11-05.json",
           "pointer": "/expectedError"
         },
         {
+          "outcome": "error",
           "path": "projection-fixtures/resource-template-not-applicable-2025-03-26.json",
           "pointer": "/expectedError"
         }
@@ -3279,34 +2947,57 @@
         }
       },
       "description": "Native projection resolves Tool schema components, removes description-only fields, and checks the value against the selected MCP schema. It does not repair values or invent defaults. A postcondition failure is an implementation or specification defect and returns no projected value.",
-      "diagnostics": [
-        {
-          "code": "projection-postcondition-failed",
-          "severity": "error"
-        }
-      ],
       "enforcement": "external",
       "fixtures": [
         {
+          "outcome": "passes",
           "path": "projection-fixtures/tool-icons-execution-component-2025-11-25.json",
           "pointer": "/expected"
         },
         {
+          "outcome": "passes",
           "path": "projection-fixtures/tool-component-input-array-output-2026-07-28.json",
           "pointer": "/expected"
         },
         {
+          "outcome": "passes",
           "path": "projection-fixtures/prompt-arguments-2024-11-05.json",
           "pointer": "/expected/arguments"
         },
         {
+          "outcome": "passes",
           "path": "projection-fixtures/tools-list-2025-11-25.json",
           "pointer": "/expected"
+        },
+        {
+          "outcome": "passes",
+          "path": "projection-fixtures/tool-boolean-property-schema-2026-07-28.json",
+          "pointer": "/expected/inputSchema/properties"
+        },
+        {
+          "outcome": "error",
+          "path": "projection-fixtures/tool-postcondition-failed-2025-11-25.json",
+          "pointer": "/expectedError"
+        },
+        {
+          "outcome": "error",
+          "path": "projection-fixtures/tools-list-postcondition-failed-2025-11-25.json",
+          "pointer": "/expectedError"
+        }
+      ],
+      "gaps": [
+        {
+          "behavior": "A valid document can give a Tool schema property a boolean subschema, which JSON Schema 2020-12 allows, while the pinned MCP 2025-11-25 schema.json requires an object there. Projecting that Tool for MCP 2025-11-25 fails the postcondition; MCP 2026-07-28 accepts it.",
+          "reference": "https://github.com/mcpdesc/mcpdesc-specification/issues/95",
+          "resolution": "planned",
+          "revisions": [
+            "2025-11-25"
+          ]
         }
       ],
       "id": "mcpdesc.projection.native-schema",
       "kind": "mcpdesc-semantic",
-      "notes": "No fixture expects projection-postcondition-failed: it can only result from a defect in this specification, its validator, or an implementation. Every expected value is checked against the pinned MCP schema of its revision instead.",
+      "notes": "The postcondition cases come from the recorded gap, not from an injected fault: the source is valid, yet the native value fails the pinned MCP 2025-11-25 schema. A list fails as a whole. scripts/test-projection-fixtures.mjs checks that each failure case's value really fails that schema and that every expected value passes it.",
       "owner": "mcpdesc",
       "requirement": "must",
       "specification": [
@@ -3337,27 +3028,20 @@
         }
       },
       "description": "Native projection first validates the source and checks that the requested MCP protocol version appears at the root. Fix source errors or select a declared version. These failures come from the projection operation, not a new document-validation phase.",
-      "diagnostics": [
-        {
-          "code": "projection-source-invalid",
-          "severity": "error"
-        },
-        {
-          "code": "projection-revision-not-declared",
-          "severity": "error"
-        }
-      ],
       "enforcement": "external",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "projection-fixtures/tool-source-invalid.json",
           "pointer": "/expectedError"
         },
         {
+          "outcome": "error",
           "path": "projection-fixtures/tool-revision-not-declared.json",
           "pointer": "/expectedError"
         },
         {
+          "outcome": "error",
           "path": "projection-fixtures/prompt-revision-not-declared.json",
           "pointer": "/expectedError"
         }
@@ -3386,27 +3070,20 @@
         "protocolVersions": "independent"
       },
       "description": "A Prompt example supplies every required argument and no undeclared argument. Check names against the containing Prompt, including when the example comes from a reusable component. Omitted optional arguments do not need placeholder values.",
-      "diagnostics": [
-        {
-          "code": "prompt-example-missing-required-argument",
-          "severity": "error"
-        },
-        {
-          "code": "prompt-example-unknown-argument",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/invalid-prompt-example-semantics.json",
           "pointer": "/prompts/0/examples/unknown-and-missing/arguments"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/component-contextual-examples.json",
           "pointer": "/components/promptExamples/bad-arguments"
         },
         {
+          "outcome": "passes",
           "path": "expected-valid/named-prompt-examples.json",
           "pointer": "/prompts/2"
         }
@@ -3447,35 +3124,25 @@
         "protocolVersions": "independent"
       },
       "description": "An omitted scope inherits its parent's full scope; an explicit child scope must stay within it. Declarations with the same identity cannot overlap where the specification requires uniqueness. Narrow the scopes rather than expecting the validator to choose one variant.",
-      "diagnostics": [
-        {
-          "code": "protocol-scope-outside-parent",
-          "severity": "error"
-        },
-        {
-          "code": "primitive-scope-overlap",
-          "severity": "error"
-        },
-        {
-          "code": "capability-scope-overlap",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/elicitation-scope-outside-parent.json",
           "pointer": "/resourceTemplates/0/elicitations/0"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/scoped-version-not-in-root.json",
           "pointer": "/transports/0"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/overlapping-tool-scope.json",
           "pointer": "/tools/1"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/overlapping-capabilities.json",
           "pointer": "/capabilities/0"
         }
@@ -3506,23 +3173,20 @@
         "protocolVersions": "independent"
       },
       "description": "A Resource Template example records the concrete requested URI, which must be an RFC 6570 expansion of the containing template. Check the template and URI together, including examples reached through components. Matching a URI does not require network retrieval.",
-      "diagnostics": [
-        {
-          "code": "resource-template-example-invalid-expansion",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/resource-example-result-semantics.json",
           "pointer": "/resourceTemplates/0/examples/not-an-expansion"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/component-contextual-examples.json",
           "pointer": "/components/resourceTemplateExamples/bad-uri"
         },
         {
+          "outcome": "passes",
           "path": "expected-valid/named-resource-examples.json",
           "pointer": "/resourceTemplates/0"
         }
@@ -3559,23 +3223,10 @@
         "protocolVersions": "independent"
       },
       "description": "Resource example contents are compared with the declaration's requested URI, MIME type, and declared raw size. A mutable resource can differ between observations, so size differences are warnings. Review the example and declaration together rather than inferring live content.",
-      "diagnostics": [
-        {
-          "code": "resource-example-requested-uri-not-returned",
-          "severity": "warning"
-        },
-        {
-          "code": "resource-example-mime-type-mismatch",
-          "severity": "warning"
-        },
-        {
-          "code": "resource-example-size-mismatch",
-          "severity": "warning"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "warning",
           "path": "expected-warning/resource-example-consistency.json",
           "pointer": "/resources/0/examples/collection-snapshot/result"
         }
@@ -3606,54 +3257,37 @@
         "protocolVersions": "independent"
       },
       "description": "Security requirements refer to named schemes, and scopes have meaning only for OAuth 2.0 or OpenID Connect schemes. Correct missing references or repeated scopes. An uncatalogued scope can produce a warning where the scheme declares a static scope catalogue.",
-      "diagnostics": [
-        {
-          "code": "unknown-security-scheme",
-          "severity": "error"
-        },
-        {
-          "code": "non-oauth-scope-misuse",
-          "severity": "error"
-        },
-        {
-          "code": "duplicate-security-scope",
-          "severity": "error"
-        },
-        {
-          "code": "schema-validation",
-          "severity": "error"
-        },
-        {
-          "code": "uncatalogued-oauth-scope",
-          "severity": "warning"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/unknown-security-reference.json",
           "pointer": "/security/0"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/non-oauth-scopes.json",
           "pointer": "/security/0"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/duplicate-security-scope.json",
           "pointer": "/security/0"
         },
         {
+          "outcome": "warning",
           "path": "expected-warning/uncatalogued-oauth-scope.json",
           "pointer": "/tools/0/security/0/oauth"
         },
         {
+          "outcome": "warning",
           "path": "expected-warning/uncatalogued-openid-scope.json",
           "pointer": "/security/0/oidc"
         }
       ],
       "id": "mcpdesc.security.requirements",
       "kind": "mcpdesc-semantic",
-      "notes": "The document schema rejects duplicate scopes first (schema-validation); duplicate-security-scope applies to callers of the semantic validator alone.",
+      "notes": "The document schema rejects duplicate scopes first; the semantic duplicate-scope check applies only to direct callers of the semantic validator.",
       "owner": "mcpdesc",
       "requirement": "must",
       "specification": [
@@ -3677,23 +3311,15 @@
         "protocolVersions": "independent"
       },
       "description": "When the document declares a tag catalogue, primitive tag references must name entries in it. Root tag names and repeated primitive references are checked for duplicates. Fix the name or catalogue entry instead of relying on an undeclared alias.",
-      "diagnostics": [
-        {
-          "code": "duplicate-root-tag",
-          "severity": "error"
-        },
-        {
-          "code": "unknown-tag-reference",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/duplicate-root-tag.json",
           "pointer": "/tags/1"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/duplicate-tag-reference.json",
           "pointer": "/tools/0/tags"
         }
@@ -3721,15 +3347,10 @@
         "protocolVersions": "independent"
       },
       "description": "Tool execution errors are completed MCP Tool results with isError true, not a separate description-only error catalogue. Check the error result's content and avoid presenting successful structured output as the error payload.",
-      "diagnostics": [
-        {
-          "code": "structured-tool-error-example",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/invalid-tool-example-result-semantics.json",
           "pointer": "/tools/1/examples/business-error/result"
         }
@@ -3764,31 +3385,25 @@
         }
       },
       "description": "Example input must satisfy the resolved inputSchema, and successful structured output must satisfy outputSchema when supplied. Correct the example or the declaration's schema. Where resolution or dialect support prevents complete checking, the diagnostic must make that limitation visible.",
-      "diagnostics": [
-        {
-          "code": "tool-example-schema-mismatch",
-          "severity": "error"
-        },
-        {
-          "code": "incomplete-tool-example-validation",
-          "severity": "warning"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/tool-example-schema-mismatches.json",
           "pointer": "/tools/0/examples/wrong-types"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/component-contextual-examples.json",
           "pointer": "/components/toolExamples/bad-input"
         },
         {
+          "outcome": "warning",
           "path": "expected-warning/pre-dialect-tool-example.json",
           "pointer": "/tools/0/examples/friendly"
         },
         {
+          "outcome": "warning",
           "path": "expected-warning/unresolved-external-tool-example-ref.json",
           "pointer": "/tools/0/examples/external-identifier"
         }
@@ -3835,15 +3450,10 @@
         }
       },
       "description": "A Tool interaction example can contradict its explicit minimum client requirements. Review the warning against the scenario and the declared requirements. The example does not automatically create or strengthen a client requirement.",
-      "diagnostics": [
-        {
-          "code": "interaction-example-client-requirements-contradiction",
-          "severity": "warning"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "warning",
           "path": "expected-warning/tool-interaction-client-requirements-contradictions.json",
           "pointer": "/tools/0/interactionExamples/contradictory/steps/0"
         }
@@ -3878,31 +3488,15 @@
         }
       },
       "description": "A Tool's elicitation step must agree with the named elicitation declaration and its requested form. Accepted form content must satisfy that schema, while declined or cancelled responses have different content rules. Check the reference, request, and response together.",
-      "diagnostics": [
-        {
-          "code": "unknown-elicitation-declaration",
-          "severity": "error"
-        },
-        {
-          "code": "interaction-example-elicitation-declaration-mismatch",
-          "severity": "error"
-        },
-        {
-          "code": "interaction-example-elicitation-response-mismatch",
-          "severity": "error"
-        },
-        {
-          "code": "interaction-example-elicitation-content-schema-mismatch",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/invalid-tool-interaction-example-semantics.json",
           "pointer": "/tools/0/interactionExamples/broken/steps/0"
         },
         {
+          "outcome": "passes",
           "path": "expected-valid/named-tool-interaction-examples.json",
           "pointer": "/tools/0/interactionExamples"
         }
@@ -3942,19 +3536,15 @@
         "protocolVersions": "independent"
       },
       "description": "When transports are declared, every root protocol version must be covered by at least one transport's effective scope. An omitted transport scope inherits all root versions. Add appropriate coverage or narrow the documented protocol versions rather than leaving an unreachable view. Descriptions may omit transports entirely.",
-      "diagnostics": [
-        {
-          "code": "transport-coverage-gap",
-          "severity": "error"
-        }
-      ],
       "enforcement": "internal",
       "fixtures": [
         {
+          "outcome": "error",
           "path": "expected-invalid/root-version-without-transport.json",
           "pointer": "/protocolVersions"
         },
         {
+          "outcome": "error",
           "path": "expected-invalid/scoped-version-not-in-root.json",
           "pointer": "/protocolVersions"
         }

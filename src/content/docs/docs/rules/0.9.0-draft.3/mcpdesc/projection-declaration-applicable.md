@@ -27,12 +27,6 @@ Native projection selects one declaration of the requested kind and identifier i
 | `2024-11-05` | `2025-03-26` | `2025-06-18` | `2025-11-25` | `2026-07-28` |
 | --- | --- | --- | --- | --- |
 | applies | applies | applies | applies | applies |
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `projection-declaration-not-applicable` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Section 4.14, step 3**
@@ -47,7 +41,7 @@ Implemented by @mcpdesc/core; this repository checks the fixtures with scripts/t
 
 ## Examples
 
-### Native projection fixture
+### Projection fails
 
 Source: [projection-fixtures/tool-not-applicable-2024-11-05.json](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0-draft.3/spec/draft/projection-fixtures/tool-not-applicable-2024-11-05.json) · Selected: `/expectedError`
 
@@ -55,7 +49,7 @@ Source: [projection-fixtures/tool-not-applicable-2024-11-05.json](https://github
 "projection-declaration-not-applicable"
 ```
 
-### Native projection fixture
+### Projection fails
 
 Source: [projection-fixtures/resource-template-not-applicable-2025-03-26.json](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0-draft.3/spec/draft/projection-fixtures/resource-template-not-applicable-2025-03-26.json) · Selected: `/expectedError`
 

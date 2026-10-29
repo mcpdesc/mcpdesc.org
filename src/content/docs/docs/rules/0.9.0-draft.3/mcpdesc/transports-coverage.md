@@ -24,12 +24,6 @@ Every protocol version at the root is covered by at least one transport when tra
 **Status:** internal · **Enforcement:** internal
 
 
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `transport-coverage-gap` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Section 6.5**

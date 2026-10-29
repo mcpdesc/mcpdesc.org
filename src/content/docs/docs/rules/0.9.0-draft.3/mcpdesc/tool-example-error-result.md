@@ -24,12 +24,6 @@ A Tool execution-error example result sets isError to true and does not contain 
 **Status:** internal · **Enforcement:** internal
 
 
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `structured-tool-error-example` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Section 9.3 (an execution-error result MUST NOT contain structuredContent; outputSchema does not validate error content)**

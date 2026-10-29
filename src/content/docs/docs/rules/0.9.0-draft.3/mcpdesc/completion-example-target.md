@@ -24,16 +24,6 @@ A completion example completes a declared Prompt argument or URI template variab
 **Status:** internal · **Enforcement:** internal
 
 
-## Diagnostics
-
-| Code | Severity |
-| --- | --- |
-| `prompt-completion-example-unknown-argument` | **error** |
-| `prompt-completion-example-context-unknown-argument` | **error** |
-| `resource-template-completion-example-unknown-variable` | **error** |
-| `resource-template-completion-example-context-unknown-variable` | **error** |
-| `completion-example-duplicate-target-context` | **error** |
-
 ## Required by
 
 - **MCP Description 0.9.0, Sections 10.4.6 and 11.4**
