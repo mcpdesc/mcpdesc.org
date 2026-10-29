@@ -71,7 +71,7 @@
       "additionalProperties": false,
       "properties": {
         "$schema": {
-          "const": "https://mcpdesc.org/schema/validation-rule/1.0.0.json#/$defs/catalog-index"
+          "const": "https://mcpdesc.org/schema/validation-rule/1.1.0.json#/$defs/catalog-index"
         },
         "catalogs": {
           "items": {
@@ -109,7 +109,7 @@
       "additionalProperties": false,
       "properties": {
         "$schema": {
-          "const": "https://mcpdesc.org/schema/validation-rule/1.0.0.json#/$defs/catalog-manifest"
+          "const": "https://mcpdesc.org/schema/validation-rule/1.1.0.json#/$defs/catalog-manifest"
         },
         "catalog": {
           "$ref": "#/$defs/artifact"
@@ -122,7 +122,7 @@
           "type": "integer"
         },
         "ruleFormatVersion": {
-          "const": "1.0.0"
+          "const": "1.1.0"
         },
         "ruleSchema": {
           "$ref": "#/$defs/artifact"
