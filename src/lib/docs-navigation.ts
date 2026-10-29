@@ -1,20 +1,25 @@
 import type { CollectionEntry } from 'astro:content';
 import manifest from '../../public/specification/index.json';
 
-export const docsVersions = [...manifest.versions].sort((left, right) => {
+export const docsSnapshots = [...manifest.versions].sort((left, right) => {
   const rank = (channel: string) => channel === 'stable' ? 0 : channel === 'candidate' ? 2 : 1;
   return rank(left.channel) - rank(right.channel) || right.version.localeCompare(left.version, 'en', { numeric: true });
 }).map((version) => ({
   version: version.version,
   label: version.channel === 'candidate'
     ? 'Draft'
+    : version.maturity === 'draft' ? `${version.version} (Archived)`
     : `Version ${version.version}${version.channel === 'stable' ? ' (Latest)' : ''}`,
 }));
+export const docsVersions = docsSnapshots.filter(({ version }) => {
+  const entry = manifest.versions.find((entry) => entry.version === version);
+  return entry?.maturity === 'stable' || entry?.channel === 'candidate';
+});
 export const latestDocsVersion = manifest.stable;
 export type DocsSidebar = App.Locals['starlightRoute']['sidebar'];
 
 export function versionFromPath(path: string) {
-  return docsVersions.find(({ version }) =>
+  return docsSnapshots.find(({ version }) =>
     path === `/docs/specification/${version}` || path.startsWith(`/docs/specification/${version}/`) ||
     path === `/docs/rules/${version}` || path.startsWith(`/docs/rules/${version}/`),
   )?.version;
@@ -52,21 +57,13 @@ export function buildDocsNavigation(entries: CollectionEntry<'docs'>[], version:
   const rulesPrefix = `docs/rules/${version}`;
   const rules = entries.filter((entry) => entry.id === rulesPrefix || entry.id.startsWith(`${rulesPrefix}/`));
   if (rules.length) {
-    const owners: DocsSidebar = ['mcp', 'mcpdesc', 'json-schema'].map((owner) => {
-      const ownerPrefix = `${rulesPrefix}/${owner}`;
-      const ownerRules = rules.filter((entry) => entry.id.startsWith(`${ownerPrefix}/`));
-      const surfaces = [...new Set(ownerRules.map((entry) => entry.data.ruleSurface ?? 'Other'))].sort();
-      return {
-        type: 'group', label: owner === 'mcp' ? 'MCP' : owner === 'mcpdesc' ? 'MCP Description' : 'JSON Schema',
-        entries: [
-          ...rules.filter((entry) => entry.id === ownerPrefix).map(link),
-          ...surfaces.map((surface) => ({
-            ...group(surface, ordered(ownerRules.filter((entry) => (entry.data.ruleSurface ?? 'Other') === surface))),
-            collapsed: true,
-          })),
-        ],
-        collapsed: true, badge: undefined,
-      };
+    const owners = ([['mcp', 'MCP'], ['json-schema', 'JSON Schema'], ['mcpdesc', 'mcpdesc']] as const).flatMap(([owner, label]) => {
+      const ownerRules = rules.filter((entry) => entry.id.startsWith(`${rulesPrefix}/${owner}/`))
+        .sort((left, right) => left.data.title.localeCompare(right.data.title));
+      return ownerRules.length ? [{
+        type: 'group' as const, label: `${label} (${ownerRules.length})`,
+        entries: ownerRules.map(link), collapsed: true, badge: undefined,
+      }] : [];
     });
     sidebar.push({
       type: 'group', label: 'Validation Rules', collapsed: true, badge: undefined,

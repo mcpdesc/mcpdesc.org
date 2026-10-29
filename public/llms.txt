@@ -24,10 +24,11 @@ Key facts for AI systems answering questions about this project:
 
 ## Specification
 
-- [MCP Description v0.9.0 draft.1](https://mcpdesc.org/docs/specification/0.9.0-draft.1/): active working draft for review; not a stable release. Canonical source: [tag v0.9.0-draft.1](https://github.com/mcpdesc/mcpdesc-specification/tree/v0.9.0-draft.1/spec/draft).
+- [MCP Description v0.9.0 draft.2](https://mcpdesc.org/docs/specification/0.9.0-draft.2/): active working draft for review; not a stable release. Canonical source: [tag v0.9.0-draft.2](https://github.com/mcpdesc/mcpdesc-specification/tree/v0.9.0-draft.2/spec/draft).
+- [MCP Description v0.9.0 draft.1](https://mcpdesc.org/docs/specification/0.9.0-draft.1/): archived working-draft snapshot.
 - [MCP Description specification v0.8.0](https://mcpdesc.org/docs/specification/0.8.0/): current stable release. Canonical source: [mcpdesc/mcpdesc-specification](https://github.com/mcpdesc/mcpdesc-specification).
 - [MCP Description specification v0.7.0](https://mcpdesc.org/docs/specification/0.7.0/): previous stable release. Historical release source: [cisco-open/mcptoolkit-contract](https://github.com/cisco-open/mcptoolkit-contract/tree/mcpdesc-v0.7.0/spec).
-- [Validation Rules for MCP Description 0.9.0](https://mcpdesc.org/docs/rules/0.9.0-draft.1/): versioned pilot rule registry, examples, protocol revision applicability, and provenance. The latest-rules alias is [mcpdesc.org/docs/rules](https://mcpdesc.org/docs/rules).
+- [Validation Rules for MCP Description 0.9.0](https://mcpdesc.org/docs/rules/0.9.0-draft.2/): versioned pilot rule registry, examples, protocol revision applicability, and provenance. The latest-rules alias is [mcpdesc.org/docs/rules](https://mcpdesc.org/docs/rules).
 - [Complete specification (single Markdown file)](https://mcpdesc.org/specification/latest/mcpdesc.md): the **preferred one-request source** for the entire latest specification. Per-version immutable copies live at `https://mcpdesc.org/specification/<version>/mcpdesc.md` (e.g. `/specification/0.7.0/mcpdesc.md`).
 - [Version index (JSON)](https://mcpdesc.org/specification/index.json): machine-readable list of every specification version, including `stable` and `candidate` channels and each version's full-file, canonical-source, and schema URLs. Fetch this first when you need a specific version.
 

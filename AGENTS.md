@@ -109,7 +109,7 @@ Avoid unless explicitly approved:
 - The spec is **mirrored** from its canonical repository into
   `src/content/docs/docs/specification/<version>/**` (fully versioned, immutable folders).
   Full procedure: `docs/specification-mirror-strategy.md`. Current stable: `mcpdesc` 0.8.0;
-  active candidate: `mcpdesc` 0.9.0-draft.1; previous stable: 0.7.0.
+  active candidate: `mcpdesc` 0.9.0-draft.2; previous stable: 0.7.0. Draft.1 remains archived.
 - To add or bump a version: run `scripts/import-spec.mjs <version> --tag <release-tag>`
   (mirrors the section and companion pages from an **immutable upstream tag** — defaults
   target `mcpdesc/mcpdesc-specification`, `spec/draft`, and `v<version>`), then run
@@ -121,6 +121,11 @@ Avoid unless explicitly approved:
   anchors, then generates `/docs/rules/<version>/` and “Checked by” links on the corresponding
   mirrored spec pages. Keep historical rule pages; update the `/docs/rules` redirect only when
   a newer rules version is published.
+- From draft.2 onward, the rules overview is imported verbatim from the marked
+  `mcpdesc:validation-overview:start/end` excerpt in upstream `validation/README.md`.
+  Do not replace it with site-authored prose. The informative `rule-history-0.8.md` is not
+  mirrored; links to it point at the source tag.
+  a rules page omits the revision applicability section when a `mcpdesc` rule records none or applies uniformly.
 - Schema aliases are temporary redirects in `public/_redirects`: `latest.json` targets the
   stable schema and `draft.json`, when present, targets the active candidate schema. Keep
   their explicit short-lived cache rules in `public/_headers`; versioned schemas remain immutable.

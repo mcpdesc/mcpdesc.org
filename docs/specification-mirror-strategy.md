@@ -19,7 +19,7 @@ itself. The specification's source of truth is `mcpdesc/mcpdesc-specification` (
   The historical v0.7.0 release source remains archived in the `spec/` folder of
   [`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract).
 - **Current channels:** stable `mcpdesc` **0.8.0**; active draft candidate
-  **0.9.0-draft.1**. The previous stable release is **0.7.0**.
+  **0.9.0-draft.2**. Draft.1 is archived. The previous stable release is **0.7.0**.
 - **What lives upstream (do not fork silently):**
   - `mcp-description.md` — assembled normative spec (~1,200 lines).
   - `sections/00…15` — the same normative text, split by section.
@@ -139,7 +139,8 @@ Each item lists the options, the **recommended** choice, and the rationale. Item
       faq
     examples             Curated examples + link to upstream set
   0.8.0/**             Stable release; 0.7.0 stays live, marked superseded
-  0.9.0-draft.1/**     Active draft candidate; source tag v0.9.0-draft.1
+  0.9.0-draft.1/**     Archived draft snapshot; source tag v0.9.0-draft.1
+  0.9.0-draft.2/**     Active draft candidate; source tag v0.9.0-draft.2
 ```
 
 Sidebar: dedicated top-level **Guides** and **Specifications** groups. Guides surface the
@@ -228,6 +229,11 @@ and absent at Cloudflare build time — so output is reproducible. Output is det
 embedded timestamps); rerun after any import (§5) and commit. The endpoints are advertised in
 `public/llms.txt`, the spec landing pages, and `public/_headers`.
 
+For registry entries in the `previous` channel, existing committed bundles are retained
+byte-for-byte during regeneration. Active versions are rebuilt from their committed pages;
+an absent historical bundle can be generated from its mirror. Routine candidate imports
+must not refresh archived bundles with newer editorial chrome.
+
 The **`VERSIONS` registry at the top of the script is the editorial source of truth** for
 the index (channels, maturity, dates, canonical ref, and canonical path).
 
@@ -246,6 +252,18 @@ Rule IDs are used as page titles and sidebar labels; summaries remain unmodified
 content. The importer carries the source `surface` field into site-only `ruleSurface`
 frontmatter so the sidebar can group rules by surface within each owner. This is presentation
 metadata, not a change to the upstream registry schema or rule applicability.
+
+Starting with draft.2, the importer reads the marked overview excerpt in the upstream
+`validation/README.md` and preserves its wording, rewriting relative links only. It fails
+if the expected marker pair is missing or malformed. The legacy draft.1 overview renderer
+remains solely for reproducing that older snapshot. The informative `rule-history-0.8.md` is
+not mirrored; links to it point at the immutable source tag. The revision applicability section
+is omitted for `mcpdesc` rules that record
+none or apply uniformly to every revision; omission never implies universal applicability.
+
+The normal selector lists stable releases and the active draft only. Archived drafts remain
+in the version index and retain their URLs; an archived option appears when visiting such
+a snapshot directly, and its context can be carried through shared docs pages.
 
 ---
 

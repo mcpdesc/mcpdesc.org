@@ -181,7 +181,7 @@ mkdirSync(OUT_DIR, { recursive: true });
 
 for (const { num, slug, raw } of parsed) {
   const title = pageTitle(raw);
-  const body = rewriteLinks(raw.trimEnd(), slug);
+  const body = rewriteLinks(raw.trimEnd(), slug).replace(/^---\r?\n/, '***\n');
 
   const frontmatter =
     `---\n` +

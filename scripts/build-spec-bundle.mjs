@@ -75,11 +75,22 @@ const VERSIONS = [
   },
   {
     version: '0.9.0-draft.1',
-    channel: 'candidate',
+    channel: 'previous',
     maturity: 'draft',
     normativeSectionCount: 17,
     canonicalRepo: 'mcpdesc/mcpdesc-specification',
     canonicalRef: 'v0.9.0-draft.1',
+    canonicalPath: 'spec/draft',
+    tracking: 'https://github.com/mcpdesc/mcpdesc-specification/issues',
+  },
+  {
+    version: '0.9.0-draft.2',
+    channel: 'candidate',
+    maturity: 'draft',
+    date: '2026-10-28',
+    normativeSectionCount: 17,
+    canonicalRepo: 'mcpdesc/mcpdesc-specification',
+    canonicalRef: 'v0.9.0-draft.2',
     canonicalPath: 'spec/draft',
     tracking: 'https://github.com/mcpdesc/mcpdesc-specification/issues',
   },
@@ -243,7 +254,8 @@ function buildFull(v) {
     ``,
   ].join('\n');
 
-  const full = header + pinUpstreamRef(parts.map((p) => p.md).join('\n\n---\n\n'), v.canonicalRepo, v.canonicalRef) + '\n';
+  const full = archivedBundles.get(v.version) ??
+    header + pinUpstreamRef(parts.map((p) => p.md).join('\n\n---\n\n'), v.canonicalRepo, v.canonicalRef) + '\n';
 
   const outDir = join(OUT_ROOT, v.version);
   mkdirSync(outDir, { recursive: true });
@@ -266,6 +278,12 @@ function buildFull(v) {
 // ---------------------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------------------
+
+const archivedBundles = new Map(VERSIONS.filter((version) => version.channel === 'previous')
+  .flatMap((version) => {
+    const path = join(OUT_ROOT, version.version, 'mcpdesc.md');
+    return existsSync(path) ? [[version.version, readFileSync(path, 'utf8')]] : [];
+  }));
 
 // Clean previous output so removed versions don't linger (files are regenerated below).
 if (existsSync(OUT_ROOT)) rmSync(OUT_ROOT, { recursive: true, force: true });

@@ -2,28 +2,32 @@
 import DefaultSidebar from '@astrojs/starlight/components/Sidebar.astro';
 import SidebarSublist from '@astrojs/starlight/components/SidebarSublist.astro';
 import { getCollection } from 'astro:content';
-import { buildDocsNavigation, docsVersions, versionFromPath } from '../lib/docs-navigation';
+import { buildDocsNavigation, docsSnapshots, versionFromPath } from '../lib/docs-navigation';
 
 const entries = await getCollection('docs');
 const shared = !versionFromPath(Astro.url.pathname);
 ---
 
 <div data-version-sidebar><DefaultSidebar /></div>
-{shared && docsVersions.map(({ version }) => (
+{shared && docsSnapshots.map(({ version }) => (
   <template data-version-template={version}>
     <SidebarSublist sublist={buildDocsNavigation(entries, version, Astro.url.pathname)} />
   </template>
 ))}
 
 <script>
-  import { docsVersions, latestDocsVersion, versionFromPath } from '../lib/docs-navigation';
+  import { docsSnapshots, latestDocsVersion, versionFromPath } from '../lib/docs-navigation';
 
   const picker = document.querySelector<HTMLSelectElement>('#docs-version');
   if (picker) {
     const url = new URL(location.href);
     const fromPath = versionFromPath(url.pathname);
     const requested = url.searchParams.get('version');
-    const selected = fromPath ?? (docsVersions.some(({ version }) => version === requested) ? requested : latestDocsVersion);
+    const snapshot = docsSnapshots.find(({ version }) => version === requested);
+    const selected = fromPath ?? snapshot?.version ?? latestDocsVersion;
+    if (snapshot && !Array.from(picker.options).some((option) => option.value === selected)) {
+      picker.add(new Option(snapshot.label, snapshot.version));
+    }
     picker.value = selected ?? latestDocsVersion;
     const shared = picker.dataset.shared === 'true';
     if (shared) {

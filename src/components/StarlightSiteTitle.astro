@@ -3,18 +3,20 @@
 // marketing site's "{mcpdesc}" wordmark (see SiteHeader.astro) instead of the plain
 // text site title.
 import { getCollection } from 'astro:content';
-import { buildDocsNavigation, docsVersions, flattenDocsNavigation, latestDocsVersion, versionFromPath } from '../lib/docs-navigation';
+import { buildDocsNavigation, docsSnapshots, docsVersions, flattenDocsNavigation, latestDocsVersion, versionFromPath } from '../lib/docs-navigation';
 
 const { siteTitleHref } = Astro.locals.starlightRoute;
 const entries = await getCollection('docs');
 const current = versionFromPath(Astro.url.pathname);
 const selected = current ?? latestDocsVersion;
-const destinations = Object.fromEntries(docsVersions.map(({ version }) => {
+const options = current && !docsVersions.some(({ version }) => version === current)
+  ? [...docsVersions, ...docsSnapshots.filter(({ version }) => version === current)] : docsVersions;
+const destinations = Object.fromEntries(docsSnapshots.map(({ version }) => {
   const equivalent = current ? Astro.url.pathname.replace(`/${current}`, `/${version}`).replace(/\/$/, '') : '';
   const exists = entries.some((entry) => `/${entry.id}` === equivalent);
   return [version, exists ? `${equivalent}/` : `/docs/specification/${version}/`];
 }));
-const navigations = Object.fromEntries(docsVersions.map(({ version }) => [
+const navigations = Object.fromEntries(docsSnapshots.map(({ version }) => [
   version, flattenDocsNavigation(buildDocsNavigation(entries, version, Astro.url.pathname)),
 ]));
 ---
@@ -26,7 +28,7 @@ const navigations = Object.fromEntries(docsVersions.map(({ version }) => [
   </span>
 </a>
 <select id="docs-version" aria-label="Documentation version" data-destinations={JSON.stringify(destinations)} data-navigation={JSON.stringify(navigations)} data-shared={!current}>
-  {docsVersions.map(({ version, label }) => <option value={version} selected={version === selected}>{label}</option>)}
+  {options.map(({ version, label }) => <option value={version} selected={version === selected}>{label}</option>)}
 </select>
 </div>
 

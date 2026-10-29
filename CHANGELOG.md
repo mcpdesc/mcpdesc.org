@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **MCP Description v0.9.0 draft.2 documentation.** Imported the immutable
+  `v0.9.0-draft.2` specification, guides, examples, and 63 validation rules. The rules
+  overview now mirrors the canonical reader-focused excerpt. Draft.2 is the active candidate;
+  draft.1 remains available as an archived snapshot and 0.8.0 remains latest stable.
 - **MCP Description 0.9.0 draft.2 JSON Schema.** Added the schema at
   [`mcpdesc.org/schema/mcp-description/0.9.0-draft.2.json`](https://mcpdesc.org/schema/mcp-description/0.9.0-draft.2.json)
   with cross-origin access and immutable caching. The latest stable schema remains 0.8.0.
@@ -28,6 +32,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   newest-first, followed by Draft only when a candidate exists. Unavailable sections are
   omitted; historical URLs remain unchanged. Restored native sidebar collapse controls;
   Guides and Validation Rules default to collapsed outside their active pages.
+
+### Fixed
+
+- Preserved imported section content when it begins with a Markdown horizontal rule,
+  preventing the renderer from mistaking the opening appendix content for frontmatter.
+- Kept archived bundle bytes unchanged during regeneration and made requirement-marker
+  insertion deterministic from the first import onward.
 
 ### Security
 
