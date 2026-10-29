@@ -124,10 +124,11 @@
 
 # Validation rule catalogs: each snapshot's manifest and rules.json are immutable. The
 # discovery index is mutable and must stay discoverable within five minutes.
+# no-transform stops Cloudflare compression, which would weaken the ETag publication requires.
 /validation/catalogs/0.9.0-draft.3/*
   Content-Type: application/json; charset=utf-8
   Access-Control-Allow-Origin: *
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=31536000, immutable, no-transform
 
 /validation/catalogs/index.json
   Content-Type: application/json; charset=utf-8

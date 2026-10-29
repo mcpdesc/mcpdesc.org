@@ -53,6 +53,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Served the immutable rule catalog files with `Cache-Control: no-transform`, so Cloudflare
+  no longer compresses them and weakens their ETag, which catalog publication checks reject.
 - Preserved imported section content when it begins with a Markdown horizontal rule,
   preventing the renderer from mistaking the opening appendix content for frontmatter.
 - Kept archived bundle bytes unchanged during regeneration and made requirement-marker
