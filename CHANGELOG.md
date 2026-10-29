@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Validation rule schema 1.1.0.** Added the rule-format schema at
+  [`mcpdesc.org/schema/validation-rule/1.1.0.json`](https://mcpdesc.org/schema/validation-rule/1.1.0.json)
+  with cross-origin access and immutable caching. Fixtures now declare a required `outcome`
+  and rule records no longer carry `diagnostics`; 1.0.0 remains published unchanged.
 - **MCP Description 0.9.0 draft.3 JSON Schema.** Added the schema at
   [`mcpdesc.org/schema/mcp-description/0.9.0-draft.3.json`](https://mcpdesc.org/schema/mcp-description/0.9.0-draft.3.json).
 - **Validation rule schema 1.0.0.** Added the rule-format schema at
