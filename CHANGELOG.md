@@ -53,6 +53,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Added a site 404 page. Without one, Cloudflare Pages served the homepage with status 200
+  for every missing URL, hiding broken links and missing JSON artifacts. The page is
+  `noindex` and has no Markdown twin.
 - Served the immutable rule catalog files with `Cache-Control: no-transform`, so Cloudflare
   no longer compresses them and weakens their ETag, which catalog publication checks reject.
 - Preserved imported section content when it begins with a Markdown horizontal rule,

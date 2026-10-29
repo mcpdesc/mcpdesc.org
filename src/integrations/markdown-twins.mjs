@@ -98,6 +98,8 @@ export default function markdownTwins() {
           const html = await readFile(file, 'utf8');
           // Skip redirect stubs (e.g. /editor, /mcp-description) — no real content.
           if (/<meta[^>]+http-equiv=["']?refresh/i.test(html)) continue;
+          // Skip pages that must not be indexed (e.g. the 404 page).
+          if (/<meta[^>]+name=["']?robots["']?[^>]+noindex/i.test(html)) continue;
 
           const root = parse(html);
           const content =

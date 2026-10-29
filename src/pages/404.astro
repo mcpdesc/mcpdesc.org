@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Page not found"
+  description="The requested page does not exist on mcpdesc.org."
+  pageType="not_found"
+>
+  <meta slot="head" name="robots" content="noindex" />
+  <section class="py-16 text-center">
+    <p class="text-sm font-semibold tracking-wide text-[var(--color-brand)] uppercase">404</p>
+    <h1 class="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">Page not found</h1>
+    <p class="mx-auto mt-4 max-w-xl text-lg text-slate-600 dark:text-slate-300">
+      This page does not exist or has moved.
+    </p>
+    <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+      <a
+        href="/"
+        class="inline-block rounded-md bg-[var(--color-brand)] px-6 py-3 text-lg font-medium text-white hover:bg-[var(--color-brand-dark)]"
+      >
+        Go to the homepage
+      </a>
+      <a
+        href="/docs/"
+        class="inline-block rounded-md border border-slate-300 px-6 py-3 text-lg font-medium text-slate-800 hover:border-slate-400 dark:border-slate-700 dark:text-slate-100"
+      >
+        Browse the docs
+      </a>
+    </div>
+  </section>
+</BaseLayout>
