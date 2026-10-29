@@ -1,0 +1,562 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mcpdesc.org/schema/validation-rule/1.0.0.json",
+  "title": "MCP Description validation rule registry file",
+  "description": "Structure of each YAML file under validation/rules/. See Proposal 0024 and validation/README.md.",
+  "type": "object",
+  "required": [
+    "rules"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "rules": {
+      "items": {
+        "$ref": "#/$defs/rule"
+      },
+      "minItems": 1,
+      "type": "array"
+    }
+  },
+  "$defs": {
+    "artifact": {
+      "additionalProperties": false,
+      "properties": {
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "url": {
+          "format": "uri",
+          "pattern": "^https://",
+          "type": "string"
+        }
+      },
+      "required": [
+        "url",
+        "sha256"
+      ],
+      "type": "object"
+    },
+    "catalog-entry": {
+      "additionalProperties": false,
+      "properties": {
+        "manifest": {
+          "format": "uri",
+          "pattern": "^https://",
+          "type": "string"
+        },
+        "mcpdescVersion": {
+          "$ref": "#/$defs/version"
+        },
+        "snapshot": {
+          "$ref": "#/$defs/snapshot"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "release-candidate",
+            "stable"
+          ]
+        }
+      },
+      "required": [
+        "mcpdescVersion",
+        "snapshot",
+        "status",
+        "manifest"
+      ],
+      "type": "object"
+    },
+    "catalog-index": {
+      "additionalProperties": false,
+      "properties": {
+        "$schema": {
+          "const": "https://mcpdesc.org/schema/validation-rule/1.0.0.json#/$defs/catalog-index"
+        },
+        "catalogs": {
+          "items": {
+            "$ref": "#/$defs/catalog-entry"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "currentDraft": {
+          "format": "uri",
+          "pattern": "^https://",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "currentStable": {
+          "format": "uri",
+          "pattern": "^https://",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "$schema",
+        "catalogs",
+        "currentStable",
+        "currentDraft"
+      ],
+      "type": "object"
+    },
+    "catalog-manifest": {
+      "additionalProperties": false,
+      "properties": {
+        "$schema": {
+          "const": "https://mcpdesc.org/schema/validation-rule/1.0.0.json#/$defs/catalog-manifest"
+        },
+        "catalog": {
+          "$ref": "#/$defs/artifact"
+        },
+        "mcpdescVersion": {
+          "$ref": "#/$defs/version"
+        },
+        "ruleCount": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "ruleFormatVersion": {
+          "const": "1.0.0"
+        },
+        "ruleSchema": {
+          "$ref": "#/$defs/artifact"
+        },
+        "snapshot": {
+          "$ref": "#/$defs/snapshot"
+        },
+        "source": {
+          "additionalProperties": false,
+          "properties": {
+            "commit": {
+              "pattern": "^[0-9a-f]{40}$",
+              "type": "string"
+            },
+            "repository": {
+              "format": "uri",
+              "pattern": "^https://",
+              "type": "string"
+            },
+            "specificationPath": {
+              "pattern": "^spec/(?:draft|[0-9]+\\.[0-9]+\\.[0-9]+)$",
+              "type": "string"
+            },
+            "tag": {
+              "pattern": "^v[0-9]+\\.[0-9]+\\.[0-9]+(?:-(?:draft|rc)\\.[0-9]+)?(?:\\+editorial\\.[0-9]+)?$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "repository",
+            "tag",
+            "commit",
+            "specificationPath"
+          ],
+          "type": "object"
+        },
+        "specificationBaseUrl": {
+          "format": "uri",
+          "pattern": "^https://.*/$",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "release-candidate",
+            "stable"
+          ]
+        }
+      },
+      "required": [
+        "$schema",
+        "ruleFormatVersion",
+        "mcpdescVersion",
+        "snapshot",
+        "status",
+        "source",
+        "ruleSchema",
+        "catalog",
+        "specificationBaseUrl",
+        "ruleCount"
+      ],
+      "type": "object"
+    },
+    "revision": {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "type": "string"
+    },
+    "rule": {
+      "additionalProperties": false,
+      "else": {
+        "properties": {
+          "applicability": {}
+        },
+        "required": [
+          "applicability"
+        ]
+      },
+      "if": {
+        "properties": {
+          "status": {
+            "const": "retired"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "properties": {
+        "applicability": {
+          "additionalProperties": false,
+          "description": "Rule-specific applicability, not selected by owner. Required for active records; retired records are excluded from active checking.",
+          "properties": {
+            "protocolVersions": {
+              "description": "independent means this check does not depend on the protocol version, not that its containing type exists in every version. A map records behavior for every supported version: applies means checked, opaque means preserved without that MCP meaning, not-applicable means not checked. Custom behaviors must be explained in description.",
+              "oneOf": [
+                {
+                  "const": "independent"
+                },
+                {
+                  "additionalProperties": {
+                    "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+                    "type": "string"
+                  },
+                  "minProperties": 1,
+                  "propertyNames": {
+                    "$ref": "#/$defs/revision"
+                  },
+                  "type": "object"
+                }
+              ]
+            },
+            "schemaDialects": {
+              "description": "Canonical JSON Schema dialect identifiers relevant to the check. Informational support metadata, not a filter that skips unsupported-dialect errors.",
+              "items": {
+                "format": "uri",
+                "pattern": "^https?://",
+                "type": "string"
+              },
+              "minItems": 1,
+              "type": "array",
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "protocolVersions"
+          ],
+          "type": "object"
+        },
+        "arbitrations": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "authority": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "behavior": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "conflict": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "rationale": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "reviewTrigger": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "revisions": {
+                "items": {
+                  "$ref": "#/$defs/revision"
+                },
+                "minItems": 1,
+                "type": "array",
+                "uniqueItems": true
+              },
+              "status": {
+                "enum": [
+                  "active",
+                  "proposed",
+                  "retired"
+                ]
+              },
+              "upstream": {
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "revisions",
+              "conflict",
+              "authority",
+              "behavior",
+              "rationale",
+              "reviewTrigger",
+              "status"
+            ],
+            "type": "object"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "description": {
+          "description": "Informative Markdown explanation for authors; relative links resolve from the manifest specificationBaseUrl.",
+          "maxLength": 800,
+          "minLength": 1,
+          "pattern": "\\S",
+          "type": "string"
+        },
+        "diagnostics": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "code": {
+                "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+                "type": "string"
+              },
+              "severity": {
+                "enum": [
+                  "error",
+                  "warning"
+                ]
+              }
+            },
+            "required": [
+              "code",
+              "severity"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "enforcement": {
+          "enum": [
+            "internal",
+            "official-schema",
+            "external"
+          ]
+        },
+        "fixtures": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "path": {
+                "description": "A validation fixture relative to fixtures/, or a native projection case under projection-fixtures/.",
+                "pattern": "^(expected-(valid|invalid|warning)/[a-z0-9-]+\\.(json|ya?ml)|projection-fixtures/[a-z0-9-]+\\.json)$",
+                "type": "string"
+              },
+              "pointer": {
+                "description": "JSON Pointer to the fragment that illustrates the rule; the empty string selects the whole document.",
+                "pattern": "^(/([^~/]|~[01])*)*$",
+                "type": "string"
+              }
+            },
+            "required": [
+              "path",
+              "pointer"
+            ],
+            "type": "object"
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "gaps": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "behavior": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "reference": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "resolution": {
+                "enum": [
+                  "not-fixed",
+                  "planned"
+                ]
+              },
+              "revisions": {
+                "items": {
+                  "$ref": "#/$defs/revision"
+                },
+                "minItems": 1,
+                "type": "array",
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "behavior",
+              "resolution"
+            ],
+            "type": "object"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "id": {
+          "pattern": "^(mcp|mcpdesc|json-schema)(\\.[a-z0-9]+(-[a-z0-9]+)*)+$",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "structural",
+            "semantic",
+            "preservation",
+            "embedded-standard",
+            "mcpdesc-semantic",
+            "completeness",
+            "interoperability"
+          ]
+        },
+        "notes": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "owner": {
+          "enum": [
+            "mcp",
+            "mcpdesc",
+            "json-schema"
+          ]
+        },
+        "path": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "requirement": {
+          "enum": [
+            "must",
+            "should",
+            "may"
+          ]
+        },
+        "sources": {
+          "description": "External evidence for the rule, by authority tier.",
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "locations": {
+                "description": "Precise, immutable locations: a vendored MCP schema line range, relative to the specification folder, or an HTTPS URL.",
+                "items": {
+                  "pattern": "^(validation/mcp-schemas/[0-9]{4}-[0-9]{2}-[0-9]{2}/schema\\.(ts|json)#L[0-9]+(-L[0-9]+)?|https://[^\\s]+)$",
+                  "type": "string"
+                },
+                "minItems": 1,
+                "type": "array",
+                "uniqueItems": true
+              },
+              "reference": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "tier": {
+                "maximum": 7,
+                "minimum": 1,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "tier",
+              "reference",
+              "locations"
+            ],
+            "type": "object"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "specification": {
+          "description": "The MCP Description requirements the rule checks, and the decisions behind it.",
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "locations": {
+                "description": "Locations relative to the specification folder: a requirement anchor in a section, a Markdown heading under validation/, a proposal snapshot, or a released proposal.",
+                "items": {
+                  "pattern": "^(sections/[0-9]{2}-[a-z-]+\\.md#req-[a-z0-9-]+|validation/[A-Za-z0-9-]+\\.md#[a-z0-9-]+|proposal-snapshots/[0-9]{4}-[a-z0-9-]+\\.md|\\.\\./\\.\\./proposals/[0-9]{4}-[a-z0-9-]+\\.md)$",
+                  "type": "string"
+                },
+                "minItems": 1,
+                "type": "array",
+                "uniqueItems": true
+              },
+              "reference": {
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "reference",
+              "locations"
+            ],
+            "type": "object"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "status": {
+          "enum": [
+            "internal",
+            "externally-verified",
+            "delegated",
+            "arbitrated",
+            "retired"
+          ]
+        },
+        "summary": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "surface": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "description": "Short informative reader title, unique within a catalog.",
+          "maxLength": 60,
+          "minLength": 1,
+          "pattern": "^[^\\r\\n]*[^.\\s]$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "owner",
+        "summary",
+        "title",
+        "description",
+        "surface",
+        "kind",
+        "specification",
+        "diagnostics",
+        "enforcement",
+        "status",
+        "fixtures"
+      ],
+      "then": {},
+      "type": "object"
+    },
+    "snapshot": {
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-(?:draft|rc)\\.[0-9]+)?(?:\\+editorial\\.[0-9]+)?$",
+      "type": "string"
+    },
+    "version": {
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "type": "string"
+    }
+  }
+}

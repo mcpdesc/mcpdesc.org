@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **MCP Description 0.9.0 draft.3 JSON Schema.** Added the schema at
+  [`mcpdesc.org/schema/mcp-description/0.9.0-draft.3.json`](https://mcpdesc.org/schema/mcp-description/0.9.0-draft.3.json).
+- **Validation rule schema 1.0.0.** Added the rule-format schema at
+  [`mcpdesc.org/schema/validation-rule/1.0.0.json`](https://mcpdesc.org/schema/validation-rule/1.0.0.json),
+  which also defines the catalog manifest and discovery index envelopes. Both schemas have
+  cross-origin access and immutable caching; no catalog or discovery index is published yet.
 - **MCP Description 0.9.0 draft.2 JSON Schema.** Added the schema at
   [`mcpdesc.org/schema/mcp-description/0.9.0-draft.2.json`](https://mcpdesc.org/schema/mcp-description/0.9.0-draft.2.json)
   with cross-origin access and immutable caching. The latest stable schema remains 0.8.0.
