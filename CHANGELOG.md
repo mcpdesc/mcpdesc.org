@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **MCP Description 0.9.0 draft.4 JSON Schema.** Added the schema at
+  [`mcpdesc.org/schema/mcp-description/0.9.0-draft.4.json`](https://mcpdesc.org/schema/mcp-description/0.9.0-draft.4.json).
+- **Validation rule schema 1.2.0.** Added
+  [`mcpdesc.org/schema/validation-rule/1.2.0.json`](https://mcpdesc.org/schema/validation-rule/1.2.0.json):
+  rules can name the document-schema locations they report, catalogs list unchecked
+  requirements, and manifests can reference a result schema.
+- **Validation result schema 1.0.0.** Added
+  [`mcpdesc.org/schema/validation-result/1.0.0.json`](https://mcpdesc.org/schema/validation-result/1.0.0.json),
+  the validation result format (Proposal 0031). All three schemas have cross-origin access
+  and immutable caching; earlier versions remain published unchanged.
 - **MCP Description v0.9.0 draft.3 documentation.** Imported the immutable
   `v0.9.0-draft.3` specification, guides (including how MCP protocol versions are managed),
   examples, and 63 validation rules in the rule-format 1.1.0 shape. Draft.3 is the active
