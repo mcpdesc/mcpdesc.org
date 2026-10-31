@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Validation rule catalog for draft.4.** Published the immutable `0.9.0-draft.4` catalog
+  manifest and `rules.json` (85 rules, rule format 1.2.0, exported from the annotated
+  `v0.9.0-draft.4` tag) under `/validation/catalogs/`. The discovery index is updated
+  separately, after the catalog is verified live.
 - **MCP Description 0.9.0 draft.4 JSON Schema.** Added the schema at
   [`mcpdesc.org/schema/mcp-description/0.9.0-draft.4.json`](https://mcpdesc.org/schema/mcp-description/0.9.0-draft.4.json).
 - **Validation rule schema 1.2.0.** Added
