@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **MCP Description v0.9.0 draft.4 documentation.** Imported the immutable
+  `v0.9.0-draft.4` specification, guides, examples, and 85 validation rules in rule format
+  1.2.0, plus an "Unchecked requirements" page listing the normative requirements no rule
+  checks, with the reason. Rule pages label view, merge, serialization, and not-applicable
+  examples, and name the document-schema locations a rule reports. Draft.4 is the active
+  candidate, drafts 1 to 3 remain available as archived snapshots, and `/docs/rules` now
+  resolves to the draft.4 rules.
 - **Validation rule catalog for draft.4.** Published the immutable `0.9.0-draft.4` catalog
   manifest and `rules.json` (85 rules, rule format 1.2.0, exported from the annotated
   `v0.9.0-draft.4` tag) under `/validation/catalogs/`. After live verification, the discovery
