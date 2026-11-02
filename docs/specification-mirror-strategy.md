@@ -1,7 +1,7 @@
 # Specification Docs — Mirror & Versioning Strategy
 
 Status: **Accepted** — implementation in progress
-Owner: maintainers · Last updated: 2026-07-16
+Owner: maintainers · Last updated: 2026-11-02
 
 This document defines how `mcpdesc.org` publishes the **MCP Description specification** under
 `/docs/specification/**`, how it mirrors the canonical repository, how it is versioned, and how
@@ -18,8 +18,12 @@ itself. The specification's source of truth is `mcpdesc/mcpdesc-specification` (
   [`mcpdesc/mcpdesc-specification`](https://github.com/mcpdesc/mcpdesc-specification).
   The historical v0.7.0 release source remains archived in the `spec/` folder of
   [`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract).
-- **Current channels:** stable `mcpdesc` **0.8.0**; active draft candidate
-  **0.9.0-draft.4**. Drafts 1 to 3 are archived. The previous stable release is **0.7.0**.
+- **Current channels:** stable `mcpdesc` **0.8.0**; active release candidate
+  **0.9.0-rc.1**. Drafts 1 to 4 are archived. The previous stable release is **0.7.0**.
+- **Tool selector:** validators and projection tools resolve the bare format selector
+  `0.9.0` to the latest release candidate until final `0.9.0` is released. Advance that
+  default for each RC (`rc.1`, `rc.2`, and so on), then point it at stable `0.9.0`; exact
+  prerelease selectors remain available for reproducible pinning.
 - **What lives upstream (do not fork silently):**
   - `mcp-description.md` — assembled normative spec (~1,200 lines).
   - `sections/00…15` — the same normative text, split by section.
@@ -142,15 +146,17 @@ Each item lists the options, the **recommended** choice, and the rationale. Item
   0.9.0-draft.1/**     Archived draft snapshot; source tag v0.9.0-draft.1
   0.9.0-draft.2/**     Archived draft snapshot; source tag v0.9.0-draft.2
   0.9.0-draft.3/**     Archived draft snapshot; source tag v0.9.0-draft.3
-  0.9.0-draft.4/**     Active draft candidate; source tag v0.9.0-draft.4
+  0.9.0-draft.4/**     Archived draft snapshot; source tag v0.9.0-draft.4
+  0.9.0-rc.1/**        Active release candidate; source tag v0.9.0-rc.1
 ```
 
 Sidebar: dedicated top-level **Guides** and **Specifications** groups. Guides surface the
 selected version's companion material; Specifications contains its normative pages and excludes
 those guides. A docs-only version selector appears beside the logo in the top-left header.
 It lists the latest stable version first as `Version <version> (Latest)`, previous releases
-newest-first as `Version <version>`, and an active candidate last as `Draft`. With no candidate
-in the version registry, the Draft option is absent. Sections follow the order
+newest-first as `Version <version>`, and an active candidate last as `Draft` or
+`Release Candidate`, according to maturity. With no candidate in the version registry, the
+candidate option is absent. Sections follow the order
 MCP Description, Guides, Validation Rules, Specifications; unavailable sections are omitted.
 MCP Description is shared across all versions; the 0.7.0 view shows MCP Description and
 Specifications. The URL determines the selected version, defaulting
@@ -255,9 +261,9 @@ remain unmodified body content. The importer carries the source `surface` field 
 site-only `ruleSurface` frontmatter. This is presentation metadata, not a change to the
 upstream registry schema or rule applicability.
 
-From draft.3 the importer reads rule-format 1.1.0 records, and from draft.4 rule format 1.2.0
-(validated against the tag's `rule.schema.json`: `title`, `description`, `details`, fixture
-`outcome`, `documentSchema`, protocol-version applicability). Each rule page uses the record's `title` as its H1 and the rule ID as its
+From draft.3 the importer reads rule-format 1.1.0 records, draft.4 uses 1.2.0, and RC.1 uses
+1.3.0 (validated against the tag's `rule.schema.json`: `title`, `description`, `details`,
+fixture `outcome`, `documentSchema`, and protocol-version applicability). Each rule page uses the record's `title` as its H1 and the rule ID as its
 sidebar label; rules are listed flat by ID under each owner (MCP, JSON Schema, `mcpdesc`).
 Examples are labeled and ordered by fixture `outcome`: passes, warning, error, then
 not-applicable. Labels also reflect the fixture kind: validation, projection, view, merge, or
@@ -276,9 +282,9 @@ Starting with draft.2, the importer reads the marked overview excerpt in the ups
 `validation/README.md` and preserves its wording, rewriting relative links only. It fails
 if the expected marker pair is missing or malformed. The legacy draft.1 overview renderer
 remains solely for reproducing that older snapshot. The informative `rule-history-0.8.md` is
-not mirrored; links to it point at the immutable source tag. The revision applicability section
-is omitted for `mcpdesc` rules that record
-none or apply uniformly to every revision; omission never implies universal applicability.
+not mirrored; links to it point at the immutable source tag. The protocol-version applicability
+section is omitted for `mcpdesc` rules that record none or apply uniformly to every supported
+protocol version; omission never implies universal applicability.
 
 The normal selector lists stable releases and the active draft only. Archived drafts remain
 in the version index and retain their URLs; an archived option appears when visiting such

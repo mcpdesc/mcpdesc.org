@@ -22,7 +22,8 @@ linked versioned source, that source wins.
 
 | Version | Status | |
 |---|---|---|
-| [**0.9.0-draft.4**](/docs/specification/0.9.0-draft.4/) | Draft | Active working draft; not stable |
+| [**0.9.0-rc.1**](/docs/specification/0.9.0-rc.1/) | Release Candidate | Active candidate; not stable |
+| [**0.9.0-draft.4**](/docs/specification/0.9.0-draft.4/) | Draft | Archived snapshot |
 | [**0.9.0-draft.3**](/docs/specification/0.9.0-draft.3/) | Draft | Archived snapshot |
 | [**0.9.0-draft.2**](/docs/specification/0.9.0-draft.2/) | Draft | Archived snapshot |
 | [**0.9.0-draft.1**](/docs/specification/0.9.0-draft.1/) | Draft | Archived snapshot |
@@ -32,7 +33,7 @@ linked versioned source, that source wins.
 See the [changelog](/docs/specification/changelog) for the full version history, and the
 [format overview](/format) for a friendly introduction. See the
 [validation rules](/docs/rules/) to understand how MCP Description requirements relate to
-the MCP protocol across revisions.
+MCP protocol versions.
 
 :::tip[Retrieving the spec programmatically]
 For AI assistants and build tools, the whole specification is available as a single file and

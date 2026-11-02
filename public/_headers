@@ -70,12 +70,27 @@
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=31536000, immutable
 
+/schema/mcp-description/0.9.0-rc.1.json
+  Content-Type: application/schema+json; charset=utf-8
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=31536000, immutable
+
 /schema/validation-rule/1.2.0.json
   Content-Type: application/schema+json; charset=utf-8
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=31536000, immutable
 
+/schema/validation-rule/1.3.0.json
+  Content-Type: application/schema+json; charset=utf-8
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=31536000, immutable
+
 /schema/validation-result/1.0.0.json
+  Content-Type: application/schema+json; charset=utf-8
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=31536000, immutable
+
+/schema/validation-result/1.3.0.json
   Content-Type: application/schema+json; charset=utf-8
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=31536000, immutable
@@ -142,6 +157,11 @@
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=604800, stale-while-revalidate=86400
 
+/specification/0.9.0-rc.1/*
+  Content-Type: text/markdown; charset=utf-8
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
 # Validation rule catalogs: each snapshot's manifest and rules.json are immutable. The
 # discovery index is mutable and must stay discoverable within five minutes.
 # no-transform stops Cloudflare compression, which would weaken the ETag publication requires.
@@ -151,6 +171,11 @@
   Cache-Control: public, max-age=31536000, immutable, no-transform
 
 /validation/catalogs/0.9.0-draft.4/*
+  Content-Type: application/json; charset=utf-8
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=31536000, immutable, no-transform
+
+/validation/catalogs/0.9.0-rc.1/*
   Content-Type: application/json; charset=utf-8
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=31536000, immutable, no-transform

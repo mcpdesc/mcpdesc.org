@@ -1,0 +1,27 @@
+{
+  "$schema": "https://mcpdesc.org/schema/validation-rule/1.3.0.json#/$defs/catalog-manifest",
+  "catalog": {
+    "sha256": "e9a69286d3844c8ba581ae43cedb3f7ea9569e048ad300ab02ebd45ecc7710ef",
+    "url": "https://mcpdesc.org/validation/catalogs/0.9.0-rc.1/rules.json"
+  },
+  "mcpdescVersion": "0.9.0",
+  "resultSchema": {
+    "sha256": "413fc4f38e6629cddb07c4b540cb27254517a9885966a23c374aa8b37c9d4e8e",
+    "url": "https://mcpdesc.org/schema/validation-result/1.3.0.json"
+  },
+  "ruleCount": 85,
+  "ruleFormatVersion": "1.3.0",
+  "ruleSchema": {
+    "sha256": "bb09be9bc5422aa14e813e917813ca88bdee62d9d367009c4f65c3e20f143fca",
+    "url": "https://mcpdesc.org/schema/validation-rule/1.3.0.json"
+  },
+  "snapshot": "0.9.0-rc.1",
+  "source": {
+    "commit": "b208a06ef9a947556df0623f5431935681e8716d",
+    "repository": "https://github.com/mcpdesc/mcpdesc-specification",
+    "specificationPath": "spec/draft",
+    "tag": "v0.9.0-rc.1"
+  },
+  "specificationBaseUrl": "https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0-rc.1/spec/draft/",
+  "status": "release-candidate"
+}

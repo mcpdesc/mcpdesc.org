@@ -14,9 +14,9 @@ head:
       href: https://mcpdesc.org/specification/0.9.0-draft.4/mcpdesc.md
 ---
 
-:::caution[Working draft]
-MCP Description **0.9.0 draft.4** is the active community working draft, not a stable
-release. It may change incompatibly before release. Use
+:::note[Archived snapshot]
+MCP Description **0.9.0 draft.4** is an archived working-draft snapshot, superseded by
+[0.9.0 RC.1](/docs/specification/0.9.0-rc.1/). Use
 [0.8.0](/docs/specification/0.8.0/) for the current stable specification.
 :::
 
@@ -25,7 +25,8 @@ release. It may change incompatibly before release. Use
 ## About this draft
 
 These versioned sections, examples, guides, and validation rules mirror Community
-Working Draft 4. The earlier [draft.3](/docs/specification/0.9.0-draft.3/),
+Working Draft 4. The later [RC.1 release candidate](/docs/specification/0.9.0-rc.1/)
+is the active candidate. The earlier [draft.3](/docs/specification/0.9.0-draft.3/),
 [draft.2](/docs/specification/0.9.0-draft.2/), and
 [draft.1](/docs/specification/0.9.0-draft.1/) snapshots remain available for historical
 reference.

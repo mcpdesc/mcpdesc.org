@@ -51,7 +51,7 @@ const RULES_DIR = join(VALIDATION_DIR, 'rules');
 const DOCS_DIR = join(ROOT, 'src/content/docs/docs');
 const VERSION_DOCS_DIR = join(DOCS_DIR, 'rules', VERSION);
 const SPEC_DOCS_DIR = join(DOCS_DIR, 'specification', VERSION);
-const REVISION_ORDER = ['2024-11-05', '2025-03-26', '2025-06-18', '2025-11-25', '2026-07-28'];
+const PROTOCOL_VERSION_ORDER = ['2024-11-05', '2025-03-26', '2025-06-18', '2025-11-25', '2026-07-28'];
 const RULE_OWNERS = {
   mcp: { label: 'MCP' },
   'json-schema': { label: 'JSON Schema' },
@@ -257,11 +257,11 @@ function ruleUrl(rule) {
   return `/docs/rules/${VERSION}/${rule.owner}/${ruleSlug(rule)}`;
 }
 
-function formatRevisionTable(applicability) {
+function formatProtocolVersionTable(applicability) {
   return [
-    `| ${REVISION_ORDER.map((revision) => `\`${revision}\``).join(' | ')} |`,
-    `| ${REVISION_ORDER.map(() => '---').join(' | ')} |`,
-    `| ${REVISION_ORDER.map((revision) => applicability[revision]).join(' | ')} |`,
+    `| ${PROTOCOL_VERSION_ORDER.map((version) => `\`${version}\``).join(' | ')} |`,
+    `| ${PROTOCOL_VERSION_ORDER.map(() => '---').join(' | ')} |`,
+    `| ${PROTOCOL_VERSION_ORDER.map((version) => applicability[version]).join(' | ')} |`,
   ].join('\n');
 }
 
@@ -292,9 +292,9 @@ function formatSources(rule, manifest) {
 function formatGapsAndArbitrations(rule) {
   const blocks = [];
   for (const gap of rule.gaps ?? []) {
-    const revisions = gap.revisions?.map((revision) => `\`${revision}\``).join(', ');
+    const protocolVersions = gap.protocolVersions?.map((version) => `\`${version}\``).join(', ');
     blocks.push([
-      `:::note[Known gap${revisions ? `: ${revisions}` : ''}]`,
+      `:::note[Known gap${protocolVersions ? `: ${protocolVersions}` : ''}]`,
       gap.behavior,
       '',
       `Resolution: **${gap.resolution}**${gap.reference ? ` (${gap.reference})` : ''}.`,
@@ -302,10 +302,10 @@ function formatGapsAndArbitrations(rule) {
     ].join('\n'));
   }
   for (const arbitration of rule.arbitrations ?? []) {
-    const revisions = arbitration.revisions.map((revision) => `\`${revision}\``).join(', ');
+    const protocolVersions = arbitration.protocolVersions.map((version) => `\`${version}\``).join(', ');
     const upstream = arbitration.upstream ? `\n\nUpstream: [${arbitration.upstream}](${arbitration.upstream}).` : '';
     blocks.push([
-      `:::note[${arbitration.status === 'proposed' ? 'Proposed arbitration' : 'Arbitration'}: ${revisions}]`,
+      `:::note[${arbitration.status === 'proposed' ? 'Proposed arbitration' : 'Arbitration'}: ${protocolVersions}]`,
       `**Conflict:** ${arbitration.conflict}`,
       '',
       `**Authority:** ${arbitration.authority}`,
@@ -351,7 +351,7 @@ function renderRule(rule, sourceFile, manifest) {
   const sourcePath = posix.join(SPEC_PATH, 'validation', 'rules', sourceFile);
   const protocolVersions = rule.applicability?.protocolVersions;
   const applicability = protocolVersions && protocolVersions !== 'independent'
-    ? `## Protocol version applicability\n\n${formatRevisionTable(protocolVersions)}\n\n` : '';
+    ? `## Protocol version applicability\n\n${formatProtocolVersionTable(protocolVersions)}\n\n` : '';
   const details = [
     `**Rule ID:** \`${rule.id}\``,
     `**Owner:** ${rule.owner}`,
@@ -464,7 +464,7 @@ function renderOverview(rules, unchecked) {
       '',
       ownerLinks,
       '',
-      ...(guidance ? ['## Revision and version guidance', '', guidance, ''] : []),
+      ...(guidance ? ['## Protocol version guidance', '', guidance, ''] : []),
       ':::note[Mirrored overview]',
       `This overview mirrors the marked excerpt in [the source README](${sourceUrl(sourcePath)})`,
       `at immutable tag [\`${TAG}\`](${sourceUrl(SPEC_PATH)}). Upstream wins if this copy differs.`,

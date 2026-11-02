@@ -7,7 +7,7 @@ export const docsSnapshots = [...manifest.versions].sort((left, right) => {
 }).map((version) => ({
   version: version.version,
   label: version.channel === 'candidate'
-    ? 'Draft'
+    ? version.maturity === 'release-candidate' ? 'Release Candidate' : 'Draft'
     : version.maturity === 'draft' ? `${version.version} (Archived)`
     : `Version ${version.version}${version.channel === 'stable' ? ' (Latest)' : ''}`,
 }));
