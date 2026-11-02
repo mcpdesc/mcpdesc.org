@@ -165,12 +165,12 @@ requirements; its reader fields are informative and it is not a separate
 document-conformance specification.
 
 Catalogs belong to exact MCP Description snapshots, not validator package
-versions. Once deployed, the [catalog discovery index](https://mcpdesc.org/validation/catalogs/index.json)
-lists the published manifests, with separate stable and draft pointers. The
-Draft 3 catalog and rule-format `1.1.0` are published. The Draft 4 catalog,
-rule-format `1.2.0`, and validation result format `1.0.0` endpoints are
-publication targets until deployment is verified; this working tree does not
-imply they are live. See
+versions. The [catalog discovery index](https://mcpdesc.org/validation/catalogs/index.json)
+lists the published manifests, with separate stable and current-draft pointers.
+The Draft 4 catalog in rule format `1.2.0` is published and is the current
+draft; the Draft 3 catalog in format `1.1.0` remains available as an archived
+snapshot. The Draft 4 manifest references the published validation result format
+`1.0.0`. See
 [catalog publication and discovery](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0-draft.4/spec/draft/validation/README.md#catalog-publication-and-discovery).
 
 Every diagnostic of this repository's candidate validator identifies a
