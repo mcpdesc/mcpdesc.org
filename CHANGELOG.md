@@ -14,9 +14,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **MCP Description v0.9.0 RC.1 mirror and validation artifacts.** Imported the immutable
   `v0.9.0-rc.1` specification, examples, and all companion guides using MCP protocol-version
   terminology. Published the RC1 MCP Description schema, validation rule/result schemas
-  1.3.0, and the complete 85-rule catalog; RC1 is now the active candidate while draft.4
-  and earlier snapshots remain available. Documented that validator and projection defaults
-  for `0.9.0` advance with each RC until final `0.9.0` is released.
+  1.3.0, and the complete 85-rule catalog; RC1 is now the active candidate. Earlier draft
+  snapshots remain available from the canonical repository, while the site mirrors only the
+  active prerelease and redirects retired draft URLs upstream. Published schema and catalog
+  artifact URLs remain available; the discovery index advances after live verification.
+  Validator and projection defaults for `0.9.0` advance with each RC until final `0.9.0` is
+  released.
 
 ## [1.2.0] - 2026-11-02
 

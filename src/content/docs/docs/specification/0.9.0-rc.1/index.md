@@ -30,10 +30,8 @@ you need to pin a snapshot.
 ## About this release candidate
 
 These versioned sections, examples, validation rules, and companion guides mirror the
-immutable RC.1 snapshot. The earlier [draft.4](/docs/specification/0.9.0-draft.4/),
-[draft.3](/docs/specification/0.9.0-draft.3/), [draft.2](/docs/specification/0.9.0-draft.2/),
-and [draft.1](/docs/specification/0.9.0-draft.1/) snapshots remain available for historical
-reference.
+immutable RC.1 snapshot. Earlier draft snapshots remain available from the
+[canonical specification repository](https://github.com/mcpdesc/mcpdesc-specification/tags).
 
 ## Source and schemas
 

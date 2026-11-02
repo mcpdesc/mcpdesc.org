@@ -109,7 +109,8 @@ Avoid unless explicitly approved:
 - The spec is **mirrored** from its canonical repository into
   `src/content/docs/docs/specification/<version>/**` (fully versioned, immutable folders).
   Full procedure: `docs/specification-mirror-strategy.md`. Current stable: `mcpdesc` 0.8.0;
-  active candidate: `mcpdesc` 0.9.0-rc.1; previous stable: 0.7.0. Drafts 1 to 4 remain archived.
+  active candidate: `mcpdesc` 0.9.0-rc.1; previous stable: 0.7.0. Only the active
+  prerelease snapshot is mirrored; earlier drafts remain in the canonical specification repo.
 - To add or bump a version: run `scripts/import-spec.mjs <version> --tag <release-tag>`
   (mirrors the section and companion pages from an **immutable upstream tag** — defaults
   target `mcpdesc/mcpdesc-specification`, `spec/draft`, and `v<version>`), then run
@@ -119,8 +120,9 @@ Avoid unless explicitly approved:
   `scripts/import-rules.mjs <version> --path <spec-path> --tag <release-tag>` from the same
   immutable upstream checkout. It validates records, citations, fixtures, and requirement
   anchors, then generates `/docs/rules/<version>/` and “Checked by” links on the corresponding
-  mirrored spec pages. Keep historical rule pages; update the `/docs/rules` redirect only when
-  a newer rules version is published.
+  mirrored spec pages. Mirror only active prerelease rule pages; earlier rule records remain
+  at their immutable upstream tags. Keep published schema/catalog artifact URLs and update the
+  `/docs/rules` redirect when a newer candidate is deployed.
 - From draft.2 onward, the rules overview is imported verbatim from the marked
   `mcpdesc:validation-overview:start/end` excerpt in upstream `validation/README.md`.
   Do not replace it with site-authored prose. The informative `rule-history-0.8.md` is not

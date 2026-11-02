@@ -18,6 +18,51 @@
 
 ---
 
+> **Release candidate**
+>
+> MCP Description **0.9.0 RC.1** is a release candidate, not a stable release. It may change
+> before final release. Use [0.8.0](https://mcpdesc.org/docs/specification/0.8.0/) for the current stable
+> specification.
+
+For validators and projection tools, selecting MCP Description `0.9.0` resolves to the
+latest release candidate, currently `0.9.0-rc.1`. That default advances as later candidates
+are published, then resolves to final `0.9.0` after release. Select an exact RC version when
+you need to pin a snapshot.
+
+**Format version**: 0.9.0 | **Snapshot**: rc.1 | **Date**: November 2, 2026
+
+## About this release candidate
+
+These versioned sections, examples, validation rules, and companion guides mirror the
+immutable RC.1 snapshot. Earlier draft snapshots remain available from the
+[canonical specification repository](https://github.com/mcpdesc/mcpdesc-specification/tags).
+
+## Source and schemas
+
+- **Canonical source** - [`spec/draft/mcp-description.md`](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0-rc.1/spec/draft/mcp-description.md)
+- **Immutable source tag** - [`v0.9.0-rc.1`](https://github.com/mcpdesc/mcpdesc-specification/tree/v0.9.0-rc.1/spec/draft)
+- **MCP Description JSON Schema** - [`0.9.0-rc.1.json`](https://mcpdesc.org/schema/mcp-description/0.9.0-rc.1.json)
+- **Validation rule schema** - [`validation-rule/1.3.0.json`](https://mcpdesc.org/schema/validation-rule/1.3.0.json)
+- **Validation result schema** - [`validation-result/1.3.0.json`](https://mcpdesc.org/schema/validation-result/1.3.0.json)
+- **Companion guides** - [RC.1 guides](https://mcpdesc.org/docs/specification/0.9.0-rc.1/guides/)
+- **MCP protocol versions** - [How MCP protocol versions are managed](https://mcpdesc.org/docs/specification/0.9.0-rc.1/guides/understanding-mcp-protocol-versions)
+- **Validation Rules** - [Catalog and troubleshooting](https://mcpdesc.org/docs/rules/0.9.0-rc.1/)
+- **Upstream changelog** - [RC.1 changes](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0-rc.1/spec/draft/CHANGELOG.md)
+- **Feedback** - [Discuss the release candidate or report an issue](https://github.com/mcpdesc/mcpdesc-specification/issues)
+
+
+### For AI assistants and tools
+
+- **Complete specification, single file** - [`/specification/0.9.0-rc.1/mcpdesc.md`](https://mcpdesc.org/specification/0.9.0-rc.1/mcpdesc.md)
+- **Version index** - [`/specification/index.json`](https://mcpdesc.org/specification/index.json), including
+  stable and candidate channels and their canonical source and schema URLs
+- **Validation rule catalog** - [`manifest.json`](https://mcpdesc.org/validation/catalogs/0.9.0-rc.1/manifest.json)
+  for the 85 rules in [`rules.json`](https://mcpdesc.org/validation/catalogs/0.9.0-rc.1/rules.json), with
+  hash-pinned rule and result schemas; all catalogs are listed in the
+  [catalog index](https://mcpdesc.org/validation/catalogs/index.json)
+
+---
+
 ## 1. Introduction
 
 ### 1.1 Purpose

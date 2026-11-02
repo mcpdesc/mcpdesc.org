@@ -432,108 +432,43 @@ function renderOverview(rules, unchecked) {
   const overviewSource = readFileSync(join(REF_DIR, sourcePath), 'utf8');
   const startMarker = '<!-- mcpdesc:validation-overview:start -->';
   const endMarker = '<!-- mcpdesc:validation-overview:end -->';
-  if (overviewSource.includes(startMarker) || overviewSource.includes(endMarker)) {
-    const parts = overviewSource.split(startMarker);
-    if (parts.length !== 2 || parts[1].split(endMarker).length !== 2 || parts[0].includes(endMarker)) {
-      fail('Expected exactly one correctly ordered validation overview marker pair.');
-    }
-    const excerpt = parts[1].split(endMarker)[0].trim();
-    if (!excerpt) fail('The marked validation overview is empty.');
-    const readmeUrl = sourceUrl(sourcePath);
-    const headingSlugs = new Set([...excerpt.matchAll(/^#{1,6}\s+(.*)$/gm)].map((heading) => headingSlug(heading[1])));
-    const resolved = rewriteGuideLinks(excerpt, sourcePath).replace(/\]\(#([^)]+)\)/g,
-      (whole, anchor) => (headingSlugs.has(anchor) ? whole : `](${readmeUrl}#${anchor})`));
-    const protocolGuide = 'understanding-mcp-protocol-versions';
-    const guidance = existsSync(join(VALIDATION_DIR, 'mcp-revisions.md'))
-      ? `- [MCP revision guide](/docs/rules/${VERSION}/revisions)`
-      : existsSync(join(SPEC_DOCS_DIR, 'guides', `${protocolGuide}.md`))
-        ? `- [How MCP protocol versions are managed](/docs/specification/${VERSION}/guides/${protocolGuide})` : '';
-    return [
-      '---',
-      'title: Validation Rules',
-      `description: Validation rules and troubleshooting for MCP Description ${VERSION}.`,
-      `slug: docs/rules/${VERSION}`,
-      'sidebar:',
-      '  label: Overview',
-      '  order: 0',
-      '---',
-      '',
-      resolved,
-      '',
-      '## Browse by owner',
-      '',
-      ownerLinks,
-      '',
-      ...(guidance ? ['## Protocol version guidance', '', guidance, ''] : []),
-      ':::note[Mirrored overview]',
-      `This overview mirrors the marked excerpt in [the source README](${sourceUrl(sourcePath)})`,
-      `at immutable tag [\`${TAG}\`](${sourceUrl(SPEC_PATH)}). Upstream wins if this copy differs.`,
-      ':::',
-      '',
-    ].join('\n');
+  if (!overviewSource.includes(startMarker) || !overviewSource.includes(endMarker)) {
+    fail('The source README must contain validation overview markers.');
   }
-  if (VERSION !== '0.9.0-draft.1') fail('The source README must contain validation overview markers.');
-  const example = [
-    '```json',
-    '{',
-    '  "code": "schema-validation",',
-    '  "severity": "error",',
-    '  "message": "inputSchema must have an object root",',
-    '  "path": ["tools", 0, "inputSchema"],',
-    '  "rule": "mcp.tool.input-schema.object-root"',
-    '}',
-    '```',
-  ].join('\n');
-
+  const parts = overviewSource.split(startMarker);
+  if (parts.length !== 2 || parts[1].split(endMarker).length !== 2 || parts[0].includes(endMarker)) {
+    fail('Expected exactly one correctly ordered validation overview marker pair.');
+  }
+  const excerpt = parts[1].split(endMarker)[0].trim();
+  if (!excerpt) fail('The marked validation overview is empty.');
+  const readmeUrl = sourceUrl(sourcePath);
+  const headingSlugs = new Set([...excerpt.matchAll(/^#{1,6}\s+(.*)$/gm)].map((heading) => headingSlug(heading[1])));
+  const resolved = rewriteGuideLinks(excerpt, sourcePath).replace(/\]\(#([^)]+)\)/g,
+    (whole, anchor) => (headingSlugs.has(anchor) ? whole : `](${readmeUrl}#${anchor})`));
+  const protocolGuide = 'understanding-mcp-protocol-versions';
+  const guidance = existsSync(join(SPEC_DOCS_DIR, 'guides', `${protocolGuide}.md`))
+    ? `- [How MCP protocol versions are managed](/docs/specification/${VERSION}/guides/${protocolGuide})` : '';
   return [
     '---',
     'title: Validation Rules',
-    `description: Validation rule registry and protocol revision guidance for MCP Description ${VERSION}.`,
+    `description: Validation rules and troubleshooting for MCP Description ${VERSION}.`,
     `slug: docs/rules/${VERSION}`,
     'sidebar:',
     '  label: Overview',
     '  order: 0',
     '---',
     '',
-    `These versioned pages document the validation rule registry published with [\`${TAG}\`](${sourceUrl(SPEC_PATH)}). Select the rules attached to a specification version; this set describes the 0.9.0 working draft, not stable 0.8.0.`,
+    resolved,
     '',
-    ':::caution[Working draft registry]',
-    'This is a pilot registry implementing review-stage Proposal 0024. Its contents are non-normative until the proposal is accepted. Rule records explain ownership, applicability, evidence, and fixtures; they are not a separate conformance specification.',
-    ':::',
-    '',
-    '## Implementation status',
-    '',
-    'The prerelease [`@mcpdesc/validator` 0.14.0-rc.1](https://www.npmjs.com/package/@mcpdesc/validator/v/0.14.0-rc.1) supports the rule registry. Native MCP projections are supported by the prerelease [`@mcpdesc/core` 0.13.0-rc.1](https://www.npmjs.com/package/@mcpdesc/core/v/0.13.0-rc.1). Both are npm `next` releases, not stable releases.',
-    '',
-    '## Rule ownership',
-    '',
-    'A rule has one owner: MCP protocol requirements, MCP Description requirements, or an embedded standard such as JSON Schema. The owner determines the authority for the behavior; external sources provide evidence and are ranked by source tier.',
+    '## Browse by owner',
     '',
     ownerLinks,
     '',
-    '## Rule identity and diagnostics',
-    '',
-    'Each rule has a permanent identifier. Diagnostics use `code` for the detected condition and `rule` for the requirement that the rule checks. A code can be shared by multiple rules.',
-    '',
-    example,
-    '',
-    '## Requirements and severity',
-    '',
-    'The optional `requirement` field records the source requirement level (`must`, `should`, or `may`); it is distinct from diagnostic severity. Diagnostics declare `error` or `warning` severity. The source protocol revision determines how requirement levels are interpreted.',
-    '',
-    '## Protocol revision applicability',
-    '',
-    `MCP structures can differ by protocol revision. Each rule records its applicability across the five revisions listed in the [revision guide](/docs/rules/${VERSION}/revisions); an absent value is not inferred.`,
-    '',
-    '## Arbitrations, gaps, and fixtures',
-    '',
-    'Arbitrations document conflicts in authority and the selected behavior; proposed arbitrations are unresolved. Gaps identify known differences from validator behavior. Fixture examples link to the immutable source tag and show the fragment selected by each JSON Pointer. Warning fixtures are labeled as accepted with a warning.',
-    '',
-    `## Source\n\nCanonical source: [\`${REPO}\` at \`${TAG}\`](${sourceUrl(SPEC_PATH)}). The pinned MCP schema source manifest is [available here](${sourceUrl(posix.join(SPEC_PATH, 'validation/mcp-schemas/manifest.json'))}).`,
-    '',
-    `## MCP revision guide\n\nRead the [versioned revision guide](/docs/rules/${VERSION}/revisions) or [view its source at the tag](${sourceUrl(posix.join(SPEC_PATH, 'validation/mcp-revisions.md'))}).`,
-    '',
-    `## Rule records\n\nThe [rule JSON Schema](${sourceUrl(posix.join(SPEC_PATH, 'validation/rule.schema.json'))}) defines the registry fields. ${rules.length} rules are grouped into three owner-specific rulesets.`,
+    ...(guidance ? ['## Protocol version guidance', '', guidance, ''] : []),
+    ':::note[Mirrored overview]',
+    `This overview mirrors the marked excerpt in [the source README](${sourceUrl(sourcePath)})`,
+    `at immutable tag [\`${TAG}\`](${sourceUrl(SPEC_PATH)}). Upstream wins if this copy differs.`,
+    ':::',
     '',
   ].join('\n');
 }
@@ -555,7 +490,6 @@ function rewriteGuideLinks(markdown, sourcePath) {
     }
     const localGuides = new Map([
       [posix.join(SPEC_PATH, 'validation/README.md'), `/docs/rules/${VERSION}/`],
-      [posix.join(SPEC_PATH, 'validation/mcp-revisions.md'), `/docs/rules/${VERSION}/revisions`],
     ]);
     const local = localGuides.get(normalized);
     if (local) return `](${local}${fragment})`;
@@ -568,26 +502,6 @@ function rewriteGuideLinks(markdown, sourcePath) {
     }
     return `](${sourceUrl(normalized, fragment)})`;
   });
-}
-
-function renderRevisionGuide(file = 'mcp-revisions.md', slug = 'revisions', title = 'MCP Revision Guide') {
-  const sourcePath = posix.join(SPEC_PATH, 'validation', file);
-  const raw = readFileSync(join(REF_DIR, sourcePath), 'utf8').trimEnd();
-  const body = rewriteGuideLinks(raw.replace(/^#\s+.*\r?\n+/, ''), sourcePath);
-  return [
-    '---',
-    `title: ${JSON.stringify(title)}`,
-    `description: ${JSON.stringify(`${title} for MCP Description ${VERSION}.`)}`,
-    `slug: docs/rules/${VERSION}/${slug}`,
-    'sidebar:',
-    '  order: 1',
-    '---',
-    '',
-    `:::note[Mirrored guide]\nThis guide mirrors [\`${sourcePath}\`](${sourceUrl(sourcePath)}) from the immutable tag [\`${TAG}\`](${sourceUrl(SPEC_PATH)}). The upstream source wins if this page differs.\n:::`,
-    '',
-    body,
-    '',
-  ].join('\n');
 }
 
 function collectRules(validateRegistry, manifest) {
@@ -732,9 +646,6 @@ function createGeneratedPages(rules, fileById, manifest, unchecked) {
   const pages = new Map();
   pages.set(join(VERSION_DOCS_DIR, 'index.md'), renderOverview(rules, unchecked));
   if (unchecked) pages.set(join(VERSION_DOCS_DIR, 'unchecked.md'), renderUnchecked(unchecked));
-  if (existsSync(join(VALIDATION_DIR, 'mcp-revisions.md'))) {
-    pages.set(join(VERSION_DOCS_DIR, 'revisions.md'), renderRevisionGuide());
-  }
 
   for (const [owner] of Object.entries(RULE_OWNERS)) {
     const ownerRules = rules.filter((rule) => rule.owner === owner);

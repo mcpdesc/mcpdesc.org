@@ -104,19 +104,18 @@ export default defineConfig({
             { slug: 'docs/specification' },
             { slug: 'docs/specification/changelog' },
             {
-              label: '0.9.0-draft.1 (Draft)',
+              label: '0.9.0-rc.1 (Release Candidate)',
               collapsed: true,
               items: [
-                { autogenerate: { directory: 'docs/specification/0.9.0-draft.1' } },
+                { autogenerate: { directory: 'docs/specification/0.9.0-rc.1' } },
                 {
                   label: 'Rules',
                   collapsed: true,
                   items: [
-                    { slug: 'docs/rules/0.9.0-draft.1' },
-                    { slug: 'docs/rules/0.9.0-draft.1/revisions' },
-                    { label: 'MCP', collapsed: true, items: [{ autogenerate: { directory: 'docs/rules/0.9.0-draft.1/mcp' } }] },
-                    { label: 'MCP Description', collapsed: true, items: [{ autogenerate: { directory: 'docs/rules/0.9.0-draft.1/mcpdesc' } }] },
-                    { label: 'JSON Schema', collapsed: true, items: [{ autogenerate: { directory: 'docs/rules/0.9.0-draft.1/json-schema' } }] },
+                    { slug: 'docs/rules/0.9.0-rc.1' },
+                    { label: 'MCP', collapsed: true, items: [{ autogenerate: { directory: 'docs/rules/0.9.0-rc.1/mcp' } }] },
+                    { label: 'MCP Description', collapsed: true, items: [{ autogenerate: { directory: 'docs/rules/0.9.0-rc.1/mcpdesc' } }] },
+                    { label: 'JSON Schema', collapsed: true, items: [{ autogenerate: { directory: 'docs/rules/0.9.0-rc.1/json-schema' } }] },
                   ],
                 },
               ],

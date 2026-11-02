@@ -23,15 +23,12 @@ linked versioned source, that source wins.
 | Version | Status | |
 |---|---|---|
 | [**0.9.0-rc.1**](/docs/specification/0.9.0-rc.1/) | Release Candidate | Active candidate; not stable |
-| [**0.9.0-draft.4**](/docs/specification/0.9.0-draft.4/) | Draft | Archived snapshot |
-| [**0.9.0-draft.3**](/docs/specification/0.9.0-draft.3/) | Draft | Archived snapshot |
-| [**0.9.0-draft.2**](/docs/specification/0.9.0-draft.2/) | Draft | Archived snapshot |
-| [**0.9.0-draft.1**](/docs/specification/0.9.0-draft.1/) | Draft | Archived snapshot |
 | [**0.8.0**](/docs/specification/0.8.0/) | Stable | **Latest stable** |
 | [**0.7.0**](/docs/specification/0.7.0/) | Stable | Previous |
 
-See the [changelog](/docs/specification/changelog) for the full version history, and the
-[format overview](/format) for a friendly introduction. See the
+The canonical repository retains prior snapshots. See its
+[version history](/docs/specification/changelog) and the [format overview](/format).
+See the
 [validation rules](/docs/rules/) to understand how MCP Description requirements relate to
 MCP protocol versions.
 
@@ -41,7 +38,7 @@ as a machine-readable index:
 
 - [`/specification/latest/mcpdesc.md`](/specification/latest/mcpdesc.md) — the complete latest
   specification in one Markdown document (per-version: `/specification/<version>/mcpdesc.md`).
-- [`/specification/index.json`](/specification/index.json) — every version, the current
-  `stable` and `candidate` channels (plus `latest` and `next` compatibility aliases), and
-  each version's full-file, canonical source, and schema URLs.
+- [`/specification/index.json`](/specification/index.json) — the current `stable` and
+  `candidate` channels (plus `latest` and `next` compatibility aliases), and their full-file,
+  canonical source, and schema URLs.
 :::

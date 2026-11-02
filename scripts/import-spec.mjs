@@ -284,11 +284,17 @@ if (existsSync(changelogSource)) {
   const frontmatter =
     `---\n` +
     `title: Changelog\n` +
-    `description: MCP Description specification version history.\n` +
+    `description: Link to the canonical MCP Description specification changelog.\n` +
     `slug: docs/specification/changelog\n` +
     `sidebar:\n  order: 2\n` +
     `---\n\n`;
-  const body = rewriteLinks(readFileSync(changelogSource, 'utf8').trimEnd(), '', '.');
+  const body = [
+    'The MCP Description specification changelog is maintained in the canonical repository.',
+    '',
+    `[View the changelog for this snapshot](${UPSTREAM_BASE}/CHANGELOG.md).`,
+    '',
+    `[Browse earlier specification tags](https://github.com/${REPO}/tags).`,
+  ].join('\n');
   writeFileSync(join(ROOT, 'src/content/docs/docs/specification/changelog.md'), frontmatter + body + '\n', 'utf8');
   console.log('  wrote changelog.md');
 }
