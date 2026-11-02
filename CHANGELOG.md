@@ -7,58 +7,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-11-02
+
 ### Added
 
-- **Validation rule catalog for draft.4.** Published the immutable `0.9.0-draft.4` catalog
-  manifest and `rules.json` (85 rules, rule format 1.2.0, exported from the annotated
-  `v0.9.0-draft.4` tag) under `/validation/catalogs/`. After live verification, the discovery
-  index moved to rule format 1.2.0 and lists draft.4 as the current draft; it is served with
-  `no-transform` and a five-minute cache.
-- **MCP Description 0.9.0 draft.4 JSON Schema.** Added the schema at
-  [`mcpdesc.org/schema/mcp-description/0.9.0-draft.4.json`](https://mcpdesc.org/schema/mcp-description/0.9.0-draft.4.json).
-- **Validation rule schema 1.2.0.** Added
-  [`mcpdesc.org/schema/validation-rule/1.2.0.json`](https://mcpdesc.org/schema/validation-rule/1.2.0.json):
-  rules can name the document-schema locations they report, catalogs list unchecked
-  requirements, and manifests can reference a result schema.
+- **MCP Description v0.9.0 draft series.** Mirrored immutable drafts 1 through 4, with
+  draft.4 now active and drafts 1 to 3 retained as archived snapshots. Draft.1 established
+  the specification, examples, migration guide, schema, and initial rule registry, with
+  requirement cross-links and prerelease support documented for `@mcpdesc/validator` and
+  `@mcpdesc/core`. Draft.2 added companion guides and aligned the rules overview with its
+  canonical reader-focused text; draft.3 added protocol-version guidance and adopted rule
+  format 1.1.0. Draft.4 builds on that foundation, advancing to format 1.2.0 and growing the
+  catalog from 63 to 85 rules. It adds view, merge, serialization, and `not-applicable`
+  examples plus an Unchecked Requirements page. `/docs/rules` now resolves to draft.4.
+- **Versioned MCP Description schemas.** Published immutable schemas for
+  [draft.1](https://mcpdesc.org/schema/mcp-description/0.9.0-draft.1.json),
+  [draft.2](https://mcpdesc.org/schema/mcp-description/0.9.0-draft.2.json),
+  [draft.3](https://mcpdesc.org/schema/mcp-description/0.9.0-draft.3.json), and
+  [draft.4](https://mcpdesc.org/schema/mcp-description/0.9.0-draft.4.json).
+- **Validation rule catalogs.** Published immutable catalogs for drafts 3 and 4 under
+  `/validation/catalogs/`; draft.4 contains 85 rules in format 1.2.0, exported from its
+  annotated source tag. After live verification, the discovery index was updated to format
+  1.2.0 and draft.4 as the current draft. Catalog files are served with `no-transform` and a
+  five-minute cache.
+- **Validation rule schemas.** Published rule-format schemas [1.0.0](https://mcpdesc.org/schema/validation-rule/1.0.0.json),
+  [1.1.0](https://mcpdesc.org/schema/validation-rule/1.1.0.json), and
+  [1.2.0](https://mcpdesc.org/schema/validation-rule/1.2.0.json). Version 1.0.0 defines
+  catalog and discovery envelopes; 1.1.0 requires fixture outcomes and removes `diagnostics`;
+  1.2.0 adds document-schema locations, unchecked requirements, and a result-schema reference.
+  All versions have cross-origin access and immutable caching and remain available unchanged.
 - **Validation result schema 1.0.0.** Added
   [`mcpdesc.org/schema/validation-result/1.0.0.json`](https://mcpdesc.org/schema/validation-result/1.0.0.json),
   the validation result format (Proposal 0031). All three schemas have cross-origin access
   and immutable caching; earlier versions remain published unchanged.
-- **MCP Description v0.9.0 draft.3 documentation.** Imported the immutable
-  `v0.9.0-draft.3` specification, guides (including how MCP protocol versions are managed),
-  examples, and 63 validation rules in the rule-format 1.1.0 shape. Draft.3 is the active
-  candidate; drafts 1 and 2 remain available as archived snapshots, and `/docs/rules` now
-  resolves to the draft.3 rules.
-- **Validation rule catalog for draft.3.** Published the immutable `0.9.0-draft.3` catalog
-  manifest and `rules.json` under `/validation/catalogs/`, plus the discovery index
-  `/validation/catalogs/index.json` (short cache, published after the catalog is live).
-- **MCP Description v0.9.0 draft.2 documentation.** Imported the immutable
-  `v0.9.0-draft.2` specification, guides, examples, and 63 validation rules. The rules
-  overview now mirrors the canonical reader-focused excerpt. Draft.2 is the active candidate;
-  draft.1 remains available as an archived snapshot and 0.8.0 remains latest stable.
-- **Validation rule schema 1.1.0.** Added the rule-format schema at
-  [`mcpdesc.org/schema/validation-rule/1.1.0.json`](https://mcpdesc.org/schema/validation-rule/1.1.0.json)
-  with cross-origin access and immutable caching. Fixtures now declare a required `outcome`
-  and rule records no longer carry `diagnostics`; 1.0.0 remains published unchanged.
-- **MCP Description 0.9.0 draft.3 JSON Schema.** Added the schema at
-  [`mcpdesc.org/schema/mcp-description/0.9.0-draft.3.json`](https://mcpdesc.org/schema/mcp-description/0.9.0-draft.3.json).
-- **Validation rule schema 1.0.0.** Added the rule-format schema at
-  [`mcpdesc.org/schema/validation-rule/1.0.0.json`](https://mcpdesc.org/schema/validation-rule/1.0.0.json),
-  which also defines the catalog manifest and discovery index envelopes. Both schemas have
-  cross-origin access and immutable caching; no catalog or discovery index is published yet.
-- **MCP Description 0.9.0 draft.2 JSON Schema.** Added the schema at
-  [`mcpdesc.org/schema/mcp-description/0.9.0-draft.2.json`](https://mcpdesc.org/schema/mcp-description/0.9.0-draft.2.json)
-  with cross-origin access and immutable caching. The latest stable schema remains 0.8.0.
-- **MCP Description v0.9.0 draft.1 documentation.** Mirrored the draft specification,
-  examples, guides, migration guidance, and schema from the immutable
-  `mcpdesc/mcpdesc-specification` tag `v0.9.0-draft.1`. Listed it as a draft candidate while
-  keeping 0.8.0 as the latest stable version. Published the draft JSON Schema at
-  [`mcpdesc.org/schema/mcp-description/0.9.0-draft.1.json`](https://mcpdesc.org/schema/mcp-description/0.9.0-draft.1.json).
-- **Versioned validation rules.** Added the 0.9.0 draft rule registry, owner rulesets,
-  examples, protocol revision guide, source provenance, and cross-links from specification
-  requirements. Documented prerelease support in `@mcpdesc/validator` and `@mcpdesc/core`.
-  Rule entries use compact permanent identifiers as titles and sidebar labels, with
-  unchanged summaries in the page body and sidebar navigation grouped by source surface.
 - **Documentation version selector.** Added a docs-only selector for Latest, Previous,
   and Draft, with version-specific navigation for MCP Description, Guides, Specifications,
   and Validation Rules. The selector sits beside the header logo and lists released versions

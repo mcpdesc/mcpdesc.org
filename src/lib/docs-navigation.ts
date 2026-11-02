@@ -67,7 +67,7 @@ export function buildDocsNavigation(entries: CollectionEntry<'docs'>[], version:
     });
     sidebar.push({
       type: 'group', label: 'Validation Rules', collapsed: true, badge: undefined,
-      entries: [...ordered(rules.filter((entry) => entry.id === rulesPrefix || entry.id === `${rulesPrefix}/revisions`)).map(link), ...owners],
+      entries: [...ordered(rules.filter((entry) => [rulesPrefix, `${rulesPrefix}/revisions`, `${rulesPrefix}/unchecked`].includes(entry.id))).map(link), ...owners],
     });
   }
   if (specifications.length) sidebar.push(group('Specifications', specifications));

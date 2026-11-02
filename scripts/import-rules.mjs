@@ -142,14 +142,47 @@ function resolvePointer(document, pointer, label) {
   }, document);
 }
 
+const FIXTURE_ROOTS = ['projection-fixtures/', 'view-fixtures/', 'serialization-fixtures/'];
+
+function fixtureSourcePath(fixturePath) {
+  return FIXTURE_ROOTS.some((root) => fixturePath.startsWith(root)) ? fixturePath : join('fixtures', fixturePath);
+}
+
 function resolveFixturePath(fixturePath) {
-  const base = fixturePath.startsWith('projection-fixtures/') ? SOURCE_DIR : join(SOURCE_DIR, 'fixtures');
-  const path = fixturePath.startsWith('projection-fixtures/')
-    ? fixturePath
-    : join('fixtures', fixturePath);
-  const absolute = ensureInside(SOURCE_DIR, path, 'Fixture path');
+  const absolute = ensureInside(SOURCE_DIR, fixtureSourcePath(fixturePath), 'Fixture path');
   if (!existsSync(absolute)) fail(`Fixture not found: ${fixturePath}`);
-  return { absolute, base };
+  return { absolute };
+}
+
+// Serialization fixtures are deliberately malformed YAML; they are shown verbatim, never parsed.
+function readFixture(rule, fixture) {
+  const { absolute } = resolveFixturePath(fixture.path);
+  const extension = fixture.path.split('.').at(-1);
+  const language = extension === 'json' ? 'json' : 'yaml';
+  if (fixture.path.startsWith('serialization-fixtures/')) {
+    if (fixture.pointer !== '') fail(`${rule.id}, ${fixture.path}: serialization fixtures must select the whole document.`);
+    return { language, text: readFileSync(absolute, 'utf8').trimEnd() };
+  }
+  const value = extension === 'json'
+    ? JSON.parse(readFileSync(absolute, 'utf8'))
+    : parseYaml(absolute, `fixture ${fixture.path}`);
+  const selected = resolvePointer(value, fixture.pointer, `${rule.id}, ${fixture.path}`);
+  return { language, text: extension === 'json' ? JSON.stringify(selected, null, 2) : YAML.stringify(selected).trimEnd() };
+}
+
+const FIXTURE_LABELS = [
+  ['projection-fixtures/', { passes: 'Projection succeeds', error: 'Projection fails' }],
+  ['view-fixtures/merge-', { passes: 'Merge succeeds', error: 'Merge fails' }],
+  ['view-fixtures/', { passes: 'View succeeds', error: 'View fails' }],
+  ['serialization-fixtures/', { passes: 'Decoding accepts', error: 'Decoding rejects' }],
+  ['', { passes: 'Valid example', warning: 'Accepted with a warning', error: 'Invalid example', 'not-applicable': 'Rule not applicable' }],
+];
+
+function fixtureLabel(rule, fixture) {
+  const [, labels] = FIXTURE_LABELS.find(([prefix]) => fixture.path.startsWith(prefix));
+  const label = labels[fixture.outcome];
+  if (!label) fail(`${rule.id}, ${fixture.path}: unsupported outcome '${fixture.outcome}' for this fixture kind.`);
+  return label;
 }
 
 function validateLocationExists(location, manifest, label) {
@@ -296,39 +329,23 @@ function fencedCode(text, language) {
 }
 
 function fixtureExample(rule, fixture) {
-  const { absolute } = resolveFixturePath(fixture.path);
-  const extension = fixture.path.split('.').at(-1);
-  const value = extension === 'json'
-    ? JSON.parse(readFileSync(absolute, 'utf8'))
-    : parseYaml(absolute, `fixture ${fixture.path}`);
-  const selected = resolvePointer(value, fixture.pointer, `${rule.id}, ${fixture.path}`);
-  const serialized = extension === 'json'
-    ? JSON.stringify(selected, null, 2)
-    : YAML.stringify(selected).trimEnd();
-  const projection = fixture.path.startsWith('projection-fixtures/');
-  const type = {
-    passes: projection ? 'Projection succeeds' : 'Valid example',
-    warning: 'Accepted with a warning',
-    error: projection ? 'Projection fails' : 'Invalid example',
-  }[fixture.outcome];
-  if (!type) fail(`${rule.id}, ${fixture.path}: unsupported fixture outcome '${fixture.outcome}'.`);
+  const { language, text } = readFixture(rule, fixture);
+  const type = fixtureLabel(rule, fixture);
   const pointer = fixture.pointer === '' ? 'whole document' : `\`${fixture.pointer}\``;
-  const fixtureSourcePath = fixture.path.startsWith('projection-fixtures/')
-    ? posix.join(SPEC_PATH, fixture.path)
-    : posix.join(SPEC_PATH, 'fixtures', fixture.path);
-  const language = extension === 'json' ? 'json' : 'yaml';
-  const example = fencedCode(serialized, language);
-  const sourceLink = `[${fixture.path}](${sourceUrl(fixtureSourcePath)})`;
+  const example = fencedCode(text, language);
+  const sourceLink = `[${fixture.path}](${sourceUrl(posix.join(SPEC_PATH, fixtureSourcePath(fixture.path)))})`;
+  const note = fixture.outcome === 'not-applicable'
+    ? 'The rule does not run on this fragment for any MCP protocol version it applies to.\n\n' : '';
 
-  if (fixture.pointer === '') {
-    return `### ${type}\n\nSource: ${sourceLink} · Selected: ${pointer}\n\n<details>\n<summary>Show whole fixture</summary>\n\n${example}\n\n</details>\n`;
+  if (fixture.pointer === '' && !fixture.path.startsWith('serialization-fixtures/')) {
+    return `### ${type}\n\n${note}Source: ${sourceLink} · Selected: ${pointer}\n\n<details>\n<summary>Show whole fixture</summary>\n\n${example}\n\n</details>\n`;
   }
-  return `### ${type}\n\nSource: ${sourceLink} · Selected: ${pointer}\n\n${example}\n`;
+  return `### ${type}\n\n${note}Source: ${sourceLink} · Selected: ${pointer}\n\n${example}\n`;
 }
 
 function renderRule(rule, sourceFile, manifest) {
   if (!rule.title || !rule.description) {
-    fail(`${rule.id}: record lacks title/description; this importer supports rule-format 1.0.0 (draft.3 onward).`);
+    fail(`${rule.id}: record lacks title/description; this importer supports rule format 1.1.0 and later (draft.3 onward).`);
   }
   const description = rule.description.replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/\s+/g, ' ').trim().slice(0, 180);
   const sourcePath = posix.join(SPEC_PATH, 'validation', 'rules', sourceFile);
@@ -344,11 +361,13 @@ function renderRule(rule, sourceFile, manifest) {
     ...(protocolVersions === 'independent' ? ['**Protocol versions:** independent of the MCP protocol version'] : []),
     ...(rule.applicability?.schemaDialects?.length
       ? [`**JSON Schema dialects:** ${rule.applicability.schemaDialects.map((dialect) => `\`${dialect}\``).join(', ')}`] : []),
+    ...(rule.documentSchema?.length
+      ? [`**Document schema locations:** ${rule.documentSchema.map((pointer) => `\`${pointer}\``).join(', ')}`] : []),
     `**Status:** ${rule.status} · **Enforcement:** ${rule.enforcement}`,
   ].join('<br>\n');
   const retired = rule.status === 'retired'
     ? ':::caution[Retired rule]\nThis record is retired in this catalog and is excluded from active checks.\n:::\n\n' : '';
-  const outcomeOrder = ['passes', 'warning', 'error'];
+  const outcomeOrder = ['passes', 'warning', 'error', 'not-applicable'];
   const fixtures = [...rule.fixtures]
     .sort((left, right) => outcomeOrder.indexOf(left.outcome) - outcomeOrder.indexOf(right.outcome))
     .map((fixture) => fixtureExample(rule, fixture)).join('\n');
@@ -401,11 +420,14 @@ function renderRule(rule, sourceFile, manifest) {
   ].join('\n');
 }
 
-function renderOverview(rules) {
-  const ownerLinks = Object.entries(RULE_OWNERS).map(([owner, details]) => {
-    const count = rules.filter((rule) => rule.owner === owner).length;
-    return `- **${details.label}** — ${count} ${count === 1 ? 'rule' : 'rules'}.`;
-  }).join('\n');
+function renderOverview(rules, unchecked) {
+  const ownerLinks = [
+    ...Object.entries(RULE_OWNERS).map(([owner, details]) => {
+      const count = rules.filter((rule) => rule.owner === owner).length;
+      return `- **${details.label}** — ${count} ${count === 1 ? 'rule' : 'rules'}.`;
+    }),
+    ...(unchecked ? [`- [**Unchecked requirements**](/docs/rules/${VERSION}/unchecked) — ${unchecked.length} normative requirements that no rule checks, with the reason.`] : []),
+  ].join('\n');
   const sourcePath = posix.join(SPEC_PATH, 'validation/README.md');
   const overviewSource = readFileSync(join(REF_DIR, sourcePath), 'utf8');
   const startMarker = '<!-- mcpdesc:validation-overview:start -->';
@@ -591,14 +613,7 @@ function collectRules(validateRegistry, manifest) {
       for (const group of [...rule.specification, ...(rule.sources ?? [])]) {
         for (const location of group.locations) validateLocationExists(location, manifest, rule.id);
       }
-      for (const fixture of rule.fixtures) {
-        const { absolute } = resolveFixturePath(fixture.path);
-        const extension = fixture.path.split('.').at(-1);
-        const document = extension === 'json'
-          ? JSON.parse(readFileSync(absolute, 'utf8'))
-          : parseYaml(absolute, `fixture ${fixture.path}`);
-        resolvePointer(document, fixture.pointer, `${rule.id}, ${fixture.path}`);
-      }
+      for (const fixture of rule.fixtures) readFixture(rule, fixture);
       rules.push(rule);
     }
   }
@@ -652,9 +667,71 @@ function buildRequirementMarkers(rules, specPages) {
   return specPages;
 }
 
-function createGeneratedPages(rules, fileById, manifest) {
+function collectUnchecked(ajv, schema) {
+  const path = join(VALIDATION_DIR, 'unchecked-requirements.yaml');
+  if (!existsSync(path)) return undefined;
+  const registry = parseYaml(path, 'unchecked-requirements.yaml');
+  const validate = ajv.getSchema(`${schema.$id}#/$defs/unchecked-requirements`);
+  if (!validate) fail('rule.schema.json does not define #/$defs/unchecked-requirements.');
+  if (!validate(registry)) {
+    fail(`unchecked-requirements.yaml does not match rule.schema.json: ${validate.errors.map((error) => `${error.instancePath || '/'} ${error.message}`).join('; ')}`);
+  }
+  return registry.uncheckedRequirements.map((item) => {
+    const [, file, anchor] = item.location.match(/^sections\/(\d\d-.+\.md)#(req-[a-z0-9-]+)$/);
+    const slug = SECTION_SLUGS.get(file);
+    const pagePath = join(SPEC_DOCS_DIR, `${slug}.md`);
+    if (!slug || !existsSync(pagePath)) fail(`Unchecked requirement '${item.location}': imported specification page is missing. Run import-spec first.`);
+    const markdown = readFileSync(pagePath, 'utf8');
+    if ([...markdown.matchAll(new RegExp(`<a id="${escapeRegExp(anchor)}"></a>`, 'g'))].length !== 1) {
+      fail(`Unchecked requirement '${item.location}': anchor must occur exactly once in ${slug}.md.`);
+    }
+    const title = markdown.match(/^title:\s*(.+)$/m)?.[1].replace(/^"|"$/g, '') ?? slug;
+    return { ...item, slug, anchor, title };
+  });
+}
+
+const UNCHECKED_REASONS = {
+  runtime: 'Runtime behavior of MCP clients, servers, or consumers',
+  processing: 'Behavior of MCP Description tools that document fixtures cannot show',
+  guidance: 'An authoring choice the document cannot decide',
+};
+
+function renderUnchecked(unchecked) {
+  const sections = [...new Map([...unchecked].sort((left, right) => left.location.localeCompare(right.location))
+    .map((item) => [item.slug, item.title])).entries()];
+  const counts = Object.keys(UNCHECKED_REASONS).map((reason) => [reason, unchecked.filter((item) => item.reason === reason).length]);
+  return [
+    '---',
+    'title: Unchecked Requirements',
+    `description: Normative MCP Description ${VERSION} requirements that no validation rule checks, and why.`,
+    `slug: docs/rules/${VERSION}/unchecked`,
+    'sidebar:',
+    '  label: Unchecked requirements',
+    '  order: 1',
+    '---',
+    '',
+    `${unchecked.length} normative requirements are not checked by any validation rule. Each entry links to the requirement and states why validation cannot check it.`,
+    '',
+    '| Reason | Meaning | Requirements |',
+    '| --- | --- | --- |',
+    ...counts.map(([reason, count]) => `| \`${reason}\` | ${UNCHECKED_REASONS[reason]} | ${count} |`),
+    '',
+    ...sections.flatMap(([slug, title]) => [
+      `## ${title}`,
+      '',
+      ...unchecked.filter((item) => item.slug === slug).map((item) =>
+        `- [\`${item.anchor}\`](/docs/specification/${VERSION}/${slug}#${item.anchor}) · **${item.reason}** — ${item.note.replace(/\s+/g, ' ').trim()}`),
+      '',
+    ]),
+    `Source: [\`validation/unchecked-requirements.yaml\`](${sourceUrl(posix.join(SPEC_PATH, 'validation/unchecked-requirements.yaml'))}) at immutable tag [\`${TAG}\`](${sourceUrl(SPEC_PATH)}).`,
+    '',
+  ].join('\n');
+}
+
+function createGeneratedPages(rules, fileById, manifest, unchecked) {
   const pages = new Map();
-  pages.set(join(VERSION_DOCS_DIR, 'index.md'), renderOverview(rules));
+  pages.set(join(VERSION_DOCS_DIR, 'index.md'), renderOverview(rules, unchecked));
+  if (unchecked) pages.set(join(VERSION_DOCS_DIR, 'unchecked.md'), renderUnchecked(unchecked));
   if (existsSync(join(VALIDATION_DIR, 'mcp-revisions.md'))) {
     pages.set(join(VERSION_DOCS_DIR, 'revisions.md'), renderRevisionGuide());
   }
@@ -693,7 +770,8 @@ try {
   const ajv = new Ajv2020({ allErrors: true, strict: false, validateFormats: false });
   const validateRegistry = ajv.compile(schema);
   const { rules, fileById } = collectRules(validateRegistry, manifest);
-  const pages = createGeneratedPages(rules, fileById, manifest);
+  const unchecked = collectUnchecked(ajv, schema);
+  const pages = createGeneratedPages(rules, fileById, manifest, unchecked);
   const specPages = buildRequirementMarkers(rules, new Map());
 
   writePages(pages);
