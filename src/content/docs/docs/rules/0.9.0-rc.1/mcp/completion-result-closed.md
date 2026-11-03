@@ -28,8 +28,8 @@ The completion object of a completion result contains only values, total, and ha
 ## Required by
 
 - **MCP Description 0.9.0, Sections 10.4.6 and 11.4**
-  - [/docs/specification/0.9.0-rc.1/document-structure#req-carried-nested-closed](/docs/specification/0.9.0-rc.1/document-structure#req-carried-nested-closed)
-  - [/docs/specification/0.9.0-rc.1/document-structure#req-carried-closed-reject](/docs/specification/0.9.0-rc.1/document-structure#req-carried-closed-reject)
+  - 3. Document Structure: [req-carried-nested-closed](https://mcpdesc.org/docs/specification/0.9.0-rc.1/document-structure#req-carried-nested-closed)
+  - 3. Document Structure: [req-carried-closed-reject](https://mcpdesc.org/docs/specification/0.9.0-rc.1/document-structure#req-carried-closed-reject)
 
 ## Based on
 

@@ -27,15 +27,15 @@ A merge result is valid, preserves every input protocol-version view, and fails 
 ## Required by
 
 - **MCP Description 0.9.0, Section 4.13, and the merge requirements of Sections 13, 14, and 17**
-  - [/docs/specification/0.9.0-rc.1/versioning#req-merge-inputs](/docs/specification/0.9.0-rc.1/versioning#req-merge-inputs)
-  - [/docs/specification/0.9.0-rc.1/versioning#req-merge-algorithm](/docs/specification/0.9.0-rc.1/versioning#req-merge-algorithm)
-  - [/docs/specification/0.9.0-rc.1/versioning#req-merge-equivalence](/docs/specification/0.9.0-rc.1/versioning#req-merge-equivalence)
-  - [/docs/specification/0.9.0-rc.1/versioning#req-merge-security](/docs/specification/0.9.0-rc.1/versioning#req-merge-security)
-  - [/docs/specification/0.9.0-rc.1/versioning#req-merge-collections](/docs/specification/0.9.0-rc.1/versioning#req-merge-collections)
-  - [/docs/specification/0.9.0-rc.1/tags#req-tags-merge](/docs/specification/0.9.0-rc.1/tags#req-tags-merge)
-  - [/docs/specification/0.9.0-rc.1/specification-extensions#req-extension-merge](/docs/specification/0.9.0-rc.1/specification-extensions#req-extension-merge)
-  - [/docs/specification/0.9.0-rc.1/components#req-component-merge](/docs/specification/0.9.0-rc.1/components#req-component-merge)
-  - [/docs/specification/0.9.0-rc.1/components#req-component-merge-extensions](/docs/specification/0.9.0-rc.1/components#req-component-merge-extensions)
+  - 4. Versioning: [req-merge-inputs](https://mcpdesc.org/docs/specification/0.9.0-rc.1/versioning#req-merge-inputs)
+  - 4. Versioning: [req-merge-algorithm](https://mcpdesc.org/docs/specification/0.9.0-rc.1/versioning#req-merge-algorithm)
+  - 4. Versioning: [req-merge-equivalence](https://mcpdesc.org/docs/specification/0.9.0-rc.1/versioning#req-merge-equivalence)
+  - 4. Versioning: [req-merge-security](https://mcpdesc.org/docs/specification/0.9.0-rc.1/versioning#req-merge-security)
+  - 4. Versioning: [req-merge-collections](https://mcpdesc.org/docs/specification/0.9.0-rc.1/versioning#req-merge-collections)
+  - 13. Tags: [req-tags-merge](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tags#req-tags-merge)
+  - 14. Specification Extensions: [req-extension-merge](https://mcpdesc.org/docs/specification/0.9.0-rc.1/specification-extensions#req-extension-merge)
+  - 17. Reusable Components and Local References: [req-component-merge](https://mcpdesc.org/docs/specification/0.9.0-rc.1/components#req-component-merge)
+  - 17. Reusable Components and Local References: [req-component-merge-extensions](https://mcpdesc.org/docs/specification/0.9.0-rc.1/components#req-component-merge-extensions)
 
 
 

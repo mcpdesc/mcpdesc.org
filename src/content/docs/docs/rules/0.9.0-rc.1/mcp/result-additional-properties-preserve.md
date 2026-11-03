@@ -30,7 +30,7 @@ A field that an open MCP result type allows but the MCP protocol version does no
 ## Required by
 
 - **MCP Description 0.9.0, Section 3.6 (Carried MCP Values)**
-  - [/docs/specification/0.9.0-rc.1/document-structure#req-carried-open-preserve](/docs/specification/0.9.0-rc.1/document-structure#req-carried-open-preserve)
+  - 3. Document Structure: [req-carried-open-preserve](https://mcpdesc.org/docs/specification/0.9.0-rc.1/document-structure#req-carried-open-preserve)
 
 ## Based on
 

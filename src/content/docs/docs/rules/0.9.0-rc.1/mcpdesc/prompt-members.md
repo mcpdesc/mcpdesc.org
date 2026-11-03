@@ -28,10 +28,10 @@ Prompt and Prompt Argument Objects have their required fields, defined property 
 ## Required by
 
 - **MCP Description 0.9.0, Sections 11.1 and 11.2**
-  - [/docs/specification/0.9.0-rc.1/prompts#req-prompt-fields](/docs/specification/0.9.0-rc.1/prompts#req-prompt-fields)
-  - [/docs/specification/0.9.0-rc.1/prompts#req-prompt-argument-fields](/docs/specification/0.9.0-rc.1/prompts#req-prompt-argument-fields)
-  - [/docs/specification/0.9.0-rc.1/tags#req-entity-tags-shape](/docs/specification/0.9.0-rc.1/tags#req-entity-tags-shape)
-  - [/docs/specification/0.9.0-rc.1/tags#req-entity-tags-unique](/docs/specification/0.9.0-rc.1/tags#req-entity-tags-unique)
+  - 11. Prompts: [req-prompt-fields](https://mcpdesc.org/docs/specification/0.9.0-rc.1/prompts#req-prompt-fields)
+  - 11. Prompts: [req-prompt-argument-fields](https://mcpdesc.org/docs/specification/0.9.0-rc.1/prompts#req-prompt-argument-fields)
+  - 13. Tags: [req-entity-tags-shape](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tags#req-entity-tags-shape)
+  - 13. Tags: [req-entity-tags-unique](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tags#req-entity-tags-unique)
 
 
 

@@ -28,8 +28,8 @@ Resource uri is an RFC 3986 URI with a scheme.
 ## Required by
 
 - **MCP Description 0.9.0, Sections 10.1.2 and 15**
-  - [/docs/specification/0.9.0-rc.1/resources#req-resource-uri-syntax](/docs/specification/0.9.0-rc.1/resources#req-resource-uri-syntax)
-  - [/docs/specification/0.9.0-rc.1/serialization#req-serialization-value-formats](/docs/specification/0.9.0-rc.1/serialization#req-serialization-value-formats)
+  - 10. Resources and Resource Templates: [req-resource-uri-syntax](https://mcpdesc.org/docs/specification/0.9.0-rc.1/resources#req-resource-uri-syntax)
+  - 15. Serialization: [req-serialization-value-formats](https://mcpdesc.org/docs/specification/0.9.0-rc.1/serialization#req-serialization-value-formats)
 
 ## Based on
 

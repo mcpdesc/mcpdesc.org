@@ -30,8 +30,8 @@ Before MCP 2025-11-25, Tool schema properties is an object of objects and requir
 ## Required by
 
 - **MCP Description 0.9.0, Section 9.2**
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-schema-legacy-shape](/docs/specification/0.9.0-rc.1/tools#req-tool-schema-legacy-shape)
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-schema-legacy-no-dialect](/docs/specification/0.9.0-rc.1/tools#req-tool-schema-legacy-no-dialect)
+  - 9. Tools: [req-tool-schema-legacy-shape](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-schema-legacy-shape)
+  - 9. Tools: [req-tool-schema-legacy-no-dialect](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-schema-legacy-no-dialect)
 
 ## Based on
 

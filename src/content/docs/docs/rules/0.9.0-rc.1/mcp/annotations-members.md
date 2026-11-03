@@ -31,9 +31,9 @@ Resource Annotations on resources, resource templates, and content blocks contai
 ## Required by
 
 - **MCP Description 0.9.0, Section 10.3**
-  - [/docs/specification/0.9.0-rc.1/resources#req-resource-annotations-closed](/docs/specification/0.9.0-rc.1/resources#req-resource-annotations-closed)
-  - [/docs/specification/0.9.0-rc.1/resources#req-content-annotations-distinct](/docs/specification/0.9.0-rc.1/resources#req-content-annotations-distinct)
-  - [/docs/specification/0.9.0-rc.1/serialization#req-serialization-value-formats](/docs/specification/0.9.0-rc.1/serialization#req-serialization-value-formats)
+  - 10. Resources and Resource Templates: [req-resource-annotations-closed](https://mcpdesc.org/docs/specification/0.9.0-rc.1/resources#req-resource-annotations-closed)
+  - 10. Resources and Resource Templates: [req-content-annotations-distinct](https://mcpdesc.org/docs/specification/0.9.0-rc.1/resources#req-content-annotations-distinct)
+  - 15. Serialization: [req-serialization-value-formats](https://mcpdesc.org/docs/specification/0.9.0-rc.1/serialization#req-serialization-value-formats)
 
 ## Based on
 

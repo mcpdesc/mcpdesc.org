@@ -14,7 +14,7 @@ These declarations describe access requirements. They do not define token acquis
 
 ### 7.1 Named Security Schemes
 
-Root `securitySchemes` is a map from a local name to a Security Scheme Object. <a id="req-security-schemes-map"></a> <span class="mcpdesc-rule-links" data-anchor="req-security-schemes-map"><small>Checked by: <a href="/docs/rules/0.9.0-rc.1/mcpdesc/security-scheme-members">mcpdesc.security-scheme.members</a></small></span>When present, it MUST contain at least one entry. Every local name MUST match `^[A-Za-z0-9._-]+$`. <a id="req-security-schemes-omission"></a>Omission makes no security-scheme declaration and MUST NOT be interpreted as proof that the runtime uses no authentication or authorization mechanism.
+Root `securitySchemes` is a map from a local name to a Security Scheme Object. <a id="req-security-schemes-map"></a> <span class="mcpdesc-rule-links" data-anchor="req-security-schemes-map"><small><a href="/docs/rules/0.9.0-rc.1/mcpdesc/security-scheme-members#required-by" title="This requirement is part of rule: mcpdesc.security-scheme.members"><code>&lt;req-security-schemes-map&gt;</code></a></small></span> When present, it MUST contain at least one entry. Every local name MUST match `^[A-Za-z0-9._-]+$`. <a id="req-security-schemes-omission"></a>Omission makes no security-scheme declaration and MUST NOT be interpreted as proof that the runtime uses no authentication or authorization mechanism.
 
 ```json
 {
@@ -40,7 +40,7 @@ Root `securitySchemes` is a map from a local name to a Security Scheme Object. <
 
 ### 7.2 Security Scheme Object
 
-<a id="req-security-scheme-fields"></a> <span class="mcpdesc-rule-links" data-anchor="req-security-scheme-fields"><small>Checked by: <a href="/docs/rules/0.9.0-rc.1/mcpdesc/security-scheme-members">mcpdesc.security-scheme.members</a></small></span>Each Security Scheme Object MUST include `type`.
+<a id="req-security-scheme-fields"></a> <span class="mcpdesc-rule-links" data-anchor="req-security-scheme-fields"><small><a href="/docs/rules/0.9.0-rc.1/mcpdesc/security-scheme-members#required-by" title="This requirement is part of rule: mcpdesc.security-scheme.members"><code>&lt;req-security-scheme-fields&gt;</code></a></small></span> Each Security Scheme Object MUST include `type`.
 
 | Property | Type | Required | Description |
 |----------|------|----------|-------------|
@@ -53,7 +53,7 @@ Root `securitySchemes` is a map from a local name to a Security Scheme Object. <
 | `openIdConnectUrl` | string (URI) | For `openIdConnect` | OpenID Connect discovery URL |
 | `description` | string | No | Human-readable description |
 
-An OAuth Flows Object MAY contain `implicit`, `password`, `clientCredentials`, and `authorizationCode`. <a id="req-oauth-flows-fields"></a> <span class="mcpdesc-rule-links" data-anchor="req-oauth-flows-fields"><small>Checked by: <a href="/docs/rules/0.9.0-rc.1/mcpdesc/security-scheme-members">mcpdesc.security-scheme.members</a></small></span>At least one flow MUST be present. Every flow MUST contain a `scopes` map and MAY contain `refreshUrl`. An implicit flow MUST contain `authorizationUrl`; password and client-credentials flows MUST contain `tokenUrl`; an authorization-code flow MUST contain both `authorizationUrl` and `tokenUrl`.
+An OAuth Flows Object MAY contain `implicit`, `password`, `clientCredentials`, and `authorizationCode`. <a id="req-oauth-flows-fields"></a> <span class="mcpdesc-rule-links" data-anchor="req-oauth-flows-fields"><small><a href="/docs/rules/0.9.0-rc.1/mcpdesc/security-scheme-members#required-by" title="This requirement is part of rule: mcpdesc.security-scheme.members"><code>&lt;req-oauth-flows-fields&gt;</code></a></small></span> At least one flow MUST be present. Every flow MUST contain a `scopes` map and MAY contain `refreshUrl`. An implicit flow MUST contain `authorizationUrl`; password and client-credentials flows MUST contain `tokenUrl`; an authorization-code flow MUST contain both `authorizationUrl` and `tokenUrl`.
 
 ### 7.3 Security Requirement Array
 
@@ -70,7 +70,7 @@ A `security` value is an array of Security Requirement Objects. Each object maps
 
 Entries in the outer array are alternatives (**OR**). Multiple scheme names in one object are jointly required (**AND**). Every listed OAuth2 or OpenID Connect scope is required.
 
-<a id="req-security-scheme-references"></a> <span class="mcpdesc-rule-links" data-anchor="req-security-scheme-references"><small>Checked by: <a href="/docs/rules/0.9.0-rc.1/mcpdesc/security-requirements">mcpdesc.security.requirements</a></small></span>Every referenced name MUST exist in root `securitySchemes`. <a id="req-security-scopes-unique"></a> <span class="mcpdesc-rule-links" data-anchor="req-security-scopes-unique"><small>Checked by: <a href="/docs/rules/0.9.0-rc.1/mcpdesc/security-requirements">mcpdesc.security.requirements</a></small></span>Scope arrays MUST contain unique strings. <a id="req-security-scopes-oauth-only"></a> <span class="mcpdesc-rule-links" data-anchor="req-security-scopes-oauth-only"><small>Checked by: <a href="/docs/rules/0.9.0-rc.1/mcpdesc/security-requirements">mcpdesc.security.requirements</a></small></span>HTTP and API-key schemes MUST use an empty scope array. <a id="req-security-uncatalogued-scope"></a> <span class="mcpdesc-rule-links" data-anchor="req-security-uncatalogued-scope"><small>Checked by: <a href="/docs/rules/0.9.0-rc.1/mcpdesc/security-requirements">mcpdesc.security.requirements</a></small></span>An OAuth2 or OpenID Connect requirement MAY use a scope absent from a static scope catalogue; validators MAY warn but MUST NOT reject solely for that reason.
+<a id="req-security-scheme-references"></a> <span class="mcpdesc-rule-links" data-anchor="req-security-scheme-references"><small><a href="/docs/rules/0.9.0-rc.1/mcpdesc/security-requirements#required-by" title="This requirement is part of rule: mcpdesc.security.requirements"><code>&lt;req-security-scheme-references&gt;</code></a></small></span> Every referenced name MUST exist in root `securitySchemes`. <a id="req-security-scopes-unique"></a> <span class="mcpdesc-rule-links" data-anchor="req-security-scopes-unique"><small><a href="/docs/rules/0.9.0-rc.1/mcpdesc/security-requirements#required-by" title="This requirement is part of rule: mcpdesc.security.requirements"><code>&lt;req-security-scopes-unique&gt;</code></a></small></span> Scope arrays MUST contain unique strings. <a id="req-security-scopes-oauth-only"></a> <span class="mcpdesc-rule-links" data-anchor="req-security-scopes-oauth-only"><small><a href="/docs/rules/0.9.0-rc.1/mcpdesc/security-requirements#required-by" title="This requirement is part of rule: mcpdesc.security.requirements"><code>&lt;req-security-scopes-oauth-only&gt;</code></a></small></span> HTTP and API-key schemes MUST use an empty scope array. <a id="req-security-uncatalogued-scope"></a> <span class="mcpdesc-rule-links" data-anchor="req-security-uncatalogued-scope"><small><a href="/docs/rules/0.9.0-rc.1/mcpdesc/security-requirements#required-by" title="This requirement is part of rule: mcpdesc.security.requirements"><code>&lt;req-security-uncatalogued-scope&gt;</code></a></small></span> An OAuth2 or OpenID Connect requirement MAY use a scope absent from a static scope catalogue; validators MAY warn but MUST NOT reject solely for that reason.
 
 Array order, scheme-key order, and scope order are not semantically significant.
 
@@ -83,7 +83,7 @@ The following forms are distinct:
 - `security: [{}]`: explicitly allow anonymous access as an alternative;
 - `security: [{}, {"oauth": ["games:read"]}]`: allow anonymous access or the named OAuth requirement.
 
-<a id="req-security-empty-distinction"></a> <span class="mcpdesc-rule-links" data-anchor="req-security-empty-distinction"><small>Checked by: <a href="/docs/rules/0.9.0-rc.1/mcpdesc/view-projection">mcpdesc.view.projection</a></small></span>Implementations MUST preserve the distinction between `[]` and `[{}]` and MUST NOT normalize one into the other.
+<a id="req-security-empty-distinction"></a> <span class="mcpdesc-rule-links" data-anchor="req-security-empty-distinction"><small><a href="/docs/rules/0.9.0-rc.1/mcpdesc/view-projection#required-by" title="This requirement is part of rule: mcpdesc.view.projection"><code>&lt;req-security-empty-distinction&gt;</code></a></small></span> Implementations MUST preserve the distinction between `[]` and `[{}]` and MUST NOT normalize one into the other.
 
 ### 7.5 Placement and Precedence
 
@@ -96,7 +96,7 @@ For a primitive used through a selected transport, the effective requirement is 
 3. root `security`;
 4. no mcpdesc-declared requirement.
 
-This is replacement, not merging. <a id="req-security-projection"></a> <span class="mcpdesc-rule-links" data-anchor="req-security-projection"><small>Checked by: <a href="/docs/rules/0.9.0-rc.1/mcpdesc/view-projection">mcpdesc.view.projection</a></small></span>Protocol projection MUST preserve security declarations and MUST NOT copy one transport's inherited security onto a primitive unless a separate operation also selects that transport.
+This is replacement, not merging. <a id="req-security-projection"></a> <span class="mcpdesc-rule-links" data-anchor="req-security-projection"><small><a href="/docs/rules/0.9.0-rc.1/mcpdesc/view-projection#required-by" title="This requirement is part of rule: mcpdesc.view.projection"><code>&lt;req-security-projection&gt;</code></a></small></span> Protocol projection MUST preserve security declarations and MUST NOT copy one transport's inherited security onto a primitive unless a separate operation also selects that transport.
 
 ### 7.6 Interpretation Limits
 

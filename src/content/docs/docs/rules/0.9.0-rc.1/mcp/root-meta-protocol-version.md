@@ -30,8 +30,8 @@ A root in a roots response may carry _meta from MCP 2025-06-18.
 ## Required by
 
 - **MCP Description 0.9.0, Sections 3.5, 3.6, and 9.4**
-  - [/docs/specification/0.9.0-rc.1/document-structure#req-meta-protocol-version-availability](/docs/specification/0.9.0-rc.1/document-structure#req-meta-protocol-version-availability)
-  - [/docs/specification/0.9.0-rc.1/tools#req-interaction-protocol-version-valid](/docs/specification/0.9.0-rc.1/tools#req-interaction-protocol-version-valid)
+  - 3. Document Structure: [req-meta-protocol-version-availability](https://mcpdesc.org/docs/specification/0.9.0-rc.1/document-structure#req-meta-protocol-version-availability)
+  - 9. Tools: [req-interaction-protocol-version-valid](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-interaction-protocol-version-valid)
 
 ## Based on
 

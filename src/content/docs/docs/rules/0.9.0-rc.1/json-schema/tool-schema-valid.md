@@ -31,10 +31,10 @@ An embedded Tool inputSchema or outputSchema is valid under its declared or defa
 ## Required by
 
 - **MCP Description 0.9.0, Section 9.2 (declared dialects limited to 2020-12 and draft-07; never fetch external $ref targets; warn when validation is incomplete)**
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-output-schema-valid](/docs/specification/0.9.0-rc.1/tools#req-tool-output-schema-valid)
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-schema-dialect-valid](/docs/specification/0.9.0-rc.1/tools#req-tool-schema-dialect-valid)
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-schema-dialect-set](/docs/specification/0.9.0-rc.1/tools#req-tool-schema-dialect-set)
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-schema-external-ref](/docs/specification/0.9.0-rc.1/tools#req-tool-schema-external-ref)
+  - 9. Tools: [req-tool-output-schema-valid](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-output-schema-valid)
+  - 9. Tools: [req-tool-schema-dialect-valid](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-schema-dialect-valid)
+  - 9. Tools: [req-tool-schema-dialect-set](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-schema-dialect-set)
+  - 9. Tools: [req-tool-schema-external-ref](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-schema-external-ref)
 
 ## Based on
 

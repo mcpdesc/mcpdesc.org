@@ -28,12 +28,12 @@ A Transport Object matches exactly one transport type and contains its required 
 ## Required by
 
 - **MCP Description 0.9.0, Section 6.2**
-  - [/docs/specification/0.9.0-rc.1/transports#req-transport-streamable-http-fields](/docs/specification/0.9.0-rc.1/transports#req-transport-streamable-http-fields)
-  - [/docs/specification/0.9.0-rc.1/transports#req-transport-stdio-fields](/docs/specification/0.9.0-rc.1/transports#req-transport-stdio-fields)
-  - [/docs/specification/0.9.0-rc.1/transports#req-transport-sse-fields](/docs/specification/0.9.0-rc.1/transports#req-transport-sse-fields)
-  - [/docs/specification/0.9.0-rc.1/transports#req-transport-type](/docs/specification/0.9.0-rc.1/transports#req-transport-type)
-  - [/docs/specification/0.9.0-rc.1/transports#req-transport-closed](/docs/specification/0.9.0-rc.1/transports#req-transport-closed)
-  - [/docs/specification/0.9.0-rc.1/serialization#req-serialization-value-formats](/docs/specification/0.9.0-rc.1/serialization#req-serialization-value-formats)
+  - 6. Transports: [req-transport-streamable-http-fields](https://mcpdesc.org/docs/specification/0.9.0-rc.1/transports#req-transport-streamable-http-fields)
+  - 6. Transports: [req-transport-stdio-fields](https://mcpdesc.org/docs/specification/0.9.0-rc.1/transports#req-transport-stdio-fields)
+  - 6. Transports: [req-transport-sse-fields](https://mcpdesc.org/docs/specification/0.9.0-rc.1/transports#req-transport-sse-fields)
+  - 6. Transports: [req-transport-type](https://mcpdesc.org/docs/specification/0.9.0-rc.1/transports#req-transport-type)
+  - 6. Transports: [req-transport-closed](https://mcpdesc.org/docs/specification/0.9.0-rc.1/transports#req-transport-closed)
+  - 15. Serialization: [req-serialization-value-formats](https://mcpdesc.org/docs/specification/0.9.0-rc.1/serialization#req-serialization-value-formats)
 
 
 

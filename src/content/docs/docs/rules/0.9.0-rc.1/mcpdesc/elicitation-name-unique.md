@@ -27,7 +27,7 @@ Elicitation Declaration names are unique within their primitive.
 ## Required by
 
 - **MCP Description 0.9.0, Section 12.2**
-  - [/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-name-unique](/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-name-unique)
+  - 12. Elicitation Declarations: [req-elicitation-name-unique](https://mcpdesc.org/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-name-unique)
 
 
 

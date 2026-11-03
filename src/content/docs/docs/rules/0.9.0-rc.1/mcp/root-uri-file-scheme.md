@@ -27,7 +27,7 @@ A root URI in a roots response starts with file://.
 ## Required by
 
 - **MCP Description 0.9.0, Section 9.4**
-  - [/docs/specification/0.9.0-rc.1/tools#req-interaction-protocol-version-valid](/docs/specification/0.9.0-rc.1/tools#req-interaction-protocol-version-valid)
+  - 9. Tools: [req-interaction-protocol-version-valid](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-interaction-protocol-version-valid)
 
 ## Based on
 

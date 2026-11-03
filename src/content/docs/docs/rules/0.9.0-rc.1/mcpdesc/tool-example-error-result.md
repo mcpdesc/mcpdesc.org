@@ -27,8 +27,8 @@ A Tool execution-error example result sets isError to true and does not contain 
 ## Required by
 
 - **MCP Description 0.9.0, Section 9.3 (an execution-error result MUST NOT contain structuredContent; outputSchema does not validate error content)**
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-example-error-result](/docs/specification/0.9.0-rc.1/tools#req-tool-example-error-result)
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-example-success](/docs/specification/0.9.0-rc.1/tools#req-tool-example-success)
+  - 9. Tools: [req-tool-example-error-result](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-example-error-result)
+  - 9. Tools: [req-tool-example-success](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-example-success)
 
 
 

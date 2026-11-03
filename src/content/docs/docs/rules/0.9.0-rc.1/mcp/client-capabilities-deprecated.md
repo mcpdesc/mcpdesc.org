@@ -30,7 +30,7 @@ A client capability requirement that the applicable protocol version deprecates 
 ## Required by
 
 - **MCP Description 0.9.0, Section 8.5**
-  - [/docs/specification/0.9.0-rc.1/capabilities#req-client-requirements-deprecated](/docs/specification/0.9.0-rc.1/capabilities#req-client-requirements-deprecated)
+  - 8. Capabilities: [req-client-requirements-deprecated](https://mcpdesc.org/docs/specification/0.9.0-rc.1/capabilities#req-client-requirements-deprecated)
 
 ## Based on
 

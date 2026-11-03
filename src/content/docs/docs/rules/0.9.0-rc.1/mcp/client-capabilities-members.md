@@ -31,8 +31,8 @@ A Client Capability Requirements Object names only client capabilities the appli
 ## Required by
 
 - **MCP Description 0.9.0, Section 8.5**
-  - [/docs/specification/0.9.0-rc.1/capabilities#req-client-requirements-closed](/docs/specification/0.9.0-rc.1/capabilities#req-client-requirements-closed)
-  - [/docs/specification/0.9.0-rc.1/capabilities#req-client-requirements-shape](/docs/specification/0.9.0-rc.1/capabilities#req-client-requirements-shape)
+  - 8. Capabilities: [req-client-requirements-closed](https://mcpdesc.org/docs/specification/0.9.0-rc.1/capabilities#req-client-requirements-closed)
+  - 8. Capabilities: [req-client-requirements-shape](https://mcpdesc.org/docs/specification/0.9.0-rc.1/capabilities#req-client-requirements-shape)
 
 ## Based on
 

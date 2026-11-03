@@ -30,10 +30,10 @@ An example result contains every field that each applicable MCP protocol version
 ## Required by
 
 - **MCP Description 0.9.0, Sections 9.3, 10.4.4, 10.4.6, 11.3, and 11.4**
-  - [/docs/specification/0.9.0-rc.1/document-structure#req-carried-defined-fields](/docs/specification/0.9.0-rc.1/document-structure#req-carried-defined-fields)
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-example-result-shape](/docs/specification/0.9.0-rc.1/tools#req-tool-example-result-shape)
-  - [/docs/specification/0.9.0-rc.1/resources#req-resource-example-result-shape](/docs/specification/0.9.0-rc.1/resources#req-resource-example-result-shape)
-  - [/docs/specification/0.9.0-rc.1/prompts#req-prompt-example-result-shape](/docs/specification/0.9.0-rc.1/prompts#req-prompt-example-result-shape)
+  - 3. Document Structure: [req-carried-defined-fields](https://mcpdesc.org/docs/specification/0.9.0-rc.1/document-structure#req-carried-defined-fields)
+  - 9. Tools: [req-tool-example-result-shape](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-example-result-shape)
+  - 10. Resources and Resource Templates: [req-resource-example-result-shape](https://mcpdesc.org/docs/specification/0.9.0-rc.1/resources#req-resource-example-result-shape)
+  - 11. Prompts: [req-prompt-example-result-shape](https://mcpdesc.org/docs/specification/0.9.0-rc.1/prompts#req-prompt-example-result-shape)
 - **Examples fail fast decision (validation README, 2026-10-25, issue #72)**
   - [validation/README.md#examples-fail-fast](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0-rc.1/spec/draft/validation/README.md#examples-fail-fast)
 

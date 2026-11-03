@@ -27,18 +27,18 @@ A Reference Object targets an existing component in the namespace its use site r
 ## Required by
 
 - **MCP Description 0.9.0, Sections 17.2 to 17.4**
-  - [/docs/specification/0.9.0-rc.1/components#req-component-reference-form](/docs/specification/0.9.0-rc.1/components#req-component-reference-form)
-  - [/docs/specification/0.9.0-rc.1/components#req-component-reference-resolution](/docs/specification/0.9.0-rc.1/components#req-component-reference-resolution)
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-schema-references-resolved](/docs/specification/0.9.0-rc.1/tools#req-tool-schema-references-resolved)
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-example-references-resolved](/docs/specification/0.9.0-rc.1/tools#req-tool-example-references-resolved)
-  - [/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-schema-references-resolved](/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-schema-references-resolved)
-  - [/docs/specification/0.9.0-rc.1/resources#req-resource-example-references-resolved](/docs/specification/0.9.0-rc.1/resources#req-resource-example-references-resolved)
-  - [/docs/specification/0.9.0-rc.1/prompts#req-prompt-example-references-resolved](/docs/specification/0.9.0-rc.1/prompts#req-prompt-example-references-resolved)
-  - [/docs/specification/0.9.0-rc.1/components#req-component-ref-distinct](/docs/specification/0.9.0-rc.1/components#req-component-ref-distinct)
-  - [/docs/specification/0.9.0-rc.1/components#req-component-contextual-validation](/docs/specification/0.9.0-rc.1/components#req-component-contextual-validation)
-  - [/docs/specification/0.9.0-rc.1/components#req-component-reference-pointer](/docs/specification/0.9.0-rc.1/components#req-component-reference-pointer)
-  - [/docs/specification/0.9.0-rc.1/components#req-component-resolution-errors](/docs/specification/0.9.0-rc.1/components#req-component-resolution-errors)
-  - [/docs/specification/0.9.0-rc.1/components#req-component-cycles](/docs/specification/0.9.0-rc.1/components#req-component-cycles)
+  - 17. Reusable Components and Local References: [req-component-reference-form](https://mcpdesc.org/docs/specification/0.9.0-rc.1/components#req-component-reference-form)
+  - 17. Reusable Components and Local References: [req-component-reference-resolution](https://mcpdesc.org/docs/specification/0.9.0-rc.1/components#req-component-reference-resolution)
+  - 9. Tools: [req-tool-schema-references-resolved](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-schema-references-resolved)
+  - 9. Tools: [req-tool-example-references-resolved](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-example-references-resolved)
+  - 12. Elicitation Declarations: [req-elicitation-schema-references-resolved](https://mcpdesc.org/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-schema-references-resolved)
+  - 10. Resources and Resource Templates: [req-resource-example-references-resolved](https://mcpdesc.org/docs/specification/0.9.0-rc.1/resources#req-resource-example-references-resolved)
+  - 11. Prompts: [req-prompt-example-references-resolved](https://mcpdesc.org/docs/specification/0.9.0-rc.1/prompts#req-prompt-example-references-resolved)
+  - 17. Reusable Components and Local References: [req-component-ref-distinct](https://mcpdesc.org/docs/specification/0.9.0-rc.1/components#req-component-ref-distinct)
+  - 17. Reusable Components and Local References: [req-component-contextual-validation](https://mcpdesc.org/docs/specification/0.9.0-rc.1/components#req-component-contextual-validation)
+  - 17. Reusable Components and Local References: [req-component-reference-pointer](https://mcpdesc.org/docs/specification/0.9.0-rc.1/components#req-component-reference-pointer)
+  - 17. Reusable Components and Local References: [req-component-resolution-errors](https://mcpdesc.org/docs/specification/0.9.0-rc.1/components#req-component-resolution-errors)
+  - 17. Reusable Components and Local References: [req-component-cycles](https://mcpdesc.org/docs/specification/0.9.0-rc.1/components#req-component-cycles)
 
 
 

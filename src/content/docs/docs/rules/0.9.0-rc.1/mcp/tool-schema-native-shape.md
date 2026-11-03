@@ -30,7 +30,7 @@ A Tool schema that is valid under its dialect but misses a schema-syntax restric
 ## Required by
 
 - **MCP Description 0.9.0, Section 9.2**
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-schema-native-shape](/docs/specification/0.9.0-rc.1/tools#req-tool-schema-native-shape)
+  - 9. Tools: [req-tool-schema-native-shape](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-schema-native-shape)
 - **Proposal 0032, Dialect-governed Tool schemas**
   - [proposal-snapshots/0032-dialect-governed-tool-schemas.md](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0-rc.1/spec/draft/proposal-snapshots/0032-dialect-governed-tool-schemas.md)
 

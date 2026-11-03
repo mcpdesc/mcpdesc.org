@@ -30,19 +30,19 @@ A native projection keeps exactly the declaration fields that the MCP type defin
 ## Required by
 
 - **MCP Description 0.9.0, Section 4.14, steps 4 to 6, no synthesis, and lists**
-  - [/docs/specification/0.9.0-rc.1/versioning#req-native-projection-references-resolved](/docs/specification/0.9.0-rc.1/versioning#req-native-projection-references-resolved)
-  - [/docs/specification/0.9.0-rc.1/versioning#req-native-projection-fields](/docs/specification/0.9.0-rc.1/versioning#req-native-projection-fields)
-  - [/docs/specification/0.9.0-rc.1/versioning#req-native-projection-postcondition](/docs/specification/0.9.0-rc.1/versioning#req-native-projection-postcondition)
-  - [/docs/specification/0.9.0-rc.1/versioning#req-native-projection-no-synthesis](/docs/specification/0.9.0-rc.1/versioning#req-native-projection-no-synthesis)
-  - [/docs/specification/0.9.0-rc.1/versioning#req-native-projection-lists](/docs/specification/0.9.0-rc.1/versioning#req-native-projection-lists)
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-example-projection-omitted](/docs/specification/0.9.0-rc.1/tools#req-tool-example-projection-omitted)
-  - [/docs/specification/0.9.0-rc.1/tools#req-interaction-projection-omitted](/docs/specification/0.9.0-rc.1/tools#req-interaction-projection-omitted)
-  - [/docs/specification/0.9.0-rc.1/versioning#req-native-projection-steps](/docs/specification/0.9.0-rc.1/versioning#req-native-projection-steps)
-  - [/docs/specification/0.9.0-rc.1/versioning#req-native-projection-no-repair](/docs/specification/0.9.0-rc.1/versioning#req-native-projection-no-repair)
-  - [/docs/specification/0.9.0-rc.1/resources#req-resource-example-projection-omitted](/docs/specification/0.9.0-rc.1/resources#req-resource-example-projection-omitted)
-  - [/docs/specification/0.9.0-rc.1/resources#req-template-completion-projection-omitted](/docs/specification/0.9.0-rc.1/resources#req-template-completion-projection-omitted)
-  - [/docs/specification/0.9.0-rc.1/prompts#req-prompt-example-projection-omitted](/docs/specification/0.9.0-rc.1/prompts#req-prompt-example-projection-omitted)
-  - [/docs/specification/0.9.0-rc.1/prompts#req-prompt-completion-projection-omitted](/docs/specification/0.9.0-rc.1/prompts#req-prompt-completion-projection-omitted)
+  - 4. Versioning: [req-native-projection-references-resolved](https://mcpdesc.org/docs/specification/0.9.0-rc.1/versioning#req-native-projection-references-resolved)
+  - 4. Versioning: [req-native-projection-fields](https://mcpdesc.org/docs/specification/0.9.0-rc.1/versioning#req-native-projection-fields)
+  - 4. Versioning: [req-native-projection-postcondition](https://mcpdesc.org/docs/specification/0.9.0-rc.1/versioning#req-native-projection-postcondition)
+  - 4. Versioning: [req-native-projection-no-synthesis](https://mcpdesc.org/docs/specification/0.9.0-rc.1/versioning#req-native-projection-no-synthesis)
+  - 4. Versioning: [req-native-projection-lists](https://mcpdesc.org/docs/specification/0.9.0-rc.1/versioning#req-native-projection-lists)
+  - 9. Tools: [req-tool-example-projection-omitted](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-example-projection-omitted)
+  - 9. Tools: [req-interaction-projection-omitted](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-interaction-projection-omitted)
+  - 4. Versioning: [req-native-projection-steps](https://mcpdesc.org/docs/specification/0.9.0-rc.1/versioning#req-native-projection-steps)
+  - 4. Versioning: [req-native-projection-no-repair](https://mcpdesc.org/docs/specification/0.9.0-rc.1/versioning#req-native-projection-no-repair)
+  - 10. Resources and Resource Templates: [req-resource-example-projection-omitted](https://mcpdesc.org/docs/specification/0.9.0-rc.1/resources#req-resource-example-projection-omitted)
+  - 10. Resources and Resource Templates: [req-template-completion-projection-omitted](https://mcpdesc.org/docs/specification/0.9.0-rc.1/resources#req-template-completion-projection-omitted)
+  - 11. Prompts: [req-prompt-example-projection-omitted](https://mcpdesc.org/docs/specification/0.9.0-rc.1/prompts#req-prompt-example-projection-omitted)
+  - 11. Prompts: [req-prompt-completion-projection-omitted](https://mcpdesc.org/docs/specification/0.9.0-rc.1/prompts#req-prompt-completion-projection-omitted)
 
 
 

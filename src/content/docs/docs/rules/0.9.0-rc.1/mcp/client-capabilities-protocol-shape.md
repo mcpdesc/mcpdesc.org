@@ -30,9 +30,9 @@ Each client capability requirement and nested member exists in every applicable 
 ## Required by
 
 - **MCP Description 0.9.0, Section 8.5**
-  - [/docs/specification/0.9.0-rc.1/capabilities#req-client-requirements-protocol-version-valid](/docs/specification/0.9.0-rc.1/capabilities#req-client-requirements-protocol-version-valid)
-  - [/docs/specification/0.9.0-rc.1/capabilities#req-client-requirements-values](/docs/specification/0.9.0-rc.1/capabilities#req-client-requirements-values)
-  - [/docs/specification/0.9.0-rc.1/capabilities#req-client-requirements-extensions](/docs/specification/0.9.0-rc.1/capabilities#req-client-requirements-extensions)
+  - 8. Capabilities: [req-client-requirements-protocol-version-valid](https://mcpdesc.org/docs/specification/0.9.0-rc.1/capabilities#req-client-requirements-protocol-version-valid)
+  - 8. Capabilities: [req-client-requirements-values](https://mcpdesc.org/docs/specification/0.9.0-rc.1/capabilities#req-client-requirements-values)
+  - 8. Capabilities: [req-client-requirements-extensions](https://mcpdesc.org/docs/specification/0.9.0-rc.1/capabilities#req-client-requirements-extensions)
 
 ## Based on
 

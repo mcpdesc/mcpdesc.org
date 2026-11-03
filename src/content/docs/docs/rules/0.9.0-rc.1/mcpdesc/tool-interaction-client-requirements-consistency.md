@@ -30,7 +30,7 @@ Interaction steps do not contradict the Tool's explicit client capability requir
 ## Required by
 
 - **MCP Description 0.9.0, Sections 8.5 and 9.4**
-  - [/docs/specification/0.9.0-rc.1/tools#req-interaction-client-requirements-warning](/docs/specification/0.9.0-rc.1/tools#req-interaction-client-requirements-warning)
+  - 9. Tools: [req-interaction-client-requirements-warning](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-interaction-client-requirements-warning)
 
 
 

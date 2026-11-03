@@ -27,7 +27,7 @@ A blob in Resource Contents is canonical base64.
 ## Required by
 
 - **MCP Description 0.9.0, Section 10.4.4**
-  - [/docs/specification/0.9.0-rc.1/resources#req-resource-example-blob-base64](/docs/specification/0.9.0-rc.1/resources#req-resource-example-blob-base64)
+  - 10. Resources and Resource Templates: [req-resource-example-blob-base64](https://mcpdesc.org/docs/specification/0.9.0-rc.1/resources#req-resource-example-blob-base64)
 
 ## Based on
 

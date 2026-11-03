@@ -28,7 +28,7 @@ requestedSchema is an object schema of MCP primitive property schemas with their
 ## Required by
 
 - **MCP Description 0.9.0, Section 12.3**
-  - [/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-form-shape](/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-form-shape)
+  - 12. Elicitation Declarations: [req-elicitation-form-shape](https://mcpdesc.org/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-form-shape)
 
 ## Based on
 

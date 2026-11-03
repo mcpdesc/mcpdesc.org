@@ -8,7 +8,7 @@ sidebar:
 
 ## 6. Transports
 
-The optional `transports` property declares one or more communication mechanisms for the MCP server. <a id="req-transports-non-empty"></a> <span class="mcpdesc-rule-links" data-anchor="req-transports-non-empty"><small>Checked by: <a href="/docs/rules/0.9.0-rc.1/mcpdesc/document-schema">mcpdesc.document.schema</a></small></span>When present, it MUST contain at least one Transport Object. <a id="req-transports-omission"></a>Omission means that the document declares no connection mechanism; it MUST NOT be interpreted as proof that the server has no transport.
+The optional `transports` property declares one or more communication mechanisms for the MCP server. <a id="req-transports-non-empty"></a> <span class="mcpdesc-rule-links" data-anchor="req-transports-non-empty"><small><a href="/docs/rules/0.9.0-rc.1/mcpdesc/document-schema#required-by" title="This requirement is part of rule: mcpdesc.document.schema"><code>&lt;req-transports-non-empty&gt;</code></a></small></span> When present, it MUST contain at least one Transport Object. <a id="req-transports-omission"></a>Omission means that the document declares no connection mechanism; it MUST NOT be interpreted as proof that the server has no transport.
 
 ### 6.1 Overview
 
@@ -16,20 +16,20 @@ MCP servers can be accessed through different transport mechanisms. The `transpo
 
 ### 6.2 Transport Types
 
-<a id="req-transport-type"></a> <span class="mcpdesc-rule-links" data-anchor="req-transport-type"><small>Checked by: <a href="/docs/rules/0.9.0-rc.1/mcpdesc/transport-members">mcpdesc.transport.members</a></small></span>Each transport object MUST include a `type` property. The following transport types are defined:
+<a id="req-transport-type"></a> <span class="mcpdesc-rule-links" data-anchor="req-transport-type"><small><a href="/docs/rules/0.9.0-rc.1/mcpdesc/transport-members#required-by" title="This requirement is part of rule: mcpdesc.transport.members"><code>&lt;req-transport-type&gt;</code></a></small></span> Each transport object MUST include a `type` property. The following transport types are defined:
 
 Every Transport Object MAY contain `protocolVersions` and `security`. `protocolVersions` follows Section 4.5. A transport's `security` value is a Security Requirement Array and follows Sections 6.4 and 7.
 
 #### 6.2.1 Streamable HTTP Transport
 
-<a id="req-transport-streamable-http-fields"></a> <span class="mcpdesc-rule-links" data-anchor="req-transport-streamable-http-fields"><small>Checked by: <a href="/docs/rules/0.9.0-rc.1/mcpdesc/transport-members">mcpdesc.transport.members</a></small></span>
+<a id="req-transport-streamable-http-fields"></a><span class="mcpdesc-rule-links" data-anchor="req-transport-streamable-http-fields"><br><small><a href="/docs/rules/0.9.0-rc.1/mcpdesc/transport-members#required-by" title="This requirement is part of rule: mcpdesc.transport.members"><code>&lt;req-transport-streamable-http-fields&gt;</code></a></small><br></span>
 
 | Property | Type | Required | Description |
 |----------|------|----------|-------------|
 | `type` | `"streamable-http"` | **Yes** | Transport type identifier |
 | `url` | string (URI) | **Yes** | MCP endpoint URL |
 
-The streamable HTTP transport connects to an MCP server over HTTP with streaming response support. <a id="req-transport-streamable-http-protocol-versions"></a> <span class="mcpdesc-rule-links" data-anchor="req-transport-streamable-http-protocol-versions"><small>Checked by: <a href="/docs/rules/0.9.0-rc.1/mcp/transport-streamable-http-protocol-version">mcp.transport.streamable-http.protocol-version</a></small></span>It is defined for MCP 2025-03-26 and later and is the RECOMMENDED transport for remote MCP servers in those protocol versions.
+The streamable HTTP transport connects to an MCP server over HTTP with streaming response support. <a id="req-transport-streamable-http-protocol-versions"></a> <span class="mcpdesc-rule-links" data-anchor="req-transport-streamable-http-protocol-versions"><small><a href="/docs/rules/0.9.0-rc.1/mcp/transport-streamable-http-protocol-version#required-by" title="This requirement is part of rule: mcp.transport.streamable-http.protocol-version"><code>&lt;req-transport-streamable-http-protocol-versions&gt;</code></a></small></span> It is defined for MCP 2025-03-26 and later and is the RECOMMENDED transport for remote MCP servers in those protocol versions.
 
 ```json
 {
@@ -40,7 +40,7 @@ The streamable HTTP transport connects to an MCP server over HTTP with streaming
 
 #### 6.2.2 stdio Transport
 
-<a id="req-transport-stdio-fields"></a> <span class="mcpdesc-rule-links" data-anchor="req-transport-stdio-fields"><small>Checked by: <a href="/docs/rules/0.9.0-rc.1/mcpdesc/transport-members">mcpdesc.transport.members</a></small></span>
+<a id="req-transport-stdio-fields"></a><span class="mcpdesc-rule-links" data-anchor="req-transport-stdio-fields"><br><small><a href="/docs/rules/0.9.0-rc.1/mcpdesc/transport-members#required-by" title="This requirement is part of rule: mcpdesc.transport.members"><code>&lt;req-transport-stdio-fields&gt;</code></a></small><br></span>
 
 | Property | Type | Required | Description |
 |----------|------|----------|-------------|
@@ -64,14 +64,14 @@ The stdio transport launches the MCP server as a subprocess and communicates ove
 
 #### 6.2.3 SSE Transport (Legacy)
 
-<a id="req-transport-sse-fields"></a> <span class="mcpdesc-rule-links" data-anchor="req-transport-sse-fields"><small>Checked by: <a href="/docs/rules/0.9.0-rc.1/mcpdesc/transport-members">mcpdesc.transport.members</a></small></span>
+<a id="req-transport-sse-fields"></a><span class="mcpdesc-rule-links" data-anchor="req-transport-sse-fields"><br><small><a href="/docs/rules/0.9.0-rc.1/mcpdesc/transport-members#required-by" title="This requirement is part of rule: mcpdesc.transport.members"><code>&lt;req-transport-sse-fields&gt;</code></a></small><br></span>
 
 | Property | Type | Required | Description |
 |----------|------|----------|-------------|
 | `type` | `"sse"` | **Yes** | Transport type identifier |
 | `url` | string (URI) | **Yes** | SSE endpoint URL |
 
-The Server-Sent Events transport is a legacy transport type retained for backward compatibility. It is the remote transport defined by MCP 2024-11-05. <a id="req-transport-legacy-sse-warning"></a> <span class="mcpdesc-rule-links" data-anchor="req-transport-legacy-sse-warning"><small>Checked by: <a href="/docs/rules/0.9.0-rc.1/mcp/transport-legacy-sse-deprecated">mcp.transport.legacy-sse.deprecated</a></small></span>Validators SHOULD warn when it is associated with MCP 2025-03-26 or later, where Streamable HTTP is the standard remote transport. New implementations SHOULD use `streamable-http` instead.
+The Server-Sent Events transport is a legacy transport type retained for backward compatibility. It is the remote transport defined by MCP 2024-11-05. <a id="req-transport-legacy-sse-warning"></a> <span class="mcpdesc-rule-links" data-anchor="req-transport-legacy-sse-warning"><small><a href="/docs/rules/0.9.0-rc.1/mcp/transport-legacy-sse-deprecated#required-by" title="This requirement is part of rule: mcp.transport.legacy-sse.deprecated"><code>&lt;req-transport-legacy-sse-warning&gt;</code></a></small></span> Validators SHOULD warn when it is associated with MCP 2025-03-26 or later, where Streamable HTTP is the standard remote transport. New implementations SHOULD use `streamable-http` instead.
 
 ```json
 {
@@ -126,14 +126,14 @@ This mechanism allows a single MCP Description document to declare different sec
 }
 ```
 
-<a id="req-transport-security-example"></a> <span class="mcpdesc-rule-links" data-anchor="req-transport-security-example"><small>Checked by: <a href="/docs/rules/0.9.0-rc.1/mcpdesc/security-requirements">mcpdesc.security.requirements</a></small></span>The `bearer` name in this example MUST identify a root `securitySchemes` entry.
+<a id="req-transport-security-example"></a> <span class="mcpdesc-rule-links" data-anchor="req-transport-security-example"><small><a href="/docs/rules/0.9.0-rc.1/mcpdesc/security-requirements#required-by" title="This requirement is part of rule: mcpdesc.security.requirements"><code>&lt;req-transport-security-example&gt;</code></a></small></span> The `bearer` name in this example MUST identify a root `securitySchemes` entry.
 
 ### 6.5 Protocol Coverage
 
-<a id="req-transport-coverage"></a> <span class="mcpdesc-rule-links" data-anchor="req-transport-coverage"><small>Checked by: <a href="/docs/rules/0.9.0-rc.1/mcpdesc/transports-coverage">mcpdesc.transports.coverage</a></small></span>When `transports` is present, the union of all effective transport protocol scopes MUST equal root `protocolVersions`. Transport scopes MAY overlap because a server can expose multiple transports for one protocol version.
+<a id="req-transport-coverage"></a> <span class="mcpdesc-rule-links" data-anchor="req-transport-coverage"><small><a href="/docs/rules/0.9.0-rc.1/mcpdesc/transports-coverage#required-by" title="This requirement is part of rule: mcpdesc.transports.coverage"><code>&lt;req-transport-coverage&gt;</code></a></small></span> When `transports` is present, the union of all effective transport protocol scopes MUST equal root `protocolVersions`. Transport scopes MAY overlap because a server can expose multiple transports for one protocol version.
 
-A document with `transports` is invalid when any root protocol version has no applicable transport or when a transport scope contains a protocol version outside root coverage. <a id="req-transport-coverage-omitted"></a> <span class="mcpdesc-rule-links" data-anchor="req-transport-coverage-omitted"><small>Checked by: <a href="/docs/rules/0.9.0-rc.1/mcpdesc/transports-coverage">mcpdesc.transports.coverage</a></small></span>When `transports` is omitted, transport coverage validation does not apply: validators MUST NOT infer a transport or report uncovered root protocol versions.
+A document with `transports` is invalid when any root protocol version has no applicable transport or when a transport scope contains a protocol version outside root coverage. <a id="req-transport-coverage-omitted"></a> <span class="mcpdesc-rule-links" data-anchor="req-transport-coverage-omitted"><small><a href="/docs/rules/0.9.0-rc.1/mcpdesc/transports-coverage#required-by" title="This requirement is part of rule: mcpdesc.transports.coverage"><code>&lt;req-transport-coverage-omitted&gt;</code></a></small></span> When `transports` is omitted, transport coverage validation does not apply: validators MUST NOT infer a transport or report uncovered root protocol versions.
 
 ### 6.6 Extensibility
 
-Transport Objects MAY carry `x-*` specification extensions. <a id="req-transport-closed"></a> <span class="mcpdesc-rule-links" data-anchor="req-transport-closed"><small>Checked by: <a href="/docs/rules/0.9.0-rc.1/mcpdesc/transport-members">mcpdesc.transport.members</a></small></span>They MUST NOT contain other additional properties beyond those defined for their type plus the common optional `protocolVersions` and `security` properties.
+Transport Objects MAY carry `x-*` specification extensions. <a id="req-transport-closed"></a> <span class="mcpdesc-rule-links" data-anchor="req-transport-closed"><small><a href="/docs/rules/0.9.0-rc.1/mcpdesc/transport-members#required-by" title="This requirement is part of rule: mcpdesc.transport.members"><code>&lt;req-transport-closed&gt;</code></a></small></span> They MUST NOT contain other additional properties beyond those defined for their type plus the common optional `protocolVersions` and `security` properties.

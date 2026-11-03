@@ -30,8 +30,8 @@ Completion examples are available in every protocol version that defines complet
 ## Required by
 
 - **MCP Description 0.9.0, Sections 10.4.6 and 11.4 (no completion examples for MCP 2024-11-05)**
-  - [/docs/specification/0.9.0-rc.1/resources#req-template-completion-protocol-versions](/docs/specification/0.9.0-rc.1/resources#req-template-completion-protocol-versions)
-  - [/docs/specification/0.9.0-rc.1/prompts#req-prompt-completion-protocol-versions](/docs/specification/0.9.0-rc.1/prompts#req-prompt-completion-protocol-versions)
+  - 10. Resources and Resource Templates: [req-template-completion-protocol-versions](https://mcpdesc.org/docs/specification/0.9.0-rc.1/resources#req-template-completion-protocol-versions)
+  - 11. Prompts: [req-prompt-completion-protocol-versions](https://mcpdesc.org/docs/specification/0.9.0-rc.1/prompts#req-prompt-completion-protocol-versions)
 
 ## Based on
 

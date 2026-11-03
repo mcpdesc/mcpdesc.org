@@ -30,7 +30,7 @@ Tool inputSchema describes an object: a literal type "object" before MCP 2025-11
 ## Required by
 
 - **MCP Description 0.9.0, Section 9.2**
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-input-schema-object-root](/docs/specification/0.9.0-rc.1/tools#req-tool-input-schema-object-root)
+  - 9. Tools: [req-tool-input-schema-object-root](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-input-schema-object-root)
 
 ## Based on
 

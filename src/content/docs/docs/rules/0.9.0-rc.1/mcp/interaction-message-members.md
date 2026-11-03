@@ -28,8 +28,8 @@ Elicitation, sampling, and roots requests and responses in interaction steps hav
 ## Required by
 
 - **MCP Description 0.9.0, Sections 3.6 and 9.4**
-  - [/docs/specification/0.9.0-rc.1/document-structure#req-carried-defined-fields](/docs/specification/0.9.0-rc.1/document-structure#req-carried-defined-fields)
-  - [/docs/specification/0.9.0-rc.1/tools#req-interaction-protocol-version-valid](/docs/specification/0.9.0-rc.1/tools#req-interaction-protocol-version-valid)
+  - 3. Document Structure: [req-carried-defined-fields](https://mcpdesc.org/docs/specification/0.9.0-rc.1/document-structure#req-carried-defined-fields)
+  - 9. Tools: [req-interaction-protocol-version-valid](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-interaction-protocol-version-valid)
 
 ## Based on
 

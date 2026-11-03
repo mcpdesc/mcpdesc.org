@@ -28,14 +28,14 @@ Info has a non-empty name and version, and Info, Contact, and License contain on
 ## Required by
 
 - **MCP Description 0.9.0, Section 5**
-  - [/docs/specification/0.9.0-rc.1/info-object#req-info-fields](/docs/specification/0.9.0-rc.1/info-object#req-info-fields)
-  - [/docs/specification/0.9.0-rc.1/info-object#req-contact-fields](/docs/specification/0.9.0-rc.1/info-object#req-contact-fields)
-  - [/docs/specification/0.9.0-rc.1/info-object#req-license-fields](/docs/specification/0.9.0-rc.1/info-object#req-license-fields)
-  - [/docs/specification/0.9.0-rc.1/versioning#req-info-unscoped](/docs/specification/0.9.0-rc.1/versioning#req-info-unscoped)
-  - [/docs/specification/0.9.0-rc.1/info-object#req-info-protocol-version-independent](/docs/specification/0.9.0-rc.1/info-object#req-info-protocol-version-independent)
-  - [/docs/specification/0.9.0-rc.1/info-object#req-info-name-non-empty](/docs/specification/0.9.0-rc.1/info-object#req-info-name-non-empty)
-  - [/docs/specification/0.9.0-rc.1/info-object#req-info-version-non-empty](/docs/specification/0.9.0-rc.1/info-object#req-info-version-non-empty)
-  - [/docs/specification/0.9.0-rc.1/serialization#req-serialization-value-formats](/docs/specification/0.9.0-rc.1/serialization#req-serialization-value-formats)
+  - 5. Info Object: [req-info-fields](https://mcpdesc.org/docs/specification/0.9.0-rc.1/info-object#req-info-fields)
+  - 5. Info Object: [req-contact-fields](https://mcpdesc.org/docs/specification/0.9.0-rc.1/info-object#req-contact-fields)
+  - 5. Info Object: [req-license-fields](https://mcpdesc.org/docs/specification/0.9.0-rc.1/info-object#req-license-fields)
+  - 4. Versioning: [req-info-unscoped](https://mcpdesc.org/docs/specification/0.9.0-rc.1/versioning#req-info-unscoped)
+  - 5. Info Object: [req-info-protocol-version-independent](https://mcpdesc.org/docs/specification/0.9.0-rc.1/info-object#req-info-protocol-version-independent)
+  - 5. Info Object: [req-info-name-non-empty](https://mcpdesc.org/docs/specification/0.9.0-rc.1/info-object#req-info-name-non-empty)
+  - 5. Info Object: [req-info-version-non-empty](https://mcpdesc.org/docs/specification/0.9.0-rc.1/info-object#req-info-version-non-empty)
+  - 15. Serialization: [req-serialization-value-formats](https://mcpdesc.org/docs/specification/0.9.0-rc.1/serialization#req-serialization-value-formats)
 
 
 

@@ -17,6 +17,7 @@ import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
+const SITE = 'https://mcpdesc.org';
 const argv = process.argv.slice(2);
 const options = {};
 const positional = [];
@@ -269,10 +270,27 @@ function formatLocations(locations, manifest) {
   return locations.map((location) => `  - ${markdownLocation(location, manifest)}`).join('\n');
 }
 
+function formatSpecificationLocations(locations, manifest) {
+  return locations.map((location) => {
+    const match = location.match(/^sections\/(\d\d-.+\.md)#(.+)$/);
+    if (!match) return `  - ${markdownLocation(location, manifest)}`;
+
+    const [, sectionFile, anchor] = match;
+    const slug = SECTION_SLUGS.get(sectionFile);
+    if (!slug) fail(`Unknown specification section '${sectionFile}'.`);
+    const pagePath = join(SPEC_DOCS_DIR, `${slug}.md`);
+    if (!existsSync(pagePath)) fail(`Imported specification page is missing: ${slug}.md`);
+    const rawTitle = readFileSync(pagePath, 'utf8').match(/^title:\s*(.+)$/m)?.[1];
+    if (!rawTitle) fail(`Specification page has no title: ${slug}.md`);
+    const title = JSON.parse(rawTitle);
+    return `  - ${title}: [${anchor}](${SITE}/docs/specification/${VERSION}/${slug}#${anchor})`;
+  }).join('\n');
+}
+
 function formatSpecification(rule, manifest) {
   return rule.specification.map((requirement) => [
     `- **${requirement.reference}**`,
-    formatLocations(requirement.locations, manifest),
+    formatSpecificationLocations(requirement.locations, manifest),
   ].join('\n')).join('\n');
 }
 
@@ -568,13 +586,25 @@ function buildRequirementMarkers(rules, specPages) {
 
   for (const [pagePath, anchors] of markersByPage) {
     let markdown = (specPages.get(pagePath) ?? readFileSync(pagePath, 'utf8'))
-      .replace(/[ \t]*<span class="mcpdesc-rule-links" data-anchor="[^"]+">[\s\S]*?<\/span>/g, '');
+      .replace(/[ \t]*(?:<br\s*\/?>[ \t]*)?<span class="mcpdesc-rule-links" data-anchor="[^"]+">[\s\S]*?<\/span>(?:[ \t]*<br\s*\/?>)?/g, '');
+    const anchorMatches = [...markdown.matchAll(/<a id="(req-[a-z0-9-]+)"><\/a>/g)];
+    const insertions = new Map();
     for (const [anchor, rulesForAnchor] of anchors) {
       const links = [...rulesForAnchor.values()].sort((left, right) => left.id.localeCompare(right.id))
-        .map((rule) => `<a href="${ruleUrl(rule)}">${rule.id}</a>`).join(', ');
-      const marker = `<span class="mcpdesc-rule-links" data-anchor="${anchor}"><small>Checked by: ${links}</small></span>`;
-      const anchorPattern = new RegExp(`(<a id="${escapeRegExp(anchor)}"></a>)`);
-      markdown = markdown.replace(anchorPattern, `$1 ${marker}`);
+        .map((rule) => `<a href="${ruleUrl(rule)}#required-by" title="This requirement is part of rule: ${rule.id}"><code>&lt;${anchor}&gt;</code></a>`).join(', ');
+      const anchorMatch = anchorMatches.find((match) => match[1] === anchor);
+      if (!anchorMatch) fail(`Requirement anchor '${anchor}' disappeared from ${pagePath}.`);
+      const position = anchorMatch.index + anchorMatch[0].length;
+      const lineEnd = markdown.indexOf('\n', position);
+      const lineTail = markdown.slice(position, lineEnd === -1 ? markdown.length : lineEnd);
+      const standalone = !lineTail.trim() || /^(?:\s*\|\s*|\s*```|\s*!\[)/.test(lineTail);
+      const marker = standalone
+        ? `<span class="mcpdesc-rule-links" data-anchor="${anchor}"><br><small>${links}</small><br></span>`
+        : ` <span class="mcpdesc-rule-links" data-anchor="${anchor}"><small>${links}</small></span> `;
+      insertions.set(position, [...(insertions.get(position) ?? []), marker]);
+    }
+    for (const [position, markers] of [...insertions].sort(([left], [right]) => right - left)) {
+      markdown = `${markdown.slice(0, position)}${markers.join('')}${markdown.slice(position)}`;
     }
     specPages.set(pagePath, markdown);
   }

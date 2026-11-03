@@ -30,7 +30,7 @@ A _meta key under an MCP-reserved prefix that the MCP protocol version does not 
 ## Required by
 
 - **MCP Description 0.9.0, Section 3.5**
-  - [/docs/specification/0.9.0-rc.1/document-structure#req-meta-reserved-prefix](/docs/specification/0.9.0-rc.1/document-structure#req-meta-reserved-prefix)
+  - 3. Document Structure: [req-meta-reserved-prefix](https://mcpdesc.org/docs/specification/0.9.0-rc.1/document-structure#req-meta-reserved-prefix)
 
 ## Based on
 

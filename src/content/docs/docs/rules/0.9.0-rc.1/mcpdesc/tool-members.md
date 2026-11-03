@@ -28,12 +28,12 @@ A Tool Object has its required fields, defined property types, and no unknown pr
 ## Required by
 
 - **MCP Description 0.9.0, Sections 9.1 and 9.7**
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-fields](/docs/specification/0.9.0-rc.1/tools#req-tool-fields)
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-input-schema-required](/docs/specification/0.9.0-rc.1/tools#req-tool-input-schema-required)
-  - [/docs/specification/0.9.0-rc.1/tools#req-execution-fields](/docs/specification/0.9.0-rc.1/tools#req-execution-fields)
-  - [/docs/specification/0.9.0-rc.1/elicitation#req-elicitations-non-empty](/docs/specification/0.9.0-rc.1/elicitation#req-elicitations-non-empty)
-  - [/docs/specification/0.9.0-rc.1/tags#req-entity-tags-shape](/docs/specification/0.9.0-rc.1/tags#req-entity-tags-shape)
-  - [/docs/specification/0.9.0-rc.1/tags#req-entity-tags-unique](/docs/specification/0.9.0-rc.1/tags#req-entity-tags-unique)
+  - 9. Tools: [req-tool-fields](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-fields)
+  - 9. Tools: [req-tool-input-schema-required](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-input-schema-required)
+  - 9. Tools: [req-execution-fields](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-execution-fields)
+  - 12. Elicitation Declarations: [req-elicitations-non-empty](https://mcpdesc.org/docs/specification/0.9.0-rc.1/elicitation#req-elicitations-non-empty)
+  - 13. Tags: [req-entity-tags-shape](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tags#req-entity-tags-shape)
+  - 13. Tags: [req-entity-tags-unique](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tags#req-entity-tags-unique)
 
 
 

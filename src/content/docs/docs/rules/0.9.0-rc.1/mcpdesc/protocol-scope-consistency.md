@@ -27,14 +27,14 @@ Nested protocol scopes stay within their parent scope, and same-named primitives
 ## Required by
 
 - **MCP Description 0.9.0, Sections 4.10 and 8.6**
-  - [/docs/specification/0.9.0-rc.1/versioning#req-scope-subset](/docs/specification/0.9.0-rc.1/versioning#req-scope-subset)
-  - [/docs/specification/0.9.0-rc.1/capabilities#req-capability-scopes-disjoint](/docs/specification/0.9.0-rc.1/capabilities#req-capability-scopes-disjoint)
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-names-disjoint](/docs/specification/0.9.0-rc.1/tools#req-tool-names-disjoint)
-  - [/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-scope](/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-scope)
-  - [/docs/specification/0.9.0-rc.1/versioning#req-scope-root-subset](/docs/specification/0.9.0-rc.1/versioning#req-scope-root-subset)
-  - [/docs/specification/0.9.0-rc.1/resources#req-resource-scopes-disjoint](/docs/specification/0.9.0-rc.1/resources#req-resource-scopes-disjoint)
-  - [/docs/specification/0.9.0-rc.1/prompts#req-prompt-scopes-disjoint](/docs/specification/0.9.0-rc.1/prompts#req-prompt-scopes-disjoint)
-  - [/docs/specification/0.9.0-rc.1/prompts#req-prompt-variants-disjoint](/docs/specification/0.9.0-rc.1/prompts#req-prompt-variants-disjoint)
+  - 4. Versioning: [req-scope-subset](https://mcpdesc.org/docs/specification/0.9.0-rc.1/versioning#req-scope-subset)
+  - 8. Capabilities: [req-capability-scopes-disjoint](https://mcpdesc.org/docs/specification/0.9.0-rc.1/capabilities#req-capability-scopes-disjoint)
+  - 9. Tools: [req-tool-names-disjoint](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-names-disjoint)
+  - 12. Elicitation Declarations: [req-elicitation-scope](https://mcpdesc.org/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-scope)
+  - 4. Versioning: [req-scope-root-subset](https://mcpdesc.org/docs/specification/0.9.0-rc.1/versioning#req-scope-root-subset)
+  - 10. Resources and Resource Templates: [req-resource-scopes-disjoint](https://mcpdesc.org/docs/specification/0.9.0-rc.1/resources#req-resource-scopes-disjoint)
+  - 11. Prompts: [req-prompt-scopes-disjoint](https://mcpdesc.org/docs/specification/0.9.0-rc.1/prompts#req-prompt-scopes-disjoint)
+  - 11. Prompts: [req-prompt-variants-disjoint](https://mcpdesc.org/docs/specification/0.9.0-rc.1/prompts#req-prompt-variants-disjoint)
 
 
 

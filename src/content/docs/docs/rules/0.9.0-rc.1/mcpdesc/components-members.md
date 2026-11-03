@@ -28,12 +28,12 @@ Components contain non-empty, well-named maps; a Reference Object has only $comp
 ## Required by
 
 - **MCP Description 0.9.0, Sections 17.1 and 17.2**
-  - [/docs/specification/0.9.0-rc.1/components#req-components-fields](/docs/specification/0.9.0-rc.1/components#req-components-fields)
-  - [/docs/specification/0.9.0-rc.1/components#req-reference-object-fields](/docs/specification/0.9.0-rc.1/components#req-reference-object-fields)
-  - [/docs/specification/0.9.0-rc.1/specification-extensions#req-extension-ineligible-locations](/docs/specification/0.9.0-rc.1/specification-extensions#req-extension-ineligible-locations)
-  - [/docs/specification/0.9.0-rc.1/specification-extensions#req-extension-component-names](/docs/specification/0.9.0-rc.1/specification-extensions#req-extension-component-names)
-  - [/docs/specification/0.9.0-rc.1/components#req-component-maps](/docs/specification/0.9.0-rc.1/components#req-component-maps)
-  - [/docs/specification/0.9.0-rc.1/components#req-components-closed](/docs/specification/0.9.0-rc.1/components#req-components-closed)
+  - 17. Reusable Components and Local References: [req-components-fields](https://mcpdesc.org/docs/specification/0.9.0-rc.1/components#req-components-fields)
+  - 17. Reusable Components and Local References: [req-reference-object-fields](https://mcpdesc.org/docs/specification/0.9.0-rc.1/components#req-reference-object-fields)
+  - 14. Specification Extensions: [req-extension-ineligible-locations](https://mcpdesc.org/docs/specification/0.9.0-rc.1/specification-extensions#req-extension-ineligible-locations)
+  - 14. Specification Extensions: [req-extension-component-names](https://mcpdesc.org/docs/specification/0.9.0-rc.1/specification-extensions#req-extension-component-names)
+  - 17. Reusable Components and Local References: [req-component-maps](https://mcpdesc.org/docs/specification/0.9.0-rc.1/components#req-component-maps)
+  - 17. Reusable Components and Local References: [req-components-closed](https://mcpdesc.org/docs/specification/0.9.0-rc.1/components#req-components-closed)
 
 
 

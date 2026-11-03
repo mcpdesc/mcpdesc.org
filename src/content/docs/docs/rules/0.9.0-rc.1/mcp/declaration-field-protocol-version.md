@@ -30,8 +30,8 @@ A declaration field is used only in protocol versions whose MCP type defines it:
 ## Required by
 
 - **MCP Description 0.9.0, Sections 8.2, 9.1, 9.2, 10.1, 10.2, and 11.1**
-  - [/docs/specification/0.9.0-rc.1/versioning#req-field-protocol-version-availability](/docs/specification/0.9.0-rc.1/versioning#req-field-protocol-version-availability)
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-schema-dialect-keyword](/docs/specification/0.9.0-rc.1/tools#req-tool-schema-dialect-keyword)
+  - 4. Versioning: [req-field-protocol-version-availability](https://mcpdesc.org/docs/specification/0.9.0-rc.1/versioning#req-field-protocol-version-availability)
+  - 9. Tools: [req-tool-schema-dialect-keyword](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-schema-dialect-keyword)
 
 ## Based on
 

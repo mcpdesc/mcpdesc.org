@@ -30,8 +30,8 @@ Tool inputSchema and outputSchema are JSON Schema objects; keywords beyond those
 ## Required by
 
 - **MCP Description 0.9.0, Section 9.2**
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-schema-vocabulary](/docs/specification/0.9.0-rc.1/tools#req-tool-schema-vocabulary)
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-schema-keywords-preserved](/docs/specification/0.9.0-rc.1/tools#req-tool-schema-keywords-preserved)
+  - 9. Tools: [req-tool-schema-vocabulary](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-schema-vocabulary)
+  - 9. Tools: [req-tool-schema-keywords-preserved](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-schema-keywords-preserved)
 
 ## Based on
 

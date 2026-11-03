@@ -27,9 +27,9 @@ An extension identifier under an MCP-reserved prefix that the pinned extension c
 ## Required by
 
 - **MCP Description 0.9.0, Sections 8.4 and 8.5; validator extension catalogue (effective 2026-09-04)**
-  - [/docs/specification/0.9.0-rc.1/capabilities#req-extensions-reserved-identifiers](/docs/specification/0.9.0-rc.1/capabilities#req-extensions-reserved-identifiers)
-  - [/docs/specification/0.9.0-rc.1/capabilities#req-extensions-catalogue-maturity](/docs/specification/0.9.0-rc.1/capabilities#req-extensions-catalogue-maturity)
-  - [/docs/specification/0.9.0-rc.1/capabilities#req-extensions-official-no-warning](/docs/specification/0.9.0-rc.1/capabilities#req-extensions-official-no-warning)
+  - 8. Capabilities: [req-extensions-reserved-identifiers](https://mcpdesc.org/docs/specification/0.9.0-rc.1/capabilities#req-extensions-reserved-identifiers)
+  - 8. Capabilities: [req-extensions-catalogue-maturity](https://mcpdesc.org/docs/specification/0.9.0-rc.1/capabilities#req-extensions-catalogue-maturity)
+  - 8. Capabilities: [req-extensions-official-no-warning](https://mcpdesc.org/docs/specification/0.9.0-rc.1/capabilities#req-extensions-official-no-warning)
 
 ## Based on
 

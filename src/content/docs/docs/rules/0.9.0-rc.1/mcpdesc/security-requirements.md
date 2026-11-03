@@ -28,12 +28,12 @@ Security requirements name declared schemes, list scopes only for OAuth 2.0 and 
 ## Required by
 
 - **MCP Description 0.9.0, Sections 7.1 to 7.3**
-  - [/docs/specification/0.9.0-rc.1/security#req-security-scheme-references](/docs/specification/0.9.0-rc.1/security#req-security-scheme-references)
-  - [/docs/specification/0.9.0-rc.1/security#req-security-scopes-unique](/docs/specification/0.9.0-rc.1/security#req-security-scopes-unique)
-  - [/docs/specification/0.9.0-rc.1/security#req-security-scopes-oauth-only](/docs/specification/0.9.0-rc.1/security#req-security-scopes-oauth-only)
-  - [/docs/specification/0.9.0-rc.1/security#req-security-uncatalogued-scope](/docs/specification/0.9.0-rc.1/security#req-security-uncatalogued-scope)
-  - [/docs/specification/0.9.0-rc.1/transports#req-transport-security-example](/docs/specification/0.9.0-rc.1/transports#req-transport-security-example)
-  - [/docs/specification/0.9.0-rc.1/specification-extensions#req-extension-ineligible-locations](/docs/specification/0.9.0-rc.1/specification-extensions#req-extension-ineligible-locations)
+  - 7. Security: [req-security-scheme-references](https://mcpdesc.org/docs/specification/0.9.0-rc.1/security#req-security-scheme-references)
+  - 7. Security: [req-security-scopes-unique](https://mcpdesc.org/docs/specification/0.9.0-rc.1/security#req-security-scopes-unique)
+  - 7. Security: [req-security-scopes-oauth-only](https://mcpdesc.org/docs/specification/0.9.0-rc.1/security#req-security-scopes-oauth-only)
+  - 7. Security: [req-security-uncatalogued-scope](https://mcpdesc.org/docs/specification/0.9.0-rc.1/security#req-security-uncatalogued-scope)
+  - 6. Transports: [req-transport-security-example](https://mcpdesc.org/docs/specification/0.9.0-rc.1/transports#req-transport-security-example)
+  - 14. Specification Extensions: [req-extension-ineligible-locations](https://mcpdesc.org/docs/specification/0.9.0-rc.1/specification-extensions#req-extension-ineligible-locations)
 
 
 

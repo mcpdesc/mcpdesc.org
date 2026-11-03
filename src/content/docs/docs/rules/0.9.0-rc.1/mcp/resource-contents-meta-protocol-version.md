@@ -30,7 +30,7 @@ Resource contents carry _meta only from MCP 2025-06-18, in Resource examples and
 ## Required by
 
 - **MCP Description 0.9.0, Section 10.4.4**
-  - [/docs/specification/0.9.0-rc.1/resources#req-resource-contents-meta](/docs/specification/0.9.0-rc.1/resources#req-resource-contents-meta)
+  - 10. Resources and Resource Templates: [req-resource-contents-meta](https://mcpdesc.org/docs/specification/0.9.0-rc.1/resources#req-resource-contents-meta)
 
 ## Based on
 

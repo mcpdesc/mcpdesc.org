@@ -9,6 +9,10 @@
 
 @plugin '@tailwindcss/typography';
 
+html.rules-hidden .mcpdesc-rule-links {
+  display: none !important;
+}
+
 /* Brand tokens shared across marketing pages. */
 @theme {
   --color-brand: oklch(0.55 0.18 265);

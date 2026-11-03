@@ -30,7 +30,7 @@ A reserved _meta key appears only in the message context, and with the value, th
 ## Required by
 
 - **MCP Description 0.9.0, Section 3.5**
-  - [/docs/specification/0.9.0-rc.1/document-structure#req-meta-keys](/docs/specification/0.9.0-rc.1/document-structure#req-meta-keys)
+  - 3. Document Structure: [req-meta-keys](https://mcpdesc.org/docs/specification/0.9.0-rc.1/document-structure#req-meta-keys)
 
 ## Based on
 

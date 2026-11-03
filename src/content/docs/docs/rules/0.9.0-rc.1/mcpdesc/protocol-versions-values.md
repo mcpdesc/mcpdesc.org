@@ -28,7 +28,7 @@ A protocolVersions array is non-empty, has unique values, and contains only supp
 ## Required by
 
 - **MCP Description 0.9.0, Section 4**
-  - [/docs/specification/0.9.0-rc.1/versioning#req-protocol-versions-values](/docs/specification/0.9.0-rc.1/versioning#req-protocol-versions-values)
+  - 4. Versioning: [req-protocol-versions-values](https://mcpdesc.org/docs/specification/0.9.0-rc.1/versioning#req-protocol-versions-values)
 
 
 

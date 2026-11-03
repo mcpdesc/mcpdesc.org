@@ -8,22 +8,22 @@ sidebar:
 
 ## 5. Info Object
 
-The `info` object provides metadata about the MCP server. <a id="req-info-required"></a> <span class="mcpdesc-rule-links" data-anchor="req-info-required"><small>Checked by: <a href="/docs/rules/0.9.0-rc.1/mcpdesc/document-schema">mcpdesc.document.schema</a></small></span>It is REQUIRED.
+The `info` object provides metadata about the MCP server. <a id="req-info-required"></a> <span class="mcpdesc-rule-links" data-anchor="req-info-required"><small><a href="/docs/rules/0.9.0-rc.1/mcpdesc/document-schema#required-by" title="This requirement is part of rule: mcpdesc.document.schema"><code>&lt;req-info-required&gt;</code></a></small></span> It is REQUIRED.
 
 The `info` object combines OpenAPI-style metadata (`contact`, `license`) with fields from the MCP `Implementation` type used for server identity. The MCP-sourced fields — `name`, `title`, `description`, `version`, `icons`, and `websiteUrl` — allow an MCP Description document to represent server identity metadata that may also be advertised at runtime.
 
-Info is unscoped, document-wide MCP Description metadata. Every property defined by this specification MAY appear regardless of the protocol versions listed in root `protocolVersions`. A mapping to MCP `Implementation` indicates that a producer MAY obtain or compare the value through runtime initialization when the negotiated protocol version defines that field. <a id="req-info-protocol-version-independent"></a> <span class="mcpdesc-rule-links" data-anchor="req-info-protocol-version-independent"><small>Checked by: <a href="/docs/rules/0.9.0-rc.1/mcpdesc/info-members">mcpdesc.info.members</a></small></span>It MUST NOT be interpreted as requiring a runtime origin or restricting the property's presence to those protocol versions. Validators MUST NOT emit a protocol version-applicability diagnostic solely because an Info property is unavailable on `Implementation` in an applicable MCP protocol version.
+Info is unscoped, document-wide MCP Description metadata. Every property defined by this specification MAY appear regardless of the protocol versions listed in root `protocolVersions`. A mapping to MCP `Implementation` indicates that a producer MAY obtain or compare the value through runtime initialization when the negotiated protocol version defines that field. <a id="req-info-protocol-version-independent"></a> <span class="mcpdesc-rule-links" data-anchor="req-info-protocol-version-independent"><small><a href="/docs/rules/0.9.0-rc.1/mcpdesc/info-members#required-by" title="This requirement is part of rule: mcpdesc.info.members"><code>&lt;req-info-protocol-version-independent&gt;</code></a></small></span> It MUST NOT be interpreted as requiring a runtime origin or restricting the property's presence to those protocol versions. Validators MUST NOT emit a protocol version-applicability diagnostic solely because an Info property is unavailable on `Implementation` in an applicable MCP protocol version.
 
 A producer MAY obtain Info metadata from author input, configuration, package metadata, a registry, runtime discovery, or another source. <a id="req-info-trust"></a>This specification does not assign trust or precedence among those sources, and consumers MUST NOT infer that an Info value was asserted by a live server.
 
 ### 5.1 Properties
 
-<a id="req-info-fields"></a> <span class="mcpdesc-rule-links" data-anchor="req-info-fields"><small>Checked by: <a href="/docs/rules/0.9.0-rc.1/mcpdesc/info-members">mcpdesc.info.members</a></small></span>
+<a id="req-info-fields"></a><span class="mcpdesc-rule-links" data-anchor="req-info-fields"><br><small><a href="/docs/rules/0.9.0-rc.1/mcpdesc/info-members#required-by" title="This requirement is part of rule: mcpdesc.info.members"><code>&lt;req-info-fields&gt;</code></a></small><br></span>
 
 | Property | Type | Required | Description |
 |----------|------|----------|-------------|
-| `name` | string | **Yes** | Programmatic server name (identifier). <a id="req-info-name-non-empty"></a> <span class="mcpdesc-rule-links" data-anchor="req-info-name-non-empty"><small>Checked by: <a href="/docs/rules/0.9.0-rc.1/mcpdesc/info-members">mcpdesc.info.members</a></small></span>MUST be non-empty. Maps to `Implementation.name` (MCP `BaseMetadata`). |
-| `version` | string | **Yes** | Server version. <a id="req-info-version-semver"></a>Semver RECOMMENDED. <a id="req-info-version-non-empty"></a> <span class="mcpdesc-rule-links" data-anchor="req-info-version-non-empty"><small>Checked by: <a href="/docs/rules/0.9.0-rc.1/mcpdesc/info-members">mcpdesc.info.members</a></small></span>MUST be non-empty. Maps to `Implementation.version`. |
+| `name` | string | **Yes** | Programmatic server name (identifier). <a id="req-info-name-non-empty"></a> <span class="mcpdesc-rule-links" data-anchor="req-info-name-non-empty"><small><a href="/docs/rules/0.9.0-rc.1/mcpdesc/info-members#required-by" title="This requirement is part of rule: mcpdesc.info.members"><code>&lt;req-info-name-non-empty&gt;</code></a></small></span> MUST be non-empty. Maps to `Implementation.name` (MCP `BaseMetadata`). |
+| `version` | string | **Yes** | Server version. <a id="req-info-version-semver"></a>Semver RECOMMENDED. <a id="req-info-version-non-empty"></a> <span class="mcpdesc-rule-links" data-anchor="req-info-version-non-empty"><small><a href="/docs/rules/0.9.0-rc.1/mcpdesc/info-members#required-by" title="This requirement is part of rule: mcpdesc.info.members"><code>&lt;req-info-version-non-empty&gt;</code></a></small></span> MUST be non-empty. Maps to `Implementation.version`. |
 | `title` | string | No | Human-readable display name for UI contexts. Falls back to `name` if not provided. Runtime mapping: `Implementation.title` (MCP `BaseMetadata`, available since 2025-06-18). |
 | `description` | string | No | Brief description of what the server does. Runtime mapping: `Implementation.description` (available since MCP 2025-11-25). |
 | `id` | string | No | Unique server identifier (URI, DID, or URN). |
@@ -34,7 +34,7 @@ A producer MAY obtain Info metadata from author input, configuration, package me
 
 ### 5.2 Contact Object
 
-<a id="req-contact-fields"></a> <span class="mcpdesc-rule-links" data-anchor="req-contact-fields"><small>Checked by: <a href="/docs/rules/0.9.0-rc.1/mcpdesc/info-members">mcpdesc.info.members</a></small></span>
+<a id="req-contact-fields"></a><span class="mcpdesc-rule-links" data-anchor="req-contact-fields"><br><small><a href="/docs/rules/0.9.0-rc.1/mcpdesc/info-members#required-by" title="This requirement is part of rule: mcpdesc.info.members"><code>&lt;req-contact-fields&gt;</code></a></small><br></span>
 
 | Property | Type | Description |
 |----------|------|-------------|
@@ -44,7 +44,7 @@ A producer MAY obtain Info metadata from author input, configuration, package me
 
 ### 5.3 License Object
 
-<a id="req-license-fields"></a> <span class="mcpdesc-rule-links" data-anchor="req-license-fields"><small>Checked by: <a href="/docs/rules/0.9.0-rc.1/mcpdesc/info-members">mcpdesc.info.members</a></small></span>
+<a id="req-license-fields"></a><span class="mcpdesc-rule-links" data-anchor="req-license-fields"><br><small><a href="/docs/rules/0.9.0-rc.1/mcpdesc/info-members#required-by" title="This requirement is part of rule: mcpdesc.info.members"><code>&lt;req-license-fields&gt;</code></a></small><br></span>
 
 | Property | Type | Required | Description |
 |----------|------|----------|-------------|

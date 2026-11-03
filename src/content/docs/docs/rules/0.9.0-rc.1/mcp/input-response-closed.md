@@ -30,8 +30,8 @@ In MCP 2026-07-28, sampling, elicitation, and roots responses are input response
 ## Required by
 
 - **MCP Description 0.9.0, Sections 3.6 and 9.4**
-  - [/docs/specification/0.9.0-rc.1/document-structure#req-carried-closed-reject](/docs/specification/0.9.0-rc.1/document-structure#req-carried-closed-reject)
-  - [/docs/specification/0.9.0-rc.1/tools#req-interaction-protocol-version-valid](/docs/specification/0.9.0-rc.1/tools#req-interaction-protocol-version-valid)
+  - 3. Document Structure: [req-carried-closed-reject](https://mcpdesc.org/docs/specification/0.9.0-rc.1/document-structure#req-carried-closed-reject)
+  - 9. Tools: [req-interaction-protocol-version-valid](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-interaction-protocol-version-valid)
 
 ## Based on
 

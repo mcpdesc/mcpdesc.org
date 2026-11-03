@@ -28,10 +28,10 @@ Resource and Resource Template Objects have their required fields, defined prope
 ## Required by
 
 - **MCP Description 0.9.0, Sections 10.1.1 and 10.2.1**
-  - [/docs/specification/0.9.0-rc.1/resources#req-resource-fields](/docs/specification/0.9.0-rc.1/resources#req-resource-fields)
-  - [/docs/specification/0.9.0-rc.1/resources#req-resource-template-fields](/docs/specification/0.9.0-rc.1/resources#req-resource-template-fields)
-  - [/docs/specification/0.9.0-rc.1/tags#req-entity-tags-shape](/docs/specification/0.9.0-rc.1/tags#req-entity-tags-shape)
-  - [/docs/specification/0.9.0-rc.1/tags#req-entity-tags-unique](/docs/specification/0.9.0-rc.1/tags#req-entity-tags-unique)
+  - 10. Resources and Resource Templates: [req-resource-fields](https://mcpdesc.org/docs/specification/0.9.0-rc.1/resources#req-resource-fields)
+  - 10. Resources and Resource Templates: [req-resource-template-fields](https://mcpdesc.org/docs/specification/0.9.0-rc.1/resources#req-resource-template-fields)
+  - 13. Tags: [req-entity-tags-shape](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tags#req-entity-tags-shape)
+  - 13. Tags: [req-entity-tags-unique](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tags#req-entity-tags-unique)
 
 
 
