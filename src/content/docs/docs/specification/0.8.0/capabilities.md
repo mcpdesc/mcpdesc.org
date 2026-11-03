@@ -6,8 +6,6 @@ sidebar:
   order: 8
 ---
 
-## 8. Capabilities
-
 The optional `capabilities` array declares protocol-scoped, durable server features. When present, it MUST contain at least one Capabilities Object.
 
 ### 8.1 Overview

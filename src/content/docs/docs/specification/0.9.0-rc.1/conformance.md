@@ -6,11 +6,9 @@ sidebar:
   order: 16
 ---
 
-## 16. Conformance
-
 ### 16.1 Document Conformance
 
-<a id="req-conforming-document"></a> <span class="mcpdesc-rule-links" data-anchor="req-conforming-document"><small><a href="/docs/rules/0.9.0-rc.1/mcpdesc/document-schema#required-by" title="This requirement is part of rule: mcpdesc.document.schema"><code>&lt;req-conforming-document&gt;</code></a></small></span> A conforming MCP Description document MUST:
+<a id="req-conforming-document"></a> <span class="mcpdesc-rule-links" data-anchor="req-conforming-document" data-layout="inline"><small><a href="/docs/rules/0.9.0-rc.1/mcpdesc/document-schema#required-by" title="This requirement is part of rule: mcpdesc.document.schema"><code>&lt;req-conforming-document&gt;</code></a></small></span>  A conforming MCP Description document MUST:
 
 1. Decode from one conforming JSON or restricted YAML serialization to the JSON-compatible MCP Description data model (Sections 3.1 and 15).
 2. Include the `mcpdesc` property with a recognized specification version (Section 4).
@@ -18,7 +16,7 @@ sidebar:
 4. Include non-empty root `protocolVersions` containing only protocol versions supported by mcpdesc 0.9.0 (Section 4).
 5. Contain at least one entry in every present ordinary declaration collection (Section 3.3).
 6. When `transports` is present, contain at least one Transport Object and provide complete root protocol coverage (Section 6).
-7. <a id="req-document-schema"></a> <span class="mcpdesc-rule-links" data-anchor="req-document-schema"><small><a href="/docs/rules/0.9.0-rc.1/mcpdesc/document-schema#required-by" title="This requirement is part of rule: mcpdesc.document.schema"><code>&lt;req-document-schema&gt;</code></a></small></span> Validate against the JSON Schema for the declared `mcpdesc` version.
+7. <a id="req-document-schema"></a> <span class="mcpdesc-rule-links" data-anchor="req-document-schema" data-layout="inline"><small><a href="/docs/rules/0.9.0-rc.1/mcpdesc/document-schema#required-by" title="This requirement is part of rule: mcpdesc.document.schema"><code>&lt;req-document-schema&gt;</code></a></small></span>  Validate against the JSON Schema for the declared `mcpdesc` version.
 8. Satisfy semantic scope, identifier, Elicitation Declaration, client-requirement, security-reference, tag-reference, component-reference, protocol version-applicability, embedded Tool schema and example, and `x-mcp-header` constraints.
 9. Not contain unknown properties on closed MCP Description-defined objects except specification extensions matching `^x-` at eligible locations.
 
@@ -41,7 +39,7 @@ The published JSON Schema expresses structural constraints only. JSON-Schema-onl
 
 A warning condition defined by this specification is non-fatal and does not by itself make a document non-conforming. <a id="req-stricter-profile"></a>An implementation MAY offer a stricter profile that promotes warnings to errors, but it MUST identify that profile separately from baseline mcpdesc conformance.
 
-Complete protocol-version-specific `_meta` validation begins with MCP 2025-06-18. <a id="req-legacy-validation-scope"></a> <span class="mcpdesc-rule-links" data-anchor="req-legacy-validation-scope"><small><a href="/docs/rules/0.9.0-rc.1/mcpdesc/legacy-protocol-validation-scope#required-by" title="This requirement is part of rule: mcpdesc.legacy-protocol.validation-scope"><code>&lt;req-legacy-validation-scope&gt;</code></a></small></span> For the recognized legacy compatibility protocol versions MCP 2024-11-05 and MCP 2025-03-26, validators MUST apply sound structural and selected checks, SHOULD warn that validation is incomplete, and MUST NOT report partial validation as complete MCP semantic conformance.
+Complete protocol-version-specific `_meta` validation begins with MCP 2025-06-18. <a id="req-legacy-validation-scope"></a> <span class="mcpdesc-rule-links" data-anchor="req-legacy-validation-scope" data-layout="inline"><small><a href="/docs/rules/0.9.0-rc.1/mcpdesc/legacy-protocol-validation-scope#required-by" title="This requirement is part of rule: mcpdesc.legacy-protocol.validation-scope"><code>&lt;req-legacy-validation-scope&gt;</code></a></small></span>  For the recognized legacy compatibility protocol versions MCP 2024-11-05 and MCP 2025-03-26, validators MUST apply sound structural and selected checks, SHOULD warn that validation is incomplete, and MUST NOT report partial validation as complete MCP semantic conformance.
 
 <a id="req-implementation-recommendations"></a>A conforming implementation SHOULD:
 

@@ -586,7 +586,7 @@ function buildRequirementMarkers(rules, specPages) {
 
   for (const [pagePath, anchors] of markersByPage) {
     let markdown = (specPages.get(pagePath) ?? readFileSync(pagePath, 'utf8'))
-      .replace(/[ \t]*(?:<br\s*\/?>[ \t]*)?<span class="mcpdesc-rule-links" data-anchor="[^"]+">[\s\S]*?<\/span>(?:[ \t]*<br\s*\/?>)?/g, '');
+      .replace(/[ \t]*(?:<br\s*\/?>[ \t]*)?<span class="mcpdesc-rule-links"[^>]*>[\s\S]*?<\/span>(?:[ \t]*<br\s*\/?>)?/g, '');
     const anchorMatches = [...markdown.matchAll(/<a id="(req-[a-z0-9-]+)"><\/a>/g)];
     const insertions = new Map();
     for (const [anchor, rulesForAnchor] of anchors) {
@@ -600,7 +600,7 @@ function buildRequirementMarkers(rules, specPages) {
       const standalone = !lineTail.trim() || /^(?:\s*\|\s*|\s*```|\s*!\[)/.test(lineTail);
       const marker = standalone
         ? `<span class="mcpdesc-rule-links" data-anchor="${anchor}"><br><small>${links}</small><br></span>`
-        : ` <span class="mcpdesc-rule-links" data-anchor="${anchor}"><small>${links}</small></span> `;
+        : ` <span class="mcpdesc-rule-links" data-anchor="${anchor}" data-layout="inline"><small>${links}</small></span> `;
       insertions.set(position, [...(insertions.get(position) ?? []), marker]);
     }
     for (const [position, markers] of [...insertions].sort(([left], [right]) => right - left)) {

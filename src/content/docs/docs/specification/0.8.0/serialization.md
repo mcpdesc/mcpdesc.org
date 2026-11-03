@@ -6,8 +6,6 @@ sidebar:
   order: 15
 ---
 
-## 15. Serialization
-
 ### 15.1 Conforming Serializations
 
 An MCP Description MAY be serialized as JSON or as restricted YAML. Both serializations decode to the single JSON-compatible MCP Description data model defined in Section 3.1 and use the same JSON Schema and semantic-validation requirements.

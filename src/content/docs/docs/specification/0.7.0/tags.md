@@ -6,8 +6,6 @@ sidebar:
   order: 12
 ---
 
-## 12. Tags
-
 The root-level `tags` array defines a flat list of tags for the MCP server. It is OPTIONAL.
 
 When present, `tags` declares all valid tags that MAY be referenced by tools, resources, resource templates, and prompts. The array order determines display priority — tags appearing earlier in the array SHOULD be presented first in UIs and documentation.

@@ -13,6 +13,10 @@ html.rules-hidden .mcpdesc-rule-links {
   display: none !important;
 }
 
+.mcpdesc-rule-links[data-layout='inline'] {
+  display: block;
+}
+
 /* Brand tokens shared across marketing pages. */
 @theme {
   --color-brand: oklch(0.55 0.18 265);

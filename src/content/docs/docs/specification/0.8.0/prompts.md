@@ -6,8 +6,6 @@ sidebar:
   order: 11
 ---
 
-## 11. Prompts
-
 The `prompts` array declares the prompt templates exposed by the MCP server. Each prompt is a server-side template that clients can invoke with arguments to generate messages.
 
 ### 11.1 Prompt Object

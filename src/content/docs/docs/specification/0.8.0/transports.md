@@ -6,8 +6,6 @@ sidebar:
   order: 6
 ---
 
-## 6. Transports
-
 The optional `transports` property declares one or more communication mechanisms for the MCP server. When present, it MUST contain at least one Transport Object. Omission means that the document declares no connection mechanism; it MUST NOT be interpreted as proof that the server has no transport.
 
 ### 6.1 Overview

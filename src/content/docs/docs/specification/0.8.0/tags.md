@@ -6,8 +6,6 @@ sidebar:
   order: 13
 ---
 
-## 13. Tags
-
 The root-level `tags` array defines a flat, document-wide tag catalogue for the MCP server. It is OPTIONAL and MUST be non-empty when present. Tags are supplemental MCP Description metadata; they are not fields defined by the MCP protocol.
 
 When present, `tags` declares all valid tags that MAY be referenced by tools, resources, resource templates, and prompts. The array order determines display priority — tags appearing earlier in the array SHOULD be presented first in UIs and documentation.

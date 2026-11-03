@@ -6,8 +6,6 @@ sidebar:
   order: 10
 ---
 
-## 10. Resources and Resource Templates
-
 ### 10.1 Resources
 
 The `resources` array declares the static resources exposed by the MCP server. Each resource represents a data source identified by a URI.

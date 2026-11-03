@@ -6,8 +6,6 @@ sidebar:
   order: 5
 ---
 
-## 5. Info Object
-
 The `info` object provides metadata about the MCP server. It is REQUIRED.
 
 The `info` object combines OpenAPI-style metadata (`contact`, `license`) with fields from the MCP `Implementation` type used for server identity. The MCP-sourced fields — `name`, `title`, `description`, `version`, `icons`, and `websiteUrl` — allow an MCP Description document to represent server identity metadata that may also be advertised at runtime.

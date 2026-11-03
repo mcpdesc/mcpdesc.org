@@ -6,8 +6,6 @@ sidebar:
   order: 14
 ---
 
-## 14. Specification Extensions
-
 MCP Description documents support vendor-specific metadata through specification extensions on explicitly eligible semantic objects.
 
 ### 14.1 Extension Naming

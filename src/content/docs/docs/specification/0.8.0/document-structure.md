@@ -6,8 +6,6 @@ sidebar:
   order: 3
 ---
 
-## 3. Document Structure
-
 ### 3.1 Format
 
 An MCP Description document is a JSON-compatible data model composed only of objects whose property names are strings, arrays, strings, finite JSON numbers, booleans, and null. Its semantic meaning is defined by this data model independently of whether it is serialized as JSON or YAML.

@@ -6,8 +6,6 @@ sidebar:
   order: 9
 ---
 
-## 9. Tools
-
 The `tools` array declares the tools exposed by the MCP server. Each tool represents a server-side function that clients can invoke.
 
 ### 9.1 Tool Object

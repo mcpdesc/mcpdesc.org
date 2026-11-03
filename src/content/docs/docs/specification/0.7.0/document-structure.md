@@ -6,8 +6,6 @@ sidebar:
   order: 3
 ---
 
-## 3. Document Structure
-
 ### 3.1 Format
 
 An MCP Description document MUST be a JSON document encoded in UTF-8.

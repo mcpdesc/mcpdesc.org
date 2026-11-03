@@ -6,8 +6,6 @@ sidebar:
   order: 6
 ---
 
-## 6. Transports
-
 The `transports` property declares one or more communication mechanisms supported by the MCP server. It is REQUIRED and MUST contain at least one transport object.
 
 ### 6.1 Overview

@@ -50,13 +50,19 @@ export function buildDocsNavigation(entries: CollectionEntry<'docs'>[], version:
     'docs/using-with-ai', 'docs/governance', 'docs/attribution', 'docs/privacy', 'docs/faq'];
   sidebar.push(group('MCP Description', shared.flatMap((id) => entries.filter((entry) => entry.id === id))));
   if (version !== '0.7.0') {
-    const guides = ordered(entries.filter((entry) => entry.id.startsWith(`${specPrefix}/guides`) ||
-      (entry.id.startsWith(`${specPrefix}/`) && entry.id.includes('/migration-'))));
+    const validationGuideId = `${specPrefix}/guides/understanding-mcp-protocol-versions`;
+    const guides = ordered(entries.filter((entry) =>
+      (entry.id.startsWith(`${specPrefix}/guides`) && entry.id !== validationGuideId) ||
+      (entry.id.startsWith(`${specPrefix}/`) && entry.id.includes('/migration-')),
+    ));
     if (guides.length) sidebar.push(group('Guides', guides));
   }
   const rulesPrefix = `docs/rules/${version}`;
   const rules = entries.filter((entry) => entry.id === rulesPrefix || entry.id.startsWith(`${rulesPrefix}/`));
   if (rules.length) {
+    const overview = rules.find((entry) => entry.id === rulesPrefix);
+    const validationGuide = entries.find((entry) => entry.id === `docs/specification/${version}/guides/understanding-mcp-protocol-versions`);
+    const revisions = rules.find((entry) => entry.id === `${rulesPrefix}/revisions`);
     const owners = ([['mcp', 'MCP'], ['json-schema', 'JSON Schema'], ['mcpdesc', 'mcpdesc']] as const).flatMap(([owner, label]) => {
       const ownerRules = rules.filter((entry) => entry.id.startsWith(`${rulesPrefix}/${owner}/`))
         .sort((left, right) => (left.data.sidebar?.label ?? left.data.title).localeCompare(right.data.sidebar?.label ?? right.data.title));
@@ -67,7 +73,12 @@ export function buildDocsNavigation(entries: CollectionEntry<'docs'>[], version:
     });
     sidebar.push({
       type: 'group', label: 'Validation Rules', collapsed: true, badge: undefined,
-      entries: [...ordered(rules.filter((entry) => [rulesPrefix, `${rulesPrefix}/revisions`, `${rulesPrefix}/unchecked`].includes(entry.id))).map(link), ...owners],
+      entries: [
+        ...(overview ? [link(overview)] : []),
+        ...(validationGuide ? [link(validationGuide)] : []),
+        ...(revisions ? [link(revisions)] : []),
+        ...owners,
+      ],
     });
   }
   if (specifications.length) sidebar.push(group('Specifications', specifications));
