@@ -27,8 +27,8 @@ Every protocol version at the root is covered by at least one transport when tra
 ## Required by
 
 - **MCP Description 0.9.0, Section 6.5**
-  - [/docs/specification/0.9.0-rc.1/transports#req-transport-coverage](/docs/specification/0.9.0-rc.1/transports#req-transport-coverage)
-  - [/docs/specification/0.9.0-rc.1/transports#req-transport-coverage-omitted](/docs/specification/0.9.0-rc.1/transports#req-transport-coverage-omitted)
+  - 6. Transports: [req-transport-coverage](https://mcpdesc.org/docs/specification/0.9.0-rc.1/transports#req-transport-coverage)
+  - 6. Transports: [req-transport-coverage-omitted](https://mcpdesc.org/docs/specification/0.9.0-rc.1/transports#req-transport-coverage-omitted)
 
 
 

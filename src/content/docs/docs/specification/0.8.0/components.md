@@ -6,8 +6,6 @@ sidebar:
   order: 17
 ---
 
-## 17. Reusable Components and Local References
-
 ### 17.1 Components Object
 
 The root MCP Description Object MAY contain a `components` property. A Components Object MUST contain at least one property when present and MAY contain these typed namespace maps:

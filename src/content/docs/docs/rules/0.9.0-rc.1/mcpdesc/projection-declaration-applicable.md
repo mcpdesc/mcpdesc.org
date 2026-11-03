@@ -30,7 +30,7 @@ Native projection selects one declaration of the requested kind and identifier i
 ## Required by
 
 - **MCP Description 0.9.0, Section 4.14, step 3**
-  - [/docs/specification/0.9.0-rc.1/versioning#req-native-projection-declaration-applicable](/docs/specification/0.9.0-rc.1/versioning#req-native-projection-declaration-applicable)
+  - 4. Versioning: [req-native-projection-declaration-applicable](https://mcpdesc.org/docs/specification/0.9.0-rc.1/versioning#req-native-projection-declaration-applicable)
 
 
 

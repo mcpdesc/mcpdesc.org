@@ -28,14 +28,14 @@ Completed example results have the required members and member types of the MCP 
 ## Required by
 
 - **MCP Description 0.9.0, Sections 3.6, 9.3, 10.4.4, and 11.3**
-  - [/docs/specification/0.9.0-rc.1/document-structure#req-carried-defined-fields](/docs/specification/0.9.0-rc.1/document-structure#req-carried-defined-fields)
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-example-result-shape](/docs/specification/0.9.0-rc.1/tools#req-tool-example-result-shape)
-  - [/docs/specification/0.9.0-rc.1/resources#req-resource-example-result-shape](/docs/specification/0.9.0-rc.1/resources#req-resource-example-result-shape)
-  - [/docs/specification/0.9.0-rc.1/prompts#req-prompt-example-result-shape](/docs/specification/0.9.0-rc.1/prompts#req-prompt-example-result-shape)
-  - [/docs/specification/0.9.0-rc.1/document-structure#req-completed-result-fields](/docs/specification/0.9.0-rc.1/document-structure#req-completed-result-fields)
-  - [/docs/specification/0.9.0-rc.1/resources#req-resource-example-contents](/docs/specification/0.9.0-rc.1/resources#req-resource-example-contents)
-  - [/docs/specification/0.9.0-rc.1/resources#req-template-completion-result](/docs/specification/0.9.0-rc.1/resources#req-template-completion-result)
-  - [/docs/specification/0.9.0-rc.1/prompts#req-prompt-completion-result](/docs/specification/0.9.0-rc.1/prompts#req-prompt-completion-result)
+  - 3. Document Structure: [req-carried-defined-fields](https://mcpdesc.org/docs/specification/0.9.0-rc.1/document-structure#req-carried-defined-fields)
+  - 9. Tools: [req-tool-example-result-shape](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-example-result-shape)
+  - 10. Resources and Resource Templates: [req-resource-example-result-shape](https://mcpdesc.org/docs/specification/0.9.0-rc.1/resources#req-resource-example-result-shape)
+  - 11. Prompts: [req-prompt-example-result-shape](https://mcpdesc.org/docs/specification/0.9.0-rc.1/prompts#req-prompt-example-result-shape)
+  - 3. Document Structure: [req-completed-result-fields](https://mcpdesc.org/docs/specification/0.9.0-rc.1/document-structure#req-completed-result-fields)
+  - 10. Resources and Resource Templates: [req-resource-example-contents](https://mcpdesc.org/docs/specification/0.9.0-rc.1/resources#req-resource-example-contents)
+  - 10. Resources and Resource Templates: [req-template-completion-result](https://mcpdesc.org/docs/specification/0.9.0-rc.1/resources#req-template-completion-result)
+  - 11. Prompts: [req-prompt-completion-result](https://mcpdesc.org/docs/specification/0.9.0-rc.1/prompts#req-prompt-completion-result)
 
 ## Based on
 

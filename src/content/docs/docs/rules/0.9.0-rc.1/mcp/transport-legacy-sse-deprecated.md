@@ -30,7 +30,7 @@ Legacy HTTP+SSE associated with MCP 2025-03-26 or later is reported, because Str
 ## Required by
 
 - **MCP Description 0.9.0, Section 6.2**
-  - [/docs/specification/0.9.0-rc.1/transports#req-transport-legacy-sse-warning](/docs/specification/0.9.0-rc.1/transports#req-transport-legacy-sse-warning)
+  - 6. Transports: [req-transport-legacy-sse-warning](https://mcpdesc.org/docs/specification/0.9.0-rc.1/transports#req-transport-legacy-sse-warning)
 
 ## Based on
 

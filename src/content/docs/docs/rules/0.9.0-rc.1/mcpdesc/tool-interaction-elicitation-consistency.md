@@ -30,8 +30,8 @@ An elicitation step matches the Tool's named Elicitation Declaration, and its re
 ## Required by
 
 - **MCP Description 0.9.0, Section 9.4**
-  - [/docs/specification/0.9.0-rc.1/tools#req-interaction-elicitation-declaration](/docs/specification/0.9.0-rc.1/tools#req-interaction-elicitation-declaration)
-  - [/docs/specification/0.9.0-rc.1/tools#req-interaction-elicitation-response](/docs/specification/0.9.0-rc.1/tools#req-interaction-elicitation-response)
+  - 9. Tools: [req-interaction-elicitation-declaration](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-interaction-elicitation-declaration)
+  - 9. Tools: [req-interaction-elicitation-response](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-interaction-elicitation-response)
 
 ## Based on
 

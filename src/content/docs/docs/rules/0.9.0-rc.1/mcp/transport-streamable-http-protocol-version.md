@@ -30,7 +30,7 @@ Streamable HTTP is used only from MCP 2025-03-26.
 ## Required by
 
 - **MCP Description 0.9.0, Section 6.2**
-  - [/docs/specification/0.9.0-rc.1/transports#req-transport-streamable-http-protocol-versions](/docs/specification/0.9.0-rc.1/transports#req-transport-streamable-http-protocol-versions)
+  - 6. Transports: [req-transport-streamable-http-protocol-versions](https://mcpdesc.org/docs/specification/0.9.0-rc.1/transports#req-transport-streamable-http-protocol-versions)
 
 ## Based on
 

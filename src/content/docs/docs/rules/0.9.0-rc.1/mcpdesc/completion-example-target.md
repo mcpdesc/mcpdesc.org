@@ -27,8 +27,8 @@ A completion example completes a declared Prompt argument or URI template variab
 ## Required by
 
 - **MCP Description 0.9.0, Sections 10.4.6 and 11.4**
-  - [/docs/specification/0.9.0-rc.1/resources#req-template-completion-target](/docs/specification/0.9.0-rc.1/resources#req-template-completion-target)
-  - [/docs/specification/0.9.0-rc.1/prompts#req-prompt-completion-target](/docs/specification/0.9.0-rc.1/prompts#req-prompt-completion-target)
+  - 10. Resources and Resource Templates: [req-template-completion-target](https://mcpdesc.org/docs/specification/0.9.0-rc.1/resources#req-template-completion-target)
+  - 11. Prompts: [req-prompt-completion-target](https://mcpdesc.org/docs/specification/0.9.0-rc.1/prompts#req-prompt-completion-target)
 
 ## Based on
 

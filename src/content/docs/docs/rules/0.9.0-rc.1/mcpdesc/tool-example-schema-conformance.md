@@ -30,8 +30,8 @@ A Tool example input validates against inputSchema, and its structuredContent ag
 ## Required by
 
 - **MCP Description 0.9.0, Sections 9.2, 9.3, and 9.4**
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-example-input-valid](/docs/specification/0.9.0-rc.1/tools#req-tool-example-input-valid)
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-example-incomplete-validation](/docs/specification/0.9.0-rc.1/tools#req-tool-example-incomplete-validation)
+  - 9. Tools: [req-tool-example-input-valid](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-example-input-valid)
+  - 9. Tools: [req-tool-example-incomplete-validation](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-example-incomplete-validation)
 
 ## Based on
 

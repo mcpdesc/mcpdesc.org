@@ -28,8 +28,8 @@ Resource size, in a declaration and in resource link content, is an integer when
 ## Required by
 
 - **MCP Description 0.9.0, Sections 3.6 and 10.1.1**
-  - [/docs/specification/0.9.0-rc.1/resources#req-resource-size-integer](/docs/specification/0.9.0-rc.1/resources#req-resource-size-integer)
-  - [/docs/specification/0.9.0-rc.1/document-structure#req-mcp-integer-numbers](/docs/specification/0.9.0-rc.1/document-structure#req-mcp-integer-numbers)
+  - 10. Resources and Resource Templates: [req-resource-size-integer](https://mcpdesc.org/docs/specification/0.9.0-rc.1/resources#req-resource-size-integer)
+  - 3. Document Structure: [req-mcp-integer-numbers](https://mcpdesc.org/docs/specification/0.9.0-rc.1/document-structure#req-mcp-integer-numbers)
 - **Proposal 0029, Integer MCP Numbers**
   - [proposal-snapshots/0029-integer-mcp-numbers.md](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0-rc.1/spec/draft/proposal-snapshots/0029-integer-mcp-numbers.md)
 

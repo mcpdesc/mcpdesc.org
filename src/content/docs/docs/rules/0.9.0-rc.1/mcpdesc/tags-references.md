@@ -27,14 +27,14 @@ Root tag names are unique, and primitives reference only declared tags.
 ## Required by
 
 - **MCP Description 0.9.0, Sections 13.2 and 13.3**
-  - [/docs/specification/0.9.0-rc.1/tags#req-tags-unique](/docs/specification/0.9.0-rc.1/tags#req-tags-unique)
-  - [/docs/specification/0.9.0-rc.1/tags#req-tags-references](/docs/specification/0.9.0-rc.1/tags#req-tags-references)
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-tags-references](/docs/specification/0.9.0-rc.1/tools#req-tool-tags-references)
-  - [/docs/specification/0.9.0-rc.1/resources#req-resource-tags-references](/docs/specification/0.9.0-rc.1/resources#req-resource-tags-references)
-  - [/docs/specification/0.9.0-rc.1/resources#req-resource-template-tags-references](/docs/specification/0.9.0-rc.1/resources#req-resource-template-tags-references)
-  - [/docs/specification/0.9.0-rc.1/prompts#req-prompt-tags-references](/docs/specification/0.9.0-rc.1/prompts#req-prompt-tags-references)
-  - [/docs/specification/0.9.0-rc.1/tags#req-tag-name-unique](/docs/specification/0.9.0-rc.1/tags#req-tag-name-unique)
-  - [/docs/specification/0.9.0-rc.1/tags#req-tags-undeclared-error](/docs/specification/0.9.0-rc.1/tags#req-tags-undeclared-error)
+  - 13. Tags: [req-tags-unique](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tags#req-tags-unique)
+  - 13. Tags: [req-tags-references](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tags#req-tags-references)
+  - 9. Tools: [req-tool-tags-references](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-tags-references)
+  - 10. Resources and Resource Templates: [req-resource-tags-references](https://mcpdesc.org/docs/specification/0.9.0-rc.1/resources#req-resource-tags-references)
+  - 10. Resources and Resource Templates: [req-resource-template-tags-references](https://mcpdesc.org/docs/specification/0.9.0-rc.1/resources#req-resource-template-tags-references)
+  - 11. Prompts: [req-prompt-tags-references](https://mcpdesc.org/docs/specification/0.9.0-rc.1/prompts#req-prompt-tags-references)
+  - 13. Tags: [req-tag-name-unique](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tags#req-tag-name-unique)
+  - 13. Tags: [req-tags-undeclared-error](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tags#req-tags-undeclared-error)
 
 
 

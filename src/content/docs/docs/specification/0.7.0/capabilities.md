@@ -6,8 +6,6 @@ sidebar:
   order: 8
 ---
 
-## 8. Capabilities
-
 The `capabilities` object declares the server's supported features as reported during MCP initialization. It is OPTIONAL.
 
 ### 8.1 Overview

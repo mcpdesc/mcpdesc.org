@@ -27,7 +27,7 @@ A Prompt example supplies every required Prompt argument and no undeclared argum
 ## Required by
 
 - **MCP Description 0.9.0, Section 11.3**
-  - [/docs/specification/0.9.0-rc.1/prompts#req-prompt-example-arguments](/docs/specification/0.9.0-rc.1/prompts#req-prompt-example-arguments)
+  - 11. Prompts: [req-prompt-example-arguments](https://mcpdesc.org/docs/specification/0.9.0-rc.1/prompts#req-prompt-example-arguments)
 
 ## Based on
 

@@ -6,8 +6,6 @@ sidebar:
   order: 13
 ---
 
-## 13. Specification Extensions
-
 MCP Description documents support vendor-specific metadata through specification extensions.
 
 ### 13.1 Extension Naming

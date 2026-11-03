@@ -27,10 +27,10 @@ An example result is a completed result payload: it contains no JSON-RPC envelop
 ## Required by
 
 - **MCP Description 0.9.0, Sections 3.6, 9.3, 10.4.4, 10.4.6, 11.3, and 11.4**
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-example-completed-form](/docs/specification/0.9.0-rc.1/tools#req-tool-example-completed-form)
-  - [/docs/specification/0.9.0-rc.1/resources#req-resource-example-completed-form](/docs/specification/0.9.0-rc.1/resources#req-resource-example-completed-form)
-  - [/docs/specification/0.9.0-rc.1/prompts#req-prompt-example-completed-form](/docs/specification/0.9.0-rc.1/prompts#req-prompt-example-completed-form)
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-example-not-interaction](/docs/specification/0.9.0-rc.1/tools#req-tool-example-not-interaction)
+  - 9. Tools: [req-tool-example-completed-form](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-example-completed-form)
+  - 10. Resources and Resource Templates: [req-resource-example-completed-form](https://mcpdesc.org/docs/specification/0.9.0-rc.1/resources#req-resource-example-completed-form)
+  - 11. Prompts: [req-prompt-example-completed-form](https://mcpdesc.org/docs/specification/0.9.0-rc.1/prompts#req-prompt-example-completed-form)
+  - 9. Tools: [req-tool-example-not-interaction](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-example-not-interaction)
 
 ## Based on
 

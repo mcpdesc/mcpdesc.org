@@ -6,8 +6,6 @@ sidebar:
   order: 15
 ---
 
-## 15. Conformance
-
 ### 15.1 Document Conformance
 
 A conforming MCP Description document MUST:

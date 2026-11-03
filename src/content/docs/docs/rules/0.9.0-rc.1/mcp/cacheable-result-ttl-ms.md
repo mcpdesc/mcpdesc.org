@@ -28,8 +28,8 @@ ttlMs in a Resource example result is a non-negative integer when present.
 ## Required by
 
 - **MCP Description 0.9.0, Sections 3.6 and 10.4.4**
-  - [/docs/specification/0.9.0-rc.1/document-structure#req-mcp-integer-numbers](/docs/specification/0.9.0-rc.1/document-structure#req-mcp-integer-numbers)
-  - [/docs/specification/0.9.0-rc.1/resources#req-resource-example-result-shape](/docs/specification/0.9.0-rc.1/resources#req-resource-example-result-shape)
+  - 3. Document Structure: [req-mcp-integer-numbers](https://mcpdesc.org/docs/specification/0.9.0-rc.1/document-structure#req-mcp-integer-numbers)
+  - 10. Resources and Resource Templates: [req-resource-example-result-shape](https://mcpdesc.org/docs/specification/0.9.0-rc.1/resources#req-resource-example-result-shape)
 - **Proposal 0029, Integer MCP Numbers**
   - [proposal-snapshots/0029-integer-mcp-numbers.md](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0-rc.1/spec/draft/proposal-snapshots/0029-integer-mcp-numbers.md)
 

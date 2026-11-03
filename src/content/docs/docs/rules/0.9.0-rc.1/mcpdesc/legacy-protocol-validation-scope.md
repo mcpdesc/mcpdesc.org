@@ -30,9 +30,9 @@ A document applying to MCP 2024-11-05 or 2025-03-26 is reported as receiving str
 ## Required by
 
 - **MCP Description 0.9.0, Sections 3.5 and 16.2; Proposal 0024, Section 4.1**
-  - [/docs/specification/0.9.0-rc.1/conformance#req-legacy-validation-scope](/docs/specification/0.9.0-rc.1/conformance#req-legacy-validation-scope)
+  - 16. Conformance: [req-legacy-validation-scope](https://mcpdesc.org/docs/specification/0.9.0-rc.1/conformance#req-legacy-validation-scope)
   - [proposal-snapshots/0024-validation-rule-identity-and-provenance.md](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0-rc.1/spec/draft/proposal-snapshots/0024-validation-rule-identity-and-provenance.md)
-  - [/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-legacy-incomplete](/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-legacy-incomplete)
+  - 12. Elicitation Declarations: [req-elicitation-legacy-incomplete](https://mcpdesc.org/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-legacy-incomplete)
 
 
 

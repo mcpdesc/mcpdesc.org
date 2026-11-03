@@ -30,7 +30,7 @@ A sampling request uses tools and toolChoice only from MCP 2025-11-25.
 ## Required by
 
 - **MCP Description 0.9.0, Section 9.4**
-  - [/docs/specification/0.9.0-rc.1/tools#req-interaction-sampling-protocol-version](/docs/specification/0.9.0-rc.1/tools#req-interaction-sampling-protocol-version)
+  - 9. Tools: [req-interaction-sampling-protocol-version](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-interaction-sampling-protocol-version)
 
 ## Based on
 

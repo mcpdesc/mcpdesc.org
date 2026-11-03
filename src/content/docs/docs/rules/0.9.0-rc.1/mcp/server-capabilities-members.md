@@ -31,9 +31,9 @@ A server Capabilities Object contains only the capabilities the applicable MCP p
 ## Required by
 
 - **MCP Description 0.9.0, Sections 8.2 and 8.4**
-  - [/docs/specification/0.9.0-rc.1/capabilities#req-capabilities-closed](/docs/specification/0.9.0-rc.1/capabilities#req-capabilities-closed)
-  - [/docs/specification/0.9.0-rc.1/capabilities#req-extensions-identifier-form](/docs/specification/0.9.0-rc.1/capabilities#req-extensions-identifier-form)
-  - [/docs/specification/0.9.0-rc.1/specification-extensions#req-extension-ineligible-locations](/docs/specification/0.9.0-rc.1/specification-extensions#req-extension-ineligible-locations)
+  - 8. Capabilities: [req-capabilities-closed](https://mcpdesc.org/docs/specification/0.9.0-rc.1/capabilities#req-capabilities-closed)
+  - 8. Capabilities: [req-extensions-identifier-form](https://mcpdesc.org/docs/specification/0.9.0-rc.1/capabilities#req-extensions-identifier-form)
+  - 14. Specification Extensions: [req-extension-ineligible-locations](https://mcpdesc.org/docs/specification/0.9.0-rc.1/specification-extensions#req-extension-ineligible-locations)
 
 ## Based on
 

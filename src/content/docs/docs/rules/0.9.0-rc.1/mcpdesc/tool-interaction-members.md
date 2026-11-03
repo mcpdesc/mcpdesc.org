@@ -28,10 +28,10 @@ Interaction examples and steps have their required members, a known step type, a
 ## Required by
 
 - **MCP Description 0.9.0, Section 9.4**
-  - [/docs/specification/0.9.0-rc.1/tools#req-interaction-example-fields](/docs/specification/0.9.0-rc.1/tools#req-interaction-example-fields)
-  - [/docs/specification/0.9.0-rc.1/tools#req-interaction-step-fields](/docs/specification/0.9.0-rc.1/tools#req-interaction-step-fields)
-  - [/docs/specification/0.9.0-rc.1/tools#req-interaction-examples-map](/docs/specification/0.9.0-rc.1/tools#req-interaction-examples-map)
-  - [/docs/specification/0.9.0-rc.1/tools#req-interaction-step-closed](/docs/specification/0.9.0-rc.1/tools#req-interaction-step-closed)
+  - 9. Tools: [req-interaction-example-fields](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-interaction-example-fields)
+  - 9. Tools: [req-interaction-step-fields](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-interaction-step-fields)
+  - 9. Tools: [req-interaction-examples-map](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-interaction-examples-map)
+  - 9. Tools: [req-interaction-step-closed](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-interaction-step-closed)
 
 
 

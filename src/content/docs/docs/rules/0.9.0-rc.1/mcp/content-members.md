@@ -28,10 +28,10 @@ Content blocks and resource contents match exactly one MCP content type, with it
 ## Required by
 
 - **MCP Description 0.9.0, Section 3.6**
-  - [/docs/specification/0.9.0-rc.1/document-structure#req-carried-defined-fields](/docs/specification/0.9.0-rc.1/document-structure#req-carried-defined-fields)
-  - [/docs/specification/0.9.0-rc.1/document-structure#req-carried-closed-reject](/docs/specification/0.9.0-rc.1/document-structure#req-carried-closed-reject)
-  - [/docs/specification/0.9.0-rc.1/resources#req-resource-annotations-not-in-examples](/docs/specification/0.9.0-rc.1/resources#req-resource-annotations-not-in-examples)
-  - [/docs/specification/0.9.0-rc.1/resources#req-resource-contents-fields](/docs/specification/0.9.0-rc.1/resources#req-resource-contents-fields)
+  - 3. Document Structure: [req-carried-defined-fields](https://mcpdesc.org/docs/specification/0.9.0-rc.1/document-structure#req-carried-defined-fields)
+  - 3. Document Structure: [req-carried-closed-reject](https://mcpdesc.org/docs/specification/0.9.0-rc.1/document-structure#req-carried-closed-reject)
+  - 10. Resources and Resource Templates: [req-resource-annotations-not-in-examples](https://mcpdesc.org/docs/specification/0.9.0-rc.1/resources#req-resource-annotations-not-in-examples)
+  - 10. Resources and Resource Templates: [req-resource-contents-fields](https://mcpdesc.org/docs/specification/0.9.0-rc.1/resources#req-resource-contents-fields)
 
 ## Based on
 

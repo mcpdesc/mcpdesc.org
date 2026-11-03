@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.1] - 2026-11-03
+
+### Added
+
+- **Validation rule visibility control.** Specification pages with validation-rule references now let readers show or hide those inline links.
+
+### Changed
+
+- **Validation rule cross-links.** Rule pages identify each referenced requirement by its specification section and link directly to it; specification requirement links now lead to the corresponding rule's "Required by" section.
+- **Specification section headings.** Removed the duplicate body heading from mirrored section pages; the page title remains the single section heading.
+- **Validation Rules navigation.** Moved "How validation works" from Guides to follow the Validation Rules overview, and hid the Unchecked Requirements link from the sidebar and overview while retaining its direct page.
+- **Requirement-reference layout.** Inline validation-rule references now appear on a separate line; hiding them restores the surrounding text flow.
+
 ## [1.3.0] - 2026-11-02
 
 ### Added

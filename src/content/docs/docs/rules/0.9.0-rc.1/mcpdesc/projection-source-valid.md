@@ -30,8 +30,8 @@ Native projection starts from a document without validation errors and from a pr
 ## Required by
 
 - **MCP Description 0.9.0, Section 4.14, steps 1 and 2**
-  - [/docs/specification/0.9.0-rc.1/versioning#req-native-projection-source-valid](/docs/specification/0.9.0-rc.1/versioning#req-native-projection-source-valid)
-  - [/docs/specification/0.9.0-rc.1/versioning#req-native-projection-protocol-version-declared](/docs/specification/0.9.0-rc.1/versioning#req-native-projection-protocol-version-declared)
+  - 4. Versioning: [req-native-projection-source-valid](https://mcpdesc.org/docs/specification/0.9.0-rc.1/versioning#req-native-projection-source-valid)
+  - 4. Versioning: [req-native-projection-protocol-version-declared](https://mcpdesc.org/docs/specification/0.9.0-rc.1/versioning#req-native-projection-protocol-version-declared)
 
 
 

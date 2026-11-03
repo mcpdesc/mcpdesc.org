@@ -6,8 +6,6 @@ sidebar:
   order: 4
 ---
 
-## 4. Versioning
-
 ### 4.1 The `mcpdesc` Field
 
 Every MCP Description document MUST include a `mcpdesc` property at the root level. This property declares which version of this specification the document conforms to.

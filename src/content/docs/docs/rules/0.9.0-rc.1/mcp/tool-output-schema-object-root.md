@@ -30,7 +30,7 @@ Before MCP 2026-07-28, a Tool outputSchema describes an object: a literal type "
 ## Required by
 
 - **MCP Description 0.9.0, Section 9.2**
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-output-schema-object-root](/docs/specification/0.9.0-rc.1/tools#req-tool-output-schema-object-root)
+  - 9. Tools: [req-tool-output-schema-object-root](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-output-schema-object-root)
 
 ## Based on
 

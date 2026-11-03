@@ -6,8 +6,6 @@ sidebar:
   order: 7
 ---
 
-## 7. Security
-
 The `security` property declares the authentication and authorization schemes supported by the server. It is OPTIONAL.
 
 ### 7.1 Overview

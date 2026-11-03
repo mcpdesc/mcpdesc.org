@@ -6,8 +6,6 @@ sidebar:
   order: 1
 ---
 
-## 1. Introduction
-
 ### 1.1 Purpose
 
 The MCP Description Specification defines a standard format for describing the capabilities of a Model Context Protocol (MCP) server as a static, curated document.

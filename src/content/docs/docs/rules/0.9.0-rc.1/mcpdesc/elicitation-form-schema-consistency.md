@@ -27,10 +27,10 @@ A form requestedSchema is internally consistent: required names declared propert
 ## Required by
 
 - **MCP Description 0.9.0, Section 12.3**
-  - [/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-form-required](/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-form-required)
-  - [/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-form-enum-names](/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-form-enum-names)
-  - [/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-form-defaults](/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-form-defaults)
-  - [/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-form-ranges](/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-form-ranges)
+  - 12. Elicitation Declarations: [req-elicitation-form-required](https://mcpdesc.org/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-form-required)
+  - 12. Elicitation Declarations: [req-elicitation-form-enum-names](https://mcpdesc.org/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-form-enum-names)
+  - 12. Elicitation Declarations: [req-elicitation-form-defaults](https://mcpdesc.org/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-form-defaults)
+  - 12. Elicitation Declarations: [req-elicitation-form-ranges](https://mcpdesc.org/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-form-ranges)
 
 ## Based on
 

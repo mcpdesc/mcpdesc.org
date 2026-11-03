@@ -27,9 +27,9 @@ Resource example contents agree with their declaration: the requested URI is ret
 ## Required by
 
 - **MCP Description 0.9.0, Section 10.4.4**
-  - [/docs/specification/0.9.0-rc.1/resources#req-resource-example-requested-uri](/docs/specification/0.9.0-rc.1/resources#req-resource-example-requested-uri)
-  - [/docs/specification/0.9.0-rc.1/resources#req-resource-example-mime-type](/docs/specification/0.9.0-rc.1/resources#req-resource-example-mime-type)
-  - [/docs/specification/0.9.0-rc.1/resources#req-resource-example-size](/docs/specification/0.9.0-rc.1/resources#req-resource-example-size)
+  - 10. Resources and Resource Templates: [req-resource-example-requested-uri](https://mcpdesc.org/docs/specification/0.9.0-rc.1/resources#req-resource-example-requested-uri)
+  - 10. Resources and Resource Templates: [req-resource-example-mime-type](https://mcpdesc.org/docs/specification/0.9.0-rc.1/resources#req-resource-example-mime-type)
+  - 10. Resources and Resource Templates: [req-resource-example-size](https://mcpdesc.org/docs/specification/0.9.0-rc.1/resources#req-resource-example-size)
 
 
 

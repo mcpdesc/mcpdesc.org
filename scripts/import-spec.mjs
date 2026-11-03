@@ -177,11 +177,17 @@ function stripTitleHeading(body) {
   return body.replace(/^#\s+.*\r?\n+/, '');
 }
 
+function stripSectionTitleHeading(body, title) {
+  const heading = body.match(/^##[ \t]+([^\r\n]+)\r?\n+/);
+  return heading?.[1].trim() === title ? body.slice(heading[0].length) : body;
+}
+
 mkdirSync(OUT_DIR, { recursive: true });
 
 for (const { num, slug, raw } of parsed) {
   const title = pageTitle(raw);
-  const body = rewriteLinks(raw.trimEnd(), slug).replace(/^---\r?\n/, '***\n');
+  const sectionBody = stripSectionTitleHeading(raw.trimEnd(), title);
+  const body = rewriteLinks(sectionBody, slug).replace(/^---\r?\n/, '***\n');
 
   const frontmatter =
     `---\n` +

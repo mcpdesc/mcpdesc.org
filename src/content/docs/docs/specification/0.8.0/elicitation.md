@@ -6,8 +6,6 @@ sidebar:
   order: 12
 ---
 
-## 12. Elicitation Declarations
-
 ### 12.1 Purpose and Placement
 
 An Elicitation Declaration documents that fulfillment of a Tool, Resource, Resource Template, or Prompt may require additional interaction with the user through the MCP client.

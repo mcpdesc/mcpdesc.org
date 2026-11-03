@@ -30,7 +30,7 @@ When a Tool declares outputSchema, a successful result contains structuredConten
 ## Required by
 
 - **MCP Description 0.9.0, Section 9.3**
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-example-structured-content](/docs/specification/0.9.0-rc.1/tools#req-tool-example-structured-content)
+  - 9. Tools: [req-tool-example-structured-content](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-example-structured-content)
 
 ## Based on
 

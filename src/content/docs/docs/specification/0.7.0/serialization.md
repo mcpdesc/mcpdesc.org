@@ -6,8 +6,6 @@ sidebar:
   order: 14
 ---
 
-## 14. Serialization
-
 ### 14.1 JSON Format
 
 An MCP Description document MUST be serialized as a JSON document conforming to [RFC 8259](https://www.rfc-editor.org/rfc/rfc8259).

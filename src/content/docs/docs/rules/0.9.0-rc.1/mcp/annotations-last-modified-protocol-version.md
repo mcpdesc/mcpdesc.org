@@ -30,7 +30,7 @@ Resource Annotations carry lastModified only from MCP 2025-06-18, on declaration
 ## Required by
 
 - **MCP Description 0.9.0, Section 10.3**
-  - [/docs/specification/0.9.0-rc.1/resources#req-resource-annotations-last-modified](/docs/specification/0.9.0-rc.1/resources#req-resource-annotations-last-modified)
+  - 10. Resources and Resource Templates: [req-resource-annotations-last-modified](https://mcpdesc.org/docs/specification/0.9.0-rc.1/resources#req-resource-annotations-last-modified)
 
 ## Based on
 

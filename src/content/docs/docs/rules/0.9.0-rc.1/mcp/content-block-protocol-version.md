@@ -30,8 +30,8 @@ Content blocks in example results use only content types and fields the applicab
 ## Required by
 
 - **MCP Description 0.9.0, Sections 9.3 and 11.3**
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-example-content-protocol-version](/docs/specification/0.9.0-rc.1/tools#req-tool-example-content-protocol-version)
-  - [/docs/specification/0.9.0-rc.1/prompts#req-prompt-example-content-protocol-version](/docs/specification/0.9.0-rc.1/prompts#req-prompt-example-content-protocol-version)
+  - 9. Tools: [req-tool-example-content-protocol-version](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-example-content-protocol-version)
+  - 11. Prompts: [req-prompt-example-content-protocol-version](https://mcpdesc.org/docs/specification/0.9.0-rc.1/prompts#req-prompt-example-content-protocol-version)
 
 ## Based on
 

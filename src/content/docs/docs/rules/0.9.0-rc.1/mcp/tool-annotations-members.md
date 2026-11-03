@@ -31,8 +31,8 @@ A Tool annotations object contains only title, readOnlyHint, destructiveHint, id
 ## Required by
 
 - **MCP Description 0.9.0, Section 9.6**
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-annotations-closed](/docs/specification/0.9.0-rc.1/tools#req-tool-annotations-closed)
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-annotations-fields](/docs/specification/0.9.0-rc.1/tools#req-tool-annotations-fields)
+  - 9. Tools: [req-tool-annotations-closed](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-annotations-closed)
+  - 9. Tools: [req-tool-annotations-fields](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-annotations-fields)
 
 ## Based on
 

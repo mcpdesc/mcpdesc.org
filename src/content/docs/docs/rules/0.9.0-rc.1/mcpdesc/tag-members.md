@@ -28,7 +28,7 @@ A Tag Object has a non-empty name and only its defined properties.
 ## Required by
 
 - **MCP Description 0.9.0, Section 13.1**
-  - [/docs/specification/0.9.0-rc.1/tags#req-tag-fields](/docs/specification/0.9.0-rc.1/tags#req-tag-fields)
+  - 13. Tags: [req-tag-fields](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tags#req-tag-fields)
 
 
 

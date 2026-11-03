@@ -28,8 +28,8 @@ icons is a non-empty array of MCP Icon objects with a src and only the propertie
 ## Required by
 
 - **MCP Description 0.9.0, Appendix A**
-  - [/docs/specification/0.9.0-rc.1/appendices#req-icon-fields](/docs/specification/0.9.0-rc.1/appendices#req-icon-fields)
-  - [/docs/specification/0.9.0-rc.1/serialization#req-serialization-value-formats](/docs/specification/0.9.0-rc.1/serialization#req-serialization-value-formats)
+  - Appendix A: Icon Object: [req-icon-fields](https://mcpdesc.org/docs/specification/0.9.0-rc.1/appendices#req-icon-fields)
+  - 15. Serialization: [req-serialization-value-formats](https://mcpdesc.org/docs/specification/0.9.0-rc.1/serialization#req-serialization-value-formats)
 
 ## Based on
 

@@ -30,7 +30,7 @@ In MCP 2025-06-18, a form requestedSchema has no $schema, no array or titled enu
 ## Required by
 
 - **MCP Description 0.9.0, Section 12.3**
-  - [/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-form-vocabulary](/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-form-vocabulary)
+  - 12. Elicitation Declarations: [req-elicitation-form-vocabulary](https://mcpdesc.org/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-form-vocabulary)
 
 ## Based on
 

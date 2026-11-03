@@ -27,17 +27,17 @@ A document uses a conforming serialization: RFC 8259 JSON in UTF-8, or exactly o
 ## Required by
 
 - **MCP Description 0.9.0, Section 15**
-  - [/docs/specification/0.9.0-rc.1/document-structure#req-conforming-serialization](/docs/specification/0.9.0-rc.1/document-structure#req-conforming-serialization)
-  - [/docs/specification/0.9.0-rc.1/serialization#req-serialization-json](/docs/specification/0.9.0-rc.1/serialization#req-serialization-json)
-  - [/docs/specification/0.9.0-rc.1/serialization#req-serialization-yaml-claims](/docs/specification/0.9.0-rc.1/serialization#req-serialization-yaml-claims)
-  - [/docs/specification/0.9.0-rc.1/serialization#req-serialization-yaml-single-document](/docs/specification/0.9.0-rc.1/serialization#req-serialization-yaml-single-document)
-  - [/docs/specification/0.9.0-rc.1/serialization#req-serialization-yaml-string-keys](/docs/specification/0.9.0-rc.1/serialization#req-serialization-yaml-string-keys)
-  - [/docs/specification/0.9.0-rc.1/serialization#req-serialization-yaml-duplicate-keys](/docs/specification/0.9.0-rc.1/serialization#req-serialization-yaml-duplicate-keys)
-  - [/docs/specification/0.9.0-rc.1/serialization#req-serialization-yaml-scalars](/docs/specification/0.9.0-rc.1/serialization#req-serialization-yaml-scalars)
-  - [/docs/specification/0.9.0-rc.1/serialization#req-serialization-yaml-tags](/docs/specification/0.9.0-rc.1/serialization#req-serialization-yaml-tags)
-  - [/docs/specification/0.9.0-rc.1/serialization#req-serialization-yaml-aliases](/docs/specification/0.9.0-rc.1/serialization#req-serialization-yaml-aliases)
-  - [/docs/specification/0.9.0-rc.1/serialization#req-serialization-yaml-merge-keys](/docs/specification/0.9.0-rc.1/serialization#req-serialization-yaml-merge-keys)
-  - [/docs/specification/0.9.0-rc.1/serialization#req-serialization-yaml-validation](/docs/specification/0.9.0-rc.1/serialization#req-serialization-yaml-validation)
+  - 3. Document Structure: [req-conforming-serialization](https://mcpdesc.org/docs/specification/0.9.0-rc.1/document-structure#req-conforming-serialization)
+  - 15. Serialization: [req-serialization-json](https://mcpdesc.org/docs/specification/0.9.0-rc.1/serialization#req-serialization-json)
+  - 15. Serialization: [req-serialization-yaml-claims](https://mcpdesc.org/docs/specification/0.9.0-rc.1/serialization#req-serialization-yaml-claims)
+  - 15. Serialization: [req-serialization-yaml-single-document](https://mcpdesc.org/docs/specification/0.9.0-rc.1/serialization#req-serialization-yaml-single-document)
+  - 15. Serialization: [req-serialization-yaml-string-keys](https://mcpdesc.org/docs/specification/0.9.0-rc.1/serialization#req-serialization-yaml-string-keys)
+  - 15. Serialization: [req-serialization-yaml-duplicate-keys](https://mcpdesc.org/docs/specification/0.9.0-rc.1/serialization#req-serialization-yaml-duplicate-keys)
+  - 15. Serialization: [req-serialization-yaml-scalars](https://mcpdesc.org/docs/specification/0.9.0-rc.1/serialization#req-serialization-yaml-scalars)
+  - 15. Serialization: [req-serialization-yaml-tags](https://mcpdesc.org/docs/specification/0.9.0-rc.1/serialization#req-serialization-yaml-tags)
+  - 15. Serialization: [req-serialization-yaml-aliases](https://mcpdesc.org/docs/specification/0.9.0-rc.1/serialization#req-serialization-yaml-aliases)
+  - 15. Serialization: [req-serialization-yaml-merge-keys](https://mcpdesc.org/docs/specification/0.9.0-rc.1/serialization#req-serialization-yaml-merge-keys)
+  - 15. Serialization: [req-serialization-yaml-validation](https://mcpdesc.org/docs/specification/0.9.0-rc.1/serialization#req-serialization-yaml-validation)
 
 
 

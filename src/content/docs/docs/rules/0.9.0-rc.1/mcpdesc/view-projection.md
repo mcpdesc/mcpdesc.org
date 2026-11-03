@@ -27,22 +27,22 @@ An Effective Protocol View is a valid document for one protocol version that kee
 ## Required by
 
 - **MCP Description 0.9.0, Section 4.12, and the view requirements of Sections 3 to 17**
-  - [/docs/specification/0.9.0-rc.1/versioning#req-view-projection](/docs/specification/0.9.0-rc.1/versioning#req-view-projection)
-  - [/docs/specification/0.9.0-rc.1/versioning#req-view-projection-transports](/docs/specification/0.9.0-rc.1/versioning#req-view-projection-transports)
-  - [/docs/specification/0.9.0-rc.1/document-structure#req-security-empties-preserved](/docs/specification/0.9.0-rc.1/document-structure#req-security-empties-preserved)
-  - [/docs/specification/0.9.0-rc.1/security#req-security-empty-distinction](/docs/specification/0.9.0-rc.1/security#req-security-empty-distinction)
-  - [/docs/specification/0.9.0-rc.1/security#req-security-projection](/docs/specification/0.9.0-rc.1/security#req-security-projection)
-  - [/docs/specification/0.9.0-rc.1/serialization#req-serialization-empty-values-preserved](/docs/specification/0.9.0-rc.1/serialization#req-serialization-empty-values-preserved)
-  - [/docs/specification/0.9.0-rc.1/tools#req-tool-example-views-preserved](/docs/specification/0.9.0-rc.1/tools#req-tool-example-views-preserved)
-  - [/docs/specification/0.9.0-rc.1/tools#req-interaction-views-preserved](/docs/specification/0.9.0-rc.1/tools#req-interaction-views-preserved)
-  - [/docs/specification/0.9.0-rc.1/capabilities#req-client-requirements-views](/docs/specification/0.9.0-rc.1/capabilities#req-client-requirements-views)
-  - [/docs/specification/0.9.0-rc.1/resources#req-resource-example-views](/docs/specification/0.9.0-rc.1/resources#req-resource-example-views)
-  - [/docs/specification/0.9.0-rc.1/resources#req-template-completion-views](/docs/specification/0.9.0-rc.1/resources#req-template-completion-views)
-  - [/docs/specification/0.9.0-rc.1/prompts#req-prompt-example-views](/docs/specification/0.9.0-rc.1/prompts#req-prompt-example-views)
-  - [/docs/specification/0.9.0-rc.1/prompts#req-prompt-completion-views](/docs/specification/0.9.0-rc.1/prompts#req-prompt-completion-views)
-  - [/docs/specification/0.9.0-rc.1/tags#req-tags-views](/docs/specification/0.9.0-rc.1/tags#req-tags-views)
-  - [/docs/specification/0.9.0-rc.1/specification-extensions#req-extension-views](/docs/specification/0.9.0-rc.1/specification-extensions#req-extension-views)
-  - [/docs/specification/0.9.0-rc.1/components#req-component-pruning](/docs/specification/0.9.0-rc.1/components#req-component-pruning)
+  - 4. Versioning: [req-view-projection](https://mcpdesc.org/docs/specification/0.9.0-rc.1/versioning#req-view-projection)
+  - 4. Versioning: [req-view-projection-transports](https://mcpdesc.org/docs/specification/0.9.0-rc.1/versioning#req-view-projection-transports)
+  - 3. Document Structure: [req-security-empties-preserved](https://mcpdesc.org/docs/specification/0.9.0-rc.1/document-structure#req-security-empties-preserved)
+  - 7. Security: [req-security-empty-distinction](https://mcpdesc.org/docs/specification/0.9.0-rc.1/security#req-security-empty-distinction)
+  - 7. Security: [req-security-projection](https://mcpdesc.org/docs/specification/0.9.0-rc.1/security#req-security-projection)
+  - 15. Serialization: [req-serialization-empty-values-preserved](https://mcpdesc.org/docs/specification/0.9.0-rc.1/serialization#req-serialization-empty-values-preserved)
+  - 9. Tools: [req-tool-example-views-preserved](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-tool-example-views-preserved)
+  - 9. Tools: [req-interaction-views-preserved](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-interaction-views-preserved)
+  - 8. Capabilities: [req-client-requirements-views](https://mcpdesc.org/docs/specification/0.9.0-rc.1/capabilities#req-client-requirements-views)
+  - 10. Resources and Resource Templates: [req-resource-example-views](https://mcpdesc.org/docs/specification/0.9.0-rc.1/resources#req-resource-example-views)
+  - 10. Resources and Resource Templates: [req-template-completion-views](https://mcpdesc.org/docs/specification/0.9.0-rc.1/resources#req-template-completion-views)
+  - 11. Prompts: [req-prompt-example-views](https://mcpdesc.org/docs/specification/0.9.0-rc.1/prompts#req-prompt-example-views)
+  - 11. Prompts: [req-prompt-completion-views](https://mcpdesc.org/docs/specification/0.9.0-rc.1/prompts#req-prompt-completion-views)
+  - 13. Tags: [req-tags-views](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tags#req-tags-views)
+  - 14. Specification Extensions: [req-extension-views](https://mcpdesc.org/docs/specification/0.9.0-rc.1/specification-extensions#req-extension-views)
+  - 17. Reusable Components and Local References: [req-component-pruning](https://mcpdesc.org/docs/specification/0.9.0-rc.1/components#req-component-pruning)
 
 
 

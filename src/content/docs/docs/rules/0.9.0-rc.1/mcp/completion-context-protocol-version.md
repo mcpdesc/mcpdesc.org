@@ -30,8 +30,8 @@ A completion example carries context only from MCP 2025-06-18, where CompleteReq
 ## Required by
 
 - **MCP Description 0.9.0, Sections 10.4.6 and 11.4**
-  - [/docs/specification/0.9.0-rc.1/resources#req-template-completion-context-protocol-version](/docs/specification/0.9.0-rc.1/resources#req-template-completion-context-protocol-version)
-  - [/docs/specification/0.9.0-rc.1/prompts#req-prompt-completion-context-protocol-version](/docs/specification/0.9.0-rc.1/prompts#req-prompt-completion-context-protocol-version)
+  - 10. Resources and Resource Templates: [req-template-completion-context-protocol-version](https://mcpdesc.org/docs/specification/0.9.0-rc.1/resources#req-template-completion-context-protocol-version)
+  - 11. Prompts: [req-prompt-completion-context-protocol-version](https://mcpdesc.org/docs/specification/0.9.0-rc.1/prompts#req-prompt-completion-context-protocol-version)
 
 ## Based on
 

@@ -28,14 +28,14 @@ An Elicitation Declaration has its required fields, the fields of its mode only,
 ## Required by
 
 - **MCP Description 0.9.0, Section 12.2**
-  - [/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-declaration-fields](/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-declaration-fields)
-  - [/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-name-format](/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-name-format)
-  - [/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-message](/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-message)
-  - [/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-documentation-fields](/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-documentation-fields)
-  - [/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-form-schema-required](/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-form-schema-required)
-  - [/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-form-no-url](/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-form-no-url)
-  - [/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-url-no-schema](/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-url-no-schema)
-  - [/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-url-syntax](/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-url-syntax)
+  - 12. Elicitation Declarations: [req-elicitation-declaration-fields](https://mcpdesc.org/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-declaration-fields)
+  - 12. Elicitation Declarations: [req-elicitation-name-format](https://mcpdesc.org/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-name-format)
+  - 12. Elicitation Declarations: [req-elicitation-message](https://mcpdesc.org/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-message)
+  - 12. Elicitation Declarations: [req-elicitation-documentation-fields](https://mcpdesc.org/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-documentation-fields)
+  - 12. Elicitation Declarations: [req-elicitation-form-schema-required](https://mcpdesc.org/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-form-schema-required)
+  - 12. Elicitation Declarations: [req-elicitation-form-no-url](https://mcpdesc.org/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-form-no-url)
+  - 12. Elicitation Declarations: [req-elicitation-url-no-schema](https://mcpdesc.org/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-url-no-schema)
+  - 12. Elicitation Declarations: [req-elicitation-url-syntax](https://mcpdesc.org/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-url-syntax)
 
 
 

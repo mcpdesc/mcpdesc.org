@@ -28,10 +28,10 @@ securitySchemes is a non-empty map of Security Scheme Objects that contain their
 ## Required by
 
 - **MCP Description 0.9.0, Sections 7.1 and 7.2**
-  - [/docs/specification/0.9.0-rc.1/security#req-security-scheme-fields](/docs/specification/0.9.0-rc.1/security#req-security-scheme-fields)
-  - [/docs/specification/0.9.0-rc.1/security#req-security-schemes-map](/docs/specification/0.9.0-rc.1/security#req-security-schemes-map)
-  - [/docs/specification/0.9.0-rc.1/security#req-oauth-flows-fields](/docs/specification/0.9.0-rc.1/security#req-oauth-flows-fields)
-  - [/docs/specification/0.9.0-rc.1/serialization#req-serialization-value-formats](/docs/specification/0.9.0-rc.1/serialization#req-serialization-value-formats)
+  - 7. Security: [req-security-scheme-fields](https://mcpdesc.org/docs/specification/0.9.0-rc.1/security#req-security-scheme-fields)
+  - 7. Security: [req-security-schemes-map](https://mcpdesc.org/docs/specification/0.9.0-rc.1/security#req-security-schemes-map)
+  - 7. Security: [req-oauth-flows-fields](https://mcpdesc.org/docs/specification/0.9.0-rc.1/security#req-oauth-flows-fields)
+  - 15. Serialization: [req-serialization-value-formats](https://mcpdesc.org/docs/specification/0.9.0-rc.1/serialization#req-serialization-value-formats)
 
 
 

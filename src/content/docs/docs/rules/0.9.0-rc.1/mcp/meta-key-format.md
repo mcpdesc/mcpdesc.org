@@ -28,7 +28,7 @@ A _meta key has an optional prefix of dot-separated labels followed by a slash, 
 ## Required by
 
 - **MCP Description 0.9.0, Section 3.5 (the same grammar applies in every protocol version)**
-  - [/docs/specification/0.9.0-rc.1/document-structure#req-meta-keys](/docs/specification/0.9.0-rc.1/document-structure#req-meta-keys)
+  - 3. Document Structure: [req-meta-keys](https://mcpdesc.org/docs/specification/0.9.0-rc.1/document-structure#req-meta-keys)
 
 ## Based on
 

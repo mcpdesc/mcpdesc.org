@@ -30,8 +30,8 @@ Elicitation is used only from MCP 2025-06-18, and URL mode only from MCP 2025-11
 ## Required by
 
 - **MCP Description 0.9.0, Sections 9.4 and 12.5**
-  - [/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-protocol-versions](/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-protocol-versions)
-  - [/docs/specification/0.9.0-rc.1/tools#req-interaction-protocol-version-valid](/docs/specification/0.9.0-rc.1/tools#req-interaction-protocol-version-valid)
+  - 12. Elicitation Declarations: [req-elicitation-protocol-versions](https://mcpdesc.org/docs/specification/0.9.0-rc.1/elicitation#req-elicitation-protocol-versions)
+  - 9. Tools: [req-interaction-protocol-version-valid](https://mcpdesc.org/docs/specification/0.9.0-rc.1/tools#req-interaction-protocol-version-valid)
 
 ## Based on
 

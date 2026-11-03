@@ -30,7 +30,7 @@ A Tool declares outputSchema only for MCP protocol versions whose Tool type defi
 ## Required by
 
 - **MCP Description 0.9.0, Section 9.1 (Tool Object field table)**
-  - [/docs/specification/0.9.0-rc.1/versioning#req-field-protocol-version-availability](/docs/specification/0.9.0-rc.1/versioning#req-field-protocol-version-availability)
+  - 4. Versioning: [req-field-protocol-version-availability](https://mcpdesc.org/docs/specification/0.9.0-rc.1/versioning#req-field-protocol-version-availability)
 
 ## Based on
 

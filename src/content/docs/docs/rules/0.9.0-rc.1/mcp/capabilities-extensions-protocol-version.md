@@ -30,7 +30,7 @@ Server capabilities.extensions is defined from MCP 2026-07-28; for earlier proto
 ## Required by
 
 - **MCP Description 0.9.0, Section 8.4; Proposal 0021 (pre-standard extension capabilities)**
-  - [/docs/specification/0.9.0-rc.1/capabilities#req-capabilities-extensions-pre-standard](/docs/specification/0.9.0-rc.1/capabilities#req-capabilities-extensions-pre-standard)
+  - 8. Capabilities: [req-capabilities-extensions-pre-standard](https://mcpdesc.org/docs/specification/0.9.0-rc.1/capabilities#req-capabilities-extensions-pre-standard)
   - [../../proposals/0021-pre-standard-extension-capabilities.md](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0-rc.1/proposals/0021-pre-standard-extension-capabilities.md)
 
 ## Based on

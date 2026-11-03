@@ -30,8 +30,8 @@ The core tasks server capability exists only in MCP 2025-11-25; MCP 2026-07-28 u
 ## Required by
 
 - **MCP Description 0.9.0, Section 8.3**
-  - [/docs/specification/0.9.0-rc.1/capabilities#req-capabilities-tasks-distinct](/docs/specification/0.9.0-rc.1/capabilities#req-capabilities-tasks-distinct)
-  - [/docs/specification/0.9.0-rc.1/versioning#req-field-protocol-version-availability](/docs/specification/0.9.0-rc.1/versioning#req-field-protocol-version-availability)
+  - 8. Capabilities: [req-capabilities-tasks-distinct](https://mcpdesc.org/docs/specification/0.9.0-rc.1/capabilities#req-capabilities-tasks-distinct)
+  - 4. Versioning: [req-field-protocol-version-availability](https://mcpdesc.org/docs/specification/0.9.0-rc.1/versioning#req-field-protocol-version-availability)
 
 ## Based on
 

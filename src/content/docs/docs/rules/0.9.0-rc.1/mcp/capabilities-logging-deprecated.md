@@ -30,7 +30,7 @@ The logging server capability is reported as deprecated in MCP 2026-07-28.
 ## Required by
 
 - **MCP Description 0.9.0, Section 8.2**
-  - [/docs/specification/0.9.0-rc.1/capabilities#req-capabilities-logging-deprecated](/docs/specification/0.9.0-rc.1/capabilities#req-capabilities-logging-deprecated)
+  - 8. Capabilities: [req-capabilities-logging-deprecated](https://mcpdesc.org/docs/specification/0.9.0-rc.1/capabilities#req-capabilities-logging-deprecated)
 
 ## Based on
 
