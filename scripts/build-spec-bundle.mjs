@@ -74,13 +74,13 @@ const VERSIONS = [
     tracking: 'https://github.com/mcpdesc/mcpdesc-specification/issues',
   },
   {
-    version: '0.9.0-rc.1',
+    version: '0.9.0-rc.2',
     channel: 'candidate',
     maturity: 'release-candidate',
-    date: '2026-11-02',
-    normativeSectionCount: 17,
+    date: '2026-11-06',
+    normativeSectionCount: 18,
     canonicalRepo: 'mcpdesc/mcpdesc-specification',
-    canonicalRef: 'v0.9.0-rc.1',
+    canonicalRef: 'v0.9.0-rc.2',
     canonicalPath: 'spec/draft',
     tracking: 'https://github.com/mcpdesc/mcpdesc-specification/issues',
   },
@@ -187,6 +187,10 @@ function cleanSection(raw, { isOverview, slug }) {
   // The overview page ends with a redundant on-site "## Sections" nav list + "See also";
   // drop it — the bundle already contains every section inline.
   if (isOverview) md = md.replace(/\n## Sections[\s\S]*$/m, '\n');
+  if (!isOverview && /^\d+\.\s/.test(data.title ?? '') &&
+      !md.trimStart().startsWith(`## ${data.title}\n`)) {
+    md = `## ${data.title}\n\n${md.trimStart()}`;
+  }
   md = absolutizeLinks(md);
   return {
     order: data.order ?? (isOverview ? 0 : 999),

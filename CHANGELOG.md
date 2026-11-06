@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **MCP Description v0.9.0 RC.2 schema and documentation.** Published the schema from
+  `v0.9.0-rc.2` and mirrored its specification, examples, companion guides, and 85 validation
+  rules, including the immutable machine-readable rule catalog. RC.2 adds
+  document-oriented serialization ordering and discriminator-driven schema
+  validation; validation rule and result formats remain 1.3.0.
+
+### Changed
+
+- **Active release candidate.** Advanced candidate discovery, docs navigation, and the rules
+  alias to RC.2. Retired RC.1 docs and bundle URLs redirect to their immutable upstream tag;
+  previously published schema and catalog artifacts remain available. MCP Description 0.8.0
+  remains the latest stable release.
+
+### Fixed
+
+- **Single-file specification headings.** Restore numbered section headings from page
+  titles when bundling pages whose duplicate body headings were removed.
+
 ## [1.3.1] - 2026-11-03
 
 ### Added

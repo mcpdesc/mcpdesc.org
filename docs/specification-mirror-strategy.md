@@ -1,7 +1,7 @@
 # Specification Docs — Mirror & Versioning Strategy
 
 Status: **Accepted** — implementation in progress
-Owner: maintainers · Last updated: 2026-11-02
+Owner: maintainers · Last updated: 2026-11-06
 
 This document defines how `mcpdesc.org` publishes the **MCP Description specification** under
 `/docs/specification/**`, how it mirrors the canonical repository, how it is versioned, and how
@@ -19,7 +19,7 @@ itself. The specification's source of truth is `mcpdesc/mcpdesc-specification` (
   The historical v0.7.0 release source remains archived in the `spec/` folder of
   [`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract).
 - **Current channels:** stable `mcpdesc` **0.8.0**; active release candidate
-  **0.9.0-rc.1**. Drafts 1 to 4 are archived. The previous stable release is **0.7.0**.
+  **0.9.0-rc.2**. Drafts 1 to 4 and RC.1 are archived. The previous stable release is **0.7.0**.
 - **Tool selector:** validators and projection tools resolve the bare format selector
   `0.9.0` to the latest release candidate until final `0.9.0` is released. Advance that
   default for each RC (`rc.1`, `rc.2`, and so on), then point it at stable `0.9.0`; exact
@@ -258,7 +258,7 @@ remain unmodified body content. The importer carries the source `surface` field 
 site-only `ruleSurface` frontmatter. This is presentation metadata, not a change to the
 upstream registry schema or rule applicability.
 
-From draft.3 the importer reads rule-format 1.1.0 records, draft.4 uses 1.2.0, and RC.1 uses
+From draft.3 the importer reads rule-format 1.1.0 records, draft.4 uses 1.2.0, and RC.1/RC.2 use
 1.3.0 (validated against the tag's `rule.schema.json`: `title`, `description`, `details`,
 fixture `outcome`, `documentSchema`, and protocol-version applicability). Each rule page uses the record's `title` as its H1 and the rule ID as its
 sidebar label; rules are listed flat by ID under each owner (MCP, JSON Schema, `mcpdesc`).

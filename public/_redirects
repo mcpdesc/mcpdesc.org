@@ -3,8 +3,8 @@
 /schema/mcp-description/latest.json  /schema/mcp-description/0.8.0.json  302
 
 # Mutable rules alias. Only the active candidate's rule pages are mirrored on this site.
-/docs/rules   /docs/rules/0.9.0-rc.1/  302
-/docs/rules/  /docs/rules/0.9.0-rc.1/  302
+/docs/rules   /docs/rules/0.9.0-rc.2/  302
+/docs/rules/  /docs/rules/0.9.0-rc.2/  302
 
 # Historical draft docs and bundles are maintained at their immutable upstream tags.
 /docs/specification/0.9.0-draft.1/ https://github.com/mcpdesc/mcpdesc-specification/tree/v0.9.0-draft.1/spec/draft 301
@@ -39,3 +39,12 @@
 # Preserve links published while 0.8 was a release candidate.
 /docs/specification/0.8.0-rc.4/*  /docs/specification/0.8.0/:splat  301
 /specification/0.8.0-rc.4/*       /specification/0.8.0/:splat       301
+
+# Retired release-candidate docs and bundles remain available at their source tag.
+/docs/specification/0.9.0-rc.1/ https://github.com/mcpdesc/mcpdesc-specification/tree/v0.9.0-rc.1/spec/draft 301
+/docs/specification/0.9.0-rc.1 https://github.com/mcpdesc/mcpdesc-specification/tree/v0.9.0-rc.1/spec/draft 301
+/docs/specification/0.9.0-rc.1/* https://github.com/mcpdesc/mcpdesc-specification/tree/v0.9.0-rc.1/spec/draft 301
+/docs/rules/0.9.0-rc.1/ https://github.com/mcpdesc/mcpdesc-specification/tree/v0.9.0-rc.1/spec/draft/validation 301
+/docs/rules/0.9.0-rc.1 https://github.com/mcpdesc/mcpdesc-specification/tree/v0.9.0-rc.1/spec/draft/validation 301
+/docs/rules/0.9.0-rc.1/* https://github.com/mcpdesc/mcpdesc-specification/tree/v0.9.0-rc.1/spec/draft/validation 301
+/specification/0.9.0-rc.1/* https://raw.githubusercontent.com/mcpdesc/mcpdesc-specification/v0.9.0-rc.1/spec/draft/mcp-description.md 301

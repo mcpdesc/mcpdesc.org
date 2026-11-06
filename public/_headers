@@ -75,6 +75,11 @@
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=31536000, immutable
 
+/schema/mcp-description/0.9.0-rc.2.json
+  Content-Type: application/schema+json; charset=utf-8
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=31536000, immutable
+
 /schema/validation-rule/1.2.0.json
   Content-Type: application/schema+json; charset=utf-8
   Access-Control-Allow-Origin: *
@@ -137,7 +142,7 @@
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=604800, stale-while-revalidate=86400
 
-/specification/0.9.0-rc.1/*
+/specification/0.9.0-rc.2/*
   Content-Type: text/markdown; charset=utf-8
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=604800, stale-while-revalidate=86400
@@ -156,6 +161,11 @@
   Cache-Control: public, max-age=31536000, immutable, no-transform
 
 /validation/catalogs/0.9.0-rc.1/*
+  Content-Type: application/json; charset=utf-8
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=31536000, immutable, no-transform
+
+/validation/catalogs/0.9.0-rc.2/*
   Content-Type: application/json; charset=utf-8
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=31536000, immutable, no-transform
