@@ -21,6 +21,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   alias to RC.2. Retired RC.1 docs and bundle URLs redirect to their immutable upstream tag;
   previously published schema and catalog artifacts remain available. MCP Description 0.8.0
   remains the latest stable release.
+- **Validation catalog discovery.** Advanced the discovery index to rule format 1.3.0 and
+  RC.2 only after verifying the immutable schemas and catalog on the live site.
 
 ### Fixed
 
