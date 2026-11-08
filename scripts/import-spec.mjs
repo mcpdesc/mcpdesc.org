@@ -134,12 +134,18 @@ function slugifyHeading(text) {
 // (e.g. a link in "tools" pointing at "#123-tag-references" which lives in "tags") can be
 // rewritten to an absolute on-site path.
 const anchorToPage = new Map();
+const sectionTitleAnchors = new Set();
 const parsed = SECTION_FILES.map((file) => {
   const { num, slug } = parseName(file);
   const raw = readFileSync(join(SRC_DIR, file), 'utf8');
   for (const line of raw.split('\n')) {
     const h = line.match(/^#{2,4}\s+(.*)$/);
     if (h) anchorToPage.set(slugifyHeading(h[1]), slug);
+  }
+  const sectionHeading = raw.match(/^##\s+(.+)$/m)?.[1];
+  if (sectionHeading) sectionTitleAnchors.add(slugifyHeading(sectionHeading));
+  for (const anchor of raw.matchAll(/<a id="([^"]+)"><\/a>/g)) {
+    anchorToPage.set(anchor[1], slug);
   }
   return { file, num, slug, raw };
 });
@@ -155,6 +161,9 @@ function rewriteLinks(body, currentSlug, sourceDir = 'sections', localPages = ne
     if (target.startsWith('#')) {
       const anchor = target.slice(1);
       const owner = anchorToPage.get(anchor);
+      if (owner && sectionTitleAnchors.has(anchor)) {
+        return `](/docs/specification/${VERSION}/${owner})`;
+      }
       if (owner && owner !== currentSlug) {
         return `](/docs/specification/${VERSION}/${owner}#${anchor})`;
       }

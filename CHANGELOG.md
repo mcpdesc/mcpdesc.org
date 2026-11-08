@@ -9,14 +9,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **MCP Description v0.9.0 RC.3 documentation and catalog.** Mirrored the annotated
+  `v0.9.0-rc.3` specification, examples, all companion guides, and 85 validation rules.
+  Published its immutable catalog with rule format 1.3.0 and result format 1.4.0.
+  Documentation explains union-aware diagnostics, factual details, source paths and
+  related component locations, plus the intentional closure of Elicitation Interaction
+  Response Objects in Tool Interaction Examples. Imported updated fixture citations,
+  schema ownership, and 95 unchecked requirements.
 - **RC.3 schema publication gate.** Published the MCP Description
   [`0.9.0-rc.3` schema](https://mcpdesc.org/schema/mcp-description/0.9.0-rc.3.json) and
   [validation result schema 1.4.0](https://mcpdesc.org/schema/validation-result/1.4.0.json)
   byte-for-byte from approved preparation commit
   [`106387d882030f2c5407291cb14e7cee2d6d6a31`](https://github.com/mcpdesc/mcpdesc-specification/commit/106387d882030f2c5407291cb14e7cee2d6d6a31),
   before upstream tagging. Result format 1.4.0 adds factual diagnostic details and related
-  component-definition locations. The existing rule schema 1.3.0 is unchanged; documentation,
-  bundles, and catalog discovery remain on RC.2 pending the separate tagged import.
+  component-definition locations. The existing rule schema 1.3.0 is unchanged; this initial
+  schema-only deployment left documentation, bundles, and catalog discovery on RC.2.
 - **Reusable schema publication skill.** Added the workspace
   [`publish-mcpdesc-schema` skill](.github/skills/publish-mcpdesc-schema/SKILL.md) for approved
   release, draft, and RC schema hosting, companion schemas, and live publication checks.
@@ -32,7 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - **Active release candidate.** Advanced candidate discovery, docs navigation, and the rules
-  alias to RC.2. Retired RC.1 docs and bundle URLs redirect to their immutable upstream tag;
+  alias through RC.2 to RC.3. Retired RC.1 and RC.2 docs and bundle URLs redirect to their immutable upstream tags;
   previously published schema and catalog artifacts remain available. MCP Description 0.8.0
   remains the latest stable release.
 - **Validation catalog discovery.** Advanced the discovery index to rule format 1.3.0 and
@@ -40,6 +47,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Imported specification links.** Link removed section-title anchors to their page
+  routes and resolve cross-section requirement anchors, avoiding broken links in RC.3.
+  Added a focused importer regression test to CI.
+- **Unchecked-requirement navigation.** Keep the generated unchecked page directly
+  accessible without reintroducing its link in the rules overview during imports.
 - **Single-file specification headings.** Restore numbered section headings from page
   titles when bundling pages whose duplicate body headings were removed.
 

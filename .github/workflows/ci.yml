@@ -33,8 +33,8 @@ jobs:
       - name: Type check
         run: npm run check
 
-      - name: Schema publisher tests
-        run: node --test scripts/publish-schema.test.mjs
+      - name: Specification import and schema publisher tests
+        run: node --test scripts/import-spec.test.mjs scripts/publish-schema.test.mjs
 
       - name: Build
         run: npm run build

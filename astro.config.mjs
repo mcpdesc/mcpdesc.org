@@ -16,7 +16,7 @@ export default defineConfig({
     // the mcpdesc.org live experience from the mcpeditor open-source component.
     '/editor': '/live-editor',
     // Keep /docs/rules as a convenience alias; versioned rule histories never move.
-    '/docs/rules': '/docs/rules/0.9.0-rc.2/',
+    '/docs/rules': '/docs/rules/0.9.0-rc.3/',
   },
   vite: {
     plugins: [tailwindcss()],
@@ -104,18 +104,18 @@ export default defineConfig({
             { slug: 'docs/specification' },
             { slug: 'docs/specification/changelog' },
             {
-              label: '0.9.0-rc.2 (Release Candidate)',
+              label: '0.9.0-rc.3 (Release Candidate)',
               collapsed: true,
               items: [
-                { autogenerate: { directory: 'docs/specification/0.9.0-rc.2' } },
+                { autogenerate: { directory: 'docs/specification/0.9.0-rc.3' } },
                 {
                   label: 'Rules',
                   collapsed: true,
                   items: [
-                    { slug: 'docs/rules/0.9.0-rc.2' },
-                    { label: 'MCP', collapsed: true, items: [{ autogenerate: { directory: 'docs/rules/0.9.0-rc.2/mcp' } }] },
-                    { label: 'MCP Description', collapsed: true, items: [{ autogenerate: { directory: 'docs/rules/0.9.0-rc.2/mcpdesc' } }] },
-                    { label: 'JSON Schema', collapsed: true, items: [{ autogenerate: { directory: 'docs/rules/0.9.0-rc.2/json-schema' } }] },
+                    { slug: 'docs/rules/0.9.0-rc.3' },
+                    { label: 'MCP', collapsed: true, items: [{ autogenerate: { directory: 'docs/rules/0.9.0-rc.3/mcp' } }] },
+                    { label: 'MCP Description', collapsed: true, items: [{ autogenerate: { directory: 'docs/rules/0.9.0-rc.3/mcpdesc' } }] },
+                    { label: 'JSON Schema', collapsed: true, items: [{ autogenerate: { directory: 'docs/rules/0.9.0-rc.3/json-schema' } }] },
                   ],
                 },
               ],

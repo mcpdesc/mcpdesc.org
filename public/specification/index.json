@@ -2,10 +2,10 @@
   "$comment": "Machine-readable index of MCP Description specification versions. Fetch this first to discover the stable and candidate versions. Each version exposes a single-file `full` Markdown for one-request retrieval.",
   "site": "https://mcpdesc.org",
   "stable": "0.8.0",
-  "candidate": "0.9.0-rc.2",
+  "candidate": "0.9.0-rc.3",
   "latest": "0.8.0",
   "latestFull": "https://mcpdesc.org/specification/latest/mcpdesc.md",
-  "next": "0.9.0-rc.2",
+  "next": "0.9.0-rc.3",
   "versions": [
     {
       "version": "0.7.0",
@@ -165,89 +165,89 @@
       ]
     },
     {
-      "version": "0.9.0-rc.2",
+      "version": "0.9.0-rc.3",
       "channel": "candidate",
       "maturity": "release-candidate",
-      "date": "2026-11-06",
-      "html": "https://mcpdesc.org/docs/specification/0.9.0-rc.2/",
-      "full": "https://mcpdesc.org/specification/0.9.0-rc.2/mcpdesc.md",
-      "sha256": "3cc6558747580da60807ce9aa2601dcc4fdf009ccc22ebbea851a5ae7b4d3f0c",
-      "canonical": "https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0-rc.2/spec/draft/mcp-description.md",
-      "canonicalRaw": "https://raw.githubusercontent.com/mcpdesc/mcpdesc-specification/v0.9.0-rc.2/spec/draft/mcp-description.md",
-      "schema": "https://mcpdesc.org/schema/mcp-description/0.9.0-rc.2.json",
+      "date": "2026-11-07",
+      "html": "https://mcpdesc.org/docs/specification/0.9.0-rc.3/",
+      "full": "https://mcpdesc.org/specification/0.9.0-rc.3/mcpdesc.md",
+      "sha256": "a9bcaa5696b79b34572da0634b3fb772a59c28cdbe45b7cd926f253e938817ae",
+      "canonical": "https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0-rc.3/spec/draft/mcp-description.md",
+      "canonicalRaw": "https://raw.githubusercontent.com/mcpdesc/mcpdesc-specification/v0.9.0-rc.3/spec/draft/mcp-description.md",
+      "schema": "https://mcpdesc.org/schema/mcp-description/0.9.0-rc.3.json",
       "tracking": "https://github.com/mcpdesc/mcpdesc-specification/issues",
       "sections": [
         {
           "title": "1. Introduction",
-          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.2/introduction"
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.3/introduction"
         },
         {
           "title": "2. Terminology",
-          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.2/terminology"
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.3/terminology"
         },
         {
           "title": "3. Document Structure",
-          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.2/document-structure"
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.3/document-structure"
         },
         {
           "title": "4. Versioning",
-          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.2/versioning"
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.3/versioning"
         },
         {
           "title": "5. Info Object",
-          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.2/info-object"
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.3/info-object"
         },
         {
           "title": "6. Transports",
-          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.2/transports"
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.3/transports"
         },
         {
           "title": "7. Security",
-          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.2/security"
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.3/security"
         },
         {
           "title": "8. Capabilities",
-          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.2/capabilities"
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.3/capabilities"
         },
         {
           "title": "9. Tools",
-          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.2/tools"
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.3/tools"
         },
         {
           "title": "10. Resources and Resource Templates",
-          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.2/resources"
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.3/resources"
         },
         {
           "title": "11. Prompts",
-          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.2/prompts"
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.3/prompts"
         },
         {
           "title": "12. Elicitation Declarations",
-          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.2/elicitation"
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.3/elicitation"
         },
         {
           "title": "13. Tags",
-          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.2/tags"
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.3/tags"
         },
         {
           "title": "14. Specification Extensions",
-          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.2/specification-extensions"
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.3/specification-extensions"
         },
         {
           "title": "15. Serialization",
-          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.2/serialization"
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.3/serialization"
         },
         {
           "title": "16. Conformance",
-          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.2/conformance"
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.3/conformance"
         },
         {
           "title": "17. Reusable Components and Local References",
-          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.2/components"
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.3/components"
         },
         {
           "title": "18. Document-oriented Serialization Ordering",
-          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.2/document-ordering"
+          "url": "https://mcpdesc.org/docs/specification/0.9.0-rc.3/document-ordering"
         }
       ]
     }

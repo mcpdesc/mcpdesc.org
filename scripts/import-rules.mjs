@@ -438,13 +438,12 @@ function renderRule(rule, sourceFile, manifest) {
   ].join('\n');
 }
 
-function renderOverview(rules, unchecked) {
+function renderOverview(rules) {
   const ownerLinks = [
     ...Object.entries(RULE_OWNERS).map(([owner, details]) => {
       const count = rules.filter((rule) => rule.owner === owner).length;
       return `- **${details.label}** — ${count} ${count === 1 ? 'rule' : 'rules'}.`;
     }),
-    ...(unchecked ? [`- [**Unchecked requirements**](/docs/rules/${VERSION}/unchecked) — ${unchecked.length} normative requirements that no rule checks, with the reason.`] : []),
   ].join('\n');
   const sourcePath = posix.join(SPEC_PATH, 'validation/README.md');
   const overviewSource = readFileSync(join(REF_DIR, sourcePath), 'utf8');
@@ -674,7 +673,7 @@ function renderUnchecked(unchecked) {
 
 function createGeneratedPages(rules, fileById, manifest, unchecked) {
   const pages = new Map();
-  pages.set(join(VERSION_DOCS_DIR, 'index.md'), renderOverview(rules, unchecked));
+  pages.set(join(VERSION_DOCS_DIR, 'index.md'), renderOverview(rules));
   if (unchecked) pages.set(join(VERSION_DOCS_DIR, 'unchecked.md'), renderUnchecked(unchecked));
 
   for (const [owner] of Object.entries(RULE_OWNERS)) {
