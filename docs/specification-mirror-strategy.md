@@ -192,7 +192,13 @@ When upstream releases a new spec version (e.g. 0.7.1 or 0.8.0):
    under `ref/<repo-name>/` out at the same tag (the script warns if it is not).
 2. **Schema:** run `node scripts/publish-schema.mjs <version> <source-file-or-url>` to
   validate and publish the schema under `/schema/mcp-description/<version>.json`. The
-  publisher refuses to overwrite an existing version.
+  publisher preserves exact source bytes and refuses to overwrite an existing version.
+  Use `--kind validation-rule` or `--kind validation-result` for companion schemas,
+  with their independently versioned identities. The
+  [schema publication skill](../.github/skills/publish-mcpdesc-schema/SKILL.md) covers
+  source verification, headers, deployment, and live publication gates. Schema hosting
+  may precede the upstream tag from an approved preparation commit; docs and catalogs
+  still require the final immutable tag.
 3. **Landing:** author the version landing page. The importer generates examples and
   migration guidance when those sources exist; the site links to, rather than copies, the
   upstream changelog.

@@ -9,6 +9,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **RC.3 schema publication gate.** Published the MCP Description
+  [`0.9.0-rc.3` schema](https://mcpdesc.org/schema/mcp-description/0.9.0-rc.3.json) and
+  [validation result schema 1.4.0](https://mcpdesc.org/schema/validation-result/1.4.0.json)
+  byte-for-byte from approved preparation commit
+  [`106387d882030f2c5407291cb14e7cee2d6d6a31`](https://github.com/mcpdesc/mcpdesc-specification/commit/106387d882030f2c5407291cb14e7cee2d6d6a31),
+  before upstream tagging. Result format 1.4.0 adds factual diagnostic details and related
+  component-definition locations. The existing rule schema 1.3.0 is unchanged; documentation,
+  bundles, and catalog discovery remain on RC.2 pending the separate tagged import.
+- **Reusable schema publication skill.** Added the workspace
+  [`publish-mcpdesc-schema` skill](.github/skills/publish-mcpdesc-schema/SKILL.md) for approved
+  release, draft, and RC schema hosting, companion schemas, and live publication checks.
+  The schema publisher now supports independently versioned validation rule/result schemas
+  and preserves exact source bytes, including files without a trailing newline; focused
+  publisher tests run in CI.
 - **MCP Description v0.9.0 RC.2 schema and documentation.** Published the schema from
   `v0.9.0-rc.2` and mirrored its specification, examples, companion guides, and 85 validation
   rules, including the immutable machine-readable rule catalog. RC.2 adds
