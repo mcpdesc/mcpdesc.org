@@ -43,7 +43,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   previously published schema and catalog artifacts remain available. MCP Description 0.8.0
   remains the latest stable release.
 - **Validation catalog discovery.** Advanced the discovery index to rule format 1.3.0 and
-  RC.2 only after verifying the immutable schemas and catalog on the live site.
+  through RC.2 to RC.3 only after verifying each candidate's immutable schemas and catalog
+  on the live site. Existing catalog entries remain available; the stable pointer is unchanged.
 
 ### Fixed
 
