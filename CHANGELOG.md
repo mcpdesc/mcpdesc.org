@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.2] - 2026-11-08
+
 ### Added
 
 - **MCP Description v0.9.0 RC.3 documentation and catalog.** Mirrored the annotated
