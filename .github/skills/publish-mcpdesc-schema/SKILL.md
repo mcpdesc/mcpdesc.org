@@ -128,3 +128,16 @@ created by this run.
 Report the verified schema URLs, source SHA/tag, pushed commit, and publication
 check results. Stop here: tagging and the subsequent docs/catalog import are
 separate steps.
+
+## Next prerequisite: the annotated upstream tag
+
+After the live schema publication gates pass, an **annotated tag** named
+`v<snapshot>` (for example, `v0.9.0-rc.3`) must be created and pushed in
+`mcpdesc/mcpdesc-specification` at the approved release commit. Creating this
+tag requires separate maintainer approval; this skill does not create it.
+
+Do not proceed with the documentation mirror or final validation catalog export
+until the annotated tag is available remotely. Verify that it resolves to the
+approved commit and that its schema bytes match the published artifacts. If the
+tagged commit differs from the preparation commit, repeat source comparison and
+publication checks; never overwrite an already-published schema identity.
