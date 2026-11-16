@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **MCP Description 0.9.0 stable schema publication.** Publish the immutable
+  [`0.9.0` schema](https://mcpdesc.org/schema/mcp-description/0.9.0.json)
+  byte-for-byte from the approved upstream release commit
+  [`15d7fe8804dfa19abeeda704983ba35b12e75a5f`](https://github.com/mcpdesc/mcpdesc-specification/commit/15d7fe8804dfa19abeeda704983ba35b12e75a5f).
+  This schema-only publication enables the stable release gate before upstream
+  tagging; documentation, bundles, and validation-catalog discovery are unchanged.
+
 ## [1.3.2] - 2026-11-08
 
 ### Added
