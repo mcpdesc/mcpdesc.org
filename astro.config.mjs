@@ -15,8 +15,8 @@ export default defineConfig({
     // The live editor landing page moved from /editor to /live-editor, to distinguish
     // the mcpdesc.org live experience from the mcpeditor open-source component.
     '/editor': '/live-editor',
-    // Keep /docs/rules as a convenience alias; versioned rule histories never move.
-    '/docs/rules': '/docs/rules/0.9.0-rc.3/',
+    // Keep /docs/rules on the stable source until a stable catalog is published here.
+    '/docs/rules': 'https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0/spec/0.9.0/validation/README.md',
   },
   vite: {
     plugins: [tailwindcss()],
@@ -87,15 +87,15 @@ export default defineConfig({
         {
           label: 'Guides',
           items: [
-            { label: 'MCP Description Overview', slug: 'docs/specification/0.8.0/guides' },
-            { slug: 'docs/specification/0.8.0/guides/design-principles' },
-            { label: 'Tour of the format', slug: 'docs/specification/0.8.0/guides/getting-started' },
-            { slug: 'docs/specification/0.8.0/guides/relationship-to-mcp' },
-            { slug: 'docs/specification/0.8.0/guides/relationship-to-mcp-schemas' },
-            { slug: 'docs/specification/0.8.0/guides/comparison-with-openapi' },
-            { slug: 'docs/specification/0.8.0/guides/vendor-extensions-guide' },
-            { slug: 'docs/specification/0.8.0/migration-0.7-to-0.8' },
-            { slug: 'docs/specification/0.8.0/guides/faq' },
+            { label: 'MCP Description Overview', slug: 'docs/specification/0.9.0/guides' },
+            { slug: 'docs/specification/0.9.0/guides/design-principles' },
+            { label: 'Tour of the format', slug: 'docs/specification/0.9.0/guides/getting-started' },
+            { slug: 'docs/specification/0.9.0/guides/relationship-to-mcp' },
+            { slug: 'docs/specification/0.9.0/guides/relationship-to-mcp-schemas' },
+            { slug: 'docs/specification/0.9.0/guides/comparison-with-openapi' },
+            { slug: 'docs/specification/0.9.0/guides/vendor-extensions-guide' },
+            { slug: 'docs/specification/0.9.0/guides/migration-0.8-to-0.9' },
+            { slug: 'docs/specification/0.9.0/guides/faq' },
           ],
         },
         {
@@ -104,21 +104,9 @@ export default defineConfig({
             { slug: 'docs/specification' },
             { slug: 'docs/specification/changelog' },
             {
-              label: '0.9.0-rc.3 (Release Candidate)',
+              label: '0.9.0 (Latest)',
               collapsed: true,
-              items: [
-                { autogenerate: { directory: 'docs/specification/0.9.0-rc.3' } },
-                {
-                  label: 'Rules',
-                  collapsed: true,
-                  items: [
-                    { slug: 'docs/rules/0.9.0-rc.3' },
-                    { label: 'MCP', collapsed: true, items: [{ autogenerate: { directory: 'docs/rules/0.9.0-rc.3/mcp' } }] },
-                    { label: 'MCP Description', collapsed: true, items: [{ autogenerate: { directory: 'docs/rules/0.9.0-rc.3/mcpdesc' } }] },
-                    { label: 'JSON Schema', collapsed: true, items: [{ autogenerate: { directory: 'docs/rules/0.9.0-rc.3/json-schema' } }] },
-                  ],
-                },
-              ],
+              items: [{ autogenerate: { directory: 'docs/specification/0.9.0' } }],
             },
             {
               label: '0.8.0',

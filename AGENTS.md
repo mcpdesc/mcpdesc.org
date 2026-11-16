@@ -108,8 +108,8 @@ Avoid unless explicitly approved:
 
 - The spec is **mirrored** from its canonical repository into
   `src/content/docs/docs/specification/<version>/**` (fully versioned, immutable folders).
-  Full procedure: `docs/specification-mirror-strategy.md`. Current stable: `mcpdesc` 0.8.0;
-  active candidate: `mcpdesc` 0.9.0-rc.3; previous stable: 0.7.0. Only the active
+  Full procedure: `docs/specification-mirror-strategy.md`. Current stable: `mcpdesc` 0.9.0;
+  no active candidate; previous stable releases: 0.8.0 and 0.7.0. Only the active
   prerelease snapshot is mirrored; earlier drafts remain in the canonical specification repo.
 - To add or bump a version: run `scripts/import-spec.mjs <version> --tag <release-tag>`
   (mirrors the section and companion pages from an **immutable upstream tag** — defaults

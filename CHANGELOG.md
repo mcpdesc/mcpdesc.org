@@ -7,14 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-11-16
+
 ### Added
 
-- **MCP Description 0.9.0 stable schema publication.** Publish the immutable
+- **MCP Description 0.9.0 stable schema publication.** Published the immutable
   [`0.9.0` schema](https://mcpdesc.org/schema/mcp-description/0.9.0.json)
   byte-for-byte from the approved upstream release commit
   [`15d7fe8804dfa19abeeda704983ba35b12e75a5f`](https://github.com/mcpdesc/mcpdesc-specification/commit/15d7fe8804dfa19abeeda704983ba35b12e75a5f).
-  This schema-only publication enables the stable release gate before upstream
-  tagging; documentation, bundles, and validation-catalog discovery are unchanged.
+  This schema-only publication enabled the stable release gate before upstream tagging;
+  documentation, bundles, and validation-catalog discovery were unchanged at that stage.
+- **MCP Description v0.9.0 stable documentation.** Mirrored the complete specification,
+  appendices, examples, and companion guides from immutable upstream tag `v0.9.0`.
+  Updated the specification overview, AI index, and stable version registry; 0.8.0 is now
+  previous stable and retired RC.3 documentation redirects to its upstream tag.
+
+### Changed
+
+- **Stable release discovery.** Advanced the schema `latest` alias and specification
+  `latest` bundle to 0.9.0. No active prerelease is listed. The rules alias points to the
+  canonical stable validation overview; published prerelease catalog artifacts remain
+  unchanged.
 
 ## [1.3.2] - 2026-11-08
 

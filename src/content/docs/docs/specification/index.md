@@ -22,8 +22,8 @@ linked versioned source, that source wins.
 
 | Version | Status | |
 |---|---|---|
-| [**0.9.0-rc.3**](/docs/specification/0.9.0-rc.3/) | Release Candidate | Active candidate; not stable |
-| [**0.8.0**](/docs/specification/0.8.0/) | Stable | **Latest stable** |
+| [**0.9.0**](/docs/specification/0.9.0/) | Stable | **Latest stable** |
+| [**0.8.0**](/docs/specification/0.8.0/) | Stable | Previous |
 | [**0.7.0**](/docs/specification/0.7.0/) | Stable | Previous |
 
 The canonical repository retains prior snapshots. See its
@@ -40,5 +40,5 @@ as a machine-readable index:
   specification in one Markdown document (per-version: `/specification/<version>/mcpdesc.md`).
 - [`/specification/index.json`](/specification/index.json) — the current `stable` and
   `candidate` channels (plus `latest` and `next` compatibility aliases), and their full-file,
-  canonical source, and schema URLs.
+  canonical source, and schema URLs. There is no active candidate at this time.
 :::

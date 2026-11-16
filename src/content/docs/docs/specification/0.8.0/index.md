@@ -14,9 +14,9 @@ head:
       href: https://mcpdesc.org/specification/0.8.0/mcpdesc.md
 ---
 
-:::note[Stable release]
-This is the current stable release of MCP Description. The previous stable release,
-[v0.7.0](/docs/specification/0.7.0/), remains available.
+:::note[Previous stable release]
+MCP Description 0.8.0 is a previous stable release. The current stable release is
+[v0.9.0](/docs/specification/0.9.0/); [v0.7.0](/docs/specification/0.7.0/) remains available.
 :::
 
 **Format version**: 0.8.0 · **Status**: stable · **Date**: September 9, 2026

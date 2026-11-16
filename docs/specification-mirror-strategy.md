@@ -18,15 +18,15 @@ itself. The specification's source of truth is `mcpdesc/mcpdesc-specification` (
   [`mcpdesc/mcpdesc-specification`](https://github.com/mcpdesc/mcpdesc-specification).
   The historical v0.7.0 release source remains archived in the `spec/` folder of
   [`cisco-open/mcptoolkit-contract`](https://github.com/cisco-open/mcptoolkit-contract).
-- **Current channels:** stable `mcpdesc` **0.8.0**; active release candidate
-  **0.9.0-rc.3**. Drafts 1 to 4 and RC.1/RC.2 are archived. The previous stable release is **0.7.0**.
-- **Tool selector:** validators and projection tools resolve the bare format selector
-  `0.9.0` to the latest release candidate until final `0.9.0` is released. Advance that
-  default for each RC (`rc.1`, `rc.2`, and so on), then point it at stable `0.9.0`; exact
-  prerelease selectors remain available for reproducible pinning.
+- **Current channels:** stable `mcpdesc` **0.9.0**; no active release candidate. The previous
+  stable releases are **0.8.0** and **0.7.0**. Drafts 1 to 4 and RC.1 to RC.3 remain in the
+  canonical repository.
+- **Tool selector:** the stable format selector is now `0.9.0`. Adoption by validators and
+  projection tools is a separate downstream coordination step; exact prerelease selectors
+  remain available for reproducible pinning.
 - **What lives upstream (do not fork silently):**
-  - `mcp-description.md` — assembled normative spec (~1,200 lines).
-  - `sections/00…15` — the same normative text, split by section.
+  - `mcp-description.md` — assembled normative spec (~2,500 lines).
+  - `sections/00…18` and appendices — the same normative text, split by section.
   - `guides/` — non-normative rationale, tutorials, comparisons.
   - `examples/` — example `mcpdesc` documents.
   - `extensions/` — vendor extension specs (e.g. `x-cisco-metadata`).
@@ -49,9 +49,9 @@ Each item lists the options, the **recommended** choice, and the rationale. Item
 - **Options:** (1) one long page mirroring `mcp-description.md`; (2) **multi-page, one
   Starlight page per normative section**.
 - **Recommended: (2) multi-page.** Better readability, deep-linking, per-section sidebar
-  navigation, and localized "editor's notes". A 1,200-line single page is poor UX.
+  navigation, and localized "editor's notes". A 2,500-line single page is poor UX.
 - **Cost:** more files to keep in sync. Mitigated by the sync procedure (§5) and the fact
-  that section boundaries already exist upstream (`sections/00…15`).
+  that section boundaries already exist upstream (`sections/00…18`).
 
 ### B. Versioning & URL scheme — 🔲
 
@@ -142,8 +142,9 @@ Each item lists the options, the **recommended** choice, and the rationale. Item
       vendor-extensions-guide
       faq
     examples             Curated examples + link to upstream set
-  0.8.0/**             Stable release; 0.7.0 stays live, marked superseded
-  0.9.0-<candidate>/** Active prerelease snapshot; older prerelease tags stay upstream
+  0.8.0/**             Previous stable release
+  0.9.0/**             Current stable release
+  0.10.0-<candidate>/** Active prerelease snapshot when one exists
 ```
 
 Sidebar: dedicated top-level **Guides** and **Specifications** groups. Guides surface the
@@ -211,12 +212,13 @@ When upstream releases a new spec version (e.g. 0.7.1 or 0.8.0):
    regenerate `public/specification/**` (single-file bundles + `index.json`) and commit the
    result. See §6.
 
-Released stable version folders are **never rewritten** for normative changes. For the
-pre-final `0.9.0` series, keep only the active RC in the site; when another RC is published,
-replace the prior candidate mirror and redirect its former URLs to the immutable upstream
-tag. The canonical repository retains every prerelease snapshot. Patch vs. minor vs. major
-handling follows upstream SemVer (spec §4): patch = errata, minor = additive/back-compatible,
-major = breaking.
+Released stable version folders are **never rewritten** for normative changes. During a
+pre-final series, keep only the active RC in the site; when another RC is published, replace
+the prior candidate mirror and redirect its former URLs to the immutable upstream tag. When
+the series becomes stable, remove the candidate mirror and redirect its former URLs to its
+immutable tag. The canonical repository retains every prerelease snapshot. Patch vs. minor
+vs. major handling follows upstream SemVer (spec §4): patch = errata, minor =
+additive/back-compatible, major = breaking.
 
 ---
 
@@ -252,7 +254,8 @@ the index (channels, maturity, dates, canonical ref, and canonical path).
 Rule documentation is versioned alongside the active prerelease under
 `/docs/rules/<version>/`; earlier prerelease records remain available from their canonical
 upstream tags, not as duplicate site pages. `/docs/rules/` is a mutable alias to the active
-candidate rule set. Import rules with
+candidate rule set; when there is no active candidate or site-published stable catalog, it
+points to the stable release's canonical validation overview. Import rules with
 [`scripts/import-rules.mjs`](../scripts/import-rules.mjs) from the same immutable upstream tag
 as the specification. The importer validates rule records, source locations, fixtures and
 JSON Pointers, and requirement anchors before writing static pages. It also adds “Checked by”
@@ -292,10 +295,11 @@ at the immutable source tag. The protocol-version applicability section is omitt
 `mcpdesc` rules that record none or apply uniformly to every supported protocol version;
 omission never implies universal applicability.
 
-The site selector lists stable releases and one active pre-final `0.9.0` snapshot as Draft.
-When a new RC is published, replace the previous prerelease mirror and redirect its former
-site URLs to the corresponding immutable upstream tag. Keep already-published schema and
-catalog artifact URLs available for compatibility.
+The site selector lists stable releases and, when present, one active pre-final snapshot as
+Draft. When a new RC is published, replace the previous prerelease mirror and redirect its
+former site URLs to the corresponding immutable upstream tag. When the series becomes stable,
+retire its RC mirror the same way. Keep already-published schema and catalog artifact URLs
+available for compatibility.
 
 ---
 
