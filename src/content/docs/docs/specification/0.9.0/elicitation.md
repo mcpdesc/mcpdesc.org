@@ -10,7 +10,7 @@ sidebar:
 
 An Elicitation Declaration documents that fulfilling a Tool, Resource, Resource Template, or Prompt may require additional interaction with the user through the MCP client.
 
-Tool, Resource, Resource Template, and Prompt Objects MAY contain an `elicitations` array of Elicitation Declaration Objects. <a id="req-elicitations-non-empty"></a>When present, the array MUST contain at least one declaration.
+Tool, Resource, Resource Template, and Prompt Objects MAY contain an `elicitations` array of Elicitation Declaration Objects. <a id="req-elicitations-non-empty"></a> <span class="mcpdesc-rule-links" data-anchor="req-elicitations-non-empty" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/tool-members#required-by" title="This requirement is part of rule: mcpdesc.tool.members"><code>&lt;req-elicitations-non-empty&gt;</code></a></small></span> When present, the array MUST contain at least one declaration.
 
 A Resource Template declaration applies to `resources/read` operations on concrete Resource URIs produced from that template. It does not describe elicitation during template discovery.
 
@@ -18,7 +18,7 @@ An Elicitation Declaration describes stable server behavior, not the protocol-sp
 
 ### 12.2 Elicitation Declaration Object
 
-<a id="req-elicitation-declaration-fields"></a>
+<a id="req-elicitation-declaration-fields"></a><span class="mcpdesc-rule-links" data-anchor="req-elicitation-declaration-fields"><br><small><a href="/docs/rules/0.9.0/mcpdesc/elicitation-members#required-by" title="This requirement is part of rule: mcpdesc.elicitation.members"><code>&lt;req-elicitation-declaration-fields&gt;</code></a></small><br></span>
 
 | Property | Type | Required | Description |
 |----------|------|----------|-------------|
@@ -32,11 +32,11 @@ An Elicitation Declaration describes stable server behavior, not the protocol-sp
 | `onCancel` | string | No | Human-readable expected behavior after the user cancels or dismisses the interaction. |
 | `protocolVersions` | array\<string\> | No | MCP protocol versions to which this declaration applies. See [Section 12.5](#125-protocol-applicability). |
 
-<a id="req-elicitation-name-format"></a>`name` MUST match `^[A-Za-z0-9._-]+$`. <a id="req-elicitation-name-unique"></a>Names are case-sensitive and MUST be unique within the containing primitive declaration.
+<a id="req-elicitation-name-format"></a> <span class="mcpdesc-rule-links" data-anchor="req-elicitation-name-format" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/elicitation-members#required-by" title="This requirement is part of rule: mcpdesc.elicitation.members"><code>&lt;req-elicitation-name-format&gt;</code></a></small></span> `name` MUST match `^[A-Za-z0-9._-]+$`. <a id="req-elicitation-name-unique"></a> <span class="mcpdesc-rule-links" data-anchor="req-elicitation-name-unique" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/elicitation-name-unique#required-by" title="This requirement is part of rule: mcpdesc.elicitation.name-unique"><code>&lt;req-elicitation-name-unique&gt;</code></a></small></span> Names are case-sensitive and MUST be unique within the containing primitive declaration.
 
-<a id="req-elicitation-message"></a>`message` MUST be non-empty. It documents the explanation the user should receive. It MAY be representative or default wording when runtime context changes the exact text. <a id="req-elicitation-runtime-wording"></a>Runtime wording SHOULD NOT materially contradict the documented purpose, but MCP Description does not require an exact match.
+<a id="req-elicitation-message"></a> <span class="mcpdesc-rule-links" data-anchor="req-elicitation-message" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/elicitation-members#required-by" title="This requirement is part of rule: mcpdesc.elicitation.members"><code>&lt;req-elicitation-message&gt;</code></a></small></span> `message` MUST be non-empty. It documents the explanation the user should receive. It MAY be representative or default wording when runtime context changes the exact text. <a id="req-elicitation-runtime-wording"></a>Runtime wording SHOULD NOT materially contradict the documented purpose, but MCP Description does not require an exact match.
 
-<a id="req-elicitation-documentation-fields"></a>`when`, `onDecline`, and `onCancel`, when present, MUST be non-empty. They are descriptive documentation, not executable expressions, client instructions, or statically provable guarantees.
+<a id="req-elicitation-documentation-fields"></a> <span class="mcpdesc-rule-links" data-anchor="req-elicitation-documentation-fields" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/elicitation-members#required-by" title="This requirement is part of rule: mcpdesc.elicitation.members"><code>&lt;req-elicitation-documentation-fields&gt;</code></a></small></span> `when`, `onDecline`, and `onCancel`, when present, MUST be non-empty. They are descriptive documentation, not executable expressions, client instructions, or statically provable guarantees.
 
 MCP permits omitting `mode` at runtime for form elicitation. MCP Description requires `mode` so that each declaration has one canonical static form.
 
@@ -44,11 +44,11 @@ MCP permits omitting `mode` at runtime for form elicitation. MCP Description req
 
 For `mode: "form"`:
 
-- <a id="req-elicitation-form-schema-required"></a>`requestedSchema` is REQUIRED;
-- <a id="req-elicitation-form-no-url"></a>`url` MUST NOT appear; and
-- <a id="req-elicitation-form-shape"></a>`requestedSchema` MUST describe an object with only the property schemas allowed by every applicable MCP protocol version.
+- <a id="req-elicitation-form-schema-required"></a> <span class="mcpdesc-rule-links" data-anchor="req-elicitation-form-schema-required" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/elicitation-members#required-by" title="This requirement is part of rule: mcpdesc.elicitation.members"><code>&lt;req-elicitation-form-schema-required&gt;</code></a></small></span> `requestedSchema` is REQUIRED;
+- <a id="req-elicitation-form-no-url"></a> <span class="mcpdesc-rule-links" data-anchor="req-elicitation-form-no-url" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/elicitation-members#required-by" title="This requirement is part of rule: mcpdesc.elicitation.members"><code>&lt;req-elicitation-form-no-url&gt;</code></a></small></span> `url` MUST NOT appear; and
+- <a id="req-elicitation-form-shape"></a> <span class="mcpdesc-rule-links" data-anchor="req-elicitation-form-shape" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcp/elicitation-form-schema-members#required-by" title="This requirement is part of rule: mcp.elicitation.form-schema.members"><code>&lt;req-elicitation-form-shape&gt;</code></a></small></span> `requestedSchema` MUST describe an object with only the property schemas allowed by every applicable MCP protocol version.
 
-`requestedSchema` MAY be a Reference Object targeting the `schemas` component namespace (see [Section 17](/docs/specification/0.9.0/components)). <a id="req-elicitation-schema-references-resolved"></a>A referenced schema MUST be resolved before the vocabulary and protocol-scope requirements of this section are applied.
+`requestedSchema` MAY be a Reference Object targeting the `schemas` component namespace (see [Section 17](/docs/specification/0.9.0/components)). <a id="req-elicitation-schema-references-resolved"></a> <span class="mcpdesc-rule-links" data-anchor="req-elicitation-schema-references-resolved" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/components-references#required-by" title="This requirement is part of rule: mcpdesc.components.references"><code>&lt;req-elicitation-schema-references-resolved&gt;</code></a></small></span> A referenced schema MUST be resolved before the vocabulary and protocol-scope requirements of this section are applied.
 
 The schema is a flat object whose properties use MCP elicitation primitive schemas. Nested objects are invalid, as are arrays other than the multi-select enum forms that MCP supports. Unsupported keywords and unsupported string formats are invalid.
 
@@ -57,16 +57,16 @@ The supported vocabulary depends on the protocol version:
 - MCP 2025-06-18 supports string, number, integer, boolean, and legacy string-enum property schemas. It permits string length constraints, the `email`, `uri`, `date`, and `date-time` formats, numeric bounds, boolean defaults, and optional `enumNames` matching the enum values. It does not define `$schema`, defaults for strings, numbers, or enums, titled `oneOf` enums, or multi-select arrays.
 - MCP 2025-11-25 and MCP 2026-07-28 also support defaults for all primitive types, standard titled single-select enums, titled and untitled multi-select enums, and the legacy `enumNames` form.
 
-<a id="req-elicitation-form-vocabulary"></a>Validators MUST apply the vocabulary of every applicable protocol version.
+<a id="req-elicitation-form-vocabulary"></a> <span class="mcpdesc-rule-links" data-anchor="req-elicitation-form-vocabulary" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcp/elicitation-form-schema-protocol-shape#required-by" title="This requirement is part of rule: mcp.elicitation.form-schema.protocol-shape"><code>&lt;req-elicitation-form-vocabulary&gt;</code></a></small></span> Validators MUST apply the vocabulary of every applicable protocol version.
 
-<a id="req-elicitation-form-required"></a>A `required` entry MUST name a property declared in `properties`. <a id="req-elicitation-form-enum-names"></a>`enumNames`, when present, MUST contain one display name for every enum value. <a id="req-elicitation-form-defaults"></a>An enum default MUST be one of its declared values, and every multi-select default value MUST be one of its declared item choices. <a id="req-elicitation-form-ranges"></a>A minimum constraint MUST NOT exceed its corresponding maximum constraint.
+<a id="req-elicitation-form-required"></a> <span class="mcpdesc-rule-links" data-anchor="req-elicitation-form-required" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/elicitation-form-schema-consistency#required-by" title="This requirement is part of rule: mcpdesc.elicitation.form-schema.consistency"><code>&lt;req-elicitation-form-required&gt;</code></a></small></span> A `required` entry MUST name a property declared in `properties`. <a id="req-elicitation-form-enum-names"></a> <span class="mcpdesc-rule-links" data-anchor="req-elicitation-form-enum-names" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/elicitation-form-schema-consistency#required-by" title="This requirement is part of rule: mcpdesc.elicitation.form-schema.consistency"><code>&lt;req-elicitation-form-enum-names&gt;</code></a></small></span> `enumNames`, when present, MUST contain one display name for every enum value. <a id="req-elicitation-form-defaults"></a> <span class="mcpdesc-rule-links" data-anchor="req-elicitation-form-defaults" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/elicitation-form-schema-consistency#required-by" title="This requirement is part of rule: mcpdesc.elicitation.form-schema.consistency"><code>&lt;req-elicitation-form-defaults&gt;</code></a></small></span> An enum default MUST be one of its declared values, and every multi-select default value MUST be one of its declared item choices. <a id="req-elicitation-form-ranges"></a> <span class="mcpdesc-rule-links" data-anchor="req-elicitation-form-ranges" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/elicitation-form-schema-consistency#required-by" title="This requirement is part of rule: mcpdesc.elicitation.form-schema.consistency"><code>&lt;req-elicitation-form-ranges&gt;</code></a></small></span> A minimum constraint MUST NOT exceed its corresponding maximum constraint.
 
 ### 12.4 URL Mode
 
 For `mode: "url"`:
 
-- <a id="req-elicitation-url-no-schema"></a>`requestedSchema` MUST NOT appear;
-- <a id="req-elicitation-url-syntax"></a>`url`, when present, MUST be a syntactically valid URI; and
+- <a id="req-elicitation-url-no-schema"></a> <span class="mcpdesc-rule-links" data-anchor="req-elicitation-url-no-schema" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/elicitation-members#required-by" title="This requirement is part of rule: mcpdesc.elicitation.members"><code>&lt;req-elicitation-url-no-schema&gt;</code></a></small></span> `requestedSchema` MUST NOT appear;
+- <a id="req-elicitation-url-syntax"></a> <span class="mcpdesc-rule-links" data-anchor="req-elicitation-url-syntax" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/elicitation-members#required-by" title="This requirement is part of rule: mcpdesc.elicitation.members"><code>&lt;req-elicitation-url-syntax&gt;</code></a></small></span> `url`, when present, MUST be a syntactically valid URI; and
 - omitting `url` means the concrete URL is generated or selected at runtime.
 
 Omitting `url` does not make the URL optional at runtime. A runtime URL-mode elicitation still includes every field that the applicable MCP protocol version requires.
@@ -75,7 +75,7 @@ Validation of `url` checks syntax only. <a id="req-elicitation-url-no-fetch"></a
 
 ### 12.5 Protocol Applicability
 
-When `protocolVersions` is omitted, the declaration inherits the effective scope of its containing primitive (see [Section 4.10](/docs/specification/0.9.0/versioning#410-protocol-scopes-and-inheritance)). <a id="req-elicitation-scope"></a>An explicit scope MUST be non-empty and MUST be a subset of the containing primitive's effective scope.
+When `protocolVersions` is omitted, the declaration inherits the effective scope of its containing primitive (see [Section 4.10](/docs/specification/0.9.0/versioning#410-protocol-scopes-and-inheritance)). <a id="req-elicitation-scope"></a> <span class="mcpdesc-rule-links" data-anchor="req-elicitation-scope" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/protocol-scope-consistency#required-by" title="This requirement is part of rule: mcpdesc.protocol-scope.consistency"><code>&lt;req-elicitation-scope&gt;</code></a></small></span> An explicit scope MUST be non-empty and MUST be a subset of the containing primitive's effective scope.
 
 Mode support by protocol version:
 
@@ -83,9 +83,9 @@ Mode support by protocol version:
 - MCP 2025-11-25 supports form and URL modes.
 - MCP 2026-07-28 supports form and URL modes.
 
-<a id="req-elicitation-protocol-versions"></a>A declaration that applies to multiple protocol versions MUST satisfy every one of them. When no single declaration can do so, authors MUST describe the containing primitive as separate protocol-scoped variants (see Sections [9.5](/docs/specification/0.9.0/tools#95-protocol-variants-and-security), [10.5](/docs/specification/0.9.0/resources#105-protocol-variants-and-security), and [11.5](/docs/specification/0.9.0/prompts#115-protocol-variants-and-security)).
+<a id="req-elicitation-protocol-versions"></a> <span class="mcpdesc-rule-links" data-anchor="req-elicitation-protocol-versions" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcp/elicitation-protocol-version#required-by" title="This requirement is part of rule: mcp.elicitation.protocol-version"><code>&lt;req-elicitation-protocol-versions&gt;</code></a></small></span> A declaration that applies to multiple protocol versions MUST satisfy every one of them. When no single declaration can do so, authors MUST describe the containing primitive as separate protocol-scoped variants (see Sections [9.5](/docs/specification/0.9.0/tools#95-protocol-variants-and-security), [10.5](/docs/specification/0.9.0/resources#105-protocol-variants-and-security), and [11.5](/docs/specification/0.9.0/prompts#115-protocol-variants-and-security)).
 
-Complete protocol-version-specific validation begins with MCP 2025-06-18. <a id="req-elicitation-legacy-incomplete"></a>For MCP 2024-11-05 and MCP 2025-03-26, validators apply the legacy validation scope in [Section 16.2](/docs/specification/0.9.0/conformance#162-implementation-conformance) and MUST NOT report complete MCP semantic conformance.
+Complete protocol-version-specific validation begins with MCP 2025-06-18. <a id="req-elicitation-legacy-incomplete"></a> <span class="mcpdesc-rule-links" data-anchor="req-elicitation-legacy-incomplete" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/legacy-protocol-validation-scope#required-by" title="This requirement is part of rule: mcpdesc.legacy-protocol.validation-scope"><code>&lt;req-elicitation-legacy-incomplete&gt;</code></a></small></span> For MCP 2024-11-05 and MCP 2025-03-26, validators apply the legacy validation scope in [Section 16.2](/docs/specification/0.9.0/conformance#162-implementation-conformance) and MUST NOT report complete MCP semantic conformance.
 
 ### 12.6 Static-Description Boundary
 

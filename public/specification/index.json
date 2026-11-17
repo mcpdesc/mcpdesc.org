@@ -171,7 +171,7 @@
       "date": "2026-11-16",
       "html": "https://mcpdesc.org/docs/specification/0.9.0/",
       "full": "https://mcpdesc.org/specification/0.9.0/mcpdesc.md",
-      "sha256": "9bf5df6b43c72e81dbb0103a368e6dfe01d51cf14f41a9f3ce17bdce4e0e62fd",
+      "sha256": "99aab4620e8281d4c56d364e4e33c6095667dded3816d4244d36442268a707c6",
       "canonical": "https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0/spec/0.9.0/mcp-description.md",
       "canonicalRaw": "https://raw.githubusercontent.com/mcpdesc/mcpdesc-specification/v0.9.0/spec/0.9.0/mcp-description.md",
       "schema": "https://mcpdesc.org/schema/mcp-description/0.9.0.json",

@@ -14,7 +14,7 @@ An MCP Description MAY be serialized as JSON or as restricted YAML. Both seriali
 
 ### 15.2 JSON Serialization
 
-<a id="req-serialization-json"></a>JSON serialization MUST conform to [RFC 8259](https://www.rfc-editor.org/rfc/rfc8259) and MUST be encoded in UTF-8.
+<a id="req-serialization-json"></a> <span class="mcpdesc-rule-links" data-anchor="req-serialization-json" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/serialization-conforming#required-by" title="This requirement is part of rule: mcpdesc.serialization.conforming"><code>&lt;req-serialization-json&gt;</code></a></small></span> JSON serialization MUST conform to [RFC 8259](https://www.rfc-editor.org/rfc/rfc8259) and MUST be encoded in UTF-8.
 
 <a id="req-serialization-json-claims"></a>A consumer that claims JSON input support MUST accept conforming JSON MCP Description documents. A producer that claims JSON output support MUST emit conforming JSON MCP Description documents.
 
@@ -24,9 +24,9 @@ The recommended file extension is `.mcpdesc.json`. The recommended media type is
 
 An MCP Description MAY be serialized as YAML 1.2.2 under the restricted profile defined in this section. The profile uses the JSON schema tag-resolution rules in Section 10.2.2 of the [YAML 1.2.2 specification](https://yaml.org/spec/1.2.2/), with the string fallback defined in Section 15.3.3 and the restrictions in Sections 15.3.1 to 15.3.6.
 
-<a id="req-serialization-yaml-claims"></a>A consumer that claims YAML input support MUST accept YAML MCP Description documents that satisfy this profile and MUST reject documents that violate it. A producer that claims YAML output support MUST emit only documents that satisfy the profile.
+<a id="req-serialization-yaml-claims"></a> <span class="mcpdesc-rule-links" data-anchor="req-serialization-yaml-claims" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/serialization-conforming#required-by" title="This requirement is part of rule: mcpdesc.serialization.conforming"><code>&lt;req-serialization-yaml-claims&gt;</code></a></small></span> A consumer that claims YAML input support MUST accept YAML MCP Description documents that satisfy this profile and MUST reject documents that violate it. A producer that claims YAML output support MUST emit only documents that satisfy the profile.
 
-<a id="req-serialization-yaml-single-document"></a>A YAML MCP Description MUST consist of exactly one YAML document and MUST decode to the JSON-compatible data model (see [Section 3.1](/docs/specification/0.9.0/document-structure#31-format)). A YAML stream containing zero or multiple documents MUST be rejected.
+<a id="req-serialization-yaml-single-document"></a> <span class="mcpdesc-rule-links" data-anchor="req-serialization-yaml-single-document" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/serialization-conforming#required-by" title="This requirement is part of rule: mcpdesc.serialization.conforming"><code>&lt;req-serialization-yaml-single-document&gt;</code></a></small></span> A YAML MCP Description MUST consist of exactly one YAML document and MUST decode to the JSON-compatible data model (see [Section 3.1](/docs/specification/0.9.0/document-structure#31-format)). A YAML stream containing zero or multiple documents MUST be rejected.
 
 The recommended file extensions are `.mcpdesc.yaml` and `.mcpdesc.yml`, with `.mcpdesc.yaml` preferred. The recommended media type is `application/mcp-description+yaml`.
 
@@ -34,15 +34,15 @@ The recommended file extensions are `.mcpdesc.yaml` and `.mcpdesc.yml`, with `.m
 
 #### 15.3.1 String Mapping Keys
 
-<a id="req-serialization-yaml-string-keys"></a>Every YAML mapping key MUST resolve to a string. Complex keys, sequence keys, numeric keys, boolean keys, null keys, and other non-string keys MUST be rejected.
+<a id="req-serialization-yaml-string-keys"></a> <span class="mcpdesc-rule-links" data-anchor="req-serialization-yaml-string-keys" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/serialization-conforming#required-by" title="This requirement is part of rule: mcpdesc.serialization.conforming"><code>&lt;req-serialization-yaml-string-keys&gt;</code></a></small></span> Every YAML mapping key MUST resolve to a string. Complex keys, sequence keys, numeric keys, boolean keys, null keys, and other non-string keys MUST be rejected.
 
 #### 15.3.2 Duplicate Mapping Keys
 
-<a id="req-serialization-yaml-duplicate-keys"></a>A YAML mapping MUST NOT contain duplicate keys after scalar resolution. Implementations MUST reject duplicate keys rather than silently keeping the first or last value.
+<a id="req-serialization-yaml-duplicate-keys"></a> <span class="mcpdesc-rule-links" data-anchor="req-serialization-yaml-duplicate-keys" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/serialization-conforming#required-by" title="This requirement is part of rule: mcpdesc.serialization.conforming"><code>&lt;req-serialization-yaml-duplicate-keys&gt;</code></a></small></span> A YAML mapping MUST NOT contain duplicate keys after scalar resolution. Implementations MUST reject duplicate keys rather than silently keeping the first or last value.
 
 #### 15.3.3 Scalar Resolution and Numeric Values
 
-<a id="req-serialization-yaml-scalars"></a>A YAML processor MUST use the YAML 1.2.2 JSON schema rules to recognize null, booleans, and numbers. An untagged plain scalar that matches none of those rules MUST resolve to a string, except for the non-finite forms described below. This string fallback extends the YAML JSON schema, which would otherwise report unmatched plain scalars as errors. These rules apply to both mapping keys and values; mapping keys remain subject to Section 15.3.1. A scalar used as an MCP Description value MUST resolve to a string, finite number, boolean, or null. Non-finite numbers MUST be rejected, including numeric spellings that overflow, such as `1e400`. Untagged plain `.inf` and `.nan`, in any letter case and with an optional leading `+` or `-`, MUST also be rejected rather than resolved as strings. Quoted forms of these spellings remain strings.
+<a id="req-serialization-yaml-scalars"></a> <span class="mcpdesc-rule-links" data-anchor="req-serialization-yaml-scalars" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/serialization-conforming#required-by" title="This requirement is part of rule: mcpdesc.serialization.conforming"><code>&lt;req-serialization-yaml-scalars&gt;</code></a></small></span> A YAML processor MUST use the YAML 1.2.2 JSON schema rules to recognize null, booleans, and numbers. An untagged plain scalar that matches none of those rules MUST resolve to a string, except for the non-finite forms described below. This string fallback extends the YAML JSON schema, which would otherwise report unmatched plain scalars as errors. These rules apply to both mapping keys and values; mapping keys remain subject to Section 15.3.1. A scalar used as an MCP Description value MUST resolve to a string, finite number, boolean, or null. Non-finite numbers MUST be rejected, including numeric spellings that overflow, such as `1e400`. Untagged plain `.inf` and `.nan`, in any letter case and with an optional leading `+` or `-`, MUST also be rejected rather than resolved as strings. Quoted forms of these spellings remain strings.
 
 For example, plain `null`, `true`, and `12` resolve to null, a boolean, and a number. Plain `ordinary`, `0o12`, `0x12`, `012`, `TRUE`, and `~` resolve to strings. In particular, `0o12` remains a string rather than the octal number `10`. These rules differ from YAML 1.2 Core and YAML 1.1 scalar resolution.
 
@@ -50,21 +50,21 @@ These rules do not resolve timestamps, so dates and date-times remain strings. <
 
 #### 15.3.4 Tags and Safe Parsing
 
-<a id="req-serialization-yaml-tags"></a>Documents MUST NOT use application-specific, language-specific, or custom YAML tags. Implementations MUST use a safe parser mode that does not instantiate application objects or run constructors based on tags.
+<a id="req-serialization-yaml-tags"></a> <span class="mcpdesc-rule-links" data-anchor="req-serialization-yaml-tags" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/serialization-conforming#required-by" title="This requirement is part of rule: mcpdesc.serialization.conforming"><code>&lt;req-serialization-yaml-tags&gt;</code></a></small></span> Documents MUST NOT use application-specific, language-specific, or custom YAML tags. Implementations MUST use a safe parser mode that does not instantiate application objects or run constructors based on tags.
 
 #### 15.3.5 Anchors and Aliases
 
-<a id="req-serialization-yaml-aliases"></a>A conforming MCP Description YAML serialization MUST NOT use aliases, including alias-based recursive structures. Implementations MUST reject documents that contain aliases. Aliases introduce graph identity, recursion, and expansion, which the JSON-compatible data model cannot represent.
+<a id="req-serialization-yaml-aliases"></a> <span class="mcpdesc-rule-links" data-anchor="req-serialization-yaml-aliases" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/serialization-conforming#required-by" title="This requirement is part of rule: mcpdesc.serialization.conforming"><code>&lt;req-serialization-yaml-aliases&gt;</code></a></small></span> A conforming MCP Description YAML serialization MUST NOT use aliases, including alias-based recursive structures. Implementations MUST reject documents that contain aliases. Aliases introduce graph identity, recursion, and expansion, which the JSON-compatible data model cannot represent.
 
 <a id="req-serialization-explicit-reuse"></a>Authors who need semantic reuse SHOULD repeat the value explicitly or use a specification-defined reuse mechanism, such as reusable components (see [Section 17](/docs/specification/0.9.0/components)).
 
 #### 15.3.6 Merge Keys
 
-<a id="req-serialization-yaml-merge-keys"></a>MCP Description tooling MUST NOT interpret YAML merge keys such as `<<` as merge operations, and MUST NOT apply merge semantics before validation. If a parser exposes `<<` as an ordinary string key, the document usually fails schema validation because `<<` is not a defined property.
+<a id="req-serialization-yaml-merge-keys"></a> <span class="mcpdesc-rule-links" data-anchor="req-serialization-yaml-merge-keys" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/serialization-conforming#required-by" title="This requirement is part of rule: mcpdesc.serialization.conforming"><code>&lt;req-serialization-yaml-merge-keys&gt;</code></a></small></span> MCP Description tooling MUST NOT interpret YAML merge keys such as `<<` as merge operations, and MUST NOT apply merge semantics before validation. If a parser exposes `<<` as an ordinary string key, the document usually fails schema validation because `<<` is not a defined property.
 
 ### 15.4 Parsing and Validation Pipeline
 
-<a id="req-serialization-yaml-validation"></a>A validator MUST NOT apply weaker semantic validation to YAML than to JSON. A conforming validator that accepts YAML MUST:
+<a id="req-serialization-yaml-validation"></a> <span class="mcpdesc-rule-links" data-anchor="req-serialization-yaml-validation" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/serialization-conforming#required-by" title="This requirement is part of rule: mcpdesc.serialization.conforming"><code>&lt;req-serialization-yaml-validation&gt;</code></a></small></span> A validator MUST NOT apply weaker semantic validation to YAML than to JSON. A conforming validator that accepts YAML MUST:
 
 1. Parse YAML using the restrictions in Section 15.3 and reject unsupported YAML constructs.
 2. Normalize the parsed result to the JSON-compatible data model.
@@ -85,13 +85,13 @@ A JSON document and a YAML document that decode to the same JSON-compatible data
 
 MCP Description-defined properties do not accept `null`; a property without a value is omitted. A `null` inside a JSON-compatible value, such as an example value, an extension value, or `_meta`, is data and is preserved.
 
-<a id="req-serialization-empty-collections"></a>An ordinary declaration collection with no entries MUST be omitted (see [Section 3.3](/docs/specification/0.9.0/document-structure#33-optional-sections-and-ordinary-collections)); an explicit empty array or object is not conforming. <a id="req-serialization-empty-values-preserved"></a>Serialization MUST NOT convert omission into an explicit empty value. Implementations MUST preserve semantically significant empty values and MUST NOT convert them to omission. These forms are not interchangeable:
+<a id="req-serialization-empty-collections"></a> <span class="mcpdesc-rule-links" data-anchor="req-serialization-empty-collections" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/document-schema#required-by" title="This requirement is part of rule: mcpdesc.document.schema"><code>&lt;req-serialization-empty-collections&gt;</code></a></small></span> An ordinary declaration collection with no entries MUST be omitted (see [Section 3.3](/docs/specification/0.9.0/document-structure#33-optional-sections-and-ordinary-collections)); an explicit empty array or object is not conforming. <a id="req-serialization-empty-values-preserved"></a> <span class="mcpdesc-rule-links" data-anchor="req-serialization-empty-values-preserved" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/view-projection#required-by" title="This requirement is part of rule: mcpdesc.view.projection"><code>&lt;req-serialization-empty-values-preserved&gt;</code></a></small></span> Serialization MUST NOT convert omission into an explicit empty value. Implementations MUST preserve semantically significant empty values and MUST NOT convert them to omission. These forms are not interchangeable:
 
 - `security: []` clears inherited security, while omitting `security` inherits it.
 - `security: [{}]` allows anonymous access as an alternative.
 - An empty scope array in a Security Requirement Object is significant.
 
-<a id="req-serialization-value-formats"></a>String values MUST be valid JSON strings after decoding. URI values MUST conform to [RFC 3986](https://www.rfc-editor.org/rfc/rfc3986). Email values SHOULD conform to [RFC 5322](https://www.rfc-editor.org/rfc/rfc5322). Date values MUST conform to ISO 8601.
+<a id="req-serialization-value-formats"></a> <span class="mcpdesc-rule-links" data-anchor="req-serialization-value-formats" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcp/annotations-members#required-by" title="This requirement is part of rule: mcp.annotations.members"><code>&lt;req-serialization-value-formats&gt;</code></a>, <a href="/docs/rules/0.9.0/mcp/icon-members#required-by" title="This requirement is part of rule: mcp.icon.members"><code>&lt;req-serialization-value-formats&gt;</code></a>, <a href="/docs/rules/0.9.0/mcp/resource-uri#required-by" title="This requirement is part of rule: mcp.resource.uri"><code>&lt;req-serialization-value-formats&gt;</code></a>, <a href="/docs/rules/0.9.0/mcpdesc/info-members#required-by" title="This requirement is part of rule: mcpdesc.info.members"><code>&lt;req-serialization-value-formats&gt;</code></a>, <a href="/docs/rules/0.9.0/mcpdesc/security-scheme-members#required-by" title="This requirement is part of rule: mcpdesc.security-scheme.members"><code>&lt;req-serialization-value-formats&gt;</code></a>, <a href="/docs/rules/0.9.0/mcpdesc/transport-members#required-by" title="This requirement is part of rule: mcpdesc.transport.members"><code>&lt;req-serialization-value-formats&gt;</code></a></small></span> String values MUST be valid JSON strings after decoding. URI values MUST conform to [RFC 3986](https://www.rfc-editor.org/rfc/rfc3986). Email values SHOULD conform to [RFC 5322](https://www.rfc-editor.org/rfc/rfc5322). Date values MUST conform to ISO 8601.
 
 ### 15.7 Schema Reference
 

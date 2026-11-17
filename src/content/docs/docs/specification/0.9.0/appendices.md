@@ -10,7 +10,7 @@ sidebar:
 
 ## Appendix A: Icon Object
 
-<a id="req-icon-fields"></a>The Icon object describes an icon for UI display. Several objects in this specification use it.
+<a id="req-icon-fields"></a> <span class="mcpdesc-rule-links" data-anchor="req-icon-fields" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcp/icon-members#required-by" title="This requirement is part of rule: mcp.icon.members"><code>&lt;req-icon-fields&gt;</code></a></small></span> The Icon object describes an icon for UI display. Several objects in this specification use it.
 
 | Property | Type | Required | Description |
 |----------|------|----------|-------------|

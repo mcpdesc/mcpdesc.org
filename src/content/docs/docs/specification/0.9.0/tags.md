@@ -6,13 +6,13 @@ sidebar:
   order: 13
 ---
 
-The root `tags` array is a flat, document-wide tag catalog for the MCP server. Tags are MCP Description metadata, not fields defined by the MCP protocol. <a id="req-tags-non-empty"></a>The array is OPTIONAL and MUST be non-empty when present. <a id="req-tags-omitted"></a>Producers MUST omit `tags` when they declare no catalog entries.
+The root `tags` array is a flat, document-wide tag catalog for the MCP server. Tags are MCP Description metadata, not fields defined by the MCP protocol. <a id="req-tags-non-empty"></a> <span class="mcpdesc-rule-links" data-anchor="req-tags-non-empty" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/document-schema#required-by" title="This requirement is part of rule: mcpdesc.document.schema"><code>&lt;req-tags-non-empty&gt;</code></a></small></span> The array is OPTIONAL and MUST be non-empty when present. <a id="req-tags-omitted"></a> <span class="mcpdesc-rule-links" data-anchor="req-tags-omitted" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/document-schema#required-by" title="This requirement is part of rule: mcpdesc.document.schema"><code>&lt;req-tags-omitted&gt;</code></a></small></span> Producers MUST omit `tags` when they declare no catalog entries.
 
 When present, `tags` lists the tag names that Tools, Resources, Resource Templates, and Prompts can reference. <a id="req-tags-display-order"></a>Array order sets display priority: user interfaces and documentation SHOULD present earlier tags first.
 
 ### 13.1 Tag Object
 
-<a id="req-tag-fields"></a>
+<a id="req-tag-fields"></a><span class="mcpdesc-rule-links" data-anchor="req-tag-fields"><br><small><a href="/docs/rules/0.9.0/mcpdesc/tag-members#required-by" title="This requirement is part of rule: mcpdesc.tag.members"><code>&lt;req-tag-fields&gt;</code></a></small><br></span>
 
 | Property | Type | Required | Description |
 |----------|------|----------|-------------|
@@ -21,21 +21,21 @@ When present, `tags` lists the tag names that Tools, Resources, Resource Templat
 
 ### 13.2 Tag Uniqueness
 
-<a id="req-tags-unique"></a>Tag names MUST be unique within the root `tags` array. Validators MUST reject a document that contains duplicate tag names.
+<a id="req-tags-unique"></a> <span class="mcpdesc-rule-links" data-anchor="req-tags-unique" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/tags-references#required-by" title="This requirement is part of rule: mcpdesc.tags.references"><code>&lt;req-tags-unique&gt;</code></a></small></span> Tag names MUST be unique within the root `tags` array. Validators MUST reject a document that contains duplicate tag names.
 
 ### 13.3 Tag References
 
-A Tool, Resource, Resource Template, or Prompt can carry its own `tags` array of tag names. <a id="req-entity-tags-shape"></a>A primitive's `tags` array MUST be non-empty when present and MUST contain only strings. <a id="req-entity-tags-unique"></a>It MUST NOT contain duplicate values.
+A Tool, Resource, Resource Template, or Prompt can carry its own `tags` array of tag names. <a id="req-entity-tags-shape"></a> <span class="mcpdesc-rule-links" data-anchor="req-entity-tags-shape" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/prompt-members#required-by" title="This requirement is part of rule: mcpdesc.prompt.members"><code>&lt;req-entity-tags-shape&gt;</code></a>, <a href="/docs/rules/0.9.0/mcpdesc/resource-members#required-by" title="This requirement is part of rule: mcpdesc.resource.members"><code>&lt;req-entity-tags-shape&gt;</code></a>, <a href="/docs/rules/0.9.0/mcpdesc/tool-members#required-by" title="This requirement is part of rule: mcpdesc.tool.members"><code>&lt;req-entity-tags-shape&gt;</code></a></small></span> A primitive's `tags` array MUST be non-empty when present and MUST contain only strings. <a id="req-entity-tags-unique"></a> <span class="mcpdesc-rule-links" data-anchor="req-entity-tags-unique" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/prompt-members#required-by" title="This requirement is part of rule: mcpdesc.prompt.members"><code>&lt;req-entity-tags-unique&gt;</code></a>, <a href="/docs/rules/0.9.0/mcpdesc/resource-members#required-by" title="This requirement is part of rule: mcpdesc.resource.members"><code>&lt;req-entity-tags-unique&gt;</code></a>, <a href="/docs/rules/0.9.0/mcpdesc/tool-members#required-by" title="This requirement is part of rule: mcpdesc.tool.members"><code>&lt;req-entity-tags-unique&gt;</code></a></small></span> It MUST NOT contain duplicate values.
 
-<a id="req-tags-references"></a>When the root `tags` array is present, every tag that a primitive references MUST be declared in it. When the root `tags` array is absent, primitive tags are unconstrained strings.
+<a id="req-tags-references"></a> <span class="mcpdesc-rule-links" data-anchor="req-tags-references" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/tags-references#required-by" title="This requirement is part of rule: mcpdesc.tags.references"><code>&lt;req-tags-references&gt;</code></a></small></span> When the root `tags` array is present, every tag that a primitive references MUST be declared in it. When the root `tags` array is absent, primitive tags are unconstrained strings.
 
 ### 13.4 Protocol Scopes and Effective Protocol Views
 
-The root tag catalog is not protocol-scoped. A tag categorizes primitives across the whole document; it does not describe protocol behavior. <a id="req-tags-views"></a>An Effective Protocol View MUST preserve the complete root tag catalog, including entries that no primitive in that view references.
+The root tag catalog is not protocol-scoped. A tag categorizes primitives across the whole document; it does not describe protocol behavior. <a id="req-tags-views"></a> <span class="mcpdesc-rule-links" data-anchor="req-tags-views" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/view-projection#required-by" title="This requirement is part of rule: mcpdesc.view.projection"><code>&lt;req-tags-views&gt;</code></a></small></span> An Effective Protocol View MUST preserve the complete root tag catalog, including entries that no primitive in that view references.
 
 Protocol-scoped variants of the same primitive MAY use different `tags` arrays. When the root catalog is present, every reference in every variant is validated against it.
 
-<a id="req-tags-merge"></a>Merge inputs MUST agree on the root tag catalog under the merge rules for unscoped metadata (see [Section 4.13](/docs/specification/0.9.0/versioning#413-merge)). Merge tooling MUST NOT infer, discard, or synthesize catalog entries from the tags referenced in individual views.
+<a id="req-tags-merge"></a> <span class="mcpdesc-rule-links" data-anchor="req-tags-merge" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/view-merge#required-by" title="This requirement is part of rule: mcpdesc.view.merge"><code>&lt;req-tags-merge&gt;</code></a></small></span> Merge inputs MUST agree on the root tag catalog under the merge rules for unscoped metadata (see [Section 4.13](/docs/specification/0.9.0/versioning#413-merge)). Merge tooling MUST NOT infer, discard, or synthesize catalog entries from the tags referenced in individual views.
 
 Elicitation Declarations do not carry tags. Each one is nested within a Tool, Resource, Resource Template, or Prompt, which can already be tagged. Extending tags to nested declarations would need its own use case and compatibility review.
 

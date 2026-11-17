@@ -15,8 +15,8 @@ export default defineConfig({
     // The live editor landing page moved from /editor to /live-editor, to distinguish
     // the mcpdesc.org live experience from the mcpeditor open-source component.
     '/editor': '/live-editor',
-    // Keep /docs/rules on the stable source until a stable catalog is published here.
-    '/docs/rules': 'https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0/spec/0.9.0/validation/README.md',
+    // Keep /docs/rules on the current stable catalog overview.
+    '/docs/rules': '/docs/rules/0.9.0/',
   },
   vite: {
     plugins: [tailwindcss()],
@@ -106,7 +106,19 @@ export default defineConfig({
             {
               label: '0.9.0 (Latest)',
               collapsed: true,
-              items: [{ autogenerate: { directory: 'docs/specification/0.9.0' } }],
+              items: [
+                { autogenerate: { directory: 'docs/specification/0.9.0' } },
+                {
+                  label: 'Validation Rules',
+                  collapsed: true,
+                  items: [
+                    { slug: 'docs/rules/0.9.0' },
+                    { label: 'MCP', collapsed: true, items: [{ autogenerate: { directory: 'docs/rules/0.9.0/mcp' } }] },
+                    { label: 'MCP Description', collapsed: true, items: [{ autogenerate: { directory: 'docs/rules/0.9.0/mcpdesc' } }] },
+                    { label: 'JSON Schema', collapsed: true, items: [{ autogenerate: { directory: 'docs/rules/0.9.0/json-schema' } }] },
+                  ],
+                },
+              ],
             },
             {
               label: '0.8.0',

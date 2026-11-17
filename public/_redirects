@@ -2,9 +2,9 @@
 # again instead of treating an alias as an immutable schema identity.
 /schema/mcp-description/latest.json  /schema/mcp-description/0.9.0.json  302
 
-# Mutable rules alias. Until a stable catalog is published here, use the canonical overview.
-/docs/rules   https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0/spec/0.9.0/validation/README.md  302
-/docs/rules/  https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0/spec/0.9.0/validation/README.md  302
+# Mutable rules alias points to the current stable catalog overview.
+/docs/rules   /docs/rules/0.9.0/  302
+/docs/rules/  /docs/rules/0.9.0/  302
 
 # Historical draft docs and bundles are maintained at their immutable upstream tags.
 /docs/specification/0.9.0-draft.1/ https://github.com/mcpdesc/mcpdesc-specification/tree/v0.9.0-draft.1/spec/draft 301

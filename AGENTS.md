@@ -120,9 +120,10 @@ Avoid unless explicitly approved:
   `scripts/import-rules.mjs <version> --path <spec-path> --tag <release-tag>` from the same
   immutable upstream checkout. It validates records, citations, fixtures, and requirement
   anchors, then generates `/docs/rules/<version>/` and “Checked by” links on the corresponding
-  mirrored spec pages. Mirror only active prerelease rule pages; earlier rule records remain
-  at their immutable upstream tags. Keep published schema/catalog artifact URLs and update the
-  `/docs/rules` redirect when a newer candidate is deployed.
+  mirrored spec pages. Mirror stable rule pages and only the active prerelease; earlier
+  prerelease records remain at their immutable upstream tags. Keep published schema/catalog
+  artifact URLs and update the `/docs/rules` redirect when the stable or candidate catalog
+  changes.
 - From draft.2 onward, the rules overview is imported verbatim from the marked
   `mcpdesc:validation-overview:start/end` excerpt in upstream `validation/README.md`.
   Do not replace it with site-authored prose. The informative `rule-history-0.8.md` is not

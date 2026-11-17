@@ -12,13 +12,13 @@ An MCP Description document uses a JSON-compatible data model. The model consist
 
 The data model defines the document's meaning, whether it is serialized as JSON or YAML.
 
-<a id="req-conforming-serialization"></a>An MCP Description document MUST use one of the conforming serializations defined in Section 15. JSON and restricted YAML conform equally. Neither has greater semantic or conformance status.
+<a id="req-conforming-serialization"></a> <span class="mcpdesc-rule-links" data-anchor="req-conforming-serialization" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/serialization-conforming#required-by" title="This requirement is part of rule: mcpdesc.serialization.conforming"><code>&lt;req-conforming-serialization&gt;</code></a></small></span> An MCP Description document MUST use one of the conforming serializations defined in Section 15. JSON and restricted YAML conform equally. Neither has greater semantic or conformance status.
 
 Property ordering is not significant unless a field explicitly defines ordering for an array. <a id="req-serialization-order"></a>Mapping serialization order MUST NOT affect conformance.
 
 ### 3.2 Root Object
 
-<a id="req-root-fields"></a>The root of an MCP Description document is an object with the following structure:
+<a id="req-root-fields"></a> <span class="mcpdesc-rule-links" data-anchor="req-root-fields" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/document-schema#required-by" title="This requirement is part of rule: mcpdesc.document.schema"><code>&lt;req-root-fields&gt;</code></a></small></span> The root of an MCP Description document is an object with the following structure:
 
 | Property | Type | Required | Description |
 |----------|------|----------|-------------|
@@ -48,9 +48,9 @@ Only `mcpdesc`, `info`, and non-empty `protocolVersions` are required at the doc
 
 <a id="req-omission-not-absence"></a>Unless a property's definition explicitly states otherwise, omission MUST NOT be interpreted as proof that the server does not support, expose, or use the corresponding runtime behavior.
 
-<a id="req-ordinary-collections-non-empty"></a>An optional ordinary declaration collection MUST contain at least one entry when present.
+<a id="req-ordinary-collections-non-empty"></a> <span class="mcpdesc-rule-links" data-anchor="req-ordinary-collections-non-empty" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/document-schema#required-by" title="This requirement is part of rule: mcpdesc.document.schema"><code>&lt;req-ordinary-collections-non-empty&gt;</code></a></small></span> An optional ordinary declaration collection MUST contain at least one entry when present.
 
-<a id="req-ordinary-collections-omitted"></a>A producer MUST omit such a property when it has no entries, and a consumer MUST reject a present empty collection.
+<a id="req-ordinary-collections-omitted"></a> <span class="mcpdesc-rule-links" data-anchor="req-ordinary-collections-omitted" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/document-schema#required-by" title="This requirement is part of rule: mcpdesc.document.schema"><code>&lt;req-ordinary-collections-omitted&gt;</code></a></small></span> A producer MUST omit such a property when it has no entries, and a consumer MUST reject a present empty collection.
 
 The non-empty collection requirement applies to:
 
@@ -62,7 +62,7 @@ The non-empty collection requirement applies to:
 
 This requirement does not constrain embedded JSON Schemas, specification-extension values, arbitrary literal example values, or transport invocation values. Protocol-native content and annotation collections follow their own rules.
 
-An empty collection remains valid when its property definition assigns a distinct meaning to emptiness. <a id="req-security-empties-preserved"></a>Implementations MUST preserve `security: []`, `security: [{}]`, and empty scope arrays in Security Requirement Objects.
+An empty collection remains valid when its property definition assigns a distinct meaning to emptiness. <a id="req-security-empties-preserved"></a> <span class="mcpdesc-rule-links" data-anchor="req-security-empties-preserved" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/view-projection#required-by" title="This requirement is part of rule: mcpdesc.view.projection"><code>&lt;req-security-empties-preserved&gt;</code></a></small></span> Implementations MUST preserve `security: []`, `security: [{}]`, and empty scope arrays in Security Requirement Objects.
 
 ### 3.4 Zero-Primitive Descriptions
 
@@ -74,13 +74,13 @@ A document MAY omit all of `tools`, `resources`, `resourceTemplates`, and `promp
 
 The `_meta` property allows additional metadata on Tool, Resource, Resource Template, and Prompt declarations. It can also appear on supported result, content, Tool Interaction step response, and root objects in named examples.
 
-<a id="req-meta-protocol-version-availability"></a>`_meta` MAY appear only when every protocol version in the effective scope of the containing declaration defines it for the corresponding MCP object.
+<a id="req-meta-protocol-version-availability"></a> <span class="mcpdesc-rule-links" data-anchor="req-meta-protocol-version-availability" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcp/root-meta-protocol-version#required-by" title="This requirement is part of rule: mcp.root.meta.protocol-version"><code>&lt;req-meta-protocol-version-availability&gt;</code></a></small></span> `_meta` MAY appear only when every protocol version in the effective scope of the containing declaration defines it for the corresponding MCP object.
 
 Metadata in a named example describes only that example. It does not define a reusable metadata schema or require a server to send that metadata.
 
-<a id="req-meta-keys"></a>Each key name, its use, and the value of any reserved key MUST follow the rules of every applicable MCP protocol version. A recognized violation is a document-conformance error.
+<a id="req-meta-keys"></a> <span class="mcpdesc-rule-links" data-anchor="req-meta-keys" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcp/meta-key-format#required-by" title="This requirement is part of rule: mcp.meta.key-format"><code>&lt;req-meta-keys&gt;</code></a>, <a href="/docs/rules/0.9.0/mcp/meta-reserved-key-context#required-by" title="This requirement is part of rule: mcp.meta.reserved-key-context"><code>&lt;req-meta-keys&gt;</code></a></small></span> Each key name, its use, and the value of any reserved key MUST follow the rules of every applicable MCP protocol version. A recognized violation is a document-conformance error.
 
-<a id="req-meta-reserved-prefix"></a>A valid but unrecognized key under an MCP-reserved prefix MUST be preserved and SHOULD produce a warning. Other valid keys MUST be accepted and preserved. A single-version projection MUST preserve `_meta`. It MUST NOT combine metadata from variants that cover different protocol versions.
+<a id="req-meta-reserved-prefix"></a> <span class="mcpdesc-rule-links" data-anchor="req-meta-reserved-prefix" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcp/meta-reserved-prefix#required-by" title="This requirement is part of rule: mcp.meta.reserved-prefix"><code>&lt;req-meta-reserved-prefix&gt;</code></a></small></span> A valid but unrecognized key under an MCP-reserved prefix MUST be preserved and SHOULD produce a warning. Other valid keys MUST be accepted and preserved. A single-version projection MUST preserve `_meta`. It MUST NOT combine metadata from variants that cover different protocol versions.
 
 ### 3.6 Carried MCP Values
 
@@ -94,13 +94,13 @@ This includes values reached through component references.
 
 A carried value is validated against the type defined by every MCP protocol version in the containing declaration's effective scope. A type accepts fields it does not list only if its protocol version's TypeScript schema declares or inherits an index signature. Such a type is open; every other type is closed.
 
-<a id="req-mcp-integer-numbers"></a>A field declared as `number` by the protocol version's TypeScript schema is an integer unless the schema annotates it `@TJS-type number`. This matches the JSON Schema that MCP generates from its TypeScript schema.
+<a id="req-mcp-integer-numbers"></a> <span class="mcpdesc-rule-links" data-anchor="req-mcp-integer-numbers" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcp/cacheable-result-ttl-ms#required-by" title="This requirement is part of rule: mcp.cacheable-result.ttl-ms"><code>&lt;req-mcp-integer-numbers&gt;</code></a>, <a href="/docs/rules/0.9.0/mcp/resource-size#required-by" title="This requirement is part of rule: mcp.resource.size"><code>&lt;req-mcp-integer-numbers&gt;</code></a></small></span> A field declared as `number` by the protocol version's TypeScript schema is an integer unless the schema annotates it `@TJS-type number`. This matches the JSON Schema that MCP generates from its TypeScript schema.
 
 For each applicable protocol version and each field of a carried value:
 
-1. <a id="req-carried-defined-fields"></a>A field defined by the protocol version MUST satisfy its type. A field required by that version MUST be present.
-2. <a id="req-carried-open-preserve"></a>A field not defined by the protocol version MUST be accepted and preserved when its type is open in that version. Implementations MUST NOT apply the meaning that another protocol version gives the same field name. Validators MUST report the warning `result-field-not-defined-by-version` and identify the field and protocol version.
-3. <a id="req-carried-closed-reject"></a>A field not defined by the protocol version MUST be rejected when its type is closed in that version.
+1. <a id="req-carried-defined-fields"></a> <span class="mcpdesc-rule-links" data-anchor="req-carried-defined-fields" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcp/content-members#required-by" title="This requirement is part of rule: mcp.content.members"><code>&lt;req-carried-defined-fields&gt;</code></a>, <a href="/docs/rules/0.9.0/mcp/example-result-members#required-by" title="This requirement is part of rule: mcp.example-result.members"><code>&lt;req-carried-defined-fields&gt;</code></a>, <a href="/docs/rules/0.9.0/mcp/interaction-message-members#required-by" title="This requirement is part of rule: mcp.interaction-message.members"><code>&lt;req-carried-defined-fields&gt;</code></a>, <a href="/docs/rules/0.9.0/mcpdesc/example-result-protocol-fidelity#required-by" title="This requirement is part of rule: mcpdesc.example.result.protocol-fidelity"><code>&lt;req-carried-defined-fields&gt;</code></a></small></span> A field defined by the protocol version MUST satisfy its type. A field required by that version MUST be present.
+2. <a id="req-carried-open-preserve"></a> <span class="mcpdesc-rule-links" data-anchor="req-carried-open-preserve" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcp/result-additional-properties-preserve#required-by" title="This requirement is part of rule: mcp.result.additional-properties.preserve"><code>&lt;req-carried-open-preserve&gt;</code></a></small></span> A field not defined by the protocol version MUST be accepted and preserved when its type is open in that version. Implementations MUST NOT apply the meaning that another protocol version gives the same field name. Validators MUST report the warning `result-field-not-defined-by-version` and identify the field and protocol version.
+3. <a id="req-carried-closed-reject"></a> <span class="mcpdesc-rule-links" data-anchor="req-carried-closed-reject" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcp/completion-result-closed#required-by" title="This requirement is part of rule: mcp.completion.result-closed"><code>&lt;req-carried-closed-reject&gt;</code></a>, <a href="/docs/rules/0.9.0/mcp/content-members#required-by" title="This requirement is part of rule: mcp.content.members"><code>&lt;req-carried-closed-reject&gt;</code></a>, <a href="/docs/rules/0.9.0/mcp/input-response-closed#required-by" title="This requirement is part of rule: mcp.input-response.closed"><code>&lt;req-carried-closed-reject&gt;</code></a></small></span> A field not defined by the protocol version MUST be rejected when its type is closed in that version.
 
 Example rules in Sections 9.3, 9.4, 10.4, and 11 govern JSON-RPC envelope fields and fields of incomplete workflow forms, such as task or input-required results.
 
@@ -108,9 +108,9 @@ Every result type carried by examples extends the open MCP `Result` in every sup
 
 In MCP 2026-07-28, sampling, elicitation, and roots responses are closed input responses. Only the sampling response defines `_meta`.
 
-<a id="req-carried-nested-closed"></a>Nested objects such as content blocks, resource contents, roots, and the `completion` object of a completion result are closed.
+<a id="req-carried-nested-closed"></a> <span class="mcpdesc-rule-links" data-anchor="req-carried-nested-closed" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcp/completion-result-closed#required-by" title="This requirement is part of rule: mcp.completion.result-closed"><code>&lt;req-carried-nested-closed&gt;</code></a></small></span> Nested objects such as content blocks, resource contents, roots, and the `completion` object of a completion result are closed.
 
-Example `result` values are completed results. <a id="req-completed-result-fields"></a>In every protocol version, a present `resultType` MUST be `"complete"`. A present `ttlMs` MUST be a non-negative integer. A present `cacheScope` MUST be `"public"` or `"private"`.
+Example `result` values are completed results. <a id="req-completed-result-fields"></a> <span class="mcpdesc-rule-links" data-anchor="req-completed-result-fields" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcp/example-result-members#required-by" title="This requirement is part of rule: mcp.example-result.members"><code>&lt;req-completed-result-fields&gt;</code></a></small></span> In every protocol version, a present `resultType` MUST be `"complete"`. A present `ttlMs` MUST be a non-negative integer. A present `cacheScope` MUST be `"public"` or `"private"`.
 
 A declaration covering several protocol versions MAY use one example map even when a field is defined by only some of them. Authors MAY instead split the declaration into protocol-scoped variants to avoid the warnings.
 
@@ -126,7 +126,7 @@ Any property whose name matches the pattern `^x-` on the root or another eligibl
 
 ### 3.9 Additional Properties
 
-<a id="req-closed-objects"></a>Properties not defined in this specification and not matching the `x-` extension pattern MUST NOT appear on the root or another closed eligible semantic object. Implementations MUST reject such unknown properties.
+<a id="req-closed-objects"></a> <span class="mcpdesc-rule-links" data-anchor="req-closed-objects" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/document-schema#required-by" title="This requirement is part of rule: mcpdesc.document.schema"><code>&lt;req-closed-objects&gt;</code></a></small></span> Properties not defined in this specification and not matching the `x-` extension pattern MUST NOT appear on the root or another closed eligible semantic object. Implementations MUST reject such unknown properties.
 
 An `x-*` property does not make an otherwise ineligible object extensible.
 

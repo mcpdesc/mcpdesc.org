@@ -251,11 +251,11 @@ the index (channels, maturity, dates, canonical ref, and canonical path).
 
 ## 7. Versioned validation rules
 
-Rule documentation is versioned alongside the active prerelease under
+Rule documentation is versioned alongside stable releases and the active prerelease under
 `/docs/rules/<version>/`; earlier prerelease records remain available from their canonical
-upstream tags, not as duplicate site pages. `/docs/rules/` is a mutable alias to the active
-candidate rule set; when there is no active candidate or site-published stable catalog, it
-points to the stable release's canonical validation overview. Import rules with
+upstream tags, not as duplicate site pages. `/docs/rules/` is a mutable alias to the latest
+published stable catalog, or the active candidate when no stable catalog is published.
+Import rules with
 [`scripts/import-rules.mjs`](../scripts/import-rules.mjs) from the same immutable upstream tag
 as the specification. The importer validates rule records, source locations, fixtures and
 JSON Pointers, and requirement anchors before writing static pages. It also adds “Checked by”
@@ -285,8 +285,9 @@ reproducing them requires the matching script version from git history.
 
 Rule catalogs are exported upstream from the annotated tag
 (`npm run rules:export`) and copied byte-for-byte to `public/validation/catalogs/<snapshot>/`.
-Deploy and verify them live (`npm run rules:check-publication`) before updating the mutable
-`public/validation/catalogs/index.json`, which is published last.
+Deploy and verify their immutable URLs live (`npm run rules:check-publication`) before updating
+the mutable `public/validation/catalogs/index.json`, which is published last. The stable
+0.9.0 catalog uses rule format 1.3.0 and validation result format 1.4.0.
 
 The importer reads the marked overview excerpt in the upstream `validation/README.md` and
 preserves its wording, rewriting relative links only. It fails if the expected marker pair is

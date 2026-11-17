@@ -41,7 +41,7 @@ Resource URI requirements. Some documents accepted by 0.8.0 require migration; s
 - **Release notes** - [MCP Description 0.9.0](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0/spec/0.9.0/CHANGELOG.md)
 - **Immutable JSON Schema** - [`0.9.0.json`](/schema/mcp-description/0.9.0.json)
 - **Companion guides** - [Getting started and background](/docs/specification/0.9.0/guides/)
-- **Validation rules** - [Stable 0.9.0 validation overview](https://github.com/mcpdesc/mcpdesc-specification/blob/v0.9.0/spec/0.9.0/validation/README.md)
+- **Validation rules** - [Stable 0.9.0 validation overview](/docs/rules/0.9.0/)
 - **Feedback** - [Report an interoperability issue](https://github.com/mcpdesc/mcpdesc-specification/issues)
 
 :::note[Mirrored specification]
@@ -53,6 +53,8 @@ the tagged upstream source wins.
 ### For AI assistants and tools
 
 - **Complete specification, single file** - [`/specification/0.9.0/mcpdesc.md`](/specification/0.9.0/mcpdesc.md)
+- **Validation catalog** - [`manifest.json`](/validation/catalogs/0.9.0/manifest.json) and
+  [`rules.json`](/validation/catalogs/0.9.0/rules.json), covering all 85 rules
 - **Version index** - [`/specification/index.json`](/specification/index.json), including
   the stable version and the compatible `latest` alias
 

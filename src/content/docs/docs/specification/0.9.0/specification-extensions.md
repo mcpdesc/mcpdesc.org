@@ -10,7 +10,7 @@ MCP Description documents can carry vendor-specific metadata in specification ex
 
 ### 14.1 Extension Naming
 
-<a id="req-extension-names"></a>Specification extension properties MUST match the pattern `^x-`. Names are case-sensitive. <a id="req-extension-naming-convention"></a>The RECOMMENDED naming convention is:
+<a id="req-extension-names"></a> <span class="mcpdesc-rule-links" data-anchor="req-extension-names" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/document-schema#required-by" title="This requirement is part of rule: mcpdesc.document.schema"><code>&lt;req-extension-names&gt;</code></a></small></span> Specification extension properties MUST match the pattern `^x-`. Names are case-sensitive. <a id="req-extension-naming-convention"></a>The RECOMMENDED naming convention is:
 
 ```
 x-{organization}-{feature}
@@ -32,7 +32,7 @@ A specification extension MAY appear directly on the root MCP Description Object
 
 Eligibility depends on the object's role in this specification, not on whether its serialized value is a JSON object. An eligible object that appears as a map value MAY carry extensions. The map that contains it does not become eligible.
 
-<a id="req-extension-ineligible-locations"></a>Specification extensions MUST NOT appear directly on:
+<a id="req-extension-ineligible-locations"></a> <span class="mcpdesc-rule-links" data-anchor="req-extension-ineligible-locations" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcp/server-capabilities-members#required-by" title="This requirement is part of rule: mcp.server-capabilities.members"><code>&lt;req-extension-ineligible-locations&gt;</code></a>, <a href="/docs/rules/0.9.0/mcpdesc/components-members#required-by" title="This requirement is part of rule: mcpdesc.components.members"><code>&lt;req-extension-ineligible-locations&gt;</code></a>, <a href="/docs/rules/0.9.0/mcpdesc/security-requirements#required-by" title="This requirement is part of rule: mcpdesc.security.requirements"><code>&lt;req-extension-ineligible-locations&gt;</code></a></small></span> Specification extensions MUST NOT appear directly on:
 
 - scalar values;
 - domain-keyed maps;
@@ -46,7 +46,7 @@ Eligibility depends on the object's role in this specification, not on whether i
 
 Those locations follow the rules of their owning format or object model.
 
-<a id="req-extension-component-names"></a>An `x-*` key inside a component namespace map is an ordinary component name and its value MUST satisfy that namespace's component type.
+<a id="req-extension-component-names"></a> <span class="mcpdesc-rule-links" data-anchor="req-extension-component-names" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/components-members#required-by" title="This requirement is part of rule: mcpdesc.components.members"><code>&lt;req-extension-component-names&gt;</code></a></small></span> An `x-*` key inside a component namespace map is an ordinary component name and its value MUST satisfy that namespace's component type.
 
 ### 14.3 Extension Values
 
@@ -54,7 +54,7 @@ An extension value MAY be any JSON-compatible value: object, array, string, numb
 
 ### 14.4 Processing Rules
 
-<a id="req-extension-unknown-accepted"></a>An implementation that does not recognize a specification extension MUST NOT reject the document because of that extension. It MUST ignore the extension when interpreting core MCP Description semantics and SHOULD preserve it when processing and reserializing the document.
+<a id="req-extension-unknown-accepted"></a> <span class="mcpdesc-rule-links" data-anchor="req-extension-unknown-accepted" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/document-schema#required-by" title="This requirement is part of rule: mcpdesc.document.schema"><code>&lt;req-extension-unknown-accepted&gt;</code></a></small></span> An implementation that does not recognize a specification extension MUST NOT reject the document because of that extension. It MUST ignore the extension when interpreting core MCP Description semantics and SHOULD preserve it when processing and reserializing the document.
 
 <a id="req-extension-no-core-override"></a>A specification extension MUST NOT redefine, contradict, or weaken a core requirement. It cannot make a required field optional, change `security` or protocol applicability, or make an invalid example conforming. Core fields remain authoritative.
 
@@ -64,9 +64,9 @@ A validator MAY validate a recognized extension using a configured trusted schem
 
 An object-level extension belongs to its containing semantic object and follows that object's lifecycle and Effective Protocol View. A `protocolVersions` property nested inside an extension value does not scope anything.
 
-<a id="req-extension-views"></a>A single-version projection MUST preserve every `x-*` property on a retained eligible object unless extension stripping was explicitly requested. Projection MUST NOT move an extension, combine it with `_meta`, or reinterpret it as an MCP protocol extension. Removing an out-of-scope object also removes its extensions. Native MCP projection (Section 4.14) produces MCP values rather than an MCP Description document. It omits all `x-*` properties except those inside embedded JSON Schemas.
+<a id="req-extension-views"></a> <span class="mcpdesc-rule-links" data-anchor="req-extension-views" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/view-projection#required-by" title="This requirement is part of rule: mcpdesc.view.projection"><code>&lt;req-extension-views&gt;</code></a></small></span> A single-version projection MUST preserve every `x-*` property on a retained eligible object unless extension stripping was explicitly requested. Projection MUST NOT move an extension, combine it with `_meta`, or reinterpret it as an MCP protocol extension. Removing an out-of-scope object also removes its extensions. Native MCP projection (Section 4.14) produces MCP values rather than an MCP Description document. It omits all `x-*` properties except those inside embedded JSON Schemas.
 
-Extension values are part of their containing object's semantic content. Merge tools MAY collapse objects with semantically equivalent extension values under the merge rules in Section 4.13. <a id="req-extension-merge"></a>For conflicting values on corresponding objects, a merge tool MUST retain distinct non-overlapping variants where representable or report a conflict. It MUST NOT guess, silently discard an extension, or move it to another object.
+Extension values are part of their containing object's semantic content. Merge tools MAY collapse objects with semantically equivalent extension values under the merge rules in Section 4.13. <a id="req-extension-merge"></a> <span class="mcpdesc-rule-links" data-anchor="req-extension-merge" data-layout="inline"><small><a href="/docs/rules/0.9.0/mcpdesc/view-merge#required-by" title="This requirement is part of rule: mcpdesc.view.merge"><code>&lt;req-extension-merge&gt;</code></a></small></span> For conflicting values on corresponding objects, a merge tool MUST retain distinct non-overlapping variants where representable or report a conflict. It MUST NOT guess, silently discard an extension, or move it to another object.
 
 ### 14.6 Extension Documentation
 

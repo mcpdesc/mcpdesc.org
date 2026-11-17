@@ -21,13 +21,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   appendices, examples, and companion guides from immutable upstream tag `v0.9.0`.
   Updated the specification overview, AI index, and stable version registry; 0.8.0 is now
   previous stable and retired RC.3 documentation redirects to its upstream tag.
+- **MCP Description 0.9.0 validation catalog.** Imported the stable 85-rule registry and
+  added its immutable manifest and rules artifacts, generated documentation, overview, and
+  specification cross-links from `v0.9.0`. The rule and result schemas are verified live;
+  the catalog discovery index remains unchanged until the catalog artifact URLs pass the
+  live publication check.
 
 ### Changed
 
-- **Stable release discovery.** Advanced the schema `latest` alias and specification
-  `latest` bundle to 0.9.0. No active prerelease is listed. The rules alias points to the
-  canonical stable validation overview; published prerelease catalog artifacts remain
-  unchanged.
+- **Stable release discovery.** Advanced the schema `latest` alias, specification `latest`
+  bundle, and `/docs/rules` alias to 0.9.0. No active prerelease is listed. The catalog
+  discovery index has not advanced pending live verification of the stable catalog URLs.
 
 ## [1.3.2] - 2026-11-08
 
