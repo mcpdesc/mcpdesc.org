@@ -14,14 +14,8 @@ uses rule format 1.3.0 and validation result format 1.4.0. Download the immutabl
 [complete rule set](/validation/catalogs/0.9.0/rules.json).
 :::
 
-:::note[Published schema identities]
-The catalog pins rule format schema [1.3.0](/schema/validation-rule/1.3.0.json) and
-validation result schema [1.4.0](/schema/validation-result/1.4.0.json). The historical
-publication-status text in the mirrored upstream overview below predates the stable release.
-:::
-
-Validation rules explain the checks used to determine whether an MCP
-Description document is valid and identify issues that need attention.
+Validation rules determine whether an `mcpdesc` document complies with MCP Description
+and applicable MCP and JSON Schema requirements; if it does not, they identify issues to fix.
 
 ## What validation rules cover
 

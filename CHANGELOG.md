@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.1] - 2026-11-17
+
+### Added
+
+- **MCP Description 0.9.0 stable validation catalog publication.** Published the immutable
+  [85-rule catalog](https://mcpdesc.org/validation/catalogs/0.9.0/rules.json) and
+  [manifest](https://mcpdesc.org/validation/catalogs/0.9.0/manifest.json) from upstream tag
+  `v0.9.0` at commit
+  [`15d7fe8804dfa19abeeda704983ba35b12e75a5f`](https://github.com/mcpdesc/mcpdesc-specification/commit/15d7fe8804dfa19abeeda704983ba35b12e75a5f).
+  Verified the catalog, rule format 1.3.0, and validation result format 1.4.0 at their
+  immutable URLs before publication.
+
+### Changed
+
+- **Validation catalog discovery.** Added stable 0.9.0 to the catalog index and advanced
+  `currentStable` after live publication verification. Existing prerelease catalogs and the
+  independent `currentDraft` pointer remain available.
+- **Website version display.** Updated the site release version to 1.4.1.
+
 ## [1.4.0] - 2026-11-16
 
 ### Added
