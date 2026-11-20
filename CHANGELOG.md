@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-11-20
+
+### Added
+
+- **MCP Description 0.9.0 release announcement.** Added the release article and featured it
+  on the homepage with a dated announcement.
+- **MCP Description 0.9 compatibility badge.** Added the hosted `0.9` badge endpoint.
+
+### Changed
+
+- **Current release guidance.** Updated the Format and Live Editor pages, AI discovery index,
+  and tool-submission badge examples to reflect MCP Description 0.9.0 while preserving
+  historical release references and per-tool compatibility claims.
+- **Release article.** Clarified validation wording and added the Core serialization options
+  for normalized YAML presentation and document-oriented key ordering.
+
 ## [1.4.1] - 2026-11-17
 
 ### Added

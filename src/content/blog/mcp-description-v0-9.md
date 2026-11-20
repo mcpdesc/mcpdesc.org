@@ -35,7 +35,7 @@ The MCP Description format version, the MCP protocol revision, and the requireme
 
 ## Validation with traceable requirements
 
-Version-aware validation is more than checking a document against one JSON Schema. A document can be structurally valid but still describe a declaration that violates the requirements of one MCP revision it claims to support.
+Version-aware validation is more than checking a document against one JSON Schema. A document can be structurally valid but still describe a declaration that does not meet the requirements of one MCP revision it claims to support.
 
 The 0.9.0 [Validation Rules Catalog](/docs/rules/0.9.0/) organizes 85 rules by requirement owner: 46 MCP rules, 38 MCP Description rules, and one JSON Schema rule. Each rule records its provenance, applicability, and conformance fixtures. This makes it possible to connect a finding to the requirement it represents, rather than relying only on an implementation-specific message.
 
@@ -90,6 +90,8 @@ The release is available through the project's developer tools:
 - [`mcpcontract` CLI 2.2.1](https://www.npmjs.com/package/@cisco-open/mcptoolkit-contract/v/2.2.1) is available for teams using the command-line workflow.
 
 Core's 0.8.0-to-0.9.0 conversion is explicit. It reports incompatibilities that need an author's decision instead of guessing how to rewrite ambiguous values. The [migration guide](/docs/specification/0.9.0/guides/migration-0.8-to-0.9/) describes the process.
+
+Core also offers opt-in normalized YAML presentation and document-oriented key ordering for consistent, readable serialized output. See the [`@mcpdesc/core` README](https://github.com/mcpdesc/core/blob/main/packages/core/README.md) for details.
 
 Try the [Live Editor](https://editor.mcpdesc.org/) or explore the [MCP Description 0.9.0 specification](/docs/specification/0.9.0/).
 

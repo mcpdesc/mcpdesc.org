@@ -28,16 +28,17 @@ We only verify that the badge exists and points at a real published specificatio
 You can add the `mcpdesc` badge at the top of your repo's README using:
 
 ```markdown wrap
-[![mcpdesc: 0.8](https://img.shields.io/badge/mcpdesc-0.8-3c68d9.svg)](https://mcpdesc.org)
+[![mcpdesc: 0.9](https://img.shields.io/badge/mcpdesc-0.9-3c68d9.svg)](https://mcpdesc.org)
 ```
 
 It renders as:
 
-[![mcpdesc badge showing version 0.8](https://img.shields.io/badge/mcpdesc-0.8-3c68d9.svg)](https://mcpdesc.org)
+[![mcpdesc badge showing version 0.9](https://img.shields.io/badge/mcpdesc-0.9-3c68d9.svg)](https://mcpdesc.org)
 
-- Set the version segment to the specification series your tool supports, for example `0.8`.
-- A `0.8` badge is a coarse-grained compatibility claim, not a claim that every 0.8
-  prerelease or patch was tested. State the exact tested version, such as `0.8.0`, in
+- Set the version segment to the specification series your tool supports. Use `0.9` for
+  MCP Description 0.9.0; retain badges for older series your tool still supports.
+- A `0.9` badge is a coarse-grained compatibility claim, not a claim that every 0.9
+  prerelease or patch was tested. State the exact tested version, such as `0.9.0`, in
   your README or release notes.
 - If your tool supports multiple versions, we recommend displaying the latest, but you may prefer displaying multiple badges (simply repeat the badge snippet).
 - The badge is **self-declared**: it is not a certification, conformance guarantee, or

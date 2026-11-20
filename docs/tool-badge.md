@@ -24,7 +24,7 @@ lives on the site at [`/docs/add-a-tool`](../src/content/docs/docs/add-a-tool.md
 
 The mcpdesc badge states the supported MCP Description specification series in the mcpdesc
 brand blue **`#3c68d9`** (= RGB 60/104/217, the sRGB rendering of the site's
-`--color-brand`). There are two forms; both render as **mcpdesc | 0.8**.
+`--color-brand`). There are two forms; both render as **mcpdesc | 0.9**.
 
 ### Hosted endpoint badge (recommended)
 
@@ -34,11 +34,11 @@ version, and color from us, so **the project controls the badge centrally** — 
 JSON and every repo re-renders the new label/color the next time its badge cache refreshes.
 
 ```markdown
-[![mcpdesc](https://img.shields.io/endpoint?url=https://mcpdesc.org/badge/0.8.json)](https://mcpdesc.org)
+[![mcpdesc](https://img.shields.io/endpoint?url=https://mcpdesc.org/badge/0.9.json)](https://mcpdesc.org)
 ```
 
 - The JSON files live under [`public/badge/`](../public/badge/), one per supported
-  compatibility series (for example, `0.8.json`).
+  compatibility series (for example, `0.9.json`).
 - A tool references the file matching the series it supports; multiple series = multiple
   badges.
 - Tool documentation records the exact release or candidate tested. The series badge does
@@ -54,7 +54,7 @@ Use this only where a repository cannot depend on a remote endpoint. It is self-
 forfeits central maintainability — the color and label are frozen into each README:
 
 ```markdown
-[![mcpdesc](https://img.shields.io/badge/mcpdesc-0.8-3c68d9)](https://mcpdesc.org)
+[![mcpdesc](https://img.shields.io/badge/mcpdesc-0.9-3c68d9)](https://mcpdesc.org)
 ```
 
 The version segment must be a published MCP Description compatibility series. The badge links to
