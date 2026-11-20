@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="820" viewBox="0 0 1440 820" role="img" aria-labelledby="title desc">
+  <title id="title">One MCP Description, multiple MCP generations</title>
+  <desc id="desc">A single MCP Description 0.9 document can describe five MCP protocol revisions, with version-scoped declarations and applicable requirements for each.</desc>
+  <rect width="1440" height="820" fill="#f8fafd"/>
+  <text x="64" y="72" fill="#2868ce" font-family="Arial,sans-serif" font-size="18" font-weight="700">MCP DESCRIPTION 0.9</text>
+  <text x="64" y="132" fill="#102142" font-family="Arial,sans-serif" font-size="42" font-weight="700">One description, multiple MCP generations</text>
+  <text x="64" y="176" fill="#41536d" font-family="Arial,sans-serif" font-size="22">A single document can describe several protocol revisions, each with its own applicable requirements.</text>
+  <rect x="250" y="220" width="940" height="150" rx="24" fill="#edf4ff" stroke="#a7c6f4" stroke-width="3"/>
+  <text x="720" y="274" text-anchor="middle" fill="#102142" font-family="Arial,sans-serif" font-size="32" font-weight="700">MCP Description 0.9 document</text>
+  <rect x="295" y="300" width="245" height="44" rx="22" fill="#fff"/><text x="417" y="329" text-anchor="middle" fill="#2868ce" font-family="Arial,sans-serif" font-size="17" font-weight="700">Shared server metadata</text>
+  <rect x="597" y="300" width="265" height="44" rx="22" fill="#fff"/><text x="729" y="329" text-anchor="middle" fill="#7056b8" font-family="Arial,sans-serif" font-size="17" font-weight="700">Version-scoped declarations</text>
+  <rect x="919" y="300" width="220" height="44" rx="22" fill="#fff"/><text x="1029" y="329" text-anchor="middle" fill="#0e977a" font-family="Arial,sans-serif" font-size="17" font-weight="700">protocolVersions</text>
+  <path d="M720 370v46M116 416h1208" fill="none" stroke="#2868ce" stroke-width="4"/>
+  <g font-family="Arial,sans-serif" text-anchor="middle">
+    <path d="M116 416v35M418 416v35M720 416v35M1022 416v35M1324 416v35" stroke="#2868ce" stroke-width="4"/>
+    <g><rect x="35" y="451" width="162" height="180" rx="18" fill="#fff" stroke="#a8c6ef" stroke-width="2"/><rect x="35" y="451" width="162" height="9" rx="4" fill="#2868ce"/><text x="116" y="500" fill="#102142" font-size="21" font-weight="700">2024-11-05</text><text x="116" y="532" fill="#2868ce" font-size="16" font-weight="700">MCP 2024</text><text x="116" y="580" fill="#41536d" font-size="15">Baseline Tool</text><text x="116" y="602" fill="#41536d" font-size="15">structure</text></g>
+    <g><rect x="337" y="451" width="162" height="180" rx="18" fill="#fff" stroke="#c2b5e5" stroke-width="2"/><rect x="337" y="451" width="162" height="9" rx="4" fill="#7056b8"/><text x="418" y="500" fill="#102142" font-size="21" font-weight="700">2025-03-26</text><text x="418" y="532" fill="#7056b8" font-size="16" font-weight="700">MCP 2025</text><text x="418" y="580" fill="#41536d" font-size="15">Tool annotations</text></g>
+    <g><rect x="639" y="451" width="162" height="180" rx="18" fill="#fff" stroke="#9bd5e7" stroke-width="2"/><rect x="639" y="451" width="162" height="9" rx="4" fill="#1b90b5"/><text x="720" y="500" fill="#102142" font-size="21" font-weight="700">2025-06-18</text><text x="720" y="532" fill="#1b90b5" font-size="16" font-weight="700">MCP 2025</text><text x="720" y="580" fill="#41536d" font-size="15">Tool outputSchema</text></g>
+    <g><rect x="941" y="451" width="162" height="180" rx="18" fill="#fff" stroke="#a8c6ef" stroke-width="2"/><rect x="941" y="451" width="162" height="9" rx="4" fill="#2868ce"/><text x="1022" y="500" fill="#102142" font-size="21" font-weight="700">2025-11-25</text><text x="1022" y="532" fill="#2868ce" font-size="16" font-weight="700">MCP 2025</text><text x="1022" y="580" fill="#41536d" font-size="15">Tasks and icons</text></g>
+    <g><rect x="1243" y="451" width="162" height="180" rx="18" fill="#fff" stroke="#9cd6ba" stroke-width="2"/><rect x="1243" y="451" width="162" height="9" rx="4" fill="#0e977a"/><text x="1324" y="500" fill="#102142" font-size="21" font-weight="700">2026-07-28</text><text x="1324" y="532" fill="#0e977a" font-size="16" font-weight="700">MCP 2026</text><text x="1324" y="580" fill="#41536d" font-size="15">Extensions and</text><text x="1324" y="602" fill="#41536d" font-size="15">new schemas</text></g>
+  </g>
+  <rect x="160" y="676" width="1120" height="82" rx="20" fill="#e8f5f1" stroke="#a9d9ca" stroke-width="2"/>
+  <text x="720" y="711" text-anchor="middle" fill="#102142" font-family="Arial,sans-serif" font-size="22" font-weight="700">Every declaration is checked against the protocol versions in its effective scope.</text>
+  <text x="720" y="740" text-anchor="middle" fill="#147a54" font-family="Arial,sans-serif" font-size="18">Protocol-aware applicability · Version-specific requirements · MCP-native schemas</text>
+</svg>
