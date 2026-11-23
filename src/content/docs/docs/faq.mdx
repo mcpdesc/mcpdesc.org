@@ -20,7 +20,7 @@ tools, resources, prompts, transports, and security — much like OpenAPI does f
 ## Where does `mcpdesc` fit in the MCP ecosystem?
 
 The MCP ecosystem is moving fast. Registries help users discover servers. Server Cards
-explore pre-connection discovery. Bundle formats make local installation easier.
+support pre-connection discovery. Bundle formats make local installation easier.
 Gateways help teams run, secure, and observe MCP traffic. Inspectors help developers
 test servers at runtime. OpenAPI-to-MCP generators help teams expose existing APIs to
 agents.
@@ -40,7 +40,7 @@ across workflows.
 
 ## Server Cards exclude primitives — why does `mcpdesc` describe them?
 
-[SEP-2127 (MCP Server Cards)](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/sep/mcp-server-cards/seps/2127-mcp-server-cards.md)
+[SEP-2127 (MCP Server Cards)](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/seps/2127-mcp-server-cards.md)
 intentionally omits primitive definitions (tools, resources, and prompts) from Server
 Cards. Its reasoning is sound **for what a Server Card is**: a small, public, read-only
 document served for **pre-connection discovery**. Because an MCP server's runtime surface

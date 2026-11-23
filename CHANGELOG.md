@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.1] - 2026-11-23
+
+### Changed
+
+- **Format page.** Clarified MCP Description's lifecycle role alongside the MCP protocol
+  and Server Cards, and replaced the example with a basic server description linked to the
+  Live Editor.
+- **Server Card FAQ.** Updated the discovery wording and fixed the SEP-2127 link.
+
 ## [1.5.0] - 2026-11-20
 
 ### Added

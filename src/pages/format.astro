@@ -5,31 +5,68 @@ import { Code } from 'astro:components';
 const specVersion = '0.9.0';
 const specStatus = 'Stable';
 
-const comparison = [
-  { protocol: 'Runtime communication', description: 'Static declaration' },
-  { protocol: 'Initialize handshake', description: 'Server metadata' },
-  { protocol: 'Tool invocation', description: 'Tool definitions' },
-  { protocol: 'Resource fetching', description: 'Resource definitions' },
-];
-
-const exampleYaml = `$schema: https://mcpdesc.org/schema/mcp-description/0.9.0.json
-mcpdesc: "0.9.0"
+const exampleYaml = `mcpdesc: 0.9.0
 info:
   name: chess-rating-server
   title: Chess Rating MCP Server
-  version: 1.0.0
+  version: 2.1.0
 protocolVersions:
-  - "2026-07-28"`;
+  - "2026-07-28"
+transports:
+  - type: stdio
+    command: chess-rating
+    args:
+      - serve
+tools:
+  - name: get_player_rating
+    description: Get the current FIDE standard rating for a chess player
+    inputSchema:
+      type: object
+      properties:
+        player_id:
+          description: FIDE player identifier
+          type: string
+      required:
+        - player_id
+    outputSchema:
+      type: integer
+      description: Current FIDE standard rating`;
 
 const exampleJson = `{
-  "$schema": "https://mcpdesc.org/schema/mcp-description/0.9.0.json",
   "mcpdesc": "0.9.0",
   "info": {
     "name": "chess-rating-server",
     "title": "Chess Rating MCP Server",
-    "version": "1.0.0"
+    "version": "2.1.0"
   },
-  "protocolVersions": ["2026-07-28"]
+  "protocolVersions": ["2026-07-28"],
+  "transports": [
+    {
+      "type": "stdio",
+      "command": "chess-rating",
+      "args": ["serve"]
+    }
+  ],
+  "tools": [
+    {
+      "name": "get_player_rating",
+      "description": "Get the current FIDE standard rating for a chess player",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "player_id": {
+            "description": "FIDE player identifier",
+            "type": "string"
+          }
+        },
+        "required": ["player_id"]
+      },
+      "outputSchema": {
+        "type": "integer",
+        "description": "Current FIDE standard rating"
+      }
+    }
+  ]
 }`;
 ---
 
@@ -63,62 +100,106 @@ const exampleJson = `{
       </a>
     </div>
     <p class="mx-auto mt-4 max-w-2xl text-sm text-slate-500">
-      {specVersion} · {specStatus}.{' '}
-      <a class="underline" href="/docs/specification/0.8.0/">0.8.0 is the previous stable release.</a>
+      {specVersion} · {specStatus}
+    </p>
+    <p class="mt-3 text-sm">
+      <a class="font-medium text-[var(--color-brand)] hover:underline" href="#complementary-roles">
+        How MCP, Server Cards, and MCP Description fit together
+      </a>
     </p>
   </section>
 
   <section class="mt-12">
-    <h2 class="text-2xl font-bold tracking-tight">What it is</h2>
+    <h2 class="text-2xl font-bold tracking-tight">Define. Validate. Evolve.</h2>
     <p class="mt-3 max-w-3xl text-slate-600 dark:text-slate-300">
-      The MCP ecosystem relies on runtime discovery through protocol initialization and
-      capability inspection. That works well for dynamic interactions, but it limits
-      offline tooling, cross-platform interoperability, and design-first workflows. 
+      An MCP Description is a versioned engineering artifact that teams can review and share
+      independently of a running server. Compatible tools can use it throughout the lifecycle:
     </p>
-    <p class="mt-3 max-w-3xl text-slate-600 dark:text-slate-300">
-      An MCP Description addresses this by declaring a server's capabilities as a static,
-      curated document you can version, share, and validate — independently of any running
-      server.
-    </p>
-  </section>
-
-
-  <section class="mt-12">
-    <h2 class="text-2xl font-bold tracking-tight">Protocol vs. Description</h2>
-    <p class="mt-3 max-w-3xl text-slate-600 dark:text-slate-300">
-      An MCP Description does <strong>not</strong> replace the MCP protocol — it complements
-      it. The protocol defines runtime behavior; a description defines what the server offers.
-    </p>
-    <div class="mt-6 overflow-x-auto">
-      <table class="w-full max-w-2xl border-collapse text-left text-sm">
-        <thead>
-          <tr class="border-b border-slate-300 dark:border-slate-700">
-            <th class="py-2 pr-4 font-semibold">MCP Protocol</th>
-            <th class="py-2 font-semibold">MCP Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            comparison.map((row) => (
-              <tr class="border-b border-slate-200 dark:border-slate-800">
-                <td class="py-2 pr-4 text-slate-600 dark:text-slate-400">{row.protocol}</td>
-                <td class="py-2 text-slate-600 dark:text-slate-400">{row.description}</td>
-              </tr>
-            ))
-          }
-        </tbody>
-      </table>
+    <div class="mt-6 grid gap-6 md:grid-cols-3">
+      <div>
+        <h3 class="text-lg font-bold">Define</h3>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Declare the server's intended interface and supporting metadata.</p>
+      </div>
+      <div>
+        <h3 class="text-lg font-bold">Validate</h3>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Check descriptions and assess server conformance with compatible tools.</p>
+      </div>
+      <div>
+        <h3 class="text-lg font-bold">Evolve</h3>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Compare changes and govern the interface across releases.</p>
+      </div>
     </div>
   </section>
 
-  <section class="mt-12">
-    <h2 class="text-2xl font-bold tracking-tight">A minimal example</h2>
+  <section id="complementary-roles" class="mt-12 scroll-mt-24">
+    <h2 class="text-2xl font-bold tracking-tight">Three complementary roles in the MCP ecosystem</h2>
     <p class="mt-3 max-w-3xl text-slate-600 dark:text-slate-300">
-      An MCP Description can be written in YAML or JSON.
-      
-      Either way, a v0.9 document identifies the format version, server <code>info</code>,
-      and the MCP protocol revisions it describes. Transports and primitive collections are
-      included when the document declares them.
+      MCP standardizes runtime interactions, Server Cards support pre-connection discovery,
+      and MCP Description supports engineering and governance throughout the server lifecycle.
+    </p>
+    <div class="mt-6 grid gap-6 md:grid-cols-3">
+      <div class="border-t-2 border-slate-300 pt-4 dark:border-slate-700">
+        <p class="text-sm font-semibold text-[var(--color-brand)]">Runtime</p>
+        <h3 class="mt-1 text-lg font-bold">MCP Protocol</h3>
+        <p class="mt-1 text-sm font-medium text-slate-600 dark:text-slate-300">Interact with a server</p>
+        <p class="mt-3 text-sm text-slate-600 dark:text-slate-300">
+          Standardizes how MCP clients and servers communicate, discover capabilities, and
+          interact with tools, resources, and prompts at runtime.
+        </p>
+        <p class="mt-3 text-sm text-slate-600 dark:text-slate-300">
+          <strong>Enables:</strong> Dynamic capability discovery and interoperable client-server interactions.
+        </p>
+        <p class="mt-3 text-sm text-slate-600 dark:text-slate-300">
+          <strong>Key question:</strong> How do clients and servers interact?
+        </p>
+      </div>
+      <div class="border-t-2 border-slate-300 pt-4 dark:border-slate-700">
+        <p class="text-sm font-semibold text-[var(--color-brand)]">Discovery</p>
+        <h3 class="mt-1 text-lg font-bold">MCP Server Card</h3>
+        <p class="mt-1 text-sm font-medium text-slate-600 dark:text-slate-300">Find and connect</p>
+        <p class="mt-3 text-sm text-slate-600 dark:text-slate-300">
+          An optional MCP extension, currently experimental, for describing a remote server's
+          identity, connection endpoints, and supported protocol versions before connecting.
+        </p>
+        <p class="mt-3 text-sm text-slate-600 dark:text-slate-300">
+          <strong>Enables:</strong> Pre-connection discovery, server identification, and
+          automated connection setup.
+        </p>
+        <p class="mt-3 text-sm text-slate-600 dark:text-slate-300">
+          <strong>Key question:</strong> What is this server, and how do I connect to it?
+        </p>
+      </div>
+      <div class="border-t-2 border-slate-300 pt-4 dark:border-slate-700">
+        <p class="text-sm font-semibold text-[var(--color-brand)]">Lifecycle engineering</p>
+        <h3 class="mt-1 text-lg font-bold">MCP Description (<code>mcpdesc</code>)</h3>
+        <p class="mt-1 text-sm font-medium text-slate-600 dark:text-slate-300">Design and Implement</p>
+        <p class="mt-3 text-sm text-slate-600 dark:text-slate-300">
+          A portable, versioned, machine-readable description of an MCP server's intended interface,
+          including tools, resources, prompts, schemas, and supporting metadata.
+        </p>
+        <p class="mt-3 text-sm text-slate-600 dark:text-slate-300">
+          <strong>Supports:</strong> Server design and implementation, and tools for documentation,
+          validation, mocking, testing, change detection, and governance across releases.
+        </p>
+        <p class="mt-3 text-sm text-slate-600 dark:text-slate-300">
+          <strong>Key question:</strong> How do we define, build, validate, and evolve this
+          server's interface?
+        </p>
+      </div>
+    </div>
+    <p class="mt-6 max-w-3xl text-slate-600 dark:text-slate-300">
+      Server Cards omit tool, resource, and prompt definitions. MCP Description provides a
+      static, curated declaration that complements runtime discovery; it does not guarantee
+      what a particular user or session can access.
+      <a class="font-medium text-[var(--color-brand)] hover:underline" href="/docs/faq/#server-cards-exclude-primitives--why-does-mcpdesc-describe-them">Learn more in the FAQ</a>.
+    </p>
+  </section>
+
+  <section class="mt-12">
+    <h2 class="text-2xl font-bold tracking-tight">A basic example</h2>
+    <p class="mt-3 max-w-3xl text-slate-600 dark:text-slate-300">
+      An MCP Description can be written in YAML or JSON. This example describes a server,
+      its transport, and a tool for looking up a player's rating.
     </p>
     <div class="mt-4" data-example-tabs>
       <div
@@ -156,6 +237,13 @@ const exampleJson = `{
         <Code code={exampleJson} lang="json" theme="github-light" />
       </div>
     </div>
+    <p class="mt-3 text-sm">
+      <a
+        class="font-medium text-[var(--color-brand)] hover:underline"
+        href="https://editor.mcpdesc.org/?example=basic"
+        data-analytics-cta="open_editor">Open the basic example in the Live Editor →</a
+      >
+    </p>
   </section>
 
   <section class="mt-12">
