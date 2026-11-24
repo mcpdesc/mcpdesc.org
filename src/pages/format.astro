@@ -150,7 +150,78 @@ const exampleJson = `{
     </ol>
   </section>
 
-  <section id="complementary-roles" class="mt-12 scroll-mt-24">
+  <section class="mt-12">
+    <h2 class="text-2xl font-bold tracking-tight">A basic example</h2>
+    <p class="mt-3 max-w-3xl text-slate-600 dark:text-slate-300">
+      An MCP Description can be written in YAML or JSON. This example describes a server,
+      its transport, and a tool for looking up a player's rating.
+    </p>
+    <div class="mt-4" data-example-tabs>
+      <div
+        class="flex gap-1 border-b border-slate-200 dark:border-slate-800"
+        role="tablist"
+        aria-label="Example format"
+      >
+        <button
+          type="button"
+          role="tab"
+          aria-selected="true"
+          data-example-tab="yaml"
+          class="-mb-px border-b-2 border-transparent px-4 py-2 text-sm font-medium text-[#8c7060] hover:text-[#5c4030] aria-selected:border-[var(--color-brand)] aria-selected:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 dark:aria-selected:text-white"
+        >
+          YAML
+        </button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected="false"
+          data-example-tab="json"
+          class="-mb-px border-b-2 border-transparent px-4 py-2 text-sm font-medium text-[#8c7060] hover:text-[#5c4030] aria-selected:border-[var(--color-brand)] aria-selected:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 dark:aria-selected:text-white"
+        >
+          JSON
+        </button>
+      </div>
+      <div data-example-panel="yaml" class="example-panel overflow-x-auto rounded-b-lg text-sm">
+        <Code code={exampleYaml} lang="yaml" theme="github-light" />
+      </div>
+      <div
+        data-example-panel="json"
+        hidden
+        class="example-panel overflow-x-auto rounded-b-lg text-sm"
+      >
+        <Code code={exampleJson} lang="json" theme="github-light" />
+      </div>
+    </div>
+    <p class="mt-3 text-sm">
+      <a
+        class="font-medium text-[var(--color-brand)] hover:underline"
+        href="https://editor.mcpdesc.org/?example=basic"
+        data-analytics-cta="open_editor">Open the basic example in the Live Editor →</a
+      >
+    </p>
+  </section>
+
+  <section class="mt-12">
+    <h2 class="text-2xl font-bold tracking-tight">Generate an MCP description from a live server</h2>
+    <p class="mt-3 max-w-3xl text-slate-600 dark:text-slate-300">
+      Point the <code>mcpcontract</code> CLI at any MCP server to produce an <code>mcpdesc</code> document you can open in the editor:
+    </p>
+    <pre class="mt-3 overflow-x-auto rounded-md bg-slate-900 p-4 text-sm text-slate-100"><code>mcpcontract dump \
+  --transport streamable-http \
+  --url "https://your-server.example/mcp" \
+  --protocol auto \
+  --format yaml \
+  --output server.mcpdesc.yaml</code></pre>
+    <p class="mt-3 text-sm">
+      <a
+        class="font-medium text-[var(--color-brand)] hover:underline"
+        href="/docs/getting-started/#run-your-first-dump"
+        data-analytics-cta="read_docs">Read the docs →</a
+      >
+    </p>
+  </section>
+
+    <section id="complementary-roles" class="mt-12 scroll-mt-24">
     <h2 class="text-2xl font-bold tracking-tight">Three complementary roles in the MCP ecosystem</h2>
     <p class="mt-3 max-w-3xl text-slate-600 dark:text-slate-300">
       MCP standardizes runtime interactions, Server Cards support pre-connection discovery,
@@ -242,77 +313,6 @@ const exampleJson = `{
     <p class="mt-6 max-w-3xl text-slate-600 dark:text-slate-300">
       These are complementary responsibilities, not mandatory sequential steps.{' '}
       <a class="font-medium text-[var(--color-brand)] hover:underline" href="/docs/guide-relationship-to-mcp-security/">Explore the relationship to MCP security</a>.
-    </p>
-  </section>
-
-  <section class="mt-12">
-    <h2 class="text-2xl font-bold tracking-tight">A basic example</h2>
-    <p class="mt-3 max-w-3xl text-slate-600 dark:text-slate-300">
-      An MCP Description can be written in YAML or JSON. This example describes a server,
-      its transport, and a tool for looking up a player's rating.
-    </p>
-    <div class="mt-4" data-example-tabs>
-      <div
-        class="flex gap-1 border-b border-slate-200 dark:border-slate-800"
-        role="tablist"
-        aria-label="Example format"
-      >
-        <button
-          type="button"
-          role="tab"
-          aria-selected="true"
-          data-example-tab="yaml"
-          class="-mb-px border-b-2 border-transparent px-4 py-2 text-sm font-medium text-[#8c7060] hover:text-[#5c4030] aria-selected:border-[var(--color-brand)] aria-selected:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 dark:aria-selected:text-white"
-        >
-          YAML
-        </button>
-        <button
-          type="button"
-          role="tab"
-          aria-selected="false"
-          data-example-tab="json"
-          class="-mb-px border-b-2 border-transparent px-4 py-2 text-sm font-medium text-[#8c7060] hover:text-[#5c4030] aria-selected:border-[var(--color-brand)] aria-selected:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 dark:aria-selected:text-white"
-        >
-          JSON
-        </button>
-      </div>
-      <div data-example-panel="yaml" class="example-panel overflow-x-auto rounded-b-lg text-sm">
-        <Code code={exampleYaml} lang="yaml" theme="github-light" />
-      </div>
-      <div
-        data-example-panel="json"
-        hidden
-        class="example-panel overflow-x-auto rounded-b-lg text-sm"
-      >
-        <Code code={exampleJson} lang="json" theme="github-light" />
-      </div>
-    </div>
-    <p class="mt-3 text-sm">
-      <a
-        class="font-medium text-[var(--color-brand)] hover:underline"
-        href="https://editor.mcpdesc.org/?example=basic"
-        data-analytics-cta="open_editor">Open the basic example in the Live Editor →</a
-      >
-    </p>
-  </section>
-
-  <section class="mt-12">
-    <h2 class="text-2xl font-bold tracking-tight">Generate an MCP description from a live server</h2>
-    <p class="mt-3 max-w-3xl text-slate-600 dark:text-slate-300">
-      Point the <code>mcpcontract</code> CLI at any MCP server to produce an <code>mcpdesc</code> document you can open in the editor:
-    </p>
-    <pre class="mt-3 overflow-x-auto rounded-md bg-slate-900 p-4 text-sm text-slate-100"><code>mcpcontract dump \
-  --transport streamable-http \
-  --url "https://your-server.example/mcp" \
-  --protocol auto \
-  --format yaml \
-  --output server.mcpdesc.yaml</code></pre>
-    <p class="mt-3 text-sm">
-      <a
-        class="font-medium text-[var(--color-brand)] hover:underline"
-        href="/docs/getting-started/#run-your-first-dump"
-        data-analytics-cta="read_docs">Read the docs →</a
-      >
     </p>
   </section>
 
