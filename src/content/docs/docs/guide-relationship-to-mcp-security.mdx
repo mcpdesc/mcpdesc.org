@@ -1,0 +1,395 @@
+---
+title: Relationship to MCP Security
+description: How MCP Description 0.9.0 relates to MCP authentication and authorization.
+sidebar:
+  order: 3.5
+---
+
+:::note[Site-authored guide]
+This non-normative guide applies to MCP Description 0.9.0. It is maintained by the
+`{mcpdesc}` project and is not part of the mirrored specification release.
+:::
+
+MCP Description complements the security and authorization mechanisms defined by the Model Context Protocol (MCP). It provides a static, machine-readable way to describe authentication and authorization requirements without replacing the standards responsible for discovering authorization servers, obtaining credentials, or enforcing access at runtime.
+
+This guide explains how these responsibilities fit together, what MCP Description 0.9.0 supports, and how its security declarations can improve MCP server development and integration workflows.
+
+## 1. Security involves several complementary responsibilities
+
+Security for MCP servers spans several distinct concerns.
+
+| Layer | Primary responsibility | Question answered |
+|---|---|---|
+| **MCP Server Card** | Optional server discovery, identity and connection metadata | Where and how can I connect to this server? |
+| **OAuth discovery standards** | Discover authorization servers and their capabilities | How can I obtain an appropriate access token? |
+| **MCP Description** | Declare statically known access requirements | What authentication and authorization are expected for each primitive? |
+| **MCP runtime and authorization infrastructure** | Validate tokens and enforce access policies | Is this particular request authorized? |
+
+These layers are complementary rather than interchangeable.
+
+Server Cards and OAuth metadata describe different aspects of discovery. MCP Description provides a document that can be examined before a server is running. Runtime infrastructure remains responsible for the actual security decisions.
+
+They are not mandatory sequential steps: Server Cards are optional, and MCP Description does not need to participate in the runtime authorization flow.
+
+This separation is intentional. Each standard retains its own responsibilities and can evolve independently.
+
+## 2. Authorization in MCP 2026-07-28
+
+The July 2026 MCP specification provides a well-defined authorization architecture for HTTP-based transports, building on established OAuth standards.
+
+Authorization is optional for MCP implementations. When OAuth authorization is used over HTTP, a protected MCP server acts as an OAuth resource server, while the MCP client acts as an OAuth client.
+
+The authorization server is responsible for issuing access tokens. It may be operated by the same organization as the MCP server or by another provider.
+
+### Discovering the authorization infrastructure
+
+The authorization process relies on two complementary discovery mechanisms.
+
+**Protected Resource Metadata (RFC 9728)**
+
+A protected MCP server exposes metadata describing its identity as an OAuth resource and the authorization servers associated with it.
+
+For example:
+
+```json
+{
+  "resource": "https://files.example.com/mcp",
+  "authorization_servers": [
+    "https://auth.example.com"
+  ],
+  "scopes_supported": [
+    "files:read"
+  ]
+}
+```
+
+This document lets a client discover the authorization infrastructure associated with the MCP server.
+
+The `scopes_supported` property is not necessarily an exhaustive list of every scope that may be required by every operation.
+
+**Authorization Server Metadata (RFC 8414 or OpenID Connect Discovery)**
+
+After selecting an authorization server, the client discovers its capabilities, such as supported grant types, authentication methods, and authorization and token endpoints.
+
+For example:
+
+```json
+{
+  "issuer": "https://auth.example.com",
+  "authorization_endpoint": "https://auth.example.com/authorize",
+  "token_endpoint": "https://auth.example.com/token",
+  "grant_types_supported": [
+    "authorization_code"
+  ]
+}
+```
+
+The actual metadata is published and maintained by the authorization server.
+
+### Obtaining and using an access token
+
+The MCP authorization specification also defines requirements for client registration, token acquisition, resource identification, and token handling.
+
+Depending on the supported capabilities, clients may use mechanisms such as Client ID Metadata Documents or pre-registration. Dynamic Client Registration remains available as a backward-compatibility mechanism.
+
+For OAuth-protected HTTP requests, access tokens are presented through the `Authorization: Bearer` header.
+
+Clients identify the intended MCP resource when requesting a token, and the MCP server validates that the token is appropriate for that resource.
+
+### Scopes and step-up authorization
+
+MCP 2026-07-28 also provides explicit guidance for selecting scopes and handling insufficient permissions.
+
+For example, a client attempting to execute an operation requiring `files:write` might receive:
+
+```http
+HTTP/1.1 403 Forbidden
+WWW-Authenticate: Bearer error="insufficient_scope",
+                  scope="files:write",
+                  resource_metadata="https://files.example.com/.well-known/oauth-protected-resource"
+```
+
+The client can use this information to request additional authorization when appropriate.
+
+The runtime scope challenge is authoritative for the current operation. Static metadata must not override that decision.
+
+For the normative requirements and complete authorization procedures, see:
+
+- [MCP 2026-07-28 — Authorization Specification](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization)
+- [Understanding Authorization in MCP](https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/authorization)
+
+## 3. What MCP Description adds
+
+OAuth discovery is designed to answer questions about authorization infrastructure and obtaining tokens.
+
+MCP Description addresses a different concern:
+
+**How can developers and tools understand the expected authorization requirements of an MCP server before interacting with it at runtime?**
+
+For example, an MCP server may expose tools to list documents, update records, and delete resources.
+
+These operations may require different permissions. Knowing that the server supports OAuth does not, by itself, describe which scopes are expected for each operation.
+
+MCP Description provides a static representation of those requirements.
+
+### Security schemes
+
+MCP Description 0.9.0 defines reusable named `securitySchemes`.
+
+Supported scheme types include:
+
+- `http` — HTTP authentication mechanisms, including Bearer authentication.
+- `apiKey` — API keys presented in a header, query parameter, or cookie.
+- `oauth2` — OAuth2 flow descriptions and their associated scopes.
+- `openIdConnect` — OpenID Connect discovery-based security schemes.
+
+These declarations describe statically known security information. They do not replace the OAuth discovery process or prescribe how a client must obtain tokens.
+
+In particular, the OAuth flow fields supported by MCP Description are a description vocabulary, not a recommendation to use every legacy OAuth grant type in a modern MCP implementation.
+
+### Security requirements
+
+The `security` property associates security requirements with a server description, transport, or individual primitive.
+
+A security requirement can reference one or more named security schemes and specify applicable OAuth scopes.
+
+For example:
+
+```yaml
+security:
+  - oauth: ["files:read"]
+```
+
+This describes an expected OAuth requirement involving the `files:read` scope.
+
+A primitive may also declare multiple alternatives:
+
+```yaml
+security:
+  - oauth: ["files:read"]
+  - apiKey: []
+```
+
+The alternatives have OR semantics: either declared mechanism can satisfy the described requirement.
+
+Multiple schemes inside a single requirement object have AND semantics: all listed schemes are required together.
+
+The requirements express static expectations, not a runtime access decision.
+
+## 4. Example: documenting authorization per Tool
+
+Consider an MCP server exposing two operations:
+
+- `list_files`, requiring read access.
+- `delete_file`, requiring write access.
+
+Both operations are exposed through the same HTTP endpoint and use the same authorization infrastructure, but they have different authorization requirements.
+
+MCP Description 0.9.0 can represent this distinction:
+
+```yaml
+mcpdesc: "0.9.0"
+
+info:
+  name: files-server
+  version: "1.0.0"
+
+protocolVersions:
+  - "2026-07-28"
+
+transports:
+  - type: streamable-http
+    url: https://files.example.com/mcp
+
+securitySchemes:
+  oauth:
+    type: oauth2
+    flows:
+      authorizationCode:
+        authorizationUrl: https://auth.example.com/authorize
+        tokenUrl: https://auth.example.com/token
+        scopes:
+          "files:read": Read files
+          "files:write": Modify or delete files
+
+security:
+  - oauth: ["files:read"]
+
+tools:
+  - name: list_files
+    description: List accessible files.
+    inputSchema:
+      type: object
+
+  - name: delete_file
+    description: Delete a file.
+    inputSchema:
+      type: object
+      properties:
+        file_id:
+          type: string
+      required: [file_id]
+    security:
+      - oauth: ["files:write"]
+```
+
+The example demonstrates three important characteristics.
+
+**Reusable security definitions**
+
+The OAuth scheme is defined once and referenced from security requirements. Its endpoints and scope catalog are illustrative static declarations; actual OAuth discovery remains authoritative.
+
+**Inherited requirements**
+
+The `list_files` Tool inherits the root `security` requirement, which describes read access.
+
+**Primitive-level overrides**
+
+The `delete_file` Tool explicitly declares `files:write`. Its requirement replaces the inherited root requirement rather than being merged with it.
+
+An author or a tool that reads MCP Description documents can therefore understand the expected distinction before executing either Tool.
+
+However, the runtime server still decides whether the supplied credentials actually authorize the requested operation.
+
+## 5. Understanding security inheritance and alternatives
+
+MCP Description supports security declarations at several levels:
+
+1. Document root.
+2. Transport.
+3. Individual Tool, Resource, Resource Template, or Prompt.
+
+For a primitive used through a selected transport, the effective requirement follows this precedence:
+
+**Primitive → selected transport → document root.**
+
+The first present declaration applies. Requirements are replaced rather than merged.
+
+The distinction between omission, clearing, and anonymous access is also important.
+
+| Declaration | Meaning |
+|---|---|
+| `security` omitted | Inherit from the enclosing level, or make no declaration at root |
+| `security: []` | Explicitly clear inherited mcpdesc security requirements |
+| `security: [{}]` | Explicitly allow anonymous access as an alternative |
+| `security: [{oauth: ["files:read"]}]` | Declare the named OAuth requirement |
+
+Clearing inherited requirements is not the same as explicitly declaring anonymous access.
+
+These semantics allow MCP Description to represent different security expectations without requiring every primitive to repeat the entire security configuration.
+
+For authoritative details, see [MCP Description 0.9.0 — Security](https://mcpdesc.org/docs/specification/0.9.0/security/).
+
+## 6. Static descriptions versus runtime authorization
+
+A static description and the runtime authorization result serve different purposes.
+
+An MCP Description document can declare that `delete_file` is expected to require `files:write`.
+
+It cannot guarantee that a particular user is authorized to delete a particular file.
+
+The actual decision may depend on additional factors, including:
+
+- The authenticated user's identity and permissions.
+- The token's validity, audience, and granted scopes.
+- Resource ownership and tenant boundaries.
+- Server-side policies and contextual access-control decisions.
+- Additional authorization requirements communicated at runtime.
+
+MCP implementations may also expose different sets of discoverable primitives according to the authenticated identity.
+
+Consequently, **a static MCP Description is not a guarantee that every declared primitive will be visible or accessible to every client.**
+
+Similarly, the scopes listed in the document do not override scopes communicated through an authoritative runtime challenge.
+
+This distinction allows MCP Description to remain useful as a design-time description while leaving access enforcement to the appropriate runtime infrastructure.
+
+### HTTP and local transports
+
+The MCP OAuth authorization specification applies to HTTP-based transports.
+
+Local MCP servers using STDIO commonly rely on credentials provided through the local environment or another application-specific mechanism. The MCP specification advises against applying its HTTP OAuth authorization flow directly to STDIO.
+
+MCP Description can describe statically known security requirements, but authors must distinguish these from the applicable transport's actual credential handling.
+
+### MCP authorization extensions
+
+Additional authorization mechanisms, including machine-to-machine OAuth Client Credentials and enterprise-managed authorization, may be supported through MCP extensions.
+
+Their runtime semantics are defined by the relevant extension specifications.
+
+MCP Description can document compatible static security information, but any extension-specific behavior must be interpreted according to that extension's requirements. A security scheme declaration alone does not establish conformance with an MCP authorization extension.
+
+## 7. Why describe security statically?
+
+Explicit authorization requirements can support several engineering workflows.
+
+### Design-time reviews
+
+Architects and security engineers can review the intended access requirements of individual primitives before the MCP server is implemented or deployed.
+
+This makes it easier to identify unexpectedly broad permissions, inconsistent requirements, or operations that need additional protection.
+
+### Documentation and client integration
+
+Documentation generators can explain which authentication mechanisms and scopes are expected for each primitive.
+
+Clients and integration tooling can use this information to plan access requirements, while still following authoritative OAuth discovery and runtime authorization procedures.
+
+### Description validation and governance
+
+A machine-readable description enables validation of security-scheme references, scope declarations, and inheritance semantics.
+
+It also provides a basis for organization-specific governance rules, such as requiring documented security for sensitive operations.
+
+### Change detection
+
+Changes to declared security requirements can be identified by comparing descriptions.
+
+For example, introducing an additional required scope or changing the declared authentication mechanism may represent an integration-impacting change that deserves review.
+
+### Version-aware engineering
+
+MCP Description documents can cover multiple MCP protocol versions. This makes it possible to reason about the documented capabilities and access requirements alongside the applicable protocol version.
+
+The applicable MCP specification remains authoritative for protocol behavior, and security tooling must account for version-specific rules and extension requirements.
+
+## 8. Boundaries and future evolution
+
+MCP Description 0.9.0 already supports reusable security schemes, static scope requirements, primitive-level declarations, and inheritance.
+
+There are opportunities to strengthen its relationship with MCP's evolving authorization ecosystem.
+
+Areas for future exploration include:
+
+- Clearer modeling of MCP authorization discovery metadata without unnecessarily duplicating dynamically discovered OAuth information.
+- Richer descriptions of authorization requirements and security capabilities where existing scheme declarations are insufficient.
+- Support for MCP authorization extensions and their specific requirements.
+- Tooling for comparing static security expectations with observed server behavior.
+- More sophisticated CI/CD analysis of changes to security requirements.
+
+These are areas of exploration, not capabilities guaranteed by the current release.
+
+The objective remains to keep MCP Description focused on static server descriptions while allowing MCP, OAuth, and authorization infrastructure to evolve independently.
+
+## 9. Related documentation
+
+**MCP and OAuth**
+
+- [MCP 2026-07-28 — Authorization](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization)
+- [Understanding Authorization in MCP](https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/authorization)
+- [OAuth 2.0 Protected Resource Metadata — RFC 9728](https://www.rfc-editor.org/rfc/rfc9728)
+- [OAuth 2.0 Authorization Server Metadata — RFC 8414](https://www.rfc-editor.org/rfc/rfc8414)
+- [OAuth 2.0 Resource Indicators — RFC 8707](https://www.rfc-editor.org/rfc/rfc8707)
+
+**MCP ecosystem**
+
+- [MCP Server Cards — SEP-2127](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/seps/2127-mcp-server-cards.md)
+- [MCP OAuth Client Credentials extension](https://github.com/modelcontextprotocol/ext-auth/blob/main/specification/stable/oauth-client-credentials/2026-07-28/oauth-client-credentials.mdx)
+
+**MCP Description 0.9**
+
+- [Security](https://mcpdesc.org/docs/specification/0.9.0/security/)
+- [Transports](https://mcpdesc.org/docs/specification/0.9.0/transports/)
+- [Relationship to the MCP Protocol](https://mcpdesc.org/docs/specification/0.9.0/guides/relationship-to-mcp/)
+- [Understanding MCP Protocol Versions](https://mcpdesc.org/docs/specification/0.9.0/guides/understanding-mcp-protocol-versions/)

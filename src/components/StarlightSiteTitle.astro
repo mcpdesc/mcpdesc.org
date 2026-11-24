@@ -12,7 +12,9 @@ const selected = current ?? latestDocsVersion;
 const options = current && !docsVersions.some(({ version }) => version === current)
   ? [...docsVersions, ...docsSnapshots.filter(({ version }) => version === current)] : docsVersions;
 const destinations = Object.fromEntries(docsSnapshots.map(({ version }) => {
-  const equivalent = current ? Astro.url.pathname.replace(`/${current}`, `/${version}`).replace(/\/$/, '') : '';
+  const path = Astro.url.pathname.replace(/\/$/, '');
+  const equivalent = current && (version === current || path.includes(`/${current}/`) || path.endsWith(`/${current}`))
+    ? path.replace(`/${current}`, `/${version}`) : '';
   const exists = entries.some((entry) => `/${entry.id}` === equivalent);
   return [version, exists ? `${equivalent}/` : `/docs/specification/${version}/`];
 }));

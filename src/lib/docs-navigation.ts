@@ -19,6 +19,7 @@ export const latestDocsVersion = manifest.stable;
 export type DocsSidebar = App.Locals['starlightRoute']['sidebar'];
 
 export function versionFromPath(path: string) {
+  if (path.replace(/\/$/, '') === '/docs/guide-relationship-to-mcp-security') return '0.9.0';
   return docsSnapshots.find(({ version }) =>
     path === `/docs/specification/${version}` || path.startsWith(`/docs/specification/${version}/`) ||
     path === `/docs/rules/${version}` || path.startsWith(`/docs/rules/${version}/`),
@@ -53,7 +54,8 @@ export function buildDocsNavigation(entries: CollectionEntry<'docs'>[], version:
     const validationGuideId = `${specPrefix}/guides/understanding-mcp-protocol-versions`;
     const guides = ordered(entries.filter((entry) =>
       (entry.id.startsWith(`${specPrefix}/guides`) && entry.id !== validationGuideId) ||
-      (entry.id.startsWith(`${specPrefix}/`) && entry.id.includes('/migration-')),
+      (entry.id.startsWith(`${specPrefix}/`) && entry.id.includes('/migration-')) ||
+      (version === '0.9.0' && entry.id === 'docs/guide-relationship-to-mcp-security'),
     ));
     if (guides.length) sidebar.push(group('Guides', guides));
   }

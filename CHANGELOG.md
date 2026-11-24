@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.2] - 2026-11-24
+
+### Added
+
+- **MCP security guide.** Added a site-authored, non-normative guide to MCP Description
+  0.9.0 security requirements and their relationship to MCP authorization.
+- **Format page security overview.** Introduced the complementary roles of Server Cards,
+  OAuth discovery, MCP Description, and runtime authorization, with a link to the guide.
+
 ## [1.5.1] - 2026-11-23
 
 ### Changed
